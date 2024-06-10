@@ -34,7 +34,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// All the glyphs in this SpriteFont.
         /// </summary>
-        public Glyph[] Glyphs { get { return _glyphs; } }
+        public Glyph[] Glyphs => _glyphs;
 
         class CharComparer : IEqualityComparer<char>
         {
@@ -117,7 +117,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the texture that this SpriteFont draws from.
         /// </summary>
         /// <remarks>Can be used to implement custom rendering of a SpriteFont</remarks>
-        public Texture2D Texture { get { return _texture; } }
+        public Texture2D Texture => _texture;
 
         /// <summary>
         /// Returns a copy of the dictionary containing the glyphs in this SpriteFont.

@@ -19,26 +19,17 @@ namespace Microsoft.Xna.Framework.Content
         /// Gets a value that indicates whether this content type read can deserialize into an object with the same
         /// type ad defined in the <see cref="TargetType"/> property.
         /// </summary>
-        public virtual bool CanDeserializeIntoExistingObject
-        {
-            get { return false; }
-        }
+        public virtual bool CanDeserializeIntoExistingObject => false;
 
         /// <summary>
         /// Gets the type handled by this reader component.
         /// </summary>
-        public Type TargetType
-        {
-            get { return _targetType; }
-        }
+        public Type TargetType => _targetType;
 
         /// <summary>
         /// Gets the format version number for this type.
         /// </summary>
-        public virtual int TypeVersion
-        {
-            get { return 0; }   // The default version (unless overridden) is zero
-        }
+        public virtual int TypeVersion => 0;
 
         /// <summary />
         protected ContentTypeReader(Type targetType)

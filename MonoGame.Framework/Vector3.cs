@@ -62,106 +62,67 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 0.
         /// </summary>
-        public static Vector3 Zero
-        {
-            get { return zero; }
-        }
+        public static Vector3 Zero => zero;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 1, 1.
         /// </summary>
-        public static Vector3 One
-        {
-            get { return one; }
-        }
+        public static Vector3 One => one;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 0, 0.
         /// </summary>
-        public static Vector3 UnitX
-        {
-            get { return unitX; }
-        }
+        public static Vector3 UnitX => unitX;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 1, 0.
         /// </summary>
-        public static Vector3 UnitY
-        {
-            get { return unitY; }
-        }
+        public static Vector3 UnitY => unitY;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.
         /// </summary>
-        public static Vector3 UnitZ
-        {
-            get { return unitZ; }
-        }
+        public static Vector3 UnitZ => unitZ;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 1, 0.
         /// </summary>
-        public static Vector3 Up
-        {
-            get { return up; }
-        }
+        public static Vector3 Up => up;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, -1, 0.
         /// </summary>
-        public static Vector3 Down
-        {
-            get { return down; }
-        }
+        public static Vector3 Down => down;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 0, 0.
         /// </summary>
-        public static Vector3 Right
-        {
-            get { return right; }
-        }
+        public static Vector3 Right => right;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components -1, 0, 0.
         /// </summary>
-        public static Vector3 Left
-        {
-            get { return left; }
-        }
+        public static Vector3 Left => left;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, -1.
         /// </summary>
-        public static Vector3 Forward
-        {
-            get { return forward; }
-        }
+        public static Vector3 Forward => forward;
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.
         /// </summary>
-        public static Vector3 Backward
-        {
-            get { return backward; }
-        }
+        public static Vector3 Backward => backward;
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     this.X.ToString(), "  ",
                     this.Y.ToString(), "  ",
                     this.Z.ToString()
                 );
-            }
-        }
 
         #endregion
 

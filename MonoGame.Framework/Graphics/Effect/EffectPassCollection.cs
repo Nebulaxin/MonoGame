@@ -53,10 +53,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-        public int Count
-        {
-            get { return _passes.Length; }
-        }
+        public int Count => _passes.Length;
 
         /// <summary>
         /// Returns a <see cref="EffectPassCollection.Enumerator">EffectPassCollection.Enumerator</see>
@@ -108,10 +105,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             /// <inheritdoc/>
-            public EffectPass Current
-            {
-                get { return _current; }
-            }
+            public EffectPass Current => _current;
 
             /// <inheritdoc cref="IDisposable.Dispose()"/>
             public void Dispose()

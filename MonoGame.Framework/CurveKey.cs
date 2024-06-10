@@ -40,10 +40,7 @@ namespace Microsoft.Xna.Framework
         /// Gets a position of the key on the curve.
         /// </summary>
         [DataMember]
-        public float Position
-        {
-            get { return this._position; }
-        }
+        public float Position => this._position;
 
         /// <summary>
         /// Gets or sets a tangent when approaching this point from the previous point on the curve.

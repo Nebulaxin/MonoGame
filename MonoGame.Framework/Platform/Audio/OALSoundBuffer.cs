@@ -25,13 +25,7 @@ namespace Microsoft.Xna.Framework.Audio
             Dispose(false);
         }
 
-        public int OpenALDataBuffer
-        {
-            get
-            {
-                return openALDataBuffer;
-            }
-        }
+        public int OpenALDataBuffer => openALDataBuffer;
 
         public double Duration
         {

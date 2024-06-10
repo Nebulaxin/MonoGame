@@ -126,13 +126,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value that indicates whether the object is disposed.
         /// </summary>
-		public bool IsDisposed
-		{
-			get
-			{
-				return disposed;
-			}
-		}
+		public bool IsDisposed => disposed;
 
         /// <summary>
         /// Gets the name of the resource.

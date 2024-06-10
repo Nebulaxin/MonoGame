@@ -517,13 +517,10 @@ namespace Microsoft.Xna.Framework.Content
         }
 
         /// <summary />
-        protected virtual Dictionary<string, object> LoadedAssets
-        {
-            get { return loadedAssets; }
-        }
+        protected virtual Dictionary<string, object> LoadedAssets => loadedAssets;
 
         /// <summary />
-		protected virtual void ReloadGraphicsAssets()
+        protected virtual void ReloadGraphicsAssets()
         {
             foreach (var asset in LoadedAssets)
             {
@@ -668,23 +665,11 @@ namespace Microsoft.Xna.Framework.Content
 			}
 		}
 
-        internal string RootDirectoryFullPath
-        {
-            get
-            {
-                return Path.Combine(TitleContainer.Location, RootDirectory);
-            }
-        }
+        internal string RootDirectoryFullPath => Path.Combine(TitleContainer.Location, RootDirectory);
 
         /// <summary>
         /// Gets the service provider instance used by this ContentManager.
         /// </summary>
-		public IServiceProvider ServiceProvider
-		{
-			get
-			{
-				return this.serviceProvider;
-			}
-		}
+		public IServiceProvider ServiceProvider => this.serviceProvider;
     }
 }

@@ -19,10 +19,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private ulong _stateKey;
 
         private bool _dirty;
-        private bool Dirty
-        {
-            get { return _dirty; }
-        }
+        private bool Dirty => _dirty;
 
         public ConstantBuffer(ConstantBuffer cloneSource)
         {

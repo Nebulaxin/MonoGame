@@ -95,7 +95,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>
         /// Gets the category's friendly name.
         /// </summary>
-        public string Name { get { return _name; } }
+        public string Name => _name;
 
         /// <summary>
         /// Pauses all associated sounds.

@@ -30,14 +30,8 @@ namespace Microsoft.Xna.Framework.Graphics
             Color = color;
             TextureCoordinate = textureCoordinate;
         }
-		
-        VertexDeclaration IVertexType.VertexDeclaration
-        {
-            get
-            {
-                return VertexDeclaration;
-            }
-        }
+
+        VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
         /// <inheritdoc/>
         public override int GetHashCode()

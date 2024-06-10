@@ -771,16 +771,10 @@ namespace Microsoft.Xna.Framework
             return !a.Equals(b);
         }
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     "Min( ", this.Min.DebugDisplayString, " )  \r\n",
-                    "Max( ",this.Max.DebugDisplayString, " )"
+                    "Max( ", this.Max.DebugDisplayString, " )"
                     );
-            }
-        }
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="BoundingBox"/>.

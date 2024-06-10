@@ -31,13 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the width and height of the cube map face in pixels.
         /// </summary>
         /// <value>The width and height of a cube map face in pixels.</value>
-        public int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        public int Size => size;
 
         /// <summary>
         /// Creates an uninitialized <b>TextureCube</b> resource of the specified dimensions

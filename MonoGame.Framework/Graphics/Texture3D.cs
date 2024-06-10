@@ -39,26 +39,17 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the width, in pixels, of this texture resource.
         /// </summary>
-        public int Width
-        {
-            get { return _width; }
-        }
+        public int Width => _width;
 
         /// <summary>
         /// Gets the height, in pixels, of this texture resource.
         /// </summary>
-        public int Height
-        {
-            get { return _height; }
-        }
+        public int Height => _height;
 
         /// <summary>
         /// Gets the depth, in pixels, of this texture resource.
         /// </summary>
-        public int Depth
-        {
-            get { return _depth; }
-        }
+        public int Depth => _depth;
 
         /// <summary>
         /// Creates an uninitialized <b>Texture3D</b> resource with the specified parameters.
@@ -85,7 +76,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The <paramref name="width"/>, <paramref name="height"/>, and/or <paramref name="depth"/> parameters are less
         /// than or equal to zero.
         /// </exception>
-		public Texture3D(GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat format)
+        public Texture3D(GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat format)
             : this(graphicsDevice, width, height, depth, mipMap, format, false)
 		{
 		}

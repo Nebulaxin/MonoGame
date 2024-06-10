@@ -85,10 +85,10 @@ namespace Microsoft.Xna.Framework.Audio
         }
 
         /// <summary>Gets the SoundEffectInstance's current playback state.</summary>
-        public virtual SoundState State { get { return PlatformGetState(); } }
+        public virtual SoundState State => PlatformGetState();
 
         /// <summary>Indicates whether the object is disposed.</summary>
-        public bool IsDisposed { get { return _isDisposed; } }
+        public bool IsDisposed => _isDisposed;
 
         internal SoundEffectInstance()
         {

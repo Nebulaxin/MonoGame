@@ -32,24 +32,12 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="MediaSourceType"/> of this media source.
         /// </summary>
-        public Microsoft.Xna.Framework.Media.MediaSourceType MediaSourceType
-        {
-            get
-            {
-				return _type;
-            }
-        }
+        public Microsoft.Xna.Framework.Media.MediaSourceType MediaSourceType => _type;
 
         /// <summary>
         /// Gets the name of this media source.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-				return _name;
-            }
-        }
+        public string Name => _name;
 
         /// <summary>
         /// Gets the available media sources with which a media library can be constructed.

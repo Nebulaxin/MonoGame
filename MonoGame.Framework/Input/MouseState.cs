@@ -237,10 +237,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets cursor position.
         /// </summary>
-        public Point Position
-        {
-            get { return new Point(_x, _y); }
-        }
+        public Point Position => new Point(_x, _y);
 
         /// <summary>
         /// Gets state of the left mouse button.

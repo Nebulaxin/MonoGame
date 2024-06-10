@@ -1800,18 +1800,12 @@ namespace Microsoft.Xna.Framework
         }
 
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     this.R.ToString(), "  ",
                     this.G.ToString(), "  ",
                     this.B.ToString(), "  ",
                     this.A.ToString()
                 );
-            }
-        }
 
 
         /// <summary>
@@ -1819,8 +1813,8 @@ namespace Microsoft.Xna.Framework
         /// {R:[red] G:[green] B:[blue] A:[alpha]}
         /// </summary>
         /// <returns><see cref="String"/> representation of this <see cref="Color"/>.</returns>
-	public override string ToString ()
-	{
+        public override string ToString()
+        {
         StringBuilder sb = new StringBuilder(25);
         sb.Append("{R:");
         sb.Append(R);

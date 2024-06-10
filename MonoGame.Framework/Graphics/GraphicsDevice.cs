@@ -125,20 +125,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         private Shader _vertexShader;
         private bool _vertexShaderDirty;
-        private bool VertexShaderDirty
-        {
-            get { return _vertexShaderDirty; }
-        }
+        private bool VertexShaderDirty => _vertexShaderDirty;
 
         /// <summary>
         /// The active pixel shader.
         /// </summary>
         private Shader _pixelShader;
         private bool _pixelShaderDirty;
-        private bool PixelShaderDirty
-        {
-            get { return _pixelShaderDirty; }
-        }
+        private bool PixelShaderDirty => _pixelShaderDirty;
 
         private readonly ConstantBufferCollection _vertexConstantBuffers = new ConstantBufferCollection(ShaderStage.Vertex, 16);
         private readonly ConstantBufferCollection _pixelConstantBuffers = new ConstantBufferCollection(ShaderStage.Pixel, 16);
@@ -198,42 +192,21 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value that indicates whether the object is disposed.
         /// </summary>
-        public bool IsDisposed
-        {
-            get
-            {
-                return _isDisposed;
-            }
-        }
+        public bool IsDisposed => _isDisposed;
 
         /// <summary>
         /// Gets a value that indicates whether the associated content was lost.
         /// </summary>
-		public bool IsContentLost {
-			get {
-				// We will just return IsDisposed for now
-				// as that is the only case I can see for now
-				return IsDisposed;
-			}
-		}
+		public bool IsContentLost =>
+                // We will just return IsDisposed for now
+                // as that is the only case I can see for now
+                IsDisposed;
 
-        internal bool IsRenderTargetBound
-        {
-            get
-            {
-                return _currentRenderTargetCount > 0;
-            }
-        }
+        internal bool IsRenderTargetBound => _currentRenderTargetCount > 0;
 
-        internal DepthFormat ActiveDepthFormat
-        {
-            get
-            {
-                return IsRenderTargetBound
+        internal DepthFormat ActiveDepthFormat => IsRenderTargetBound
                     ? _currentRenderTargetBindings[0].DepthFormat
                     : PresentationParameters.DepthStencilFormat;
-            }
-        }
 
         /// <summary>
         /// Gets the graphics adapter.
@@ -809,24 +782,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Retrieves the display mode's spatial resolution, color resolution, and refresh frequency.
         /// </summary>
-        public DisplayMode DisplayMode
-        {
-            get
-            {
-                return Adapter.CurrentDisplayMode;
-            }
-        }
+        public DisplayMode DisplayMode => Adapter.CurrentDisplayMode;
 
         /// <summary>
         /// Retrieves the status of the device.
         /// </summary>
-        public GraphicsDeviceStatus GraphicsDeviceStatus
-        {
-            get
-            {
-                return GraphicsDeviceStatus.Normal;
-            }
-        }
+        public GraphicsDeviceStatus GraphicsDeviceStatus => GraphicsDeviceStatus.Normal;
 
         /// <summary>
         /// Gets the presentation parameters associated with this graphics device.
@@ -859,10 +820,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the graphics profile.
         /// The default value is <see cref="GraphicsProfile.Reach"/>.
         /// </summary>
-        public GraphicsProfile GraphicsProfile
-        {
-            get { return _graphicsProfile; }
-        }
+        public GraphicsProfile GraphicsProfile => _graphicsProfile;
 
         /// <summary>
         /// Gets or sets the rectangle used for scissor testing. By default, the size matches the render target size.
@@ -887,13 +845,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the amount of render targets bound to this device.
         /// </summary>
-        public int RenderTargetCount
-        {
-            get
-            {
-                return _currentRenderTargetCount;
-            }
-        }
+        public int RenderTargetCount => _currentRenderTargetCount;
 
         /// <summary>
         /// Sets a new render target for this <see cref="GraphicsDevice"/>.

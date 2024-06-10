@@ -332,10 +332,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns the identity matrix.
         /// </summary>
-        public static Matrix Identity
-        {
-            get { return identity; }
-        }
+        public static Matrix Identity => identity;
 
         /// <summary>
         /// The left vector formed from the first row -M11, -M12, -M13 elements.

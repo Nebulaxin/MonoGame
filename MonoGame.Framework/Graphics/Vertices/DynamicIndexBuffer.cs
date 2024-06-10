@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value that indicates whether the index buffer data has been lost due to a lost device event.
         /// </summary>
-        public bool IsContentLost { get { return false; } }
+        public bool IsContentLost => false;
 
         /// <summary>
         /// Initializes a new instance of <b>DynamicIndexBuffer</b> with the specified parameters.
@@ -56,8 +56,8 @@ namespace Microsoft.Xna.Framework.Graphics
         ///     </item>
         /// </list>
         /// </exception>
-		public DynamicIndexBuffer(GraphicsDevice graphicsDevice, IndexElementSize indexElementSize, int indexCount, BufferUsage usage) :
-			base(graphicsDevice, indexElementSize, indexCount, usage, true)
+        public DynamicIndexBuffer(GraphicsDevice graphicsDevice, IndexElementSize indexElementSize, int indexCount, BufferUsage usage) :
+            base(graphicsDevice, indexElementSize, indexCount, usage, true)
 		{
 		}
 

@@ -62,13 +62,7 @@ namespace Microsoft.Xna.Framework.Content
         /// Gets a value that indicates whether an explicit <see cref="CollectionItemName"/> is being used or the
         /// default value.
         /// </summary>
-        public bool HasCollectionItemName
-        {
-            get
-            {
-                return !string.IsNullOrEmpty(_collectionItemName);
-            }
-        }
+        public bool HasCollectionItemName => !string.IsNullOrEmpty(_collectionItemName);
 
         /// <summary>
         /// Gets or Sets a value indicating whether to write this element if the member is null and skip past it if not

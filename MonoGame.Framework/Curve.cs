@@ -29,10 +29,7 @@ namespace Microsoft.Xna.Framework
         /// Returns <c>true</c> if this curve is constant (has zero or one points); <c>false</c> otherwise.
         /// </summary>
         [DataMember]
-        public bool IsConstant
-        {
-            get { return this._keys.Count <= 1; }
-        }
+        public bool IsConstant => this._keys.Count <= 1;
 
         /// <summary>
         /// Defines how to handle weighting values that are less than the first control point in the curve.
@@ -58,10 +55,7 @@ namespace Microsoft.Xna.Framework
         /// The collection of curve keys.
         /// </summary>
         [DataMember]
-        public CurveKeyCollection Keys
-        {
-            get { return this._keys; }
-        }
+        public CurveKeyCollection Keys => this._keys;
 
         #endregion
 

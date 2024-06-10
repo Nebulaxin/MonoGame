@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="AlbumCollection"/> that contains all albums in the media library.
         /// </summary>
-        public AlbumCollection Albums { get { return PlatformGetAlbums();  } }
+        public AlbumCollection Albums => PlatformGetAlbums();
         //public ArtistCollection Artists { get; private set; }
         //public GenreCollection Genres { get; private set; }
         /// <summary>
@@ -30,18 +30,18 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="MediaSource"/> with which this media library was constructed.
         /// </summary>
-        public MediaSource MediaSource { get { return null; } }
+        public MediaSource MediaSource => null;
         //public PlaylistCollection Playlists { get; private set; }
         /// <summary>
         /// Gets the <see cref="SongCollection"/> that contains all songs in the media library.
         /// </summary>
-        public SongCollection Songs { get { return PlatformGetSongs(); } }
+        public SongCollection Songs => PlatformGetSongs();
 
         /// <summary>
         /// Creates a new instance of <see cref="MediaLibrary"/>.
         /// </summary>
-		public MediaLibrary()
-		{
+        public MediaLibrary()
+        {
 		}
 
         /// <summary>

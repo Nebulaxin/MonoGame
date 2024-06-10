@@ -157,24 +157,12 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets the current state of the Caps Lock key.
         /// </summary>
-        public bool CapsLock
-        {
-            get
-            {
-                return (_modifiers & CapsLockModifier) > 0;
-            }
-        }
+        public bool CapsLock => (_modifiers & CapsLockModifier) > 0;
 
         /// <summary>
         /// Gets the current state of the Num Lock key.
         /// </summary>
-        public bool NumLock
-        {
-            get
-            {
-                return (_modifiers & NumLockModifier) > 0;
-            }
-        }
+        public bool NumLock => (_modifiers & NumLockModifier) > 0;
 
         /// <summary>
         /// Returns the state of a specified key.

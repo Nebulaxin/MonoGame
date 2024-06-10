@@ -53,42 +53,32 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value indicating the aspect ratio of the display mode
         /// </summary>
-        public float AspectRatio {
-            get { return (float)width / (float)height; }
-        }
+        public float AspectRatio => (float)width / (float)height;
 
         /// <summary>
         /// Gets a value indicating the surface format of the display mode.
         /// </summary>
-        public SurfaceFormat Format {
-            get { return format; }
-        }
+        public SurfaceFormat Format => format;
 
         /// <summary>
         /// Gets a value indicating the screen height, in pixels.
         /// </summary>
-        public int Height {
-            get { return this.height; }
-        }
+        public int Height => this.height;
 
         /// <summary>
         /// Gets a value indicating the screen width, in pixels.
         /// </summary>
-        public int Width {
-            get { return this.width; }
-        }
+        public int Width => this.width;
 
         /// <summary>
         /// Gets the bounds of the display that is guaranteed to be visible by the users screen.
         /// </summary>
-        public Rectangle TitleSafeArea {
-            get { return GraphicsDevice.GetTitleSafeArea(0, 0, width, height); }
-        }
+        public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(0, 0, width, height);
 
         #endregion Properties
 
         #region Constructors
-        
+
         internal DisplayMode(int width, int height, SurfaceFormat format)
         {
             this.width = width;

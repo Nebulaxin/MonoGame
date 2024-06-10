@@ -35,16 +35,10 @@ namespace Microsoft.Xna.Framework.Graphics
 			Color = color;
 		}
 
-		VertexDeclaration IVertexType.VertexDeclaration
-        {
-			get
-            {
-				return VertexDeclaration;
-			}
-		}
+		VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
-        /// <inheritdoc/>
-	    public override int GetHashCode()
+		/// <inheritdoc/>
+		public override int GetHashCode()
 	    {
 	        unchecked
 	        {

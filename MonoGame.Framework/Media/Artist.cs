@@ -25,46 +25,22 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="AlbumCollection">AlbumCollection</see> for the Artist.
         /// </summary>
-        public AlbumCollection Albums
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public AlbumCollection Albums => throw new NotImplementedException();
 
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
         /// </summary>
-        public bool IsDisposed
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public bool IsDisposed => true;
 
         /// <summary>
         /// Gets the name of the Artist.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this.artist;
-            }
-        }
+        public string Name => this.artist;
 
         /// <summary>
         /// Gets the <see cref="SongCollection"/> for the Artist.
         /// </summary>
-        public SongCollection Songs
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public SongCollection Songs => throw new NotImplementedException();
 
         /// <summary>
         /// Creates a new instance of Artist class.

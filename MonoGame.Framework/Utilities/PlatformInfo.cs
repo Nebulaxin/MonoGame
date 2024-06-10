@@ -12,14 +12,11 @@ namespace MonoGame.Framework.Utilities
         /// <summary>
         /// Underlying game platform type
         /// </summary>
-        public static MonoGamePlatform MonoGamePlatform
-        {
-            get
-            {
+        public static MonoGamePlatform MonoGamePlatform =>
 #if ANDROID
                 return MonoGamePlatform.Android;
 #elif DESKTOPGL
-                return MonoGamePlatform.DesktopGL;
+                MonoGamePlatform.DesktopGL;
 #elif IOS && !TVOS
                 return MonoGamePlatform.iOS;
 #elif TVOS
@@ -43,24 +40,19 @@ namespace MonoGame.Framework.Utilities
 #else
                 return PlatformGetMonoGamePlatform();
 #endif
-            }
-        }
+
 
         /// <summary>
         /// Graphics backend
         /// </summary>
-        public static GraphicsBackend GraphicsBackend
-        {
-            get
-            {
+        public static GraphicsBackend GraphicsBackend =>
 #if DIRECTX
                 return GraphicsBackend.DirectX;
 #elif OPENGL
-                return GraphicsBackend.OpenGL;
+                GraphicsBackend.OpenGL;
 #else
                 return PlatformGetGraphicsBackend();
 #endif
-            }
-        }
+
     }
 }

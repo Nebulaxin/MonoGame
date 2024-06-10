@@ -130,10 +130,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Returns true if a touch gesture is available.
         /// </summary>
-        public static bool IsGestureAvailable
-        {
-            get { return PrimaryWindow.TouchPanelState.IsGestureAvailable; }
-        }
+        public static bool IsGestureAvailable => PrimaryWindow.TouchPanelState.IsGestureAvailable;
 
         /// <summary>
         /// Gets or sets if high-frequency events are sent to any listeners (if the underlying OS supports it).

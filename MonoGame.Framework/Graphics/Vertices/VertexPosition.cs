@@ -31,10 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			Position = position;
 		}
 
-		VertexDeclaration IVertexType.VertexDeclaration
-        {
-			get { return VertexDeclaration; }
-		}
+        VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
         /// <inheritdoc/>
         public override int GetHashCode()

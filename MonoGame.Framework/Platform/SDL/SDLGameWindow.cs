@@ -56,20 +56,11 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-        public override DisplayOrientation CurrentOrientation
-        {
-            get { return DisplayOrientation.Default; }
-        }
+        public override DisplayOrientation CurrentOrientation => DisplayOrientation.Default;
 
-        public override IntPtr Handle
-        {
-            get { return _handle; }
-        }
+        public override IntPtr Handle => _handle;
 
-        public override string ScreenDeviceName
-        {
-            get { return _screenDeviceName; }
-        }
+        public override string ScreenDeviceName => _screenDeviceName;
 
         public override bool IsBorderless
         {

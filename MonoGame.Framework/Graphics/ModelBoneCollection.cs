@@ -91,7 +91,7 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Gets the current element in the ModelBoneCollection.
             /// </summary>
-            public ModelBone Current { get { return _collection[_position]; } }
+            public ModelBone Current => _collection[_position];
 
             /// <summary>
             /// Advances the enumerator to the next element of the ModelBoneCollection.
@@ -115,10 +115,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return _collection[_position]; }
-            }
+            object IEnumerator.Current => _collection[_position];
 
             /// <inheritdoc/>
             public void Reset()

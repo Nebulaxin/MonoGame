@@ -54,54 +54,33 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Rectangle"/> with X=0, Y=0, Width=0, Height=0.
         /// </summary>
-        public static Rectangle Empty
-        {
-            get { return emptyRectangle; }
-        }
+        public static Rectangle Empty => emptyRectangle;
 
         /// <summary>
         /// Returns the x coordinate of the left edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Left
-        {
-            get { return this.X; }
-        }
+        public int Left => this.X;
 
         /// <summary>
         /// Returns the x coordinate of the right edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Right
-        {
-            get { return (this.X + this.Width); }
-        }
+        public int Right => (this.X + this.Width);
 
         /// <summary>
         /// Returns the y coordinate of the top edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Top
-        {
-            get { return this.Y; }
-        }
+        public int Top => this.Y;
 
         /// <summary>
         /// Returns the y coordinate of the bottom edge of this <see cref="Rectangle"/>.
         /// </summary>
-        public int Bottom
-        {
-            get { return (this.Y + this.Height); }
-        }
+        public int Bottom => (this.Y + this.Height);
 
         /// <summary>
         /// Whether or not this <see cref="Rectangle"/> has a <see cref="Width"/> and
         /// <see cref="Height"/> of 0, and a <see cref="Location"/> of (0, 0).
         /// </summary>
-        public bool IsEmpty
-        {
-            get
-            {
-                return ((((this.Width == 0) && (this.Height == 0)) && (this.X == 0)) && (this.Y == 0));
-            }
-        }
+        public bool IsEmpty => ((((this.Width == 0) && (this.Height == 0)) && (this.X == 0)) && (this.Y == 0));
 
         /// <summary>
         /// The top-left coordinates of this <see cref="Rectangle"/>.
@@ -142,30 +121,18 @@ namespace Microsoft.Xna.Framework
         /// If <see cref="Width"/> or <see cref="Height"/> is an odd number,
         /// the center point will be rounded down.
         /// </remarks>
-        public Point Center
-        {
-            get
-            {
-                return new Point(this.X + (this.Width / 2), this.Y + (this.Height / 2));
-            }
-        }
+        public Point Center => new Point(this.X + (this.Width / 2), this.Y + (this.Height / 2));
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     this.X, "  ",
                     this.Y, "  ",
                     this.Width, "  ",
                     this.Height
                     );
-            }
-        }
 
         #endregion
 

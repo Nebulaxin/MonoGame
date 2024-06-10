@@ -98,7 +98,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="Media.Video"/> that is currently playing.
         /// </summary>
-        public Video Video { get { return _currentVideo; } }
+        public Video Video => _currentVideo;
 
         /// <summary>
         /// Video player volume, from 0.0f (silence) to 1.0f (full volume relative to the current device volume).

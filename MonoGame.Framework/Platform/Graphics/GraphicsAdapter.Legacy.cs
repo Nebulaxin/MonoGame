@@ -133,10 +133,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the default adapter.
         /// </summary>
-        public static GraphicsAdapter DefaultAdapter
-        {
-            get { return Adapters[0]; }
-        }
+        public static GraphicsAdapter DefaultAdapter => Adapters[0];
 
         /// <summary>
         /// Gets a read-only collection of available adapters on the system.

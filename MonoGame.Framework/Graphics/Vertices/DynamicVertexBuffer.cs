@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// This property will always return <b>false</b>.  It is included for XNA compatibility.
         /// </remarks>
         [Obsolete("This is provided for XNA compatibility only and will always return false")]
-        public bool IsContentLost { get { return false; } }
+        public bool IsContentLost => false;
 
         /// <summary>
         /// Initializes a new instance of <b>DynamicVertexBuffer</b> with the specified parameters

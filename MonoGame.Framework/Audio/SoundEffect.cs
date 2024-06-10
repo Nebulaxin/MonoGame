@@ -403,7 +403,7 @@ namespace Microsoft.Xna.Framework.Audio
         #region Public Properties
 
         /// <summary>Gets the duration of the SoundEffect.</summary>
-        public TimeSpan Duration { get { return _duration; } }
+        public TimeSpan Duration => _duration;
 
         /// <summary>Gets or sets the asset name of the SoundEffect.</summary>
         public string Name
@@ -507,7 +507,7 @@ namespace Microsoft.Xna.Framework.Audio
         #region IDisposable Members
 
         /// <summary>Indicates whether the object is disposed.</summary>
-        public bool IsDisposed { get { return _isDisposed; } }
+        public bool IsDisposed => _isDisposed;
 
         /// <summary>Releases the resources held by this <see cref="Microsoft.Xna.Framework.Audio.SoundEffect"/>.</summary>
         public void Dispose()

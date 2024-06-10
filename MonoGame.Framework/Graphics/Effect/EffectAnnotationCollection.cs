@@ -19,10 +19,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-		public int Count 
-        {
-			get { return _annotations.Length; }
-		}
+		public int Count => _annotations.Length;
 
         /// <summary>
         /// Retrieves the <see cref="EffectAnnotation"/> at the specified index in the collection.

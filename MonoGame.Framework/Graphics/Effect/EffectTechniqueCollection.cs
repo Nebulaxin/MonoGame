@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-        public int Count { get { return _techniques.Length; } }
+        public int Count => _techniques.Length;
 
         internal EffectTechniqueCollection(EffectTechnique[] techniques)
         {
