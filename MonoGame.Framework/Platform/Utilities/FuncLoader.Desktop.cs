@@ -37,7 +37,7 @@ internal class FuncLoader
     public static IntPtr LoadLibraryExt(string libname)
     {
         var ret = IntPtr.Zero;
-        var assemblyLocation = Path.GetDirectoryName(System.AppContext.BaseDirectory) ?? "./";
+        var assemblyLocation = Path.GetDirectoryName(AppContext.BaseDirectory) ?? "./";
 
         // Try .NET Framework / mono locations
         if (CurrentPlatform.OS == OS.MacOSX)
@@ -67,7 +67,7 @@ internal class FuncLoader
         // Try alternate way of checking current folder
         // assemblyLocation is null if we are inside macOS app bundle
         if (ret == IntPtr.Zero)
-            ret = LoadLibrary(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, libname));
+            ret = LoadLibrary(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, libname));
 
         // Try loading system library
         if (ret == IntPtr.Zero)
@@ -111,7 +111,7 @@ internal class FuncLoader
         }
 
 #if NETSTANDARD
-            return Marshal.GetDelegateForFunctionPointer<T>(ret);
+        return Marshal.GetDelegateForFunctionPointer<T>(ret);
 #else
         return (T)(object)Marshal.GetDelegateForFunctionPointer(ret, typeof(T));
 #endif

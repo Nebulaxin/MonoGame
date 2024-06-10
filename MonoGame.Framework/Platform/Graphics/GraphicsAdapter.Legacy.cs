@@ -54,7 +54,7 @@ public sealed class GraphicsAdapter : IDisposable
             _screen = screen;
         }
 #elif DESKTOPGL
-        int _displayIndex;
+    int _displayIndex;
 #else
     internal GraphicsAdapter()
     {
@@ -67,19 +67,24 @@ public sealed class GraphicsAdapter : IDisposable
     }
 
 #if DESKTOPGL
-        /// <summary>
-        /// Gets a string used for presentation to the user.
-        /// </summary>
-        public string Description {
-            get {
-                try {
-                    return MonoGame.OpenGL.GL.GetString(MonoGame.OpenGL.StringName.Renderer);
-                } catch {
-                    return string.Empty;
-                }
+    /// <summary>
+    /// Gets a string used for presentation to the user.
+    /// </summary>
+    public string Description
+    {
+        get
+        {
+            try
+            {
+                return MonoGame.OpenGL.GL.GetString(MonoGame.OpenGL.StringName.Renderer);
             }
-            private set { }
+            catch
+            {
+                return string.Empty;
+            }
         }
+        private set { }
+    }
 #else
     string _description = string.Empty;
 
@@ -104,12 +109,11 @@ public sealed class GraphicsAdapter : IDisposable
                 View view = ((AndroidGameWindow)Game.Instance.Window).GameView;
                 return new DisplayMode(view.Width, view.Height, SurfaceFormat.Color);
 #elif DESKTOPGL
-                var displayIndex = Sdl.Display.GetWindowDisplayIndex(SdlGameWindow.Instance.Handle);
+            var displayIndex = Sdl.Display.GetWindowDisplayIndex(SdlGameWindow.Instance.Handle);
 
-                Sdl.Display.Mode mode;
-                Sdl.Display.GetCurrentDisplayMode(displayIndex, out mode);
+            Sdl.Display.GetCurrentDisplayMode(displayIndex, out Sdl.Display.Mode mode);
 
-                return new DisplayMode(mode.Width, mode.Height, SurfaceFormat.Color);
+            return new DisplayMode(mode.Width, mode.Height, SurfaceFormat.Color);
 #elif WINDOWS
                 using (var graphics = System.Drawing.Graphics.FromHwnd(IntPtr.Zero))
                 {
@@ -327,30 +331,29 @@ public sealed class GraphicsAdapter : IDisposable
         {
             bool displayChanged = false;
 #if DESKTOPGL
-                var displayIndex = Sdl.Display.GetWindowDisplayIndex (SdlGameWindow.Instance.Handle);
-                displayChanged = displayIndex != _displayIndex;
+            var displayIndex = Sdl.Display.GetWindowDisplayIndex(SdlGameWindow.Instance.Handle);
+            displayChanged = displayIndex != _displayIndex;
 #endif
             if (_supportedDisplayModes == null || displayChanged)
             {
                 var modes = new List<DisplayMode>(new[] { CurrentDisplayMode, });
 
 #if DESKTOPGL
-                    _displayIndex = displayIndex;
-                    modes.Clear();
+                _displayIndex = displayIndex;
+                modes.Clear();
 
-                    var modeCount = Sdl.Display.GetNumDisplayModes(displayIndex);
+                var modeCount = Sdl.Display.GetNumDisplayModes(displayIndex);
 
-                    for (int i = 0;i < modeCount;i++)
-                    {
-                        Sdl.Display.Mode mode;
-                        Sdl.Display.GetDisplayMode(displayIndex, i, out mode);
+                for (int i = 0; i < modeCount; i++)
+                {
+                    Sdl.Display.GetDisplayMode(displayIndex, i, out Sdl.Display.Mode mode);
 
-                        // We are only using one format, Color
-                        // mode.Format gets the Color format from SDL
-                        var displayMode = new DisplayMode(mode.Width, mode.Height, SurfaceFormat.Color);
-                        if (!modes.Contains(displayMode))
-                            modes.Add(displayMode);
-                    }
+                    // We are only using one format, Color
+                    // mode.Format gets the Color format from SDL
+                    var displayMode = new DisplayMode(mode.Width, mode.Height, SurfaceFormat.Color);
+                    if (!modes.Contains(displayMode))
+                        modes.Add(displayMode);
+                }
 #elif DIRECTX
                     var dxgiFactory = new SharpDX.DXGI.Factory1();
                     var adapter = dxgiFactory.GetAdapter(0);

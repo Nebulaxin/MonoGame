@@ -125,7 +125,7 @@ public struct Short2 : IPackedVector<uint>, IEquatable<Short2>
 	/// <inheritdoc />
 	void IPackedVector.PackFromVector4(Vector4 vector)
 	{
-		_short2Packed = Short2.PackInTwo(vector.X, vector.Y);
+		_short2Packed = PackInTwo(vector.X, vector.Y);
 	}
 
 	/// <inheritdoc />

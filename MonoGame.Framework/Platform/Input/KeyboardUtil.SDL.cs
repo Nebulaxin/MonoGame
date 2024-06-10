@@ -154,8 +154,7 @@ internal static class KeyboardUtil
 
     public static Keys ToXna(int key)
     {
-        Keys xnaKey;
-        if (_map.TryGetValue(key, out xnaKey))
+        if (_map.TryGetValue(key, out Keys xnaKey))
             return xnaKey;
 
         return Keys.None;

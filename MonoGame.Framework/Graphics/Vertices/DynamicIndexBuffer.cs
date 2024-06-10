@@ -94,7 +94,7 @@ public class DynamicIndexBuffer : IndexBuffer
     /// <param name="options">Specifies whether existing data in the buffer will be kept after this operation.</param>
     public void SetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
     {
-        base.SetDataInternal<T>(offsetInBytes, data, startIndex, elementCount, options);
+        SetDataInternal(offsetInBytes, data, startIndex, elementCount, options);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public class DynamicIndexBuffer : IndexBuffer
     /// <param name="options">Specifies whether existing data in the buffer will be kept after this operation.</param>
     public void SetData<T>(T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
     {
-        base.SetDataInternal<T>(0, data, startIndex, elementCount, options);
+        SetDataInternal(0, data, startIndex, elementCount, options);
     }
 }
 

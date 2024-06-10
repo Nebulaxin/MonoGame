@@ -210,7 +210,7 @@ public class PresentationParameters
         depthStencilFormat = DepthFormat.None;
         multiSampleCount = 0;
         PresentationInterval = PresentInterval.Default;
-        DisplayOrientation = Microsoft.Xna.Framework.DisplayOrientation.Default;
+        DisplayOrientation = DisplayOrientation.Default;
     }
 
     /// <summary>

@@ -29,8 +29,7 @@ partial class OcclusionQuery
 
     private bool PlatformGetResult(out int pixelCount)
     {
-        int resultReady = 0;
-        GL.GetQueryObject(glQueryId, GetQueryObjectParam.QueryResultAvailable, out resultReady);
+        GL.GetQueryObject(glQueryId, GetQueryObjectParam.QueryResultAvailable, out int resultReady);
         GraphicsExtensions.CheckGLError();
 
         if (resultReady == 0)

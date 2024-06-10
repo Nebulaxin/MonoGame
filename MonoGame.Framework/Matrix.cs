@@ -1068,7 +1068,7 @@ public struct Matrix : IEquatable<Matrix>
     /// <param name="result">The rotation <see cref="Matrix"/> around X axis as an output parameter.</param>
     public static void CreateRotationX(float radians, out Matrix result)
     {
-        result = Matrix.Identity;
+        result = Identity;
 
         var val1 = MathF.Cos(radians);
         var val2 = MathF.Sin(radians);
@@ -1097,7 +1097,7 @@ public struct Matrix : IEquatable<Matrix>
     /// <param name="result">The rotation <see cref="Matrix"/> around Y axis as an output parameter.</param>
     public static void CreateRotationY(float radians, out Matrix result)
     {
-        result = Matrix.Identity;
+        result = Identity;
 
         var val1 = MathF.Cos(radians);
         var val2 = MathF.Sin(radians);
@@ -1126,7 +1126,7 @@ public struct Matrix : IEquatable<Matrix>
     /// <param name="result">The rotation <see cref="Matrix"/> around Z axis as an output parameter.</param>
     public static void CreateRotationZ(float radians, out Matrix result)
     {
-        result = Matrix.Identity;
+        result = Identity;
 
         var val1 = MathF.Cos(radians);
         var val2 = MathF.Sin(radians);

@@ -110,7 +110,7 @@ public struct Quaternion : IEquatable<Quaternion>
     {
         get
         {
-            if (this == Quaternion._identity)
+            if (this == _identity)
             {
                 return "Identity";
             }

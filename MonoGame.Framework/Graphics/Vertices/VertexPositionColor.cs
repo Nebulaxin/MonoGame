@@ -89,7 +89,7 @@ public struct VertexPositionColor : IVertexType
 		{
 			return false;
 		}
-		if (obj.GetType() != base.GetType())
+		if (obj.GetType() != GetType())
 		{
 			return false;
 		}

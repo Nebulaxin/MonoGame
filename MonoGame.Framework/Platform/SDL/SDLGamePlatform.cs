@@ -115,9 +115,8 @@ internal class SdlGamePlatform : GamePlatform
 
     private void SdlRunLoop()
     {
-        Sdl.Event ev;
 
-        while (Sdl.PollEvent(out ev) == 1)
+        while (Sdl.PollEvent(out Sdl.Event ev) == 1)
         {
             switch (ev.Type)
             {

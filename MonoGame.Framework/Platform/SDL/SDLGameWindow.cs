@@ -32,8 +32,7 @@ internal class SdlGameWindow : GameWindow, IDisposable
     {
         get
         {
-            int x = 0, y = 0;
-            Sdl.Window.GetPosition(Handle, out x, out y);
+            Sdl.Window.GetPosition(Handle, out int x, out int y);
             return new Rectangle(x, y, _width, _height);
         }
     }
@@ -183,8 +182,7 @@ internal class SdlGameWindow : GameWindow, IDisposable
     {
         var rect = new Sdl.Rectangle();
 
-        int x, y;
-        Sdl.Mouse.GetGlobalState(out x, out y);
+        Sdl.Mouse.GetGlobalState(out int x, out int y);
 
         var displayCount = Sdl.Display.GetNumVideoDisplays();
         for (var i = 0; i < displayCount; i++)
@@ -219,8 +217,7 @@ internal class SdlGameWindow : GameWindow, IDisposable
         var prevBounds = ClientBounds;
         var displayIndex = Sdl.Window.GetDisplayIndex(Handle);
 
-        Sdl.Rectangle displayRect;
-        Sdl.Display.GetBounds(displayIndex, out displayRect);
+        Sdl.Display.GetBounds(displayIndex, out Sdl.Rectangle displayRect);
 
         if (_willBeFullScreen != IsFullScreen || _hardwareSwitch != _game.graphicsDeviceManager.HardwareModeSwitch)
         {
@@ -246,8 +243,7 @@ internal class SdlGameWindow : GameWindow, IDisposable
             _height = displayRect.Height;
         }
 
-        int ignore, minx = 0, miny = 0;
-        Sdl.Window.GetBorderSize(_handle, out miny, out minx, out ignore, out ignore);
+        Sdl.Window.GetBorderSize(_handle, out int miny, out int minx, out int ignore, out ignore);
 
         var centerX = Math.Max(prevBounds.X + ((prevBounds.Width - clientWidth) / 2), minx);
         var centerY = Math.Max(prevBounds.Y + ((prevBounds.Height - clientHeight) / 2), miny);

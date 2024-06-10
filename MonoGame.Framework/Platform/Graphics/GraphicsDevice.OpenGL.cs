@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework.Graphics;
 public partial class GraphicsDevice
 {
 #if DESKTOPGL || ANGLE
-        internal IGraphicsContext Context { get; private set; }
+    internal IGraphicsContext Context { get; private set; }
 #endif
 
 #if !GLES
@@ -244,17 +244,17 @@ public partial class GraphicsDevice
     {
         _programCache = new ShaderProgramCache(this);
 #if DESKTOPGL || ANGLE
-            var windowInfo = new WindowInfo(SdlGameWindow.Instance.Handle);
+        var windowInfo = new WindowInfo(SdlGameWindow.Instance.Handle);
 
-            if (Context == null || Context.IsDisposed)
-            {
-                Context = GL.CreateContext(windowInfo);
-            }
+        if (Context == null || Context.IsDisposed)
+        {
+            Context = GL.CreateContext(windowInfo);
+        }
 
-            Context.MakeCurrent(windowInfo);
-            Context.SwapInterval = PresentationParameters.PresentationInterval.GetSwapInterval();
+        Context.MakeCurrent(windowInfo);
+        Context.SwapInterval = PresentationParameters.PresentationInterval.GetSwapInterval();
 
-            Context.MakeCurrent(windowInfo);
+        Context.MakeCurrent(windowInfo);
 #endif
         GL.GetInteger(GetPName.MaxCombinedTextureImageUnits, out MaxTextureSlots);
         GraphicsExtensions.CheckGLError();
@@ -321,8 +321,7 @@ public partial class GraphicsDevice
 
 #if !GLES
         // Initialize draw buffer attachment array
-        int maxDrawBuffers;
-        GL.GetInteger(GetPName.MaxDrawBuffers, out maxDrawBuffers);
+        GL.GetInteger(GetPName.MaxDrawBuffers, out int maxDrawBuffers);
         GraphicsExtensions.CheckGLError();
         _drawBuffers = new DrawBuffersEnum[maxDrawBuffers];
         for (int i = 0; i < maxDrawBuffers; i++)
@@ -437,8 +436,8 @@ public partial class GraphicsDevice
         _programCache.Dispose();
 
 #if DESKTOPGL || ANGLE
-            Context.Dispose();
-            Context = null;
+        Context.Dispose();
+        Context = null;
 #endif
     }
 
@@ -509,30 +508,30 @@ public partial class GraphicsDevice
     }
 
 #if DESKTOPGL || ANGLE
-        static internal void DisposeContext(IntPtr resource)
+    static internal void DisposeContext(IntPtr resource)
+    {
+        lock (_disposeContextsLock)
         {
-            lock (_disposeContextsLock)
-            {
-                _disposeContexts.Add(resource);
-            }
+            _disposeContexts.Add(resource);
         }
+    }
 
-        static internal void DisposeContexts()
+    static internal void DisposeContexts()
+    {
+        lock (_disposeContextsLock)
         {
-            lock (_disposeContextsLock)
-            {
-                int count = _disposeContexts.Count;
-                for (int i = 0; i < count; ++i)
-                    Sdl.GL.DeleteContext(_disposeContexts[i]);
-                _disposeContexts.Clear();
-            }
+            int count = _disposeContexts.Count;
+            for (int i = 0; i < count; ++i)
+                Sdl.GL.DeleteContext(_disposeContexts[i]);
+            _disposeContexts.Clear();
         }
+    }
 #endif
 
     private void PlatformPresent()
     {
 #if DESKTOPGL || ANGLE
-            Context.SwapBuffers();
+        Context.SwapBuffers();
 #endif
         GraphicsExtensions.CheckGLError();
 
@@ -584,7 +583,7 @@ public partial class GraphicsDevice
     {
         public bool Equals(RenderTargetBinding[] first, RenderTargetBinding[] second)
         {
-            if (object.ReferenceEquals(first, second))
+            if (ReferenceEquals(first, second))
                 return true;
 
             if (first == null || second == null)
@@ -747,8 +746,7 @@ public partial class GraphicsDevice
 
             foreach (var bindings in bindingsToDelete)
             {
-                var fbo = 0;
-                if (this.glFramebuffers.TryGetValue(bindings, out fbo))
+                if (this.glFramebuffers.TryGetValue(bindings, out int fbo))
                 {
                     this.framebufferHelper.DeleteFramebuffer(fbo);
                     this.glFramebuffers.Remove(bindings);
@@ -771,8 +769,7 @@ public partial class GraphicsDevice
         var renderTarget = renderTargetBinding.RenderTarget as IRenderTarget;
         if (renderTarget.MultiSampleCount > 0 && this.framebufferHelper.SupportsBlitFramebuffer)
         {
-            var glResolveFramebuffer = 0;
-            if (!this.glResolveFramebuffers.TryGetValue(this._currentRenderTargetBindings, out glResolveFramebuffer))
+            if (!this.glResolveFramebuffers.TryGetValue(this._currentRenderTargetBindings, out int glResolveFramebuffer))
             {
                 this.framebufferHelper.GenFramebuffer(out glResolveFramebuffer);
                 this.framebufferHelper.BindFramebuffer(glResolveFramebuffer);
@@ -824,8 +821,7 @@ public partial class GraphicsDevice
 
     private IRenderTarget PlatformApplyRenderTargets()
     {
-        var glFramebuffer = 0;
-        if (!this.glFramebuffers.TryGetValue(this._currentRenderTargetBindings, out glFramebuffer))
+        if (!this.glFramebuffers.TryGetValue(this._currentRenderTargetBindings, out int glFramebuffer))
         {
             this.framebufferHelper.GenFramebuffer(out glFramebuffer);
             this.framebufferHelper.BindFramebuffer(glFramebuffer);
@@ -845,7 +841,7 @@ public partial class GraphicsDevice
             }
 
 #if DEBUG
-                this.framebufferHelper.CheckFramebufferStatus();
+            this.framebufferHelper.CheckFramebufferStatus();
 #endif
             this.glFramebuffers.Add((RenderTargetBinding[])_currentRenderTargetBindings.Clone(), glFramebuffer);
         }
@@ -1273,8 +1269,8 @@ public partial class GraphicsDevice
     internal void OnPresentationChanged()
     {
 #if DESKTOPGL || ANGLE
-            Context.MakeCurrent(new WindowInfo(SdlGameWindow.Instance.Handle));
-            Context.SwapInterval = PresentationParameters.PresentationInterval.GetSwapInterval();
+        Context.MakeCurrent(new WindowInfo(SdlGameWindow.Instance.Handle));
+        Context.SwapInterval = PresentationParameters.PresentationInterval.GetSwapInterval();
 #endif
 
         ApplyRenderTargets(null);
@@ -1298,29 +1294,27 @@ public partial class GraphicsDevice
     }
 
 #if DESKTOPGL
-        private void GetModeSwitchedSize(out int width, out int height)
+    private void GetModeSwitchedSize(out int width, out int height)
+    {
+        var mode = new Sdl.Display.Mode
         {
-            var mode = new Sdl.Display.Mode
-            {
-                Width = PresentationParameters.BackBufferWidth,
-                Height = PresentationParameters.BackBufferHeight,
-                Format = 0,
-                RefreshRate = 0,
-                DriverData = IntPtr.Zero
-            };
-            Sdl.Display.Mode closest;
-            Sdl.Display.GetClosestDisplayMode(0, mode, out closest);
-            width = closest.Width;
-            height = closest.Height;
-        }
+            Width = PresentationParameters.BackBufferWidth,
+            Height = PresentationParameters.BackBufferHeight,
+            Format = 0,
+            RefreshRate = 0,
+            DriverData = IntPtr.Zero
+        };
+        Sdl.Display.GetClosestDisplayMode(0, mode, out Sdl.Display.Mode closest);
+        width = closest.Width;
+        height = closest.Height;
+    }
 
-        private void GetDisplayResolution(out int width, out int height)
-        {
-            Sdl.Display.Mode mode;
-            Sdl.Display.GetCurrentDisplayMode(0, out mode);
-            width = mode.Width;
-            height = mode.Height;
-        }
+    private void GetDisplayResolution(out int width, out int height)
+    {
+        Sdl.Display.GetCurrentDisplayMode(0, out Sdl.Display.Mode mode);
+        width = mode.Width;
+        height = mode.Height;
+    }
 #endif
 }
 

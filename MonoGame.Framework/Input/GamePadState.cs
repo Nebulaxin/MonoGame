@@ -116,13 +116,13 @@ public partial struct GamePadState
         result |= ThumbSticks._virtualButtons;
 
         if (DPad.Down == ButtonState.Pressed)
-            result |= Microsoft.Xna.Framework.Input.Buttons.DPadDown;
+            result |= Input.Buttons.DPadDown;
         if (DPad.Up == ButtonState.Pressed)
-            result |= Microsoft.Xna.Framework.Input.Buttons.DPadUp;
+            result |= Input.Buttons.DPadUp;
         if (DPad.Left == ButtonState.Pressed)
-            result |= Microsoft.Xna.Framework.Input.Buttons.DPadLeft;
+            result |= Input.Buttons.DPadLeft;
         if (DPad.Right == ButtonState.Pressed)
-            result |= Microsoft.Xna.Framework.Input.Buttons.DPadRight;
+            result |= Input.Buttons.DPadRight;
 
         return result;
     }
@@ -134,7 +134,7 @@ public partial struct GamePadState
     /// <param name="button">Buttons to query. Specify a single button, or combine multiple buttons using a bitwise OR operation.</param>
     public readonly bool IsButtonDown(Buttons button)
     {
-        if (button == Microsoft.Xna.Framework.Input.Buttons.None) return false;
+        if (button == Input.Buttons.None) return false;
         return (GetVirtualButtons() & button) == button;
     }
 

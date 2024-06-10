@@ -83,13 +83,13 @@ internal static class CurrentPlatform
     {
         get
         {
-            if (CurrentPlatform.OS == OS.Windows && Environment.Is64BitProcess)
+            if (OS == OS.Windows && Environment.Is64BitProcess)
                 return "win-x64";
-            else if (CurrentPlatform.OS == OS.Windows && !Environment.Is64BitProcess)
+            else if (OS == OS.Windows && !Environment.Is64BitProcess)
                 return "win-x86";
-            else if (CurrentPlatform.OS == OS.Linux)
+            else if (OS == OS.Linux)
                 return "linux-x64";
-            else if (CurrentPlatform.OS == OS.MacOSX)
+            else if (OS == OS.MacOSX)
                 return "osx";
             else
                 return "unknown";

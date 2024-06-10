@@ -57,7 +57,7 @@ internal partial class ConstantBuffer
         }
 
         // If the shader program is the same, the effect may still be different and have different values in the buffer
-        if (!Object.ReferenceEquals(this, _lastConstantBufferApplied))
+        if (!ReferenceEquals(this, _lastConstantBufferApplied))
             _dirty = true;
 
         // If the buffer content hasn't changed then we're

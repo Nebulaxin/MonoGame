@@ -1235,24 +1235,24 @@ internal partial class GL
     internal static VertexAttribDivisorDelegate VertexAttribDivisor;
 
 #if DEBUG
-        [UnmanagedFunctionPointer (CallingConvention.StdCall)]
-        delegate void DebugMessageCallbackProc (int source, int type, int id, int severity, int length, IntPtr message, IntPtr userParam);
-        static DebugMessageCallbackProc DebugProc;
-        [System.Security.SuppressUnmanagedCodeSecurity ()]
-        [MonoNativeFunctionWrapper]
-        delegate void DebugMessageCallbackDelegate (DebugMessageCallbackProc callback, IntPtr userParam);
-        static DebugMessageCallbackDelegate DebugMessageCallback;
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    delegate void DebugMessageCallbackProc(int source, int type, int id, int severity, int length, IntPtr message, IntPtr userParam);
+    static DebugMessageCallbackProc DebugProc;
+    [System.Security.SuppressUnmanagedCodeSecurity()]
+    [MonoNativeFunctionWrapper]
+    delegate void DebugMessageCallbackDelegate(DebugMessageCallbackProc callback, IntPtr userParam);
+    static DebugMessageCallbackDelegate DebugMessageCallback;
 
-        internal delegate void ErrorDelegate (string message);
-        internal static event ErrorDelegate OnError;
+    internal delegate void ErrorDelegate(string message);
+    internal static event ErrorDelegate OnError;
 
-        static void DebugMessageCallbackHandler(int source, int type, int id, int severity, int length, IntPtr message, IntPtr userParam)
-        {
-            var errorMessage = Marshal.PtrToStringAnsi(message);
-            System.Diagnostics.Debug.WriteLine(errorMessage);
-            if (OnError != null)
-                OnError(errorMessage);
-        }
+    static void DebugMessageCallbackHandler(int source, int type, int id, int severity, int length, IntPtr message, IntPtr userParam)
+    {
+        var errorMessage = Marshal.PtrToStringAnsi(message);
+        Debug.WriteLine(errorMessage);
+        if (OnError != null)
+            OnError(errorMessage);
+    }
 #endif
 
     internal static int SwapInterval { get; set; }
@@ -1404,21 +1404,21 @@ internal partial class GL
         }
 
 #if DEBUG
-            try
+        try
+        {
+            DebugMessageCallback = LoadFunction<DebugMessageCallbackDelegate>("glDebugMessageCallback");
+            if (DebugMessageCallback != null)
             {
-                DebugMessageCallback = LoadFunction<DebugMessageCallbackDelegate>("glDebugMessageCallback");
-                if (DebugMessageCallback != null)
-                {
-                    DebugProc = DebugMessageCallbackHandler;
-                    DebugMessageCallback(DebugProc, IntPtr.Zero);
-                    Enable(EnableCap.DebugOutput);
-                    Enable(EnableCap.DebugOutputSynchronous);
-                }
+                DebugProc = DebugMessageCallbackHandler;
+                DebugMessageCallback(DebugProc, IntPtr.Zero);
+                Enable(EnableCap.DebugOutput);
+                Enable(EnableCap.DebugOutputSynchronous);
             }
-            catch (EntryPointNotFoundException)
-            {
-                // Ignore the debug message callback if the entry point can not be found
-            }
+        }
+        catch (EntryPointNotFoundException)
+        {
+            // Ignore the debug message callback if the entry point can not be found
+        }
 #endif
         if (BoundApi == RenderApi.ES)
         {
@@ -1445,48 +1445,48 @@ internal partial class GL
     {
         if (Extensions.Count == 0)
         {
-            string extstring = GL.GetString(StringName.Extensions);
-            var error = GL.GetError();
+            string extstring = GetString(StringName.Extensions);
+            var error = GetError();
             if (!string.IsNullOrEmpty(extstring) && error == ErrorCode.NoError)
                 Extensions.AddRange(extstring.Split(' '));
         }
         LogExtensions();
         // now load Extensions :)
-        if (GL.GenRenderbuffers == null && Extensions.Contains("GL_EXT_framebuffer_object"))
+        if (GenRenderbuffers == null && Extensions.Contains("GL_EXT_framebuffer_object"))
         {
-            GL.LoadFrameBufferObjectEXTEntryPoints();
+            LoadFrameBufferObjectEXTEntryPoints();
         }
-        if (GL.RenderbufferStorageMultisample == null)
+        if (RenderbufferStorageMultisample == null)
         {
             if (Extensions.Contains("GL_APPLE_framebuffer_multisample"))
             {
-                GL.RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleAPPLE");
-                GL.BlitFramebuffer = LoadFunction<GL.BlitFramebufferDelegate>("glResolveMultisampleFramebufferAPPLE");
+                RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleAPPLE");
+                BlitFramebuffer = LoadFunction<GL.BlitFramebufferDelegate>("glResolveMultisampleFramebufferAPPLE");
             }
             else if (Extensions.Contains("GL_EXT_multisampled_render_to_texture"))
             {
-                GL.RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleEXT");
-                GL.FramebufferTexture2DMultiSample = LoadFunction<GL.FramebufferTexture2DMultiSampleDelegate>("glFramebufferTexture2DMultisampleEXT");
+                RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleEXT");
+                FramebufferTexture2DMultiSample = LoadFunction<GL.FramebufferTexture2DMultiSampleDelegate>("glFramebufferTexture2DMultisampleEXT");
 
             }
             else if (Extensions.Contains("GL_IMG_multisampled_render_to_texture"))
             {
-                GL.RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleIMG");
-                GL.FramebufferTexture2DMultiSample = LoadFunction<GL.FramebufferTexture2DMultiSampleDelegate>("glFramebufferTexture2DMultisampleIMG");
+                RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleIMG");
+                FramebufferTexture2DMultiSample = LoadFunction<GL.FramebufferTexture2DMultiSampleDelegate>("glFramebufferTexture2DMultisampleIMG");
             }
             else if (Extensions.Contains("GL_NV_framebuffer_multisample"))
             {
-                GL.RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleNV");
-                GL.BlitFramebuffer = LoadFunction<GL.BlitFramebufferDelegate>("glBlitFramebufferNV");
+                RenderbufferStorageMultisample = LoadFunction<GL.RenderbufferStorageMultisampleDelegate>("glRenderbufferStorageMultisampleNV");
+                BlitFramebuffer = LoadFunction<GL.BlitFramebufferDelegate>("glBlitFramebufferNV");
             }
         }
-        if (GL.BlendFuncSeparatei == null && Extensions.Contains("GL_ARB_draw_buffers_blend"))
+        if (BlendFuncSeparatei == null && Extensions.Contains("GL_ARB_draw_buffers_blend"))
         {
-            GL.BlendFuncSeparatei = LoadFunction<GL.BlendFuncSeparateiDelegate>("BlendFuncSeparateiARB");
+            BlendFuncSeparatei = LoadFunction<GL.BlendFuncSeparateiDelegate>("BlendFuncSeparateiARB");
         }
-        if (GL.BlendEquationSeparatei == null && Extensions.Contains("GL_ARB_draw_buffers_blend"))
+        if (BlendEquationSeparatei == null && Extensions.Contains("GL_ARB_draw_buffers_blend"))
         {
-            GL.BlendEquationSeparatei = LoadFunction<GL.BlendEquationSeparateiDelegate>("BlendEquationSeparateiARB");
+            BlendEquationSeparatei = LoadFunction<GL.BlendEquationSeparateiDelegate>("BlendEquationSeparateiARB");
         }
     }
 
@@ -1602,8 +1602,7 @@ internal partial class GL
 
     internal static string GetProgramInfoLog(int programId)
     {
-        int length = 0;
-        GetProgram(programId, GetProgramParameterName.LogLength, out length);
+        GetProgram(programId, GetProgramParameterName.LogLength, out int length);
         var sb = new StringBuilder(length, length);
         GetProgramInfoLogInternal(programId, length, IntPtr.Zero, sb);
         return sb.ToString();
@@ -1611,8 +1610,7 @@ internal partial class GL
 
     internal static string GetShaderInfoLog(int shaderId)
     {
-        int length = 0;
-        GetShader(shaderId, ShaderParameter.LogLength, out length);
+        GetShader(shaderId, ShaderParameter.LogLength, out int length);
         var sb = new StringBuilder(length, length);
         GetShaderInfoLogInternal(shaderId, length, IntPtr.Zero, sb);
         return sb.ToString();

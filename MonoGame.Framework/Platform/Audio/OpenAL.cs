@@ -195,14 +195,14 @@ internal class AL
     private static IntPtr GetNativeLibrary()
     {
 #if DESKTOPGL
-            if (CurrentPlatform.OS == OS.Windows)
-                return FuncLoader.LoadLibraryExt("soft_oal.dll");
-            else if (CurrentPlatform.OS == OS.Linux)
-                return FuncLoader.LoadLibraryExt("libopenal.so.1");
-            else if (CurrentPlatform.OS == OS.MacOSX)
-                return FuncLoader.LoadLibraryExt("libopenal.1.dylib");
-            else
-                return FuncLoader.LoadLibraryExt("openal");
+        if (CurrentPlatform.OS == OS.Windows)
+            return FuncLoader.LoadLibraryExt("soft_oal.dll");
+        else if (CurrentPlatform.OS == OS.Linux)
+            return FuncLoader.LoadLibraryExt("libopenal.so.1");
+        else if (CurrentPlatform.OS == OS.MacOSX)
+            return FuncLoader.LoadLibraryExt("libopenal.1.dylib");
+        else
+            return FuncLoader.LoadLibraryExt("openal");
 #elif ANDROID
             var ret = FuncLoader.LoadLibrary("libopenal32.so");
 
@@ -312,8 +312,7 @@ internal class AL
 
     internal static int[] GenBuffers(int count)
     {
-        int[] ret;
-        GenBuffers(count, out ret);
+        GenBuffers(count, out int[] ret);
         return ret;
     }
 
@@ -427,8 +426,7 @@ internal class AL
 
     internal static ALSourceState GetSourceState(int sourceId)
     {
-        int state;
-        GetSource(sourceId, ALGetSourcei.SourceState, out state);
+        GetSource(sourceId, ALGetSourcei.SourceState, out int state);
         return (ALSourceState)state;
     }
 
@@ -456,13 +454,13 @@ internal class AL
     {
         fixed (int* ptr = &buffers[0])
         {
-            AL.alSourceQueueBuffers(sourceId, numEntries, ptr);
+            alSourceQueueBuffers(sourceId, numEntries, ptr);
         }
     }
 
     internal unsafe static void SourceQueueBuffer(int sourceId, int buffer)
     {
-        AL.alSourceQueueBuffers(sourceId, 1, &buffer);
+        alSourceQueueBuffers(sourceId, 1, &buffer);
     }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -674,11 +672,11 @@ internal class XRamExtension
 
     internal bool SetBufferMode(int i, ref int id, XRamStorage storage)
     {
-        if (storage == XRamExtension.XRamStorage.Accessible)
+        if (storage == XRamStorage.Accessible)
         {
             return setBufferMode(i, ref id, StorageAccessible);
         }
-        if (storage != XRamExtension.XRamStorage.Hardware)
+        if (storage != XRamStorage.Hardware)
         {
             return setBufferMode(i, ref id, StorageAuto);
         }

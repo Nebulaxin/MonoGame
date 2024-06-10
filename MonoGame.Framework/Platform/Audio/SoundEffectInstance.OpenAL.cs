@@ -61,8 +61,7 @@ public partial class SoundEffectInstance : IDisposable
         if (!HasSourceId)
             return;
         // get AL's listener position
-        float x, y, z;
-        AL.GetListener(ALListener3f.Position, out x, out y, out z);
+        AL.GetListener(ALListener3f.Position, out float x, out float y, out float z);
         ALHelper.CheckError("Failed to get source position.");
 
         // get the emitter offset from origin

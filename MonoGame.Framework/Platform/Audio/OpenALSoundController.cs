@@ -67,8 +67,8 @@ internal sealed class OpenALSoundController : IDisposable
     private int[] allSourcesArray;
 #if DESKTOPGL || ANGLE
 
-        // MacOS & Linux shares a limit of 256.
-        internal const int MAX_NUMBER_OF_SOURCES = 256;
+    // MacOS & Linux shares a limit of 256.
+    internal const int MAX_NUMBER_OF_SOURCES = 256;
 
 #elif IOS
 
@@ -86,7 +86,7 @@ internal sealed class OpenALSoundController : IDisposable
         private const int DEFAULT_UPDATE_SIZE = 512;
         private const int DEFAULT_UPDATE_BUFFER_COUNT = 2;
 #elif DESKTOPGL
-        private static OggStreamer _oggstreamer;
+    private static OggStreamer _oggstreamer;
 #endif
     private List<int> availableSourcesCollection;
     private List<int> inUseSourcesCollection;
@@ -260,7 +260,7 @@ internal sealed class OpenALSoundController : IDisposable
 
             _context = Alc.CreateContext(_device, attribute);
 #if DESKTOPGL
-                _oggstreamer = new OggStreamer();
+            _oggstreamer = new OggStreamer();
 #endif
 
             AlcHelper.CheckError("Could not create OpenAL context");
@@ -376,8 +376,8 @@ internal sealed class OpenALSoundController : IDisposable
             if (disposing)
             {
 #if DESKTOPGL
-                    if (_oggstreamer != null)
-                        _oggstreamer.Dispose();
+                if (_oggstreamer != null)
+                    _oggstreamer.Dispose();
 #endif
                 for (int i = 0; i < allSourcesArray.Length; i++)
                 {
@@ -442,8 +442,7 @@ internal sealed class OpenALSoundController : IDisposable
 
     public double SourceCurrentPosition(int sourceId)
     {
-        int pos;
-        AL.GetSource(sourceId, ALGetSourcei.SampleOffset, out pos);
+        AL.GetSource(sourceId, ALGetSourcei.SampleOffset, out int pos);
         ALHelper.CheckError("Failed to set source offset.");
         return pos;
     }

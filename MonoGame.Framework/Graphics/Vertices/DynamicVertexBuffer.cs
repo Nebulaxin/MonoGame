@@ -113,7 +113,7 @@ public class DynamicVertexBuffer : VertexBuffer
     /// </exception>
     public void SetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, int vertexStride, SetDataOptions options) where T : struct
     {
-        base.SetDataInternal<T>(offsetInBytes, data, startIndex, elementCount, vertexStride, options);
+        SetDataInternal(offsetInBytes, data, startIndex, elementCount, vertexStride, options);
     }
 
     /// <summary>
@@ -131,7 +131,7 @@ public class DynamicVertexBuffer : VertexBuffer
     public void SetData<T>(T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
     {
         var elementSizeInBytes = ReflectionHelpers.SizeOf<T>.Get();
-        base.SetDataInternal<T>(0, data, startIndex, elementCount, elementSizeInBytes, options);
+        SetDataInternal(0, data, startIndex, elementCount, elementSizeInBytes, options);
     }
 }
 

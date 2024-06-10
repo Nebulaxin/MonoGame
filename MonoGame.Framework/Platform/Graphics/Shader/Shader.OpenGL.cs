@@ -41,8 +41,7 @@ internal partial class Shader
         GraphicsExtensions.CheckGLError();
         GL.CompileShader(_shaderHandle);
         GraphicsExtensions.CheckGLError();
-        int compiled = 0;
-        GL.GetShader(_shaderHandle, ShaderParameter.CompileStatus, out compiled);
+        GL.GetShader(_shaderHandle, ShaderParameter.CompileStatus, out int compiled);
         GraphicsExtensions.CheckGLError();
         if (compiled != (int)Bool.True)
         {

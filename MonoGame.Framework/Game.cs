@@ -178,7 +178,7 @@ public partial class Game : IDisposable
         public static AndroidGameActivity Activity { get; internal set; }
 #endif
     private static Game _instance = null;
-    internal static Game Instance { get { return Game._instance; } }
+    internal static Game Instance { get { return _instance; } }
 
     /// <summary>
     /// The start up parameters for this <see cref="Game"/>.
@@ -556,8 +556,8 @@ public partial class Game : IDisposable
                     if (sleepTime >= 2.0)
                         System.Threading.Monitor.Wait(_locker, 1);
 #elif DESKTOPGL || ANDROID || IOS
-                if (sleepTime >= 2.0)
-                    System.Threading.Thread.Sleep(1);
+            if (sleepTime >= 2.0)
+                System.Threading.Thread.Sleep(1);
 #endif
             // Keep looping until it's time to perform the next update
             goto RetryTick;
@@ -1205,7 +1205,7 @@ public partial class Game : IDisposable
             if (obj is not AddJournalEntry<T>)
                 return false;
 
-            return object.Equals(Item, ((AddJournalEntry<T>)obj).Item);
+            return Equals(Item, ((AddJournalEntry<T>)obj).Item);
         }
     }
 }
