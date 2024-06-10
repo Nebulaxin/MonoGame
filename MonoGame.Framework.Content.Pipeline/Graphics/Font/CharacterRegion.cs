@@ -8,28 +8,28 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 	[TypeConverter(typeof(CharacterRegionTypeConverter))]
 	public struct CharacterRegion
 	{
-	    public char Start;
-	    public char End;
+		public char Start;
+		public char End;
 
 		// Enumerates all characters within the region.        
-	    public IEnumerable<Char> Characters()
-	    {
-	        for (var c = Start; c <= End; c++)
-	        {
-	            yield return c;
-	        }
-	    }
+		public IEnumerable<Char> Characters()
+		{
+			for (var c = Start; c <= End; c++)
+			{
+				yield return c;
+			}
+		}
 
-	    // Constructor.
-        public CharacterRegion(char start, char end)
-        {
-            if (start > end)
-                throw new ArgumentException();
+		// Constructor.
+		public CharacterRegion(char start, char end)
+		{
+			if (start > end)
+				throw new ArgumentException();
 
-            Start = start;
-            End = end;
-        }
-		
+			Start = start;
+			End = end;
+		}
+
 		// Default to just the base ASCII character set.
 		public static CharacterRegion Default = new CharacterRegion(' ', '~');
 
@@ -45,7 +45,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 			return source.GetEnumerator().MoveNext();
 		}
 
-		
+
 		/// <summary>
 		/// Select elements from an enumeration.
 		/// </summary>

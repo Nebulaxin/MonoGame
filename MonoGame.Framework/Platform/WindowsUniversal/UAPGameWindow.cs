@@ -183,7 +183,7 @@ namespace Microsoft.Xna.Framework
             lock (_eventLocker)
             {
                 _isSizeChanged = true;
-                var pixelWidth  = Math.Max(1, (int)Math.Round(args.Size.Width * _dinfo.RawPixelsPerViewPixel));
+                var pixelWidth = Math.Max(1, (int)Math.Round(args.Size.Width * _dinfo.RawPixelsPerViewPixel));
                 var pixelHeight = Math.Max(1, (int)Math.Round(args.Size.Height * _dinfo.RawPixelsPerViewPixel));
                 _newViewBounds = new Rectangle(0, 0, pixelWidth, pixelHeight);
             }
@@ -233,7 +233,7 @@ namespace Microsoft.Xna.Framework
                     break;
             }
         }
-		
+
         private static DisplayOrientation ToOrientation(DisplayOrientations orientations)
         {
             var result = DisplayOrientation.Default;
@@ -293,7 +293,7 @@ namespace Microsoft.Xna.Framework
 
         private void DisplayProperties_OrientationChanged(DisplayInformation dinfo, object sender)
         {
-            lock(_eventLocker)
+            lock (_eventLocker)
             {
                 _isOrientationChanged = true;
                 _newOrientation = ToOrientation(dinfo.CurrentOrientation);
@@ -348,10 +348,10 @@ namespace Microsoft.Xna.Framework
 
         internal void SetCursor(bool visible)
         {
-            if ( _coreWindow == null )
+            if (_coreWindow == null)
                 return;
 
-            var asyncResult = _coreWindow.Dispatcher.RunIdleAsync( (e) =>
+            var asyncResult = _coreWindow.Dispatcher.RunIdleAsync((e) =>
             {
                 if (visible)
                     _coreWindow.PointerCursor = new CoreCursor(CoreCursorType.Arrow, 0);
@@ -386,7 +386,7 @@ namespace Microsoft.Xna.Framework
             _inputEvents.UpdateState();
 
             // Update TextInput
-            if(!_inputEvents.TextQueue.IsEmpty)
+            if (!_inputEvents.TextQueue.IsEmpty)
             {
                 InputEvents.KeyChar ch;
                 while (_inputEvents.TextQueue.TryDequeue(out ch))

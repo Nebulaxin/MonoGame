@@ -124,7 +124,7 @@ namespace Microsoft.Xna.Framework.Input
                     {
                         joystickState.Buttons = new ButtonState[buttoncount];
                     }
-                    
+
                     for (int i = 0; i < buttoncount; i++)
                     {
                         if (gamepads[index].buttons[i].pressed)

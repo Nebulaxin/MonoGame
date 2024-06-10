@@ -30,16 +30,16 @@ namespace MonoGame.OpenGL
             get { return _disposed; }
         }
 
-		public bool IsCurrent
-		{
-			get { return true; }
-		}
+        public bool IsCurrent
+        {
+            get { return true; }
+        }
 
         public GraphicsContext(IWindowInfo info)
         {
             if (_disposed)
                 return;
-            
+
             SetWindowHandle(info);
 #if DEBUG
             // create debug context, so we get better error messages (glDebugMessageCallback)
@@ -64,7 +64,7 @@ namespace MonoGame.OpenGL
         {
             if (_disposed)
                 return;
-            
+
             SetWindowHandle(info);
             Sdl.GL.MakeCurrent(_winHandle, _context);
         }
@@ -73,7 +73,7 @@ namespace MonoGame.OpenGL
         {
             if (_disposed)
                 return;
-            
+
             Sdl.GL.SwapWindow(_winHandle);
         }
 

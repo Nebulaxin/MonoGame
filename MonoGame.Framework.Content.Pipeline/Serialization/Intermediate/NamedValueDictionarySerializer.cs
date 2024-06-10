@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
                 var key = input.ReadObject<string>(_keyFormat, _keySerializer);
                 var value = input.ReadObject<T>(_valueFormat, valueSerializer);
-                result.Add(key,value);
+                result.Add(key, value);
 
                 input.Xml.ReadEndElement();
             }

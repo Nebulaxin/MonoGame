@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 d3dContext.UpdateSubresource(_buffer, _cbuffer);
                 _dirty = false;
             }
-            
+
             // Set the buffer to the right stage.
             if (stage == ShaderStage.Vertex)
                 d3dContext.VertexShader.SetConstantBuffer(slot, _cbuffer);

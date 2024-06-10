@@ -52,7 +52,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             if (MovieView == null)
                 return;
-            
+
             MovieView.Dispose();
             MovieView = null;
         }

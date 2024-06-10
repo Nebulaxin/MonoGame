@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using MonoGame.Framework.Utilities;
 using Microsoft.Xna.Framework.Graphics;
 using System.Globalization;
@@ -342,7 +341,7 @@ namespace Microsoft.Xna.Framework.Content
                 throw new ObjectDisposedException("ContentManager");
             }
 
-            T result = default(T);
+            T result = default;
 
             // On some platforms, name and slash direction matter.
             // We store the asset by a /-separating key rather than how the
@@ -600,8 +599,7 @@ namespace Microsoft.Xna.Framework.Content
             if (loadedAssets.TryGetValue(assetName, out object asset))
             {
                 //Check if it's disposable and remove it from the disposable list if so
-                var disposable = asset as IDisposable;
-                if (disposable != null)
+                if (asset is IDisposable disposable)
                 {
                     disposable.Dispose();
                     disposableAssets.Remove(disposable);

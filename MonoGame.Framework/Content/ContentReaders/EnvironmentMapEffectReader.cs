@@ -2,7 +2,6 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-using System;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Microsoft.Xna.Framework.Content
@@ -11,15 +10,17 @@ namespace Microsoft.Xna.Framework.Content
     {
         protected internal override EnvironmentMapEffect Read(ContentReader input, EnvironmentMapEffect existingInstance)
         {
-            var effect = new EnvironmentMapEffect(input.GetGraphicsDevice());
-            effect.Texture = input.ReadExternalReference<Texture>() as Texture2D;
-			effect.EnvironmentMap = input.ReadExternalReference<TextureCube>() as TextureCube;
-			effect.EnvironmentMapAmount = input.ReadSingle ();
-			effect.EnvironmentMapSpecular = input.ReadVector3 ();
-			effect.FresnelFactor = input.ReadSingle ();
-			effect.DiffuseColor = input.ReadVector3 ();
-			effect.EmissiveColor = input.ReadVector3 ();
-			effect.Alpha = input.ReadSingle ();
+            var effect = new EnvironmentMapEffect(input.GetGraphicsDevice())
+            {
+                Texture = input.ReadExternalReference<Texture>() as Texture2D,
+                EnvironmentMap = input.ReadExternalReference<TextureCube>() as TextureCube,
+                EnvironmentMapAmount = input.ReadSingle(),
+                EnvironmentMapSpecular = input.ReadVector3(),
+                FresnelFactor = input.ReadSingle(),
+                DiffuseColor = input.ReadVector3(),
+                EmissiveColor = input.ReadVector3(),
+                Alpha = input.ReadSingle()
+            };
             return effect;
         }
     }

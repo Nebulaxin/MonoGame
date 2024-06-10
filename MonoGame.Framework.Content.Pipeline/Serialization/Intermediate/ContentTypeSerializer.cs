@@ -26,7 +26,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         protected internal abstract object Deserialize(IntermediateReader input, ContentSerializerAttribute format, object existingInstance);
 
         protected internal virtual void Initialize(IntermediateSerializer serializer)
-        {     
+        {
         }
 
         public virtual bool ObjectIsEmpty(object value)

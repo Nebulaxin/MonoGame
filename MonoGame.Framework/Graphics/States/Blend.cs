@@ -8,7 +8,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Defines a blend mode.
     /// </summary>
 	public enum Blend
-	{
+    {
         /// <summary>
         /// Each component of the color is multiplied by {1, 1, 1, 1}.
         /// </summary>
@@ -41,26 +41,26 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Each component color is multiplied by the destination color. 
         /// {Rd, Gd, Bd, Ad}, where Rd, Gd, Bd, Ad are color destination values.
         /// </summary>
-		DestinationColor,	
+		DestinationColor,
         /// <summary>
         /// Each component of the color is multiplied by the inversed destination color. 
         /// {1 − Rd, 1 − Gd, 1 − Bd, 1 − Ad}, where Rd, Gd, Bd, Ad are color destination values.
         /// </summary>
-		InverseDestinationColor,
+        InverseDestinationColor,
         /// <summary>
         /// Each component of the color is multiplied by the alpha value of the destination.
         /// {Ad, Ad, Ad, Ad}, where Ad is the destination alpha value.
         /// </summary>
-		DestinationAlpha,	
+		DestinationAlpha,
         /// <summary>
         /// Each component of the color is multiplied by the inversed alpha value of the destination. 
         /// {1 − Ad, 1 − Ad, 1 − Ad, 1 − Ad}, where Ad is the destination alpha value.
         /// </summary>
-		InverseDestinationAlpha,
-	    /// <summary>
+        InverseDestinationAlpha,
+        /// <summary>
         /// Each component of the color is multiplied by a constant in the <see cref="P:Microsoft.Xna.Framework.Graphics.GraphicsDevice.BlendFactor"/>.
-	    /// </summary>
-		BlendFactor,
+        /// </summary>
+        BlendFactor,
         /// <summary>
         /// Each component of the color is multiplied by a inversed constant in the <see cref="P:Microsoft.Xna.Framework.Graphics.GraphicsDevice.BlendFactor"/>.
         /// </summary>
@@ -70,5 +70,5 @@ namespace Microsoft.Xna.Framework.Graphics
         /// {f, f, f, 1}, where f = min(As, 1 − As), where As is the source alpha value.
         /// </summary>
 		SourceAlphaSaturation
-	}
+    }
 }

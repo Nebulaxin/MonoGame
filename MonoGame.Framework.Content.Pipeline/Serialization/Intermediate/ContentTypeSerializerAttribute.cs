@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                             var types = assembly.GetTypes();
                             foreach (var type in types)
                             {
-                                var attributes = type.GetCustomAttributes(typeof (ContentTypeSerializerAttribute), false);
+                                var attributes = type.GetCustomAttributes(typeof(ContentTypeSerializerAttribute), false);
                                 if (attributes.Length > 0)
                                     found.Add(type);
                             }

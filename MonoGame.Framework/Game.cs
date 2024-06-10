@@ -1203,7 +1203,7 @@ namespace Microsoft.Xna.Framework
 
             public override readonly bool Equals(object obj)
             {
-                if (!(obj is AddJournalEntry<T>))
+                if (obj is not AddJournalEntry<T>)
                     return false;
 
                 return object.Equals(Item, ((AddJournalEntry<T>)obj).Item);

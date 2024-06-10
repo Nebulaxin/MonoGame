@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         {
             return base.ObjectIsEmpty(value);
         }
-        
+
         public override bool ObjectIsEmpty(object value)
         {
             var cast = value == null ? default(T) : (T)value;

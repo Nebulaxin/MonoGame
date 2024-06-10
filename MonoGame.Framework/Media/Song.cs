@@ -3,7 +3,6 @@
 // file 'LICENSE.txt', which is part of this source code package.
 
 using System;
-using System.IO;
 
 namespace Microsoft.Xna.Framework.Media
 {
@@ -89,8 +88,10 @@ namespace Microsoft.Xna.Framework.Media
         /// <returns></returns>
         public static Song FromUri(string name, Uri uri)
         {
-            var song = new Song(uri.OriginalString);
-            song._name = name;
+            var song = new Song(uri.OriginalString)
+            {
+                _name = name
+            };
             return song;
         }
 

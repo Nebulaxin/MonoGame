@@ -2,8 +2,6 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-using System;
-
 namespace Microsoft.Xna.Framework.Input
 {
     /// <summary> 
@@ -74,7 +72,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <param name="deadZoneMode">Enumerated value that specifies what dead zone type to use.</param>
         /// <returns>The state of the controller.</returns>
         public static GamePadState GetState(int index, GamePadDeadZone deadZoneMode)
-        {           
+        {
             return GetState(index, deadZoneMode, deadZoneMode);
         }
 
@@ -141,7 +139,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <param name="rightMotor">The speed of the right motor, between 0.0 and 1.0. This motor is a high-frequency motor.</param>
         /// <returns>Returns true if the vibration motors were set.</returns>
         public static bool SetVibration(int index, float leftMotor, float rightMotor)
-        {           
+        {
             return SetVibration(index, leftMotor, rightMotor, 0.0f, 0.0f);
         }
 

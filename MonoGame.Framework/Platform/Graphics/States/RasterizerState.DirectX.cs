@@ -24,7 +24,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 // Build the description.
                 var desc = new SharpDX.Direct3D11.RasterizerStateDescription();
 
-                switch ( CullMode )
+                switch (CullMode)
                 {
                     case Graphics.CullMode.CullClockwiseFace:
                         desc.CullMode = SharpDX.Direct3D11.CullMode.Front;
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Graphics
                         throw new ArgumentOutOfRangeException();
                 }
 
-                desc.DepthBias = (int) (DepthBias * depthMul);
+                desc.DepthBias = (int)(DepthBias * depthMul);
                 desc.SlopeScaledDepthBias = SlopeScaleDepthBias;
 
                 if (FillMode == Graphics.FillMode.WireFrame)

@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework.Media
     {
 
         #region Properties
-        
+
         private static void PlatformInitialize()
         {
 
@@ -102,7 +102,7 @@ namespace Microsoft.Xna.Framework.Media
             return true;
 #endif
         }
-		#endregion
+        #endregion
 
         private static void PlatformPause()
         {

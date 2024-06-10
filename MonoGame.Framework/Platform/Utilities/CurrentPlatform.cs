@@ -45,7 +45,7 @@ namespace MonoGame.Framework.Utilities
                     _os = OS.MacOSX;
 
                     var buf = IntPtr.Zero;
-                    
+
                     try
                     {
                         buf = Marshal.AllocHGlobal(8192);

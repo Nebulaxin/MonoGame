@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
     // http://blogs.msdn.com/b/shawnhar/archive/2008/08/27/why-intermediateserializer-control-attributes-are-not-part-of-the-content-pipeline.aspx
     //
 
-    
+
     public class IntermediateSerializer
     {
         /// <summary>
@@ -94,7 +94,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                 input.ReadStartElement();
 
                 // Read the asset.
-                var format = new ContentSerializerAttribute {ElementName = "Asset"};
+                var format = new ContentSerializerAttribute { ElementName = "Asset" };
                 asset = reader.ReadObject<T>(format);
 
                 // Process the shared resources and external references.
@@ -229,7 +229,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         {
             _namespaceLookup = new Dictionary<string, string>();
 
-            for (var i=0; i < reader.AttributeCount; i++)
+            for (var i = 0; i < reader.AttributeCount; i++)
             {
                 reader.MoveToAttribute(i);
 

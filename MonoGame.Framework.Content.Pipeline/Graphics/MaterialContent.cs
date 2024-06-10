@@ -117,7 +117,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             // result in the same properties being set if the material
             // is implemented correctly.
             foreach (var pair in Textures)
-                clone.Textures.Add(pair.Key, pair.Value);            
+                clone.Textures.Add(pair.Key, pair.Value);
             foreach (var pair in OpaqueData)
                 clone.OpaqueData.Add(pair.Key, pair.Value);
 

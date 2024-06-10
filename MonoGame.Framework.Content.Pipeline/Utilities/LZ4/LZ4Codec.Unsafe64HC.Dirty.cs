@@ -238,7 +238,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Utilities.LZ4
 							}
 							if ((ipt < src_LASTLITERALS) && (*reft == *ipt)) ipt++;
 
-						_endCount:
+							_endCount:
 							reft = src_ref;
 
 							while ((startt > startLimit) && (reft > hc4.src_base) && (startt[-1] == reft[-1]))

@@ -5,9 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using MonoGame.Framework.Utilities;
-using System.Runtime.InteropServices;
 
 
 namespace Microsoft.Xna.Framework.Graphics
@@ -264,8 +262,10 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal GraphicsDevice()
         {
-            PresentationParameters = new PresentationParameters();
-            PresentationParameters.DepthStencilFormat = DepthFormat.Depth24;
+            PresentationParameters = new PresentationParameters
+            {
+                DepthStencilFormat = DepthFormat.Depth24
+            };
             Setup();
             GraphicsCapabilities = new GraphicsCapabilities();
             GraphicsCapabilities.Initialize(this);
@@ -341,8 +341,10 @@ namespace Microsoft.Xna.Framework.Graphics
 #endif
 
             // Initialize the main viewport
-            _viewport = new Viewport(0, 0, DisplayMode.Width, DisplayMode.Height);
-            _viewport.MaxDepth = 1.0f;
+            _viewport = new Viewport(0, 0, DisplayMode.Width, DisplayMode.Height)
+            {
+                MaxDepth = 1.0f
+            };
 
             PlatformSetup();
 

@@ -18,7 +18,7 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
         /// Creates a new instance of XmlColor with <see cref="Color.Empty"/> color.
         /// </summary>
         public XmlColor()
-        {            
+        {
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
         /// OR a string in the format <b>"R, G, B, A"</b>, where each component is in the [0..255] range.<para/>
         /// </param>
         public static Color ToColor(string value)
-        {            
+        {
             if (!value.Contains(','))
                 return Color.FromName(value);
 

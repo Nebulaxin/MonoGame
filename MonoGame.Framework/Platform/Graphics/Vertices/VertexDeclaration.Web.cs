@@ -6,11 +6,11 @@ using System;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
-    public partial class VertexDeclaration
+  public partial class VertexDeclaration
+  {
+    internal void Apply(Shader shader, IntPtr offset)
     {
-		internal void Apply(Shader shader, IntPtr offset)
-		{
-            throw new NotImplementedException();
-		}
+      throw new NotImplementedException();
     }
+  }
 }

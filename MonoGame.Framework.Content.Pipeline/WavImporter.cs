@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
             var validIeeeFloat = content.Format.Format == 3 && content.Format.BitsPerSample == 32;
             if (!(validPcm || validAdpcm || validIeeeFloat))
                 throw new InvalidContentException(string.Format("Audio file {0} contains audio data with unsupported format of {1} and bit depth of {2}. Supported bit depths are unsigned 8-bit, signed 16-bit, signed 24-bit for PCM(1) and 32-bit for IEEE Float(3).", Path.GetFileName(filename), content.Format.Format, content.Format.BitsPerSample));
-            
+
             return content;
         }
     }

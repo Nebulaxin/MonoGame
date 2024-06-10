@@ -21,11 +21,11 @@ namespace Microsoft.Xna.Framework
         /// Indicates if <see cref="Draw"/> will be called.
         /// </summary>
         bool Visible { get; }
-		
+
         /// <summary>
         /// Raised when <see cref="DrawOrder"/> changed.
         /// </summary>
-		event EventHandler<EventArgs> DrawOrderChanged;
+        event EventHandler<EventArgs> DrawOrderChanged;
 
         /// <summary>
         /// Raised when <see cref="Visible"/> changed.
@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework
         /// Called when this <see cref="IDrawable"/> should draw itself.
         /// </summary>
         /// <param name="gameTime">The elapsed time since the last call to <see cref="Draw"/>.</param>
-        void Draw(GameTime gameTime);      
+        void Draw(GameTime gameTime);
     }
 }
 

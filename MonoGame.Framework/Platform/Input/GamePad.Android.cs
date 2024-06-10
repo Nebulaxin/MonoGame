@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework.Input
             if (Android.OS.Build.VERSION.SdkInt < Android.OS.BuildVersionCodes.Kitkat)
             {
                 var keyMap2 = new Keycode[keyMap.Length];
-                for(int i=0; i<keyMap.Length;i++)
+                for (int i = 0; i < keyMap.Length; i++)
                     keyMap2[i] = (Keycode)keyMap[i];
                 hasMap = KeyCharacterMap.DeviceHasKeys(keyMap2);
             }
@@ -158,7 +158,8 @@ namespace Microsoft.Xna.Framework.Input
             }
             // we need to add the default "no gamepad connected but the user hit back"
             // behaviour here
-            else {
+            else
+            {
                 if (index == 0 && Back)
                 {
                     // Consume state
@@ -239,8 +240,8 @@ namespace Microsoft.Xna.Framework.Input
                 return false;
 
             gamePad.DPadButtons |= e.KeyCode == Keycode.DpadLeft ||
-                                   e.KeyCode == Keycode.DpadUp || 
-                                   e.KeyCode == Keycode.DpadRight || 
+                                   e.KeyCode == Keycode.DpadUp ||
+                                   e.KeyCode == Keycode.DpadRight ||
                                    e.KeyCode == Keycode.DpadDown;
             gamePad._buttons |= ButtonForKeyCode(keyCode);
 
@@ -271,14 +272,14 @@ namespace Microsoft.Xna.Framework.Input
             gamePad._leftTrigger = e.GetAxisValue(Axis.Brake);
             gamePad._rightTrigger = e.GetAxisValue(Axis.Gas);
 
-            if(!gamePad.DPadButtons)
+            if (!gamePad.DPadButtons)
             {
-                if(e.GetAxisValue(Axis.HatX) < 0)
+                if (e.GetAxisValue(Axis.HatX) < 0)
                 {
                     gamePad._buttons |= Buttons.DPadLeft;
                     gamePad._buttons &= ~Buttons.DPadRight;
                 }
-                else if(e.GetAxisValue(Axis.HatX) > 0)
+                else if (e.GetAxisValue(Axis.HatX) > 0)
                 {
                     gamePad._buttons &= ~Buttons.DPadLeft;
                     gamePad._buttons |= Buttons.DPadRight;
@@ -289,12 +290,12 @@ namespace Microsoft.Xna.Framework.Input
                     gamePad._buttons &= ~Buttons.DPadRight;
                 }
 
-                if(e.GetAxisValue(Axis.HatY) < 0)
+                if (e.GetAxisValue(Axis.HatY) < 0)
                 {
                     gamePad._buttons |= Buttons.DPadUp;
                     gamePad._buttons &= ~Buttons.DPadDown;
                 }
-                else if(e.GetAxisValue(Axis.HatY) > 0)
+                else if (e.GetAxisValue(Axis.HatY) > 0)
                 {
                     gamePad._buttons &= ~Buttons.DPadUp;
                     gamePad._buttons |= Buttons.DPadDown;

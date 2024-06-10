@@ -6,15 +6,15 @@ using System;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
-	public partial class Texture3D : Texture
-	{
+    public partial class Texture3D : Texture
+    {
         private void PlatformConstruct(
-            GraphicsDevice graphicsDevice, 
+            GraphicsDevice graphicsDevice,
             int width,
-            int height, 
-            int depth, 
-            bool mipMap, 
-            SurfaceFormat format, 
+            int height,
+            int depth,
+            bool mipMap,
+            SurfaceFormat format,
             bool renderTarget)
         {
             throw new NotImplementedException();
@@ -22,17 +22,17 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private void PlatformSetData<T>(
             int level,
-            int left, 
-            int top, 
-            int right, 
-            int bottom, 
-            int front, 
+            int left,
+            int top,
+            int right,
+            int bottom,
+            int front,
             int back,
             T[] data,
             int startIndex,
             int elementCount,
-            int width, 
-            int height, 
+            int width,
+            int height,
             int depth)
         {
             throw new NotImplementedException();
@@ -45,13 +45,13 @@ namespace Microsoft.Xna.Framework.Graphics
             int right,
             int bottom,
             int front,
-            int back, 
-            T[] data, 
-            int startIndex, 
+            int back,
+            T[] data,
+            int startIndex,
             int elementCount) where T : struct
         {
             throw new NotImplementedException();
         }
-	}
+    }
 }
 

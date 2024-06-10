@@ -61,16 +61,16 @@ namespace Microsoft.Xna.Framework.Graphics
 #endif
 
             if (force || this.ScissorTestEnable != device._lastRasterizerState.ScissorTestEnable)
-			{
-			    if (ScissorTestEnable)
-				    GL.Enable(EnableCap.ScissorTest);
-			    else
-				    GL.Disable(EnableCap.ScissorTest);
+            {
+                if (ScissorTestEnable)
+                    GL.Enable(EnableCap.ScissorTest);
+                else
+                    GL.Disable(EnableCap.ScissorTest);
                 GraphicsExtensions.CheckGLError();
                 device._lastRasterizerState.ScissorTestEnable = this.ScissorTestEnable;
             }
 
-            if (force || 
+            if (force ||
                 this.DepthBias != device._lastRasterizerState.DepthBias ||
                 this.SlopeScaleDepthBias != device._lastRasterizerState.SlopeScaleDepthBias)
             {
@@ -94,7 +94,7 @@ namespace Microsoft.Xna.Framework.Graphics
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
-    }
+                    }
                     GL.Enable(EnableCap.PolygonOffsetFill);
                     GL.PolygonOffset(this.SlopeScaleDepthBias, this.DepthBias * depthMul);
                 }
@@ -109,9 +109,9 @@ namespace Microsoft.Xna.Framework.Graphics
                 (force || this.DepthClipEnable != device._lastRasterizerState.DepthClipEnable))
             {
                 if (!DepthClipEnable)
-                    GL.Enable((EnableCap) 0x864F); // should be EnableCap.DepthClamp, but not available in OpenTK.Graphics.ES20.EnableCap
+                    GL.Enable((EnableCap)0x864F); // should be EnableCap.DepthClamp, but not available in OpenTK.Graphics.ES20.EnableCap
                 else
-                    GL.Disable((EnableCap) 0x864F);
+                    GL.Disable((EnableCap)0x864F);
                 GraphicsExtensions.CheckGLError();
                 device._lastRasterizerState.DepthClipEnable = this.DepthClipEnable;
             }

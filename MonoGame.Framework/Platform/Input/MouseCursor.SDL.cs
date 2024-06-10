@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Input
         {
             if (Handle == IntPtr.Zero)
                 return;
-            
+
             Sdl.Mouse.FreeCursor(Handle);
             Handle = IntPtr.Zero;
         }

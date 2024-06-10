@@ -2,7 +2,6 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-using System;
 namespace Microsoft.Xna.Framework.Graphics
 {
     /// <summary>
@@ -15,13 +14,13 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Use this class to write a content pipeline extension to store materials inside a custom data type.
     /// </remarks>
 	public class EffectMaterial : Effect
-	{
+    {
         /// <summary>
         /// Creates a new instance of <see cref="EffectMaterial"/>.
         /// </summary>
         /// <param name="cloneSource">An instance of an object to copy initialization data from.</param>
-		public EffectMaterial (Effect cloneSource) : base(cloneSource)
-		{
-		}
-	}
+		public EffectMaterial(Effect cloneSource) : base(cloneSource)
+        {
+        }
+    }
 }

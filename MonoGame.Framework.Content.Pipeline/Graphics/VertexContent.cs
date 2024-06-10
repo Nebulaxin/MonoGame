@@ -218,7 +218,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         {
             if (index < 0 || index >= VertexCount)
                 throw new ArgumentOutOfRangeException("index");
-            if (count < 0 || (index+count) > VertexCount)
+            if (count < 0 || (index + count) > VertexCount)
                 throw new ArgumentOutOfRangeException("count");
 
             positionIndices.RemoveRange(index, count);

@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework
         {
             // Setup the game window.
             Window = UAPGameWindow.Instance;
-			UAPGameWindow.Instance.Game = game;
+            UAPGameWindow.Instance.Game = game;
             UAPGameWindow.Instance.RegisterCoreWindowService();
 
             // Setup the launch parameters.
@@ -130,12 +130,12 @@ namespace Microsoft.Xna.Framework
             });
             var tickWorker = ThreadPool.RunAsync(workItemHandler, WorkItemPriority.High, WorkItemOptions.TimeSliced);
         }
-        
+
         public override void Exit()
         {
             if (!UAPGameWindow.Instance.IsExiting)
             {
-				UAPGameWindow.Instance.IsExiting = true;
+                UAPGameWindow.Instance.IsExiting = true;
                 Application.Current.Exit();
             }
         }
@@ -151,11 +151,11 @@ namespace Microsoft.Xna.Framework
             var device = Game.GraphicsDevice;
             if (device != null)
             {
-				// For a UAP app we need to re-apply the
-				// render target before every draw.  
-				// 
-				// I guess the OS changes it and doesn't restore it?
-				device.ResetRenderTargets();
+                // For a UAP app we need to re-apply the
+                // render target before every draw.  
+                // 
+                // I guess the OS changes it and doesn't restore it?
+                device.ResetRenderTargets();
             }
 
             return true;
@@ -164,9 +164,9 @@ namespace Microsoft.Xna.Framework
         public override void EnterFullScreen()
         {
             UAPGameWindow.Instance.AppView.TryEnterFullScreenMode();
-		}
+        }
 
-		public override void ExitFullScreen()
+        public override void ExitFullScreen()
         {
             UAPGameWindow.Instance.AppView.ExitFullScreenMode();
         }
@@ -195,15 +195,15 @@ namespace Microsoft.Xna.Framework
         public override void Present()
         {
             var device = Game.GraphicsDevice;
-            if ( device != null )
+            if (device != null)
                 device.Present();
         }
 
-        protected override void OnIsMouseVisibleChanged() 
+        protected override void OnIsMouseVisibleChanged()
         {
-			UAPGameWindow.Instance.SetCursor(Game.IsMouseVisible);
+            UAPGameWindow.Instance.SetCursor(Game.IsMouseVisible);
         }
-		
+
         protected override void Dispose(bool disposing)
         {
             // Make sure we dispose the graphics system.
@@ -211,9 +211,9 @@ namespace Microsoft.Xna.Framework
             if (graphicsDeviceManager != null)
                 graphicsDeviceManager.Dispose();
 
-			UAPGameWindow.Instance.Dispose();
-			
-			base.Dispose(disposing);
+            UAPGameWindow.Instance.Dispose();
+
+            base.Dispose(disposing);
         }
     }
 }

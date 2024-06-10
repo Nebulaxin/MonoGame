@@ -22,5 +22,5 @@ namespace Microsoft.Xna.Framework
             return new UAPGamePlatform(game);
 #endif
         }
-   }
+    }
 }

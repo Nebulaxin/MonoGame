@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework.Content
         /// </summary>
         /// <param name="message">The message of the exception.</param>
         /// <param name="innerException">The inner exception.</param>
-        public ContentLoadException(string message, Exception innerException) : base(message,innerException)
+        public ContentLoadException(string message, Exception innerException) : base(message, innerException)
         {
         }
     }

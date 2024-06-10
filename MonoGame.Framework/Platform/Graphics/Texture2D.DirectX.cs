@@ -180,7 +180,7 @@ namespace Microsoft.Xna.Framework.Graphics
                         for (var row = 0; row < rows; row++)
                         {
                             int i;
-                            int maxElements =  (row + 1) * rowSize / elementSizeInByte;
+                            int maxElements = (row + 1) * rowSize / elementSizeInByte;
                             for (i = row * rowSize / elementSizeInByte; i < maxElements; i++)
                                 data[i + startIndex] = stream.Read<T>();
 
@@ -193,7 +193,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 }
                 finally
                 {
-                    SharpDX.Utilities.Dispose( ref stream);
+                    SharpDX.Utilities.Dispose(ref stream);
 
                     d3dContext.UnmapSubresource(_cachedStagingTexture, 0);
                 }

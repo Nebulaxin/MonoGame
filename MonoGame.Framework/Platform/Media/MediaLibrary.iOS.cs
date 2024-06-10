@@ -89,7 +89,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private void PlatformDispose()
         {
-            
+
         }
     }
 }

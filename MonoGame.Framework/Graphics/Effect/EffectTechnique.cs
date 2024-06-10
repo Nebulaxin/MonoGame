@@ -1,4 +1,3 @@
-using System;
 namespace Microsoft.Xna.Framework.Graphics
 {
     /// <summary>
@@ -40,7 +39,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </code>
     /// </example>
     public class EffectTechnique
-	{
+    {
         /// <summary>
         /// Gets the collection of <see cref="EffectPass"/> objects this rendering technique requires.
         /// </summary>

@@ -25,14 +25,14 @@ namespace Microsoft.Xna.Framework.Media
 
             _duration = stream.GetLength();
         }
-        
+
         internal void SetEventHandler(FinishedPlayingHandler handler) { }
 
         internal void OnFinishedPlaying()
         {
             MediaPlayer.OnSongFinishedPlaying(null, null);
         }
-		
+
         void PlatformDispose(bool disposing)
         {
             lock (_sourceMutex)
@@ -88,7 +88,7 @@ namespace Microsoft.Xna.Framework.Media
             {
                 if (stream == null)
                     return 0.0f;
-                return _volume; 
+                return _volume;
             }
             set
             {

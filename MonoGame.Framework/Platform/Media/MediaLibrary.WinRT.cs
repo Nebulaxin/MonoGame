@@ -38,8 +38,8 @@ namespace Microsoft.Xna.Framework.Media
                         return;
                     }
                 }
-                    
-            
+
+
                 var files = new List<StorageFile>();
                 await this.GetAllFiles(musicFolder, files);
 
@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Media
                 using (var stream = new BinaryReader(baseStream))
                     try
                     {
-                        for (; baseStream.Position < baseStream.Length; )
+                        for (; baseStream.Position < baseStream.Length;)
                         {
                             var entry = MusicProperties.Deserialize(stream);
                             cache.Add(entry.Path, entry);
@@ -170,7 +170,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private void PlatformDispose()
         {
-            
+
         }
     }
 }

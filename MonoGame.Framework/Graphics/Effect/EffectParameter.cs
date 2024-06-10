@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using System.Text;
 using System.Diagnostics;
 
 namespace Microsoft.Xna.Framework.Graphics
@@ -83,8 +82,7 @@ namespace Microsoft.Xna.Framework.Graphics
             StructureMembers = cloneSource.StructureMembers.Clone();
 
             // The data is mutable, so we have to clone it.
-            var array = cloneSource.Data as Array;
-            if (array != null)
+            if (cloneSource.Data is Array array)
                 Data = array.Clone();
             StateKey = unchecked(NextStateKey++);
         }

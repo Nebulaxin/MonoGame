@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework.Input
     {
         private static readonly CoreDispatcher dispatcher;
         private static TaskCompletionSource<int?> tcs;
-        private static IAsyncOperation<IUICommand> dialogResult; 
+        private static IAsyncOperation<IUICommand> dialogResult;
 
         static MessageBox()
         {

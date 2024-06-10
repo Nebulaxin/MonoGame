@@ -43,11 +43,11 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// This changes from the source data to the output data after conversion.
         /// For MP3 and WMA files this throws an exception to match XNA behavior.
         /// </remarks>
-        public ReadOnlyCollection<byte> Data 
+        public ReadOnlyCollection<byte> Data
         {
             get
             {
-                if (_disposed || _data == null)                
+                if (_disposed || _data == null)
                     throw new InvalidContentException("Could not read the audio data from file \"" + Path.GetFileName(_fileName) + "\".");
                 return _data;
             }
@@ -85,7 +85,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
             get
             {
                 return _loopLength;
-            } 
+            }
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
 
                 // Looks like XNA only cares about type mismatch when
                 // the type is WAV... else it is ok.
-                if (    (audioFileType == AudioFileType.Wav || _fileType == AudioFileType.Wav) &&
+                if ((audioFileType == AudioFileType.Wav || _fileType == AudioFileType.Wav) &&
                         audioFileType != _fileType)
                     throw new ArgumentException("Incorrect file type!", "audioFileType");
 

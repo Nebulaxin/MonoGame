@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 {
     [ContentTypeSerializer]
-    class DictionarySerializer<TKey,TValue> : ContentTypeSerializer<Dictionary<TKey,TValue>>
+    class DictionarySerializer<TKey, TValue> : ContentTypeSerializer<Dictionary<TKey, TValue>>
     {
         private ContentTypeSerializer _keySerializer;
         private ContentTypeSerializer _valueSerializer;
@@ -68,7 +68,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
                 var key = input.ReadObject<TKey>(_keyFormat, _keySerializer);
                 var value = input.ReadObject<TValue>(_valueFormat, _valueSerializer);
-                result.Add(key,value);
+                result.Add(key, value);
 
                 input.Xml.ReadEndElement();
             }

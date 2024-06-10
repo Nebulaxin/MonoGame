@@ -12,12 +12,12 @@ using MonoGame.Framework.Utilities;
 namespace MonoGame.OpenGL
 {
     internal partial class GL
-	{
+    {
         public static IntPtr Library = FuncLoader.LoadLibrary("/System/Library/Frameworks/OpenGLES.framework/OpenGLES");
-        
+
         static partial void LoadPlatformEntryPoints()
-		{
-			BoundApi = RenderApi.ES;
+        {
+            BoundApi = RenderApi.ES;
         }
 
         private static T LoadFunction<T>(string function, bool throwIfNotFound = false)
@@ -25,15 +25,15 @@ namespace MonoGame.OpenGL
             return FuncLoader.LoadFunction<T>(Library, function, throwIfNotFound);
         }
 
-        private static IGraphicsContext PlatformCreateContext (IWindowInfo info)
+        private static IGraphicsContext PlatformCreateContext(IWindowInfo info)
         {
-            return new GraphicsContext ();
+            return new GraphicsContext();
         }
-	}
+    }
 
     public class GraphicsContext : IGraphicsContext
     {
-        public GraphicsContext ()
+        public GraphicsContext()
         {
             try
             {
@@ -46,47 +46,57 @@ namespace MonoGame.OpenGL
             }
         }
 
-        public bool IsCurrent {
-            get {
+        public bool IsCurrent
+        {
+            get
+            {
                 return EAGLContext.CurrentContext == this.Context;
             }
         }
 
-        public bool IsDisposed {
-            get {
+        public bool IsDisposed
+        {
+            get
+            {
                 return this.Context == null;
             }
         }
 
-        public int SwapInterval {
-            get {
-                throw new NotImplementedException ();
+        public int SwapInterval
+        {
+            get
+            {
+                throw new NotImplementedException();
             }
 
-            set {
-                throw new NotImplementedException ();
+            set
+            {
+                throw new NotImplementedException();
             }
         }
 
-        public void Dispose ()
+        public void Dispose()
         {
-            if (this.Context != null) {
-                this.Context.Dispose ();
+            if (this.Context != null)
+            {
+                this.Context.Dispose();
             }
             this.Context = null;
         }
 
-        public void MakeCurrent (IWindowInfo info)
+        public void MakeCurrent(IWindowInfo info)
         {
-            if (!EAGLContext.SetCurrentContext (this.Context)) {
-                throw new InvalidOperationException ("Unable to change current EAGLContext.");
+            if (!EAGLContext.SetCurrentContext(this.Context))
+            {
+                throw new InvalidOperationException("Unable to change current EAGLContext.");
             }
         }
 
-        public void SwapBuffers ()
+        public void SwapBuffers()
         {
-            if (!this.Context.PresentRenderBuffer (36161u)) {
-                throw new InvalidOperationException ("EAGLContext.PresentRenderbuffer failed.");
+            if (!this.Context.PresentRenderBuffer(36161u))
+            {
+                throw new InvalidOperationException("EAGLContext.PresentRenderbuffer failed.");
             }
         }
 

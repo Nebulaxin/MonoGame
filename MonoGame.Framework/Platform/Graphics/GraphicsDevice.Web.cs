@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         private void PlatformSetup()
         {
-            
+
         }
 
         private void PlatformInitialize()
@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             return null;
         }
-		
+
         internal void PlatformBeginApplyState()
         {
         }
@@ -108,7 +108,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             return new Rectangle(x, y, width, height);
         }
-        
+
         internal void PlatformSetMultiSamplingToMaximum(PresentationParameters presentationParameters, out int quality)
         {
             presentationParameters.MultiSampleCount = 0;

@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         public void ProcessQueued()
         {
             TouchEvent ev;
-            while (_queue.TryDequeue(out ev))                
+            while (_queue.TryDequeue(out ev))
                 TouchPanel.AddEvent(ev.Id, ev.State, ev.Pos, ev.IsMouse);
         }
 

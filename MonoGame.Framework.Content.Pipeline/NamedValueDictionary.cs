@@ -10,7 +10,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
 {
     public class NamedValueDictionary<T> : IDictionary<string, T>
     {
-        readonly Dictionary<string, T> dict = new Dictionary<string,T>();
+        readonly Dictionary<string, T> dict = new Dictionary<string, T>();
 
         /// <summary>
         /// Initializes an instance of NamedValueDictionary.

@@ -219,7 +219,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Utilities.LZ4
 					}
 					if ((src_p < src_LASTLITERALS) && (*src_ref == *src_p)) src_p++;
 
-				_endCount:
+					_endCount:
 
 					// Encode MatchLength
 					length = (int)(src_p - src_anchor);
@@ -450,7 +450,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Utilities.LZ4
 					}
 					if ((src_p < src_LASTLITERALS) && (*src_ref == *src_p)) src_p++;
 
-				_endCount:
+					_endCount:
 
 					// Encode MatchLength
 					len = (int)(src_p - src_anchor);
@@ -654,7 +654,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Utilities.LZ4
 				// end of decoding
 				return (int)((src_p) - src);
 
-				// write overflow error detected
+			// write overflow error detected
 			_output_error:
 				return (int)(-((src_p) - src));
 			}

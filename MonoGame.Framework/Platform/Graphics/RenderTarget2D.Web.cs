@@ -9,13 +9,13 @@ namespace Microsoft.Xna.Framework.Graphics
     public partial class RenderTarget2D
     {
         private void PlatformConstruct(
-            GraphicsDevice graphicsDevice, 
-            int width, 
-            int height, 
+            GraphicsDevice graphicsDevice,
+            int width,
+            int height,
             bool mipMap,
             DepthFormat preferredDepthFormat,
             int preferredMultiSampleCount,
-            RenderTargetUsage usage, 
+            RenderTargetUsage usage,
             bool shared)
         {
             throw new NotImplementedException();

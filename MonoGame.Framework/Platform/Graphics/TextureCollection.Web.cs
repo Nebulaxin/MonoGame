@@ -10,17 +10,17 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         void PlatformInit()
         {
-            
+
         }
 
         void PlatformClear()
         {
-            
+
         }
 
         void PlatformSetTextures(GraphicsDevice device)
         {
-            
+
         }
     }
 }

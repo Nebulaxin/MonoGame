@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework
     internal static class PrimaryThreadLoader
     {
         private static readonly object ListLockObject = new object();
-        private static readonly List<IPrimaryThreadLoaded> NeedToLoad = new List<IPrimaryThreadLoaded>(); 
+        private static readonly List<IPrimaryThreadLoaded> NeedToLoad = new List<IPrimaryThreadLoaded>();
         private static readonly List<IPrimaryThreadLoaded> RemoveList = new List<IPrimaryThreadLoaded>();
         private static DateTime _lastUpdate = DateTime.UtcNow;
 
@@ -50,7 +50,7 @@ namespace Microsoft.Xna.Framework
 
         public static void Clear()
         {
-            lock(ListLockObject)
+            lock (ListLockObject)
             {
                 NeedToLoad.Clear();
             }
@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public static void DoLoads()
         {
-            if((DateTime.UtcNow - _lastUpdate).Milliseconds < 250) return;
+            if ((DateTime.UtcNow - _lastUpdate).Milliseconds < 250) return;
 
             _lastUpdate = DateTime.UtcNow;
             lock (ListLockObject)

@@ -21,12 +21,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
         public override bool ObjectIsEmpty(object value)
         {
-            return ((IList) value).Count == 0;
+            return ((IList)value).Count == 0;
         }
 
         protected internal override object Deserialize(IntermediateReader input, ContentSerializerAttribute format, object existingInstance)
         {
-            var result = (IList) (existingInstance ?? Activator.CreateInstance(TargetType));
+            var result = (IList)(existingInstance ?? Activator.CreateInstance(TargetType));
 
             // Create the item serializer attribute.
             var itemFormat = new ContentSerializerAttribute();
@@ -49,7 +49,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             itemFormat.ElementName = format.CollectionItemName;
 
             // Read all the items.
-            foreach (var item in (IList) value)
+            foreach (var item in (IList)value)
                 output.WriteObject(item, itemFormat);
         }
     }

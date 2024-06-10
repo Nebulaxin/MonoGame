@@ -236,7 +236,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         }
 
         internal OpenAssetImporter(string importerName, bool xnaCompatible)
-        {            
+        {
             _importerName = importerName;
             _xnaCompatible = xnaCompatible;
         }
@@ -325,7 +325,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
                 if (_xnaCompatible)
                     ImportXnaMaterials();
                 else
-                    ImportMaterials();  
+                    ImportMaterials();
 
                 ImportNodes();      // Create _pivots and _rootNode (incl. children).
                 ImportSkeleton();   // Create skeleton (incl. animations) and add to _rootNode.
@@ -389,7 +389,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
 
                 if (aiMaterial.HasShininessStrength)
                     material.SpecularPower = aiMaterial.Shininess;
-                
+
                 _materials.Add(material);
             }
         }
@@ -408,7 +408,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
             }
 
             return texture;
-        }            
+        }
 
         /// <summary>
         /// Returns all the Assimp <see cref="Material"/> features as a <see cref="MaterialContent"/>.
@@ -488,7 +488,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         private void ImportNodes()
         {
             _pivots = new Dictionary<string, FbxPivot>();
-            _rootNode = ImportNodes(_scene.RootNode, null,  null);
+            _rootNode = ImportNodes(_scene.RootNode, null, null);
         }
 
         /// <summary>
@@ -618,8 +618,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         {
             var geom = new GeometryContent
             {
-              Identity = _identity,
-              Material = _materials[aiMesh.MaterialIndex]
+                Identity = _identity,
+                Material = _materials[aiMesh.MaterialIndex]
             };
 
             // Vertices
@@ -656,14 +656,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
                         list.Add(new BoneWeight(aiMesh.Bones[0].Name, 1));
                     }
 
-                        xnaWeights.Add(list);
+                    xnaWeights.Add(list);
                 }
 
                 if (missingBoneWeights)
                 {
                     _context.Logger.LogWarning(
-                        string.Empty, 
-                        _identity, 
+                        string.Empty,
+                        _identity,
                         "No bone weights found for one or more vertices of skinned mesh '{0}'.",
                         aiMesh.Name);
                 }
@@ -816,8 +816,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
                     // Bone
                     node = new BoneContent
                     {
-                      Name = aiNode.Name,
-                      Identity = _identity
+                        Name = aiNode.Name,
+                        Identity = _identity
                     };
 
                     // node.Transform is irrelevant for bones. This transform is just the
@@ -860,8 +860,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
                         else
                         {
                             // --> Let's assume that parent's transform is Identity.
-                        node.Transform = Matrix.Invert(offsetMatrix);
-                    }
+                            node.Transform = Matrix.Invert(offsetMatrix);
+                        }
                     }
                     else if (isOffsetMatrixValid && aiParent == _rootBone)
                     {
@@ -917,7 +917,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
             //                 "nodeXyz_$AssimpFbx$_Rotation",
             //                 "nodeXyz_$AssimpFbx$_Scaling"
             // Group animation channels by name (strip the "_$AssimpFbx$" part).
-            IEnumerable < IGrouping < string,NodeAnimationChannel >> channelGroups;
+            IEnumerable<IGrouping<string, NodeAnimationChannel>> channelGroups;
             if (nodeName != null)
             {
                 channelGroups = aiAnimation.NodeAnimationChannels

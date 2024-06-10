@@ -18,40 +18,40 @@ namespace Microsoft.Xna.Framework
         private OrientationListener _orientationListener;
 
         public bool AutoPauseAndResumeMediaPlayer = true;
-        public bool RenderOnUIThread = true; 
+        public bool RenderOnUIThread = true;
 
-		/// <summary>
-		/// OnCreate called when the activity is launched from cold or after the app
-		/// has been killed due to a higher priority app needing the memory
-		/// </summary>
-		/// <param name='savedInstanceState'>
-		/// Saved instance state.
-		/// </param>
-		protected override void OnCreate (Bundle savedInstanceState)
-		{
+        /// <summary>
+        /// OnCreate called when the activity is launched from cold or after the app
+        /// has been killed due to a higher priority app needing the memory
+        /// </summary>
+        /// <param name='savedInstanceState'>
+        /// Saved instance state.
+        /// </param>
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
             RequestWindowFeature(WindowFeatures.NoTitle);
             base.OnCreate(savedInstanceState);
 
-			IntentFilter filter = new IntentFilter();
-		    filter.AddAction(Intent.ActionScreenOff);
-		    filter.AddAction(Intent.ActionScreenOn);
-		    filter.AddAction(Intent.ActionUserPresent);
-		    
-		    screenReceiver = new ScreenReceiver();
-		    RegisterReceiver(screenReceiver, filter);
+            IntentFilter filter = new IntentFilter();
+            filter.AddAction(Intent.ActionScreenOff);
+            filter.AddAction(Intent.ActionScreenOn);
+            filter.AddAction(Intent.ActionUserPresent);
+
+            screenReceiver = new ScreenReceiver();
+            RegisterReceiver(screenReceiver, filter);
 
             _orientationListener = new OrientationListener(this);
 
-			Game.Activity = this;
-		}
+            Game.Activity = this;
+        }
 
         public static event EventHandler Paused;
 
-		public override void OnConfigurationChanged (Android.Content.Res.Configuration newConfig)
-		{
-			// we need to refresh the viewport here.
-			base.OnConfigurationChanged (newConfig);
-		}
+        public override void OnConfigurationChanged(Android.Content.Res.Configuration newConfig)
+        {
+            // we need to refresh the viewport here.
+            base.OnConfigurationChanged(newConfig);
+        }
 
         protected override void OnPause()
         {
@@ -80,28 +80,28 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-		protected override void OnDestroy ()
-		{
+        protected override void OnDestroy()
+        {
             UnregisterReceiver(screenReceiver);
             ScreenReceiver.ScreenLocked = false;
             _orientationListener = null;
             if (Game != null)
                 Game.Dispose();
             Game = null;
-			base.OnDestroy ();
-		}
+            base.OnDestroy();
+        }
     }
 
-	public static class ActivityExtensions
+    public static class ActivityExtensions
     {
         public static ActivityAttribute GetActivityAttribute(this AndroidGameActivity obj)
-        {			
+        {
             var attr = obj.GetType().GetCustomAttributes(typeof(ActivityAttribute), true);
-			if (attr != null)
-			{
-            	return ((ActivityAttribute)attr[0]);
-			}
-			return null;
+            if (attr != null)
+            {
+                return ((ActivityAttribute)attr[0]);
+            }
+            return null;
         }
     }
 

@@ -252,7 +252,7 @@ namespace Microsoft.Xna.Framework
             else
                 verticalScrollDelta = state.MouseWheelDelta;
 
-            Mouse.PrimaryWindow.MouseState = new MouseState(x, y, 
+            Mouse.PrimaryWindow.MouseState = new MouseState(x, y,
                 Mouse.PrimaryWindow.MouseState.ScrollWheelValue + verticalScrollDelta,
                 state.IsLeftButtonPressed ? ButtonState.Pressed : ButtonState.Released,
                 state.IsMiddleButtonPressed ? ButtonState.Pressed : ButtonState.Released,

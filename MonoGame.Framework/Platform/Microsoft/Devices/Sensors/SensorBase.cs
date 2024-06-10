@@ -13,26 +13,26 @@ namespace Microsoft.Devices.Sensors
 #if IOS
         protected static readonly CoreMotion.CMMotionManager motionManager = new CoreMotion.CMMotionManager();
 #endif
-        bool disposed;
+		bool disposed;
 		private TimeSpan timeBetweenUpdates;
-	    private TSensorReading currentValue;
-        private SensorReadingEventArgs<TSensorReading> eventArgs = new SensorReadingEventArgs<TSensorReading>(default(TSensorReading));
+		private TSensorReading currentValue;
+		private SensorReadingEventArgs<TSensorReading> eventArgs = new SensorReadingEventArgs<TSensorReading>(default(TSensorReading));
 
-		public TSensorReading CurrentValue 
-        {
-            get { return currentValue; }
-		    protected set
-		    {
-		        currentValue = value;
+		public TSensorReading CurrentValue
+		{
+			get { return currentValue; }
+			protected set
+			{
+				currentValue = value;
 
-                var handler = CurrentValueChanged;
+				var handler = CurrentValueChanged;
 
-                if (handler != null)
-                {
-                    eventArgs.SensorReading = value;
-                    handler(this, eventArgs);
-                }
-		    }
+				if (handler != null)
+				{
+					eventArgs.SensorReading = value;
+					handler(this, eventArgs);
+				}
+			}
 		}
 		public bool IsDataValid { get; protected set; }
 		public TimeSpan TimeBetweenUpdates
@@ -50,34 +50,34 @@ namespace Microsoft.Devices.Sensors
 
 		public event EventHandler<SensorReadingEventArgs<TSensorReading>> CurrentValueChanged;
 		protected event EventHandler<EventArgs> TimeBetweenUpdatesChanged;
-        protected bool IsDisposed { get { return disposed; } }
+		protected bool IsDisposed { get { return disposed; } }
 
 		public SensorBase()
 		{
 			this.TimeBetweenUpdates = TimeSpan.FromMilliseconds(2);
 		}
 
-        ~SensorBase()
-        {
-            Dispose(false);
-        }
+		~SensorBase()
+		{
+			Dispose(false);
+		}
 
 		public void Dispose()
-        {
-            if (disposed)
-                throw new ObjectDisposedException(GetType().Name);
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+		{
+			if (disposed)
+				throw new ObjectDisposedException(GetType().Name);
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
 
-        /// <summary>
-        /// Derived classes override this method to dispose of managed and unmanaged resources.
-        /// </summary>
-        /// <param name="disposing">True if unmanaged resources are to be disposed.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            disposed = true;
-        }
+		/// <summary>
+		/// Derived classes override this method to dispose of managed and unmanaged resources.
+		/// </summary>
+		/// <param name="disposing">True if unmanaged resources are to be disposed.</param>
+		protected virtual void Dispose(bool disposing)
+		{
+			disposed = true;
+		}
 
 		public abstract void Start();
 

@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
     {
         public override bool Supports(TargetPlatform platform)
         {
-            return  platform == TargetPlatform.Android ||
+            return platform == TargetPlatform.Android ||
                     platform == TargetPlatform.DesktopGL ||
                     platform == TargetPlatform.MacOSX ||
                     platform == TargetPlatform.NativeClient ||

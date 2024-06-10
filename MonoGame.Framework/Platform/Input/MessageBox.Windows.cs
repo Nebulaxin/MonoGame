@@ -49,7 +49,7 @@ namespace Microsoft.Xna.Framework.Input
                     string btext = buttons[i];
                     var button = new Button();
                     button.Text = btext;
-                    button.DialogResult = (DialogResult)i+1;
+                    button.DialogResult = (DialogResult)i + 1;
                     button.Parent = bgroup;
                     if (i == 0)
                         dialog.AcceptButton = button;
@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework.Input
                 if (_tcs.Task.IsCompleted)
                     return;
 
-                _tcs.SetResult(result-1);
+                _tcs.SetResult(result - 1);
             }));
 
             return _tcs.Task;

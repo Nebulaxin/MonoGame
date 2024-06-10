@@ -45,7 +45,7 @@ namespace Microsoft.Xna.Framework
             {
                 // Damm...Mono fails in this!
                 //return (T) Activator.CreateInstance(typeof(T));
-                return default(T);
+                return default;
             }
         }
 

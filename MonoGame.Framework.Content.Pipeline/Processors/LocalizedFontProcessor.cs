@@ -39,10 +39,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(typeof(TextureProcessorOutputFormat), "Compressed")]
         public virtual TextureProcessorOutputFormat TextureFormat { get; set; }
 
-        public LocalizedFontProcessor ()
+        public LocalizedFontProcessor()
         {
-              PremultiplyAlpha = true;
-              TextureFormat = TextureProcessorOutputFormat.Compressed;
+            PremultiplyAlpha = true;
+            TextureFormat = TextureProcessorOutputFormat.Compressed;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
             // Scan each .resx file in turn.
             foreach (string resourceFile in input.ResourceFiles)
             {
-                string absolutePath = Path.GetFullPath(resourceFile.Replace ('\\', Path.DirectorySeparatorChar).Replace ('/', Path.DirectorySeparatorChar));
+                string absolutePath = Path.GetFullPath(resourceFile.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar));
 
                 // Make sure the .resx file really does exist.
                 if (!File.Exists(absolutePath))
@@ -75,7 +75,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
                     // Scan each character of the string.
                     foreach (char usedCharacter in resourceString)
                     {
-                        if (!input.Characters.Contains (usedCharacter))
+                        if (!input.Characters.Contains(usedCharacter))
                             input.Characters.Add(usedCharacter);
                     }
                 }
@@ -84,9 +84,9 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
                 context.AddDependency(absolutePath);
             }
 
-            var parameters = new OpaqueDataDictionary ();
-            parameters.Add ("PremultiplyAlpha", PremultiplyAlpha);
-            parameters.Add ("TextureFormat", TextureFormat);
+            var parameters = new OpaqueDataDictionary();
+            parameters.Add("PremultiplyAlpha", PremultiplyAlpha);
+            parameters.Add("TextureFormat", TextureFormat);
             // After adding the necessary characters, we can use the built in
             // FontDescriptionProcessor to do the hard work of building the font for us.
             return context.Convert<FontDescription,

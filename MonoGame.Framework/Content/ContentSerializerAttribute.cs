@@ -88,14 +88,16 @@ namespace Microsoft.Xna.Framework.Content
         /// <returns>The copy of this content serializer attribute.</returns>
         public ContentSerializerAttribute Clone()
         {
-            var clone = new ContentSerializerAttribute ();
-            clone.AllowNull = AllowNull;
-            clone._collectionItemName = _collectionItemName;
-            clone.ElementName = ElementName;
-            clone.FlattenContent = FlattenContent;
-            clone.Optional = Optional;
-            clone.SharedResource = SharedResource;
+            var clone = new ContentSerializerAttribute
+            {
+                AllowNull = AllowNull,
+                _collectionItemName = _collectionItemName,
+                ElementName = ElementName,
+                FlattenContent = FlattenContent,
+                Optional = Optional,
+                SharedResource = SharedResource
+            };
             return clone;
         }
     }
-} 
+}

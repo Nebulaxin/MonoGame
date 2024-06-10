@@ -2,10 +2,7 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
 
 namespace Microsoft.Xna.Framework.Content
@@ -160,13 +157,14 @@ namespace Microsoft.Xna.Framework.Content
                 if (existingInstance != null)
                     continue;
 
-                ModelMesh mesh = new(reader.GetGraphicsDevice(), parts);
+                ModelMesh mesh = new(reader.GetGraphicsDevice(), parts)
+                {
+                    // Tag reassignment
+                    Tag = meshTag,
 
-                // Tag reassignment
-                mesh.Tag = meshTag;
-
-                mesh.Name = name;
-                mesh.ParentBone = bones[parentBoneIndex];
+                    Name = name,
+                    ParentBone = bones[parentBoneIndex]
+                };
                 mesh.ParentBone.AddMesh(mesh);
                 mesh.BoundingSphere = boundingSphere;
                 meshes.Add(mesh);
@@ -183,9 +181,10 @@ namespace Microsoft.Xna.Framework.Content
             // Read the final pieces of model data.
             var rootBoneIndex = ReadBoneReference(reader, boneCount);
 
-            Model model = new(reader.GetGraphicsDevice(), bones, meshes);
-
-            model.Root = bones[rootBoneIndex];
+            Model model = new(reader.GetGraphicsDevice(), bones, meshes)
+            {
+                Root = bones[rootBoneIndex]
+            };
 
             model.BuildHierarchy();
 

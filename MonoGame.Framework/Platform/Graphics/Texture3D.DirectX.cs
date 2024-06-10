@@ -12,8 +12,8 @@ using MonoGame.Framework.Utilities;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
-	public partial class Texture3D : Texture
-	{
+    public partial class Texture3D : Texture
+    {
         private bool renderTarget;
         private bool mipMap;
 
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Graphics
             return new SharpDX.Direct3D11.Texture3D(GraphicsDevice._d3dDevice, description);
         }
 
-	    private void PlatformSetData<T>(int level,
+        private void PlatformSetData<T>(int level,
                                      int left, int top, int right, int bottom, int front, int back,
                                      T[] data, int startIndex, int elementCount, int width, int height, int depth)
         {
@@ -148,6 +148,6 @@ namespace Microsoft.Xna.Framework.Graphics
                 }
             }
         }
-	}
+    }
 }
 

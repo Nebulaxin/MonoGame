@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
 
             if (!File.Exists(filename))
                 throw new FileNotFoundException(string.Format("Could not locate audio file {0}.", Path.GetFileName(filename)));
-            
+
             var content = new AudioContent(filename, AudioFileType.Ogg);
             return content;
         }

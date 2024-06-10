@@ -22,31 +22,31 @@ namespace Microsoft.Xna.Framework.Graphics
 
         public readonly PresentInterval PresentInterval;
 
-        public SwapChainRenderTarget(   GraphicsDevice graphicsDevice,
+        public SwapChainRenderTarget(GraphicsDevice graphicsDevice,
                                         IntPtr windowHandle,
                                         int width,
                                         int height)
-            : this( 
-                graphicsDevice, 
-                windowHandle, 
-                width, 
-                height, 
-                false, 
+            : this(
+                graphicsDevice,
+                windowHandle,
+                width,
+                height,
+                false,
                 SurfaceFormat.Color,
                 DepthFormat.Depth24,
-                0, 
+                0,
                 RenderTargetUsage.DiscardContents,
                 PresentInterval.Default)
         {
         }
 
-        public SwapChainRenderTarget(   GraphicsDevice graphicsDevice,
-                                        IntPtr windowHandle,                                     
+        public SwapChainRenderTarget(GraphicsDevice graphicsDevice,
+                                        IntPtr windowHandle,
                                         int width,
                                         int height,
                                         bool mipMap,
                                         SurfaceFormat surfaceFormat,
-                                        DepthFormat depthFormat,                                        
+                                        DepthFormat depthFormat,
                                         int preferredMultiSampleCount,
                                         RenderTargetUsage usage,
                                         PresentInterval presentInterval)
@@ -93,7 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 SwapEffect = SharpDXHelper.ToSwapEffect(PresentInterval),
                 IsWindowed = true,
             };
-            
+
             // First, retrieve the underlying DXGI Device from the D3D Device.
             // Creates the swap chain 
             using (var dxgiDevice = d3dDevice.QueryInterface<SharpDX.DXGI.Device1>())
@@ -108,7 +108,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             return _backBuffer;
         }
-        
+
         private void SwapChainRenderTargetConstruct(DepthFormat depthFormat, ref SharpDX.DXGI.Format dxgiFormat, ref SharpDX.DXGI.SampleDescription multisampleDesc)
         {
             var backBuffer = CreateSwaipChainTexture(dxgiFormat, multisampleDesc);
@@ -148,7 +148,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 }
             }
         }
-        
+
         internal override SharpDX.Direct3D11.Resource CreateTexture()
         {
             return (MultiSampleCount > 1) ? base.CreateTexture() : _backBuffer;

@@ -209,18 +209,8 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new ArgumentException("Must be value type", nameof(vertexType));
             }
 
-            var type = Activator.CreateInstance(vertexType) as IVertexType;
-            if (type == null)
-            {
-                throw new ArgumentException("vertexData does not inherit IVertexType");
-            }
-
-            var vertexDeclaration = type.VertexDeclaration;
-            if (vertexDeclaration == null)
-            {
-                throw new Exception("VertexDeclaration cannot be null");
-            }
-
+            var type = Activator.CreateInstance(vertexType) as IVertexType ?? throw new ArgumentException("vertexData does not inherit IVertexType");
+            var vertexDeclaration = type.VertexDeclaration ?? throw new Exception("VertexDeclaration cannot be null");
             return vertexDeclaration;
         }
 

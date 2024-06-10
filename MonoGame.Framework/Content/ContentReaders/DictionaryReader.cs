@@ -12,22 +12,22 @@ namespace Microsoft.Xna.Framework.Content
     internal class DictionaryReader<TKey, TValue> : ContentTypeReader<Dictionary<TKey, TValue>>
     {
         ContentTypeReader keyReader;
-		ContentTypeReader valueReader;
-		
-		Type keyType;
-		Type valueType;
-		
+        ContentTypeReader valueReader;
+
+        Type keyType;
+        Type valueType;
+
         public DictionaryReader()
         {
         }
 
         protected internal override void Initialize(ContentTypeReaderManager manager)
         {
-			keyType = typeof(TKey);
-			valueType = typeof(TValue);
-			
-			keyReader = manager.GetTypeReader(keyType);
-			valueReader = manager.GetTypeReader(valueType);
+            keyType = typeof(TKey);
+            valueType = typeof(TValue);
+
+            keyReader = manager.GetTypeReader(keyType);
+            valueReader = manager.GetTypeReader(valueType);
         }
 
         public override bool CanDeserializeIntoExistingObject
@@ -46,27 +46,27 @@ namespace Microsoft.Xna.Framework.Content
 
             for (int i = 0; i < count; i++)
             {
-				TKey key;
-				TValue value;
+                TKey key;
+                TValue value;
 
                 if (ReflectionHelpers.IsValueType(keyType))
                 {
-                	key = input.ReadObject<TKey>(keyReader);
-				}
-				else
+                    key = input.ReadObject<TKey>(keyReader);
+                }
+                else
                 {
                     var readerType = input.Read7BitEncodedInt();
-                    key = readerType > 0 ? input.ReadObject<TKey>(input.TypeReaders[readerType - 1]) : default(TKey);
+                    key = readerType > 0 ? input.ReadObject<TKey>(input.TypeReaders[readerType - 1]) : default;
                 }
 
                 if (ReflectionHelpers.IsValueType(valueType))
-				{
-                	value = input.ReadObject<TValue>(valueReader);
-				}
-				else
+                {
+                    value = input.ReadObject<TValue>(valueReader);
+                }
+                else
                 {
                     var readerType = input.Read7BitEncodedInt();
-                    value = readerType > 0 ? input.ReadObject<TValue>(input.TypeReaders[readerType - 1]) : default(TValue);
+                    value = readerType > 0 ? input.ReadObject<TValue>(input.TypeReaders[readerType - 1]) : default;
                 }
 
                 dictionary.Add(key, value);

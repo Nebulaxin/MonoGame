@@ -113,7 +113,7 @@ namespace Microsoft.Xna.Framework.Input
             {
                 if (!_gamepads.ContainsKey(index))
                     return (index == 0 ? GetDefaultState() : GamePadState.Default);
-                
+
                 var state = _gamepads[index].GetCurrentReading();
 
                 var sticks = new GamePadThumbSticks(

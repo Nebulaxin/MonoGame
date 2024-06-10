@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Input
 
             var gpc = GamePadCache[jcap.Identifier];
 
-            return new GamePadCapabilities 
+            return new GamePadCapabilities
             {
                 IsConnected = true,
                 GamePadType = GamePadType.GamePad,
@@ -84,7 +84,7 @@ namespace Microsoft.Xna.Framework.Input
 
                 var gpc = GamePadCache[jcap.Identifier];
 
-                Buttons buttons = 
+                Buttons buttons =
                     (gpc.ButtonPressed("a", jstate) ? Buttons.A : 0) |
                     (gpc.ButtonPressed("b", jstate) ? Buttons.B : 0) |
                     (gpc.ButtonPressed("back", jstate) ? Buttons.Back : 0) |
@@ -98,15 +98,15 @@ namespace Microsoft.Xna.Framework.Input
                     (gpc.ButtonPressed("y", jstate) ? Buttons.Y : 0) |
                     0;
 
-                var sticks = 
+                var sticks =
                     new GamePadThumbSticks(
                         new Vector2(gpc.AxisPressed("leftx", jstate), gpc.AxisPressed("lefty", jstate)),
                         new Vector2(gpc.AxisPressed("rightx", jstate), gpc.AxisPressed("righty", jstate)),
                         leftDeadZoneMode,
-						rightDeadZoneMode
+                        rightDeadZoneMode
                     );
-                
-                var dpad = 
+
+                var dpad =
                     new GamePadDPad(
                         gpc.DpadPressed("dpup", jstate) ? ButtonState.Pressed : ButtonState.Released,
                         gpc.DpadPressed("dpdown", jstate) ? ButtonState.Pressed : ButtonState.Released,
@@ -114,13 +114,13 @@ namespace Microsoft.Xna.Framework.Input
                         gpc.DpadPressed("dpright", jstate) ? ButtonState.Pressed : ButtonState.Released
                     );
 
-                var triggers = 
+                var triggers =
                     new GamePadTriggers(
                         gpc.TriggerPressed("lefttrigger", jstate),
                         gpc.TriggerPressed("righttrigger", jstate)
                     );
 
-                
+
                 state = new GamePadState(sticks, triggers, new GamePadButtons(buttons), dpad);
             }
 

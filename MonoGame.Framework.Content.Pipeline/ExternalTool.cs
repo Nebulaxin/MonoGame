@@ -191,7 +191,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
                 File.Delete(filePath);
             }
             catch (Exception)
-            {                    
+            {
             }
         }
     }

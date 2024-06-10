@@ -3,7 +3,6 @@
 // file 'LICENSE.txt', which is part of this source code package.
 
 using System;
-using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace Microsoft.Xna.Framework
@@ -85,11 +84,12 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this curve.</returns>
         public Curve Clone()
         {
-            Curve curve = new();
-
-            curve._keys = _keys.Clone();
-            curve._preLoop = _preLoop;
-            curve._postLoop = _postLoop;
+            Curve curve = new()
+            {
+                _keys = _keys.Clone(),
+                _preLoop = _preLoop,
+                _postLoop = _postLoop
+            };
 
             return curve;
         }

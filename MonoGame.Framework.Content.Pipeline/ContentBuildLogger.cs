@@ -27,7 +27,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Initializes a new instance of ContentBuildLogger.
         /// </summary>
-        protected ContentBuildLogger ()
+        protected ContentBuildLogger()
         {
         }
 

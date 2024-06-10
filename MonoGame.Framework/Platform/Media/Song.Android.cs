@@ -141,7 +141,7 @@ namespace Microsoft.Xna.Framework.Media
             }
             set
             {
-                _androidPlayer.SeekTo((int)value.TotalMilliseconds);   
+                _androidPlayer.SeekTo((int)value.TotalMilliseconds);
             }
         }
 

@@ -5,84 +5,87 @@
 using MonoGame.OpenGL;
 using System;
 
-namespace Microsoft.Xna.Framework {
-	partial class iOSGameView {
-        private interface IOpenGLApi
-        {
-            FramebufferErrorCode CheckFramebufferStatus (FramebufferTarget target);
-            void BindFramebuffer (FramebufferTarget target, int framebuffer);
-            void BindRenderbuffer (RenderbufferTarget target, int renderbuffer);
-            void DeleteFramebuffers (int n, ref int framebuffers);
-            void DeleteRenderbuffers (int n, ref int renderbuffers);
-            void FramebufferRenderbuffer (FramebufferTarget target, FramebufferAttachment attachment, RenderbufferTarget renderbuffertarget, int renderbuffer);
-            void GenFramebuffers (int n, ref int framebuffers);
-            void GenRenderbuffers (int n, ref int renderbuffers);
-            void GetInteger (GetPName name, ref int value);
-            void Scissor (int x, int y, int width, int height);
-			void Viewport (int x, int y, int width, int height);
-        }
+namespace Microsoft.Xna.Framework
+{
+	partial class iOSGameView
+	{
+		private interface IOpenGLApi
+		{
+			FramebufferErrorCode CheckFramebufferStatus(FramebufferTarget target);
+			void BindFramebuffer(FramebufferTarget target, int framebuffer);
+			void BindRenderbuffer(RenderbufferTarget target, int renderbuffer);
+			void DeleteFramebuffers(int n, ref int framebuffers);
+			void DeleteRenderbuffers(int n, ref int renderbuffers);
+			void FramebufferRenderbuffer(FramebufferTarget target, FramebufferAttachment attachment, RenderbufferTarget renderbuffertarget, int renderbuffer);
+			void GenFramebuffers(int n, ref int framebuffers);
+			void GenRenderbuffers(int n, ref int renderbuffers);
+			void GetInteger(GetPName name, ref int value);
+			void Scissor(int x, int y, int width, int height);
+			void Viewport(int x, int y, int width, int height);
+		}
 
-		private class Gles20Api : IOpenGLApi {
+		private class Gles20Api : IOpenGLApi
+		{
 
-            public Gles20Api()
-            {
-                GL.LoadEntryPoints();
-            }
-
-            public FramebufferErrorCode CheckFramebufferStatus (FramebufferTarget target)
+			public Gles20Api()
 			{
-				return GL.CheckFramebufferStatus (target);
+				GL.LoadEntryPoints();
 			}
 
-			public void BindFramebuffer (FramebufferTarget target, int framebuffer)
+			public FramebufferErrorCode CheckFramebufferStatus(FramebufferTarget target)
 			{
-                GL.BindFramebuffer(target, framebuffer);
+				return GL.CheckFramebufferStatus(target);
 			}
 
-			public void BindRenderbuffer (RenderbufferTarget target, int renderbuffer)
+			public void BindFramebuffer(FramebufferTarget target, int framebuffer)
 			{
-				GL.BindRenderbuffer (target, renderbuffer);
+				GL.BindFramebuffer(target, framebuffer);
 			}
 
-			public void DeleteFramebuffers (int n, ref int framebuffers)
+			public void BindRenderbuffer(RenderbufferTarget target, int renderbuffer)
 			{
-				GL.DeleteFramebuffers (n, ref framebuffers);
+				GL.BindRenderbuffer(target, renderbuffer);
 			}
 
-			public void DeleteRenderbuffers (int n, ref int renderbuffers)
+			public void DeleteFramebuffers(int n, ref int framebuffers)
 			{
-				GL.DeleteRenderbuffers (n, ref renderbuffers);
+				GL.DeleteFramebuffers(n, ref framebuffers);
 			}
 
-			public void FramebufferRenderbuffer (
+			public void DeleteRenderbuffers(int n, ref int renderbuffers)
+			{
+				GL.DeleteRenderbuffers(n, ref renderbuffers);
+			}
+
+			public void FramebufferRenderbuffer(
 				FramebufferTarget target, FramebufferAttachment attachment, RenderbufferTarget renderbuffertarget, int renderbuffer)
 			{
-                GL.FramebufferRenderbuffer (target, attachment, renderbuffertarget, renderbuffer);
+				GL.FramebufferRenderbuffer(target, attachment, renderbuffertarget, renderbuffer);
 			}
 
-			public void GenFramebuffers (int n, ref int framebuffers)
+			public void GenFramebuffers(int n, ref int framebuffers)
 			{
-				GL.GenFramebuffers (n, out framebuffers);
+				GL.GenFramebuffers(n, out framebuffers);
 			}
 
-			public void GenRenderbuffers (int n, ref int renderbuffers)
+			public void GenRenderbuffers(int n, ref int renderbuffers)
 			{
-				GL.GenRenderbuffers (n, out renderbuffers);
+				GL.GenRenderbuffers(n, out renderbuffers);
 			}
 
-			public void GetInteger (GetPName name, ref int value)
+			public void GetInteger(GetPName name, ref int value)
 			{
-				GL.GetInteger (name, out value);
+				GL.GetInteger(name, out value);
 			}
 
-			public void Scissor (int x, int y, int width, int height)
+			public void Scissor(int x, int y, int width, int height)
 			{
-				GL.Scissor (x, y, width, height);
+				GL.Scissor(x, y, width, height);
 			}
 
-			public void Viewport (int x, int y, int width, int height)
+			public void Viewport(int x, int y, int width, int height)
 			{
-				GL.Viewport (x, y, width, height);
+				GL.Viewport(x, y, width, height);
 			}
 		}
 	}

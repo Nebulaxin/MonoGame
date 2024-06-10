@@ -8,7 +8,7 @@ namespace Microsoft.Xna.Framework
     /// Defines the different tangent types to be calculated for <see cref="CurveKey"/> points in a <see cref="Curve"/>.
     /// </summary>
 	public enum CurveTangent
-	{
+    {
         /// <summary>
         /// The tangent which always has a value equal to zero. 
         /// </summary>
@@ -21,5 +21,5 @@ namespace Microsoft.Xna.Framework
         /// The smoouth tangent which contains the inflection between <see cref="CurveKey.TangentIn"/> and <see cref="CurveKey.TangentOut"/> by taking into account the values of both neighbors of the <see cref="CurveKey"/>.
         /// </summary>
 		Smooth
-	}
+    }
 }

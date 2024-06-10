@@ -106,7 +106,7 @@ namespace Microsoft.Xna.Framework
 
         private bool ShouldExit()
         {
-            if(_keys.Contains(Keys.F4) && (_keys.Contains(Keys.LeftAlt) || _keys.Contains(Keys.RightAlt)))
+            if (_keys.Contains(Keys.F4) && (_keys.Contains(Keys.LeftAlt) || _keys.Contains(Keys.RightAlt)))
             {
                 return Window.AllowAltF4;
             }
@@ -145,23 +145,23 @@ namespace Microsoft.Xna.Framework
                         Mouse.ScrollX += ev.Wheel.X * wheelDelta;
                         break;
                     case Sdl.EventType.KeyDown:
-                    {
-                        var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
-                        if (!_keys.Contains(key))
-                            _keys.Add(key);
-                        char character = (char)ev.Key.Keysym.Sym;
-                        _view.OnKeyDown(new InputKeyEventArgs(key));
-                        if (char.IsControl(character))
-                            _view.OnTextInput(new TextInputEventArgs(character, key));
-                        break;
-                    }
+                        {
+                            var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
+                            if (!_keys.Contains(key))
+                                _keys.Add(key);
+                            char character = (char)ev.Key.Keysym.Sym;
+                            _view.OnKeyDown(new InputKeyEventArgs(key));
+                            if (char.IsControl(character))
+                                _view.OnTextInput(new TextInputEventArgs(character, key));
+                            break;
+                        }
                     case Sdl.EventType.KeyUp:
-                    {
-                        var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
-                        _keys.Remove(key);
-                        _view.OnKeyUp(new InputKeyEventArgs(key));
-                        break;
-                    }
+                        {
+                            var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
+                            _keys.Remove(key);
+                            _view.OnKeyUp(new InputKeyEventArgs(key));
+                            break;
+                        }
                     case Sdl.EventType.TextInput:
                         if (_view.IsTextInputHandled)
                         {

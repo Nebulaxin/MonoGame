@@ -29,7 +29,7 @@ namespace MonoGame.Framework.Utilities
             decompressedStream = new MemoryStream(decompressedSize);
             long startPos = stream.Position;
             long pos = startPos;
-            
+
             while (pos - startPos < compressedSize)
             {
                 // the compressed stream is seperated into blocks that will decompress
@@ -81,10 +81,10 @@ namespace MonoGame.Framework.Utilities
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
-            if(disposing)
-            {                
+            if (disposing)
+            {
                 decompressedStream.Dispose();
-            }            
+            }
             dec = null;
             decompressedStream = null;
         }

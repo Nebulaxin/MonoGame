@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Design
             }
 
             if (destinationType == typeof(string))
-            {                
+            {
                 var terms = new string[3];
                 terms[0] = vec.X.ToString("R", culture);
                 terms[1] = vec.Y.ToString("R", culture);

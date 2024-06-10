@@ -15,19 +15,19 @@ namespace Microsoft.Xna.Framework.Graphics
     /// However, in most cases, <see cref="ModelMesh.Draw()"/> will be sufficient.
     /// </remarks>
 	public sealed class ModelMeshPart
-	{
+    {
         private Effect _effect;
 
         /// <summary>
         /// Gets or sets the material <see cref="Effect"/> for this mesh part.
         /// </summary>
-        public Effect Effect 
+        public Effect Effect
         {
-            get 
+            get
             {
                 return _effect;
             }
-            set 
+            set
             {
                 if (value == _effect)
                     return;
@@ -51,8 +51,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 // Set the new effect.
                 _effect = value;
-                
-                if (_effect != null && !parent.Effects.Contains(_effect))                
+
+                if (_effect != null && !parent.Effects.Contains(_effect))
                     parent.Effects.Add(_effect);
             }
         }
@@ -92,13 +92,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
 		public int VertexOffset { get; set; }
 
-		internal int VertexBufferIndex { get; set; }
+        internal int VertexBufferIndex { get; set; }
 
-		internal int IndexBufferIndex { get; set; }
+        internal int IndexBufferIndex { get; set; }
 
-		internal int EffectIndex { get; set; }
-		
-		internal ModelMesh parent;
+        internal int EffectIndex { get; set; }
+
+        internal ModelMesh parent;
 
         /// <summary>
         /// Using this constructor is strongly discouraged. Adding meshes to models at runtime is
@@ -106,5 +106,5 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         [Obsolete("This constructor is deprecated and will be made internal in a future release.")]
         public ModelMeshPart() { }
-	}
+    }
 }

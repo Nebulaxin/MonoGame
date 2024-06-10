@@ -35,7 +35,7 @@ namespace Microsoft.Xna.Framework.Audio
             {
                 if (_speakers == value)
                     return;
-                
+
                 _speakers = value;
                 _device3DDirty = true;
             }
@@ -129,8 +129,8 @@ namespace Microsoft.Xna.Framework.Audio
                 Speakers = (Speakers)MasterVoice.ChannelMask;
 #else
                 Speakers = Device.Version == XAudio2Version.Version27 ?
-                    Device.GetDeviceDetails(deviceId).OutputFormat.ChannelMask:
-                    (Speakers) MasterVoice.ChannelMask;
+                    Device.GetDeviceDetails(deviceId).OutputFormat.ChannelMask :
+                    (Speakers)MasterVoice.ChannelMask;
 #endif
             }
             catch
@@ -159,9 +159,9 @@ namespace Microsoft.Xna.Framework.Audio
 
         private void PlatformInitializePcm(byte[] buffer, int offset, int count, int sampleBits, int sampleRate, AudioChannels channels, int loopStart, int loopLength)
         {
-            CreateBuffers(  new WaveFormat(sampleRate, sampleBits, (int)channels),
+            CreateBuffers(new WaveFormat(sampleRate, sampleBits, (int)channels),
                             ToDataStream(offset, buffer, count),
-                            loopStart, 
+                            loopStart,
                             loopLength);
         }
 
@@ -183,7 +183,7 @@ namespace Microsoft.Xna.Framework.Audio
             else
                 throw new NotSupportedException("Unsupported wave format!");
 
-            CreateBuffers(  waveFormat,
+            CreateBuffers(waveFormat,
                             ToDataStream(0, buffer, bufferSize),
                             loopStart,
                             loopLength);
@@ -195,7 +195,7 @@ namespace Microsoft.Xna.Framework.Audio
             {
                 duration = TimeSpan.FromSeconds((float)loopLength / sampleRate);
 
-                CreateBuffers(  new WaveFormatAdpcm(sampleRate, channels, (blockAlignment + 22) * channels),
+                CreateBuffers(new WaveFormatAdpcm(sampleRate, channels, (blockAlignment + 22) * channels),
                                 ToDataStream(0, buffer, buffer.Length),
                                 loopStart,
                                 loopLength);
@@ -281,7 +281,7 @@ namespace Microsoft.Xna.Framework.Audio
                 // instance or return a new instance without a voice.
                 //
                 // For now we do the same test that the pool should be doing here.
-             
+
                 if (!ReferenceEquals(inst._format, _format))
                 {
                     if (inst._format.Encoding != _format.Encoding ||

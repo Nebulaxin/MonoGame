@@ -220,18 +220,20 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns></returns>
         public PresentationParameters Clone()
         {
-            PresentationParameters clone = new();
-            clone.backBufferFormat = backBufferFormat;
-            clone.backBufferHeight = backBufferHeight;
-            clone.backBufferWidth = backBufferWidth;
-            clone.deviceWindowHandle = deviceWindowHandle;
-            clone.depthStencilFormat = depthStencilFormat;
-            clone.IsFullScreen = IsFullScreen;
-            clone.HardwareModeSwitch = HardwareModeSwitch;
-            clone.multiSampleCount = multiSampleCount;
-            clone.PresentationInterval = PresentationInterval;
-            clone.DisplayOrientation = DisplayOrientation;
-            clone.RenderTargetUsage = RenderTargetUsage;
+            PresentationParameters clone = new()
+            {
+                backBufferFormat = backBufferFormat,
+                backBufferHeight = backBufferHeight,
+                backBufferWidth = backBufferWidth,
+                deviceWindowHandle = deviceWindowHandle,
+                depthStencilFormat = depthStencilFormat,
+                IsFullScreen = IsFullScreen,
+                HardwareModeSwitch = HardwareModeSwitch,
+                multiSampleCount = multiSampleCount,
+                PresentationInterval = PresentationInterval,
+                DisplayOrientation = DisplayOrientation,
+                RenderTargetUsage = RenderTargetUsage
+            };
             return clone;
         }
 

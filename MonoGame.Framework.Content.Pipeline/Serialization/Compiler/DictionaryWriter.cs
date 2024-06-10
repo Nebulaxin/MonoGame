@@ -11,7 +11,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
     /// Writes the dictionary to the output.
     /// </summary>
     [ContentTypeWriter]
-    class DictionaryWriter<K,V> : BuiltInContentWriter<Dictionary<K,V>>
+    class DictionaryWriter<K, V> : BuiltInContentWriter<Dictionary<K, V>>
     {
         ContentTypeWriter _keyWriter;
         ContentTypeWriter _valueWriter;
@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             get { return true; }
         }
 
-        protected internal override void Write(ContentWriter output, Dictionary<K,V> value)
+        protected internal override void Write(ContentWriter output, Dictionary<K, V> value)
         {
             if (value == null)
                 throw new ArgumentNullException("value");

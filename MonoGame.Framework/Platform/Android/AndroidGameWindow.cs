@@ -57,7 +57,7 @@ namespace Microsoft.Xna.Framework
         private void Initialize(Context context, Point size)
         {
             _clientBounds = new Rectangle(0, 0, size.X, size.Y);
-            
+
             GameView = new MonoGameAndroidGameView(context, this, _game);
             GameView.RenderOnUIThread = Game.Activity.RenderOnUIThread;
             GameView.RenderFrame += OnRenderFrame;
@@ -231,7 +231,7 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-        
+
         private void SetDisplayOrientation(DisplayOrientation value)
         {
             if (value != _currentOrientation)

@@ -46,14 +46,14 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
             _pipelineEvent.BuildOutput.AddUnique(filename);
         }
 
-        public override TOutput Convert<TInput, TOutput>(   TInput input, 
+        public override TOutput Convert<TInput, TOutput>(TInput input,
                                                             string processorName,
                                                             OpaqueDataDictionary processorParameters)
         {
             var processor = _manager.CreateProcessor(processorName, processorParameters);
-            var processContext = new PipelineProcessorContext(_manager, new PipelineBuildEvent { Parameters = processorParameters } );
+            var processContext = new PipelineProcessorContext(_manager, new PipelineBuildEvent { Parameters = processorParameters });
             var processedObject = processor.Process(input, processContext);
-           
+
             // Add its dependencies and built assets to ours.
             _pipelineEvent.Dependencies.AddRangeUnique(processContext._pipelineEvent.Dependencies);
             _pipelineEvent.BuildAsset.AddRangeUnique(processContext._pipelineEvent.BuildAsset);
@@ -61,7 +61,7 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
             return (TOutput)processedObject;
         }
 
-        public override TOutput BuildAndLoadAsset<TInput, TOutput>( ExternalReference<TInput> sourceAsset,
+        public override TOutput BuildAndLoadAsset<TInput, TOutput>(ExternalReference<TInput> sourceAsset,
                                                                     string processorName,
                                                                     OpaqueDataDictionary processorParameters,
                                                                     string importerName)
@@ -75,8 +75,8 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
             bool processAsset = !string.IsNullOrEmpty(processorName);
             _manager.ResolveImporterAndProcessor(sourceFilepath, ref importerName, ref processorName);
 
-            var buildEvent = new PipelineBuildEvent 
-            { 
+            var buildEvent = new PipelineBuildEvent
+            {
                 SourceFile = sourceFilepath,
                 Importer = importerName,
                 Processor = processAsset ? processorName : null,
@@ -91,10 +91,10 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
             return (TOutput)processedObject;
         }
 
-        public override ExternalReference<TOutput> BuildAsset<TInput, TOutput>( ExternalReference<TInput> sourceAsset,
+        public override ExternalReference<TOutput> BuildAsset<TInput, TOutput>(ExternalReference<TInput> sourceAsset,
                                                                                 string processorName,
                                                                                 OpaqueDataDictionary processorParameters,
-                                                                                string importerName, 
+                                                                                string importerName,
                                                                                 string assetName)
         {
             if (string.IsNullOrEmpty(assetName))

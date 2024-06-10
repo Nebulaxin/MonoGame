@@ -24,10 +24,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            return string.Concat(   typeof(ContentTypeReader).Namespace, 
-                                    ".", 
-                                    "ArrayReader`1[[", 
-                                    _elementWriter.GetRuntimeType(targetPlatform), 
+            return string.Concat(typeof(ContentTypeReader).Namespace,
+                                    ".",
+                                    "ArrayReader`1[[",
+                                    _elementWriter.GetRuntimeType(targetPlatform),
                                     "]]");
         }
 

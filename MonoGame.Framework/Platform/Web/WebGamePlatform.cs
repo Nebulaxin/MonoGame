@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework
         {
             this.Game.Tick();
         }
-        
+
         public override void Exit()
         {
         }
@@ -50,7 +50,8 @@ namespace Microsoft.Xna.Framework
         public override void StartRunLoop()
         {
             ResetWindowBounds();
-            _view.window.setInterval((Action)(() => {
+            _view.window.setInterval((Action)(() =>
+            {
                 _view.ProcessEvents();
                 Game.Tick();
             }), 25);
@@ -82,7 +83,7 @@ namespace Microsoft.Xna.Framework
 
             if (graphicsDeviceManager.IsFullScreen)
             {
-                
+
             }
             else
             {

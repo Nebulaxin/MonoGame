@@ -131,7 +131,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             {
                 ElementInfo info;
                 if (GetElementInfo(serializer, field, out info))
-                    _elements.Add(info);                
+                    _elements.Add(info);
             }
 
             if (GenericCollectionHelper.IsGenericCollectionType(TargetType, false))
@@ -155,7 +155,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                 catch (MissingMethodException e)
                 {
                     throw new Exception(string.Format("Couldn't create object of type {0}: {1}", TargetType.Name, e.Message), e);
-                }                
+                }
             }
 
             // First deserialize the base type.
@@ -173,7 +173,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                         // safely skip it and continue.
                         if (info.Attribute.Optional)
                             continue;
-                        
+
                         // We failed to find a required element.
                         throw input.NewInvalidContentException(null, "The Xml element `{0}` is required, but element `{1}` was found at line {2}:{3}. Try changing the element order or adding missing elements.", info.Attribute.ElementName, input.Xml.Name, ((IXmlLineInfo)input.Xml).LineNumber, ((IXmlLineInfo)input.Xml).LinePosition);
                     }

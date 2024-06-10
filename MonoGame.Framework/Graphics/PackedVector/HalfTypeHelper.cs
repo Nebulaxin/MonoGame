@@ -2,7 +2,6 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace Microsoft.Xna.Framework.Graphics.PackedVector
@@ -22,8 +21,10 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 
         internal static ushort Convert(float f)
         {
-            UIF uif = new();
-            uif.f = f;
+            UIF uif = new()
+            {
+                f = f
+            };
             return Convert(uif.i);
         }
 
@@ -109,8 +110,10 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
                 rst = (uint)((((uint)value & 0x8000) << 16) | (((((uint)value >> 10) & 0x1f) - 15 + 127) << 23) | (mantissa << 13));
             }
 
-            var uif = new UIF();
-            uif.u = rst;
+            var uif = new UIF
+            {
+                u = rst
+            };
             return uif.f;
         }
     }

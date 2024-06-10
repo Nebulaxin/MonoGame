@@ -89,7 +89,7 @@ namespace Microsoft.Xna.Framework.Media
                 _topology = null;
             }
         }
-        
+
         private Album PlatformGetAlbum()
         {
             return null;

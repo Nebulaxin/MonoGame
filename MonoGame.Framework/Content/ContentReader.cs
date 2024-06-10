@@ -156,7 +156,7 @@ namespace Microsoft.Xna.Framework.Content
                 return contentManager.Load<T>(FileHelpers.ResolveRelativePath(assetName, externalReference));
             }
 
-            return default(T);
+            return default;
         }
 
         /// <summary>
@@ -168,30 +168,31 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Matrix ReadMatrix()
         {
-            Matrix result = new();
-            result.M11 = ReadSingle();
-            result.M12 = ReadSingle();
-            result.M13 = ReadSingle();
-            result.M14 = ReadSingle();
-            result.M21 = ReadSingle();
-            result.M22 = ReadSingle();
-            result.M23 = ReadSingle();
-            result.M24 = ReadSingle();
-            result.M31 = ReadSingle();
-            result.M32 = ReadSingle();
-            result.M33 = ReadSingle();
-            result.M34 = ReadSingle();
-            result.M41 = ReadSingle();
-            result.M42 = ReadSingle();
-            result.M43 = ReadSingle();
-            result.M44 = ReadSingle();
+            Matrix result = new()
+            {
+                M11 = ReadSingle(),
+                M12 = ReadSingle(),
+                M13 = ReadSingle(),
+                M14 = ReadSingle(),
+                M21 = ReadSingle(),
+                M22 = ReadSingle(),
+                M23 = ReadSingle(),
+                M24 = ReadSingle(),
+                M31 = ReadSingle(),
+                M32 = ReadSingle(),
+                M33 = ReadSingle(),
+                M34 = ReadSingle(),
+                M41 = ReadSingle(),
+                M42 = ReadSingle(),
+                M43 = ReadSingle(),
+                M44 = ReadSingle()
+            };
             return result;
         }
 
         private void RecordDisposable<T>(T result)
         {
-            var disposable = result as IDisposable;
-            if (disposable == null)
+            if (result is not IDisposable disposable)
                 return;
 
             if (recordDisposableObject != null)
@@ -299,11 +300,13 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Quaternion ReadQuaternion()
         {
-            Quaternion result = new();
-            result.X = ReadSingle();
-            result.Y = ReadSingle();
-            result.Z = ReadSingle();
-            result.W = ReadSingle();
+            Quaternion result = new()
+            {
+                X = ReadSingle(),
+                Y = ReadSingle(),
+                Z = ReadSingle(),
+                W = ReadSingle()
+            };
             return result;
         }
 
@@ -391,7 +394,7 @@ namespace Microsoft.Xna.Framework.Content
             {
                 sharedResourceFixups.Add(new KeyValuePair<int, Action<object>>(index - 1, delegate (object v)
                     {
-                        if (!(v is T))
+                        if (v is not T)
                         {
                             throw new ContentLoadException($"Error loading shared resource. Expected type {typeof(T).Name}, received type {v.GetType().Name}");
                         }
@@ -409,9 +412,11 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector2 ReadVector2()
         {
-            Vector2 result = new();
-            result.X = ReadSingle();
-            result.Y = ReadSingle();
+            Vector2 result = new()
+            {
+                X = ReadSingle(),
+                Y = ReadSingle()
+            };
             return result;
         }
 
@@ -424,10 +429,12 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector3 ReadVector3()
         {
-            Vector3 result = new();
-            result.X = ReadSingle();
-            result.Y = ReadSingle();
-            result.Z = ReadSingle();
+            Vector3 result = new()
+            {
+                X = ReadSingle(),
+                Y = ReadSingle(),
+                Z = ReadSingle()
+            };
             return result;
         }
 
@@ -440,11 +447,13 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector4 ReadVector4()
         {
-            Vector4 result = new();
-            result.X = ReadSingle();
-            result.Y = ReadSingle();
-            result.Z = ReadSingle();
-            result.W = ReadSingle();
+            Vector4 result = new()
+            {
+                X = ReadSingle(),
+                Y = ReadSingle(),
+                Z = ReadSingle(),
+                W = ReadSingle()
+            };
             return result;
         }
 
@@ -457,11 +466,13 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Color ReadColor()
         {
-            Color result = new();
-            result.R = ReadByte();
-            result.G = ReadByte();
-            result.B = ReadByte();
-            result.A = ReadByte();
+            Color result = new()
+            {
+                R = ReadByte(),
+                G = ReadByte(),
+                B = ReadByte(),
+                A = ReadByte()
+            };
             return result;
         }
 

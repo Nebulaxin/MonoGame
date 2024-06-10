@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
         protected internal override Vector4 Deserialize(string[] inputs, ref int index)
         {
-            return new Vector4( XmlConvert.ToSingle(inputs[index++]),
+            return new Vector4(XmlConvert.ToSingle(inputs[index++]),
                                 XmlConvert.ToSingle(inputs[index++]),
                                 XmlConvert.ToSingle(inputs[index++]),
                                 XmlConvert.ToSingle(inputs[index++]));

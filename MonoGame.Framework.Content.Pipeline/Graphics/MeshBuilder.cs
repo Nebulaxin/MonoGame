@@ -68,7 +68,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         public void AddTriangleVertex(int indexIntoVertexCollection)
         {
             if (_finishedMesh)
-                throw new InvalidOperationException( "This MeshBuilder can no longer be used because FinishMesh has been called.");
+                throw new InvalidOperationException("This MeshBuilder can no longer be used because FinishMesh has been called.");
 
             _finishedCreation = true;
 
@@ -141,7 +141,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         public int CreatePosition(Vector3 pos)
         {
             if (_finishedMesh)
-                throw new InvalidOperationException( "This MeshBuilder can no longer be used because FinishMesh has been called.");
+                throw new InvalidOperationException("This MeshBuilder can no longer be used because FinishMesh has been called.");
             if (_finishedCreation)
                 throw new InvalidOperationException("Functions starting with 'Create' must be called before calling AddTriangleVertex");
 

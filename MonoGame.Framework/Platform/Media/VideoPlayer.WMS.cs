@@ -76,7 +76,7 @@ namespace Microsoft.Xna.Framework.Media
                 _videoCache = new Texture2D(Game.Instance.GraphicsDevice, _currentVideo.Width, _currentVideo.Height, false, SurfaceFormat.Bgr32);
 
             _videoCache.SetData(texData);
-            
+
             return _videoCache;
         }
 

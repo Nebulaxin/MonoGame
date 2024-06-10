@@ -26,11 +26,11 @@ namespace Microsoft.Xna.Framework.Input
             {
                 var split2 = split[i].Split(':');
                 var btype = new ButtonType()
-                    {
-                        button = (split2[1][0] == 'b'),
-                        index = Convert.ToInt32(split2[1].Substring(1))
-                    };
-                
+                {
+                    button = (split2[1][0] == 'b'),
+                    index = Convert.ToInt32(split2[1].Substring(1))
+                };
+
                 Data.Add(split2[0], btype);
             }
         }
@@ -69,7 +69,7 @@ namespace Microsoft.Xna.Framework.Input
             {
                 if (type.button)
                     return state.Buttons[type.index] == ButtonState.Pressed;
-                else if(dpad == "dpright" || dpad == "dpdown")
+                else if (dpad == "dpright" || dpad == "dpdown")
                     return state.Axes[type.index] == 1;
                 else
                     return state.Axes[type.index] == -1;

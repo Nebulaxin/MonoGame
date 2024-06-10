@@ -44,7 +44,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             if (newBitmapType == null)
                 throw new ArgumentNullException("newBitmapType");
 
-            if (!newBitmapType.IsSubclassOf(typeof (BitmapContent)))
+            if (!newBitmapType.IsSubclassOf(typeof(BitmapContent)))
                 throw new ArgumentException(string.Format("Type '{0}' is not a subclass of BitmapContent.", newBitmapType));
 
             if (newBitmapType.IsAbstract)
@@ -53,7 +53,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             if (newBitmapType.ContainsGenericParameters)
                 throw new ArgumentException(string.Format("Type '{0}' contains generic parameters and cannot be allocated.", newBitmapType));
 
-            if (newBitmapType.GetConstructor(new Type[2] {typeof (int), typeof (int)}) == null)
+            if (newBitmapType.GetConstructor(new Type[2] { typeof(int), typeof(int) }) == null)
                 throw new ArgumentException(string.Format("Type '{0} does not have a constructor with signature (int, int) and cannot be allocated.",
                                                           newBitmapType));
 
@@ -64,13 +64,13 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
                     var src = mipChain[i];
                     if (src.GetType() != newBitmapType)
                     {
-                        var dst = (BitmapContent)Activator.CreateInstance(newBitmapType, new object[] { src.Width,src.Height });
+                        var dst = (BitmapContent)Activator.CreateInstance(newBitmapType, new object[] { src.Width, src.Height });
                         BitmapContent.Copy(src, dst);
                         mipChain[i] = dst;
                     }
                 }
             }
-        }        
+        }
 
         /// <summary>
         /// Generates a full set of mipmaps for the texture.

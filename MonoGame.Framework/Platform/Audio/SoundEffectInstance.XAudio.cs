@@ -42,13 +42,13 @@ namespace Microsoft.Xna.Framework.Audio
             e.CurveDistanceScaler = SoundEffect.DistanceScale;
             e.DopplerScaler = SoundEffect.DopplerScale;
             e.ChannelCount = _effect._format.Channels;
-            
+
             //stereo channel
             if (e.ChannelCount > 1)
             {
                 e.ChannelRadius = 0;
                 e.ChannelAzimuths = _defaultChannelAzimuths;
-             }
+            }
 
             // Convert from XNA Listener to a SharpDX Listener
             var l = ToDXListener(listener);
@@ -213,7 +213,7 @@ namespace Microsoft.Xna.Framework.Audio
                         _voice.Stop((int)PlayFlags.Tails);
                 }
             }
-            
+
             _paused = false;
         }
 
@@ -307,8 +307,8 @@ namespace Microsoft.Xna.Framework.Audio
 
             // NOTE: This is copy of what XAudio2.SemitonesToFrequencyRatio() does
             // which avoids the native call and is actually more accurate.
-             var pitch = MathF.Pow(2.0f, value);
-             _voice.SetFrequencyRatio(pitch);
+            var pitch = MathF.Pow(2.0f, value);
+            _voice.SetFrequencyRatio(pitch);
         }
 
         private SoundState PlatformGetState()
@@ -344,7 +344,7 @@ namespace Microsoft.Xna.Framework.Audio
                 _voice.SetOutputVoices(new VoiceSendDescriptor(SoundEffect.MasterVoice));
             else
             {
-                _voice.SetOutputVoices( new VoiceSendDescriptor(SoundEffect.ReverbVoice), 
+                _voice.SetOutputVoices(new VoiceSendDescriptor(SoundEffect.ReverbVoice),
                                         new VoiceSendDescriptor(SoundEffect.MasterVoice));
             }
 
@@ -356,11 +356,11 @@ namespace Microsoft.Xna.Framework.Audio
             if (_voice == null || SoundEffect.MasterVoice == null)
                 return;
 
-            var filter = new FilterParameters 
+            var filter = new FilterParameters
             {
-                Frequency = XAudio2.CutoffFrequencyToRadians(frequency, _voice.VoiceDetails.InputSampleRate), 
-                OneOverQ = 1.0f / filterQ, 
-                Type = (FilterType)mode 
+                Frequency = XAudio2.CutoffFrequencyToRadians(frequency, _voice.VoiceDetails.InputSampleRate),
+                OneOverQ = 1.0f / filterQ,
+                Type = (FilterType)mode
             };
             _voice.SetFilterParameters(filter);
         }
@@ -371,7 +371,7 @@ namespace Microsoft.Xna.Framework.Audio
                 return;
 
             var filter = new FilterParameters { Frequency = 1.0f, OneOverQ = 1.0f, Type = FilterType.LowPassFilter };
-            _voice.SetFilterParameters(filter);            
+            _voice.SetFilterParameters(filter);
         }
 
         private void PlatformDispose(bool disposing)

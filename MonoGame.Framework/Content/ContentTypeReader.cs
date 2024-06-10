@@ -3,7 +3,6 @@
 // file 'LICENSE.txt', which is part of this source code package.
 
 using System;
-using System.IO;
 
 namespace Microsoft.Xna.Framework.Content
 {
@@ -74,14 +73,14 @@ namespace Microsoft.Xna.Framework.Content
         /// <inheritdoc />
         protected internal override object Read(ContentReader input, object existingInstance)
         {
-			// as per the documentation http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.content.contenttypereader.read.aspx
-			// existingInstance
-			// The object receiving the data, or null if a new instance of the object should be created.
-			if (existingInstance == null)
+            // as per the documentation http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.content.contenttypereader.read.aspx
+            // existingInstance
+            // The object receiving the data, or null if a new instance of the object should be created.
+            if (existingInstance == null)
             {
-				return Read(input, default(T));
-			} 
-			return Read(input, (T)existingInstance);
+                return Read(input, default);
+            }
+            return Read(input, (T)existingInstance);
         }
 
         /// <summary />

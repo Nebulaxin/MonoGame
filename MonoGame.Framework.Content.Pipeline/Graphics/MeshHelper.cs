@@ -533,9 +533,9 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
                 for (var i = 0; i < geom.Indices.Count; i += 3)
                 {
                     var first = geom.Indices[i];
-                    var last = geom.Indices[i+2];
+                    var last = geom.Indices[i + 2];
                     geom.Indices[i] = last;
-                    geom.Indices[i+2] = first;
+                    geom.Indices[i + 2] = first;
                 }
             }
         }
@@ -676,7 +676,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
                     if (_indexPositions.ContainsKey(v))
                         _indexPositions[v].Add(pos);
                     else
-                        _indexPositions.Add(v, new List<int> {pos});
+                        _indexPositions.Add(v, new List<int> { pos });
                 }
             }
 

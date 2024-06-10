@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework
             _onkeydown = (Action<dynamic>)OnKeyDown;
             _onkeyup = (Action<dynamic>)OnKeyUp;
             _onwheel = (Action<dynamic>)OnMouseWheel;
-            
+
             document = Builtins.Global["document"];
             window = Builtins.Global["window"];
             glcanvas = document.getElementById("mgcanvas");
@@ -40,7 +40,7 @@ namespace Microsoft.Xna.Framework
 
             if (glcanvas.mozRequestPointerLock)
                 glcanvas.requestPointerLock = glcanvas.mozRequestPointerLock;
-            else if(glcanvas.webkitRequestPointerLock)
+            else if (glcanvas.webkitRequestPointerLock)
                 glcanvas.requestPointerLock = glcanvas.webkitRequestPointerLock;
 
             document.addEventListener("pointerlockchange", (Action)OnCursorLockChange, false);

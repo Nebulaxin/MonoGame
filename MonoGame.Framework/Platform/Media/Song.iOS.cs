@@ -18,9 +18,9 @@ namespace Microsoft.Xna.Framework.Media
         private Genre genre;
         private string title;
         private TimeSpan duration;
-        #if !TVOS
+#if !TVOS
         private MPMediaItem mediaItem;
-        #endif
+#endif
         private AVPlayerItem _sound;
         private AVPlayer _player;
         private NSUrl assetUrl;
@@ -31,20 +31,20 @@ namespace Microsoft.Xna.Framework.Media
             get { return this.assetUrl; }
         }
 
-        #if !TVOS
+#if !TVOS
         internal Song(Album album, Artist artist, Genre genre, string title, TimeSpan duration, MPMediaItem mediaItem, NSUrl assetUrl)
-        #else
+#else
         internal Song(Album album, Artist artist, Genre genre, string title, TimeSpan duration, object mediaItem, NSUrl assetUrl)
-        #endif
+#endif
         {
             this.album = album;
             this.artist = artist;
             this.genre = genre;
             this.title = title;
             this.duration = duration;
-            #if !TVOS
+#if !TVOS
             this.mediaItem = mediaItem;
-            #endif
+#endif
             this.assetUrl = assetUrl;
         }
 
@@ -64,8 +64,8 @@ namespace Microsoft.Xna.Framework.Media
         {
             if (_sound == null)
                 return;
-                
-            playToEndObserver.Dispose ();
+
+            playToEndObserver.Dispose();
             playToEndObserver = null;
 
             _sound.Dispose();
@@ -75,22 +75,22 @@ namespace Microsoft.Xna.Framework.Media
             _player = null;
         }
 
-        internal void OnFinishedPlaying (object sender, NSNotificationEventArgs args)
-		{
-			if (DonePlaying != null)
-			    DonePlaying(sender, args);
-		}
+        internal void OnFinishedPlaying(object sender, NSNotificationEventArgs args)
+        {
+            if (DonePlaying != null)
+                DonePlaying(sender, args);
+        }
 
-		/// <summary>
-		/// Set the event handler for "Finished Playing". Done this way to prevent multiple bindings.
-		/// </summary>
-		internal void SetEventHandler(FinishedPlayingHandler handler)
-		{
-			if (DonePlaying != null)
-				return;
-			
-			DonePlaying += handler;
-		}
+        /// <summary>
+        /// Set the event handler for "Finished Playing". Done this way to prevent multiple bindings.
+        /// </summary>
+        internal void SetEventHandler(FinishedPlayingHandler handler)
+        {
+            if (DonePlaying != null)
+                return;
+
+            DonePlaying += handler;
+        }
 
         internal void Play(TimeSpan? startPosition)
         {
@@ -98,7 +98,7 @@ namespace Microsoft.Xna.Framework.Media
             {
                 // MediaLibrary items are lazy loaded
                 if (assetUrl != null)
-                    this.PlatformInitialize (assetUrl);
+                    this.PlatformInitialize(assetUrl);
                 else
                     return;
             }
@@ -110,67 +110,67 @@ namespace Microsoft.Xna.Framework.Media
 
         private void PlatformPlay(TimeSpan? startPosition)
         {
-            
+
             if (startPosition.HasValue)
                 _player.Seek(CMTime.FromSeconds(startPosition.Value.TotalSeconds, 1));
             else
                 _player.Seek(CMTime.Zero); // Seek to start to ensure playback at the start.
-            
+
             _player.Play();
         }
 
-		internal void Resume()
-		{
+        internal void Resume()
+        {
             if (_player == null)
-				return;
+                return;
 
             PlatformResume();
-		}
+        }
 
         private void PlatformResume()
         {
-			_player.Play();
+            _player.Play();
         }
-		
-		internal void Pause()
-		{			            
+
+        internal void Pause()
+        {
             if (_player == null)
-				return;
-			
+                return;
+
             _player.Pause();
         }
-		
-		internal void Stop()
-		{
+
+        internal void Stop()
+        {
             if (_player == null)
-				return;
-			
+                return;
+
             _player.Pause();
-			_playCount = 0;
-		}
+            _playCount = 0;
+        }
 
-		internal float Volume
-		{
-			get
-			{
-                if (_player != null)
-                    return _player.Volume;
-				else
-					return 0.0f;
-			}
-			
-			set
-			{
-                if ( _player != null && _player.Volume != value )
-                    _player.Volume = value;
-			}			
-		}
-
-		internal TimeSpan Position
+        internal float Volume
         {
             get
             {
-                return TimeSpan.FromSeconds(_player.CurrentTime.Seconds);		
+                if (_player != null)
+                    return _player.Volume;
+                else
+                    return 0.0f;
+            }
+
+            set
+            {
+                if (_player != null && _player.Volume != value)
+                    _player.Volume = value;
+            }
+        }
+
+        internal TimeSpan Position
+        {
+            get
+            {
+                return TimeSpan.FromSeconds(_player.CurrentTime.Seconds);
             }
             set
             {
@@ -195,10 +195,10 @@ namespace Microsoft.Xna.Framework.Media
 
         private TimeSpan PlatformGetDuration()
         {
-            #if !TVOS
+#if !TVOS
             if (this.mediaItem != null)
                 return this.duration;
-            #endif
+#endif
             return _duration;
         }
 

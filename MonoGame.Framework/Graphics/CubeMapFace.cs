@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Negative X face in the cube map.
         /// </summary>
-        NegativeX, 
+        NegativeX,
         /// <summary>
         /// Positive Y face in the cube map.
         /// </summary>
@@ -33,6 +33,6 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Negative Z face in the cube map.
         /// </summary>
 		NegativeZ
-	}
+    }
 }
 

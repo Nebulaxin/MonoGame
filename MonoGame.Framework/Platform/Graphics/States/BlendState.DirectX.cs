@@ -38,8 +38,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
             Debug.Assert(GraphicsDevice == device, "The state was created for a different device!");
 
-			// Apply the state!
-			return _state;
+            // Apply the state!
+            return _state;
         }
 
         partial void PlatformDispose()

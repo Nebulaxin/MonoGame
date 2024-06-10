@@ -1,5 +1,3 @@
-using System;
-
 namespace Microsoft.Xna.Framework
 {
     /// <summary>

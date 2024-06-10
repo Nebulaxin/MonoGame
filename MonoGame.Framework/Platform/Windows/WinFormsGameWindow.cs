@@ -88,12 +88,12 @@ namespace MonoGame.Framework
 
         public override bool AllowAltF4
         {
-             get { return base.AllowAltF4; }
-             set
-             {
-                 Form.AllowAltF4 = value;
-                 base.AllowAltF4 = value;
-             }
+            get { return base.AllowAltF4; }
+            set
+            {
+                Form.AllowAltF4 = value;
+                base.AllowAltF4 = value;
+            }
         }
 
         public override DisplayOrientation CurrentOrientation
@@ -157,7 +157,7 @@ namespace MonoGame.Framework
             Form.MouseWheel += OnMouseScroll;
             Form.MouseHorizontalWheel += OnMouseHorizontalScroll;
             Form.MouseEnter += OnMouseEnter;
-            Form.MouseLeave += OnMouseLeave;            
+            Form.MouseLeave += OnMouseLeave;
 
             _resizeTickTimer = new System.Timers.Timer(1) { SynchronizingObject = Form, AutoReset = false };
             _resizeTickTimer.Elapsed += OnResizeTick;
@@ -183,12 +183,12 @@ namespace MonoGame.Framework
 
         [DllImport("shell32.dll", CharSet = CharSet.Auto, BestFitMapping = false)]
         private static extern IntPtr ExtractIcon(IntPtr hInst, string exeFileName, int iconIndex);
-        
-        [DllImport("user32.dll", ExactSpelling=true, CharSet=CharSet.Auto)]
+
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
         [return: MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
         internal static extern bool GetCursorPos(out POINTSTRUCT pt);
-        
-        [DllImport("user32.dll", ExactSpelling=true, CharSet=CharSet.Auto)]
+
+        [DllImport("user32.dll", ExactSpelling = true, CharSet = CharSet.Auto)]
         internal static extern int MapWindowPoints(HandleRef hWndFrom, HandleRef hWndTo, out POINTSTRUCT pt, int cPoints);
 
         [DllImport("shell32.dll")]
@@ -255,11 +255,12 @@ namespace MonoGame.Framework
         private void OnDeactivate(object sender, EventArgs eventArgs)
         {
             // If in exclusive mode full-screen, force it out of exclusive mode and minimize the window
-			if( IsFullScreen && _platform.Game.GraphicsDevice.PresentationParameters.HardwareModeSwitch ) {			
-				// This is true when the user presses the Windows key while game window has focus
-				if( Form.WindowState == FormWindowState.Minimized )
-					MinimizeFullScreen();				
-			}
+            if (IsFullScreen && _platform.Game.GraphicsDevice.PresentationParameters.HardwareModeSwitch)
+            {
+                // This is true when the user presses the Windows key while game window has focus
+                if (Form.WindowState == FormWindowState.Minimized)
+                    MinimizeFullScreen();
+            }
             _platform.IsActive = false;
             Keyboard.SetActive(false);
         }
@@ -302,17 +303,17 @@ namespace MonoGame.Framework
             // Don't process touch state if we're not active 
             // and the mouse is within the client area.
             if (!_platform.IsActive || !withinClient)
-            {                
+            {
                 if (MouseState.LeftButton == ButtonState.Pressed)
                 {
                     // Release mouse TouchLocation
-                    var touchX = MathHelper.Clamp(MouseState.X, 0, Form.ClientRectangle.Width-1);
-                    var touchY = MathHelper.Clamp(MouseState.Y, 0, Form.ClientRectangle.Height-1);
+                    var touchX = MathHelper.Clamp(MouseState.X, 0, Form.ClientRectangle.Width - 1);
+                    var touchY = MathHelper.Clamp(MouseState.Y, 0, Form.ClientRectangle.Height - 1);
                     TouchPanelState.AddEvent(0, TouchLocationState.Released, new Vector2(touchX, touchY), true);
                 }
                 return;
             }
-            
+
             TouchLocationState? touchState = null;
             if (MouseState.LeftButton == ButtonState.Pressed)
                 if (previousState == ButtonState.Released)
@@ -324,7 +325,7 @@ namespace MonoGame.Framework
 
             if (touchState.HasValue)
                 TouchPanelState.AddEvent(0, touchState.Value, new Vector2(MouseState.X, MouseState.Y), true);
-        } 
+        }
 
         private void OnMouseEnter(object sender, EventArgs e)
         {
@@ -351,7 +352,7 @@ namespace MonoGame.Framework
 
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            var key = (Keys) (VkKeyScanEx(e.KeyChar, InputLanguage.CurrentInputLanguage.Handle) & 0xff);
+            var key = (Keys)(VkKeyScanEx(e.KeyChar, InputLanguage.CurrentInputLanguage.Handle) & 0xff);
             OnTextInput(new TextInputEventArgs(e.KeyChar, key));
         }
 
@@ -384,7 +385,8 @@ namespace MonoGame.Framework
             if (_lastFormState == Form.WindowState)
                 _wasMoved = true;
 
-            if (Game.Window == this && Form.WindowState != FormWindowState.Minimized) {
+            if (Game.Window == this && Form.WindowState != FormWindowState.Minimized)
+            {
                 // we may need to restore full screen when coming back from a minimized window
                 if (_lastFormState == FormWindowState.Minimized)
                     _platform.Game.GraphicsDevice.SetHardwareFullscreen();
@@ -475,7 +477,7 @@ namespace MonoGame.Framework
                     break;
 
                 Thread.Sleep(100);
-            } 
+            }
             while (PeekMessage(out msg, IntPtr.Zero, 0, 1 << 5, 1));
         }
 
@@ -527,7 +529,7 @@ namespace MonoGame.Framework
             // make sure we don't see the events from this as a user resize
             Form.IsResizing = true;
 
-            if(this.Form.ClientSize != clientBounds)
+            if (this.Form.ClientSize != clientBounds)
                 this.Form.ClientSize = clientBounds;
 
             // if the window wasn't moved manually and it's resized, it should be centered
@@ -555,7 +557,7 @@ namespace MonoGame.Framework
             {
                 if (Form != null)
                 {
-                    UnregisterFromAllWindows(); 
+                    UnregisterFromAllWindows();
                     Form.Dispose();
                     Form = null;
                 }
@@ -595,14 +597,17 @@ namespace MonoGame.Framework
             var raiseClientSizeChanged = false;
             if (pp.IsFullScreen && pp.HardwareModeSwitch && IsFullScreen && HardwareModeSwitch)
             {
-                if( _platform.IsActive ) {
-					// stay in hardware full screen, need to call ResizeTargets so the displaymode can be switched
-					_platform.Game.GraphicsDevice.ResizeTargets();
-				} else {
-					// This needs to be called in case the user presses the Windows key while the focus is on the second monitor,
-					//	which (sometimes) causes the window to exit fullscreen mode, but still keeps it visible
-					MinimizeFullScreen();
-				}
+                if (_platform.IsActive)
+                {
+                    // stay in hardware full screen, need to call ResizeTargets so the displaymode can be switched
+                    _platform.Game.GraphicsDevice.ResizeTargets();
+                }
+                else
+                {
+                    // This needs to be called in case the user presses the Windows key while the focus is on the second monitor,
+                    //	which (sometimes) causes the window to exit fullscreen mode, but still keeps it visible
+                    MinimizeFullScreen();
+                }
             }
             else if (pp.IsFullScreen && (!IsFullScreen || pp.HardwareModeSwitch != HardwareModeSwitch))
             {

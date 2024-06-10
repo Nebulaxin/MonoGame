@@ -5,10 +5,10 @@
 using Microsoft.Xna.Framework.Graphics;
 namespace Microsoft.Xna.Framework.Content
 {
-    internal class VertexDeclarationReader : ContentTypeReader<VertexDeclaration>
+	internal class VertexDeclarationReader : ContentTypeReader<VertexDeclaration>
 	{
 		protected internal override VertexDeclaration Read(ContentReader reader, VertexDeclaration existingInstance)
-        {
+		{
 			var vertexStride = reader.ReadInt32();
 			var elementCount = reader.ReadInt32();
 			VertexElement[] elements = new VertexElement[elementCount];
@@ -21,7 +21,7 @@ namespace Microsoft.Xna.Framework.Content
 				elements[i] = new VertexElement(offset, elementFormat, elementUsage, usageIndex);
 			}
 
-            return VertexDeclaration.GetOrCreate(vertexStride, elements);
+			return VertexDeclaration.GetOrCreate(vertexStride, elements);
 		}
 	}
 }

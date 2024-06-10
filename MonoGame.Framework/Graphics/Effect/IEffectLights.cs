@@ -1,15 +1,13 @@
 // MonoGame - Copyright (C) MonoGame Foundation, Inc
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
-using System;
-
 namespace Microsoft.Xna.Framework.Graphics
 {
     /// <summary>
     /// The common effect light rendering parameters.
     /// </summary>
 	public interface IEffectLights
-	{
+    {
         /// <summary>
         /// The floating point ambient light color.
         /// </summary>
@@ -38,7 +36,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Initializes the lights to the standard key/fill/back lighting rig.
         /// </summary>
-		void EnableDefaultLighting ();
-	}
+		void EnableDefaultLighting();
+    }
 }
 

@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 GraphicsExtensions.CheckGLError();
             }
 
-            static readonly FramebufferAttachment [] FramebufferAttachements = {
+            static readonly FramebufferAttachment[] FramebufferAttachements = {
                 FramebufferAttachment.ColorAttachment0,
                 FramebufferAttachment.DepthAttachment,
                 FramebufferAttachment.StencilAttachment,
@@ -108,7 +108,7 @@ namespace Microsoft.Xna.Framework.Graphics
             internal virtual void InvalidateDrawFramebuffer()
             {
                 Debug.Assert(this.SupportsInvalidateFramebuffer);
-                GL.InvalidateFramebuffer (FramebufferTarget.Framebuffer, 3, FramebufferAttachements);
+                GL.InvalidateFramebuffer(FramebufferTarget.Framebuffer, 3, FramebufferAttachements);
             }
 
             internal virtual void InvalidateReadFramebuffer()

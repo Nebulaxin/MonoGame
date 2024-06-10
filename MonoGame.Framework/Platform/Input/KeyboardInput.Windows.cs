@@ -8,7 +8,7 @@ namespace Microsoft.Xna.Framework.Input
     {
         private static Form _dialog;
         private static TaskCompletionSource<string> _tcs;
-        
+
         private static Task<string> PlatformShow(string title, string description, string defaultText, bool usePasswordMode)
         {
             _tcs = new TaskCompletionSource<string>();

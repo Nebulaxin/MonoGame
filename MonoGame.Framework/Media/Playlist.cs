@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Media
         public TimeSpan Duration
         {
             get;
-			internal set;
+            internal set;
         }
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework.Media
         public string Name
         {
             get;
-			internal set;
+            internal set;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Media
         {
         }
 
-		
+
         /*public SongCollection Songs
         {
             get

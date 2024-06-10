@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework.Media
             view.Layer = layer;
             layer.Frame = nsWindow.ContentView.Bounds;
             nsWindow.ContentView.AddSubview(view);
-           
+
             NSNotificationCenter.DefaultCenter.AddObserver(AVPlayerItem.DidPlayToEndTimeNotification,
                                                                notification =>
             {

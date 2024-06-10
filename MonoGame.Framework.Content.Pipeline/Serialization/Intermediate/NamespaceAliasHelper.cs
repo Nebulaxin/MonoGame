@@ -75,8 +75,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                 if (contentTypeSerializer.TargetType == childType)
                     return;
 
-                if (contentTypeSerializer.TargetType.IsGenericType 
-                    && contentTypeSerializer.TargetType.GetGenericTypeDefinition() == typeof(Nullable<>) 
+                if (contentTypeSerializer.TargetType.IsGenericType
+                    && contentTypeSerializer.TargetType.GetGenericTypeDefinition() == typeof(Nullable<>)
                     && contentTypeSerializer.TargetType.GetGenericArguments()[0] == childType)
                     return;
 

@@ -58,44 +58,44 @@ namespace Microsoft.Xna.Framework.Graphics
             base.Dispose(disposing);
         }
 
-	    RenderTargetView IRenderTarget.GetRenderTargetView(int arraySlice)
-	    {
+        RenderTargetView IRenderTarget.GetRenderTargetView(int arraySlice)
+        {
             if (arraySlice >= Depth)
                 throw new ArgumentOutOfRangeException("The arraySlice is out of range for this Texture3D.");
 
             // Dispose the previous target.
-	        if (_currentSlice != arraySlice && _renderTargetView != null)
-	        {
-	            _renderTargetView.Dispose();
-	            _renderTargetView = null;
-	        }
+            if (_currentSlice != arraySlice && _renderTargetView != null)
+            {
+                _renderTargetView.Dispose();
+                _renderTargetView = null;
+            }
 
             // Create the new target view interface.
-	        if (_renderTargetView == null)
-	        {
-	            _currentSlice = arraySlice;
+            if (_renderTargetView == null)
+            {
+                _currentSlice = arraySlice;
 
-	            var desc = new RenderTargetViewDescription
-	            {
-	                Format = SharpDXHelper.ToFormat(_format),
-	                Dimension = RenderTargetViewDimension.Texture3D,
-	                Texture3D =
-	                    {
-	                        DepthSliceCount = -1,
-	                        FirstDepthSlice = arraySlice,
-	                        MipSlice = 0,
-	                    }
-	            };
+                var desc = new RenderTargetViewDescription
+                {
+                    Format = SharpDXHelper.ToFormat(_format),
+                    Dimension = RenderTargetViewDimension.Texture3D,
+                    Texture3D =
+                        {
+                            DepthSliceCount = -1,
+                            FirstDepthSlice = arraySlice,
+                            MipSlice = 0,
+                        }
+                };
 
-	            _renderTargetView = new RenderTargetView(GraphicsDevice._d3dDevice, GetTexture(), desc);
-	        }
+                _renderTargetView = new RenderTargetView(GraphicsDevice._d3dDevice, GetTexture(), desc);
+            }
 
-	        return _renderTargetView;
-	    }
+            return _renderTargetView;
+        }
 
-	    DepthStencilView IRenderTarget.GetDepthStencilView()
-	    {
-	        return _depthStencilView;
-	    }
+        DepthStencilView IRenderTarget.GetDepthStencilView()
+        {
+            return _depthStencilView;
+        }
     }
 }

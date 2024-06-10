@@ -13,8 +13,8 @@ using MonoGame.Framework.Utilities;
 
 namespace Microsoft.Xna.Framework.Graphics
 {
-	public partial class TextureCube
-	{
+    public partial class TextureCube
+    {
         private bool _renderTarget;
         private bool _mipMap;
 
@@ -141,7 +141,7 @@ namespace Microsoft.Xna.Framework.Graphics
             // Use try..finally to make sure dataHandle is freed in case of an error
             try
             {
-                var dataPtr = (IntPtr) (dataHandle.AddrOfPinnedObject().ToInt64() + startIndex*elementSizeInByte);
+                var dataPtr = (IntPtr)(dataHandle.AddrOfPinnedObject().ToInt64() + startIndex * elementSizeInByte);
                 var box = new DataBox(dataPtr, GetPitch(rect.Width), 0);
 
                 var subresourceIndex = CalculateSubresourceIndex(face, level);
@@ -166,10 +166,10 @@ namespace Microsoft.Xna.Framework.Graphics
             }
         }
 
-	    private int CalculateSubresourceIndex(CubeMapFace face, int level)
-	    {
-	        return (int) face * _levelCount + level;
-	    }
-	}
+        private int CalculateSubresourceIndex(CubeMapFace face, int level)
+        {
+            return (int)face * _levelCount + level;
+        }
+    }
 }
 

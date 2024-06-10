@@ -54,12 +54,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
         public bool ObjectIsEmpty(object list)
         {
-            return (int) _countProperty.GetValue(list, null) == 0;
+            return (int)_countProperty.GetValue(list, null) == 0;
         }
 
         public void ScanChildren(ContentTypeSerializer.ChildCallback callback, object collection)
         {
-            foreach (var item in (IEnumerable) collection)
+            foreach (var item in (IEnumerable)collection)
                 if (item != null)
                     callback(_contentSerializer, item);
         }
@@ -68,7 +68,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         {
             var itemFormat = new ContentSerializerAttribute();
             itemFormat.ElementName = format.CollectionItemName;
-            foreach (var item in (IEnumerable) collection)
+            foreach (var item in (IEnumerable)collection)
                 output.WriteObject(item, itemFormat, _contentSerializer);
         }
 

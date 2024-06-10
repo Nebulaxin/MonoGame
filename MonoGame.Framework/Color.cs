@@ -3,7 +3,6 @@
 // file 'LICENSE.txt', which is part of this source code package.
 
 using System;
-using System.Text;
 using System.Runtime.Serialization;
 using System.Diagnostics;
 

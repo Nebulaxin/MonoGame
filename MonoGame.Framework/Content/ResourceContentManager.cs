@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Resources;
 
@@ -39,16 +38,11 @@ namespace Microsoft.Xna.Framework.Content
         /// </exception>
         protected override Stream OpenStream(string assetName)
         {
-            object obj = resource.GetObject(assetName);
-            if (obj == null)
-            {
-                throw new ContentLoadException("Resource not found");
-            }
-            if (!(obj is byte[]))
-            {
+            object obj = resource.GetObject(assetName) ?? throw new ContentLoadException("Resource not found");
+            if (obj is not byte[] bytes)
                 throw new ContentLoadException("Resource is not in binary format");
-            }
-            return new MemoryStream(obj as byte[]);
+
+            return new MemoryStream(bytes);
         }
     }
 }

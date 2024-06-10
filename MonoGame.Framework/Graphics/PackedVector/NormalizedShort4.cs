@@ -121,11 +121,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         {
             const float maxVal = 0x7FFF;
 
-            var v4 = new Vector4();
-            v4.X = ((short)((short4Packed >> 0x00) & 0xFFFF)) / maxVal;
-            v4.Y = ((short)((short4Packed >> 0x10) & 0xFFFF)) / maxVal;
-            v4.Z = ((short)((short4Packed >> 0x20) & 0xFFFF)) / maxVal;
-            v4.W = ((short)((short4Packed >> 0x30) & 0xFFFF)) / maxVal;
+            var v4 = new Vector4
+            {
+                X = ((short)((short4Packed >> 0x00) & 0xFFFF)) / maxVal,
+                Y = ((short)((short4Packed >> 0x10) & 0xFFFF)) / maxVal,
+                Z = ((short)((short4Packed >> 0x20) & 0xFFFF)) / maxVal,
+                W = ((short)((short4Packed >> 0x30) & 0xFFFF)) / maxVal
+            };
             return v4;
         }
     }

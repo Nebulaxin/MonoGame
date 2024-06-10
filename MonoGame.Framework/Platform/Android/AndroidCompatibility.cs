@@ -12,12 +12,12 @@ namespace Microsoft.Xna.Framework
     /// </summary>
     public static class AndroidCompatibility
     {
-		/// <summary>
-		/// Because the Kindle Fire devices default orientation is fliped by 180 degrees from all the other android devices
-		/// on the market we need to do some special processing to make sure that LandscapeLeft is the correct way round.
-		/// This list contains all the Build.Model strings of the effected devices, it should be added to if and when
-		/// more devices exhibit the same issues.
-		/// </summary>
+        /// <summary>
+        /// Because the Kindle Fire devices default orientation is fliped by 180 degrees from all the other android devices
+        /// on the market we need to do some special processing to make sure that LandscapeLeft is the correct way round.
+        /// This list contains all the Build.Model strings of the effected devices, it should be added to if and when
+        /// more devices exhibit the same issues.
+        /// </summary>
         private static readonly string[] Kindles = new[] { "KFTT", "KFJWI", "KFJWA", "KFSOWI", "KFTHWA", "KFTHWI", "KFAPWA", "KFAPWI" };
 
         public static bool FlipLandscape { get; private set; }
@@ -25,7 +25,7 @@ namespace Microsoft.Xna.Framework
 
         static AndroidCompatibility()
         {
-			FlipLandscape = Kindles.Contains(Build.Model);
+            FlipLandscape = Kindles.Contains(Build.Model);
             NaturalOrientation = new Lazy<Orientation>(GetDeviceNaturalOrientation);
         }
 
@@ -61,13 +61,17 @@ namespace Microsoft.Xna.Framework
             var disporientation = DisplayOrientation.Unknown;
             switch (ort)
             {
-                case 90: disporientation = FlipLandscape ? DisplayOrientation.LandscapeLeft : DisplayOrientation.LandscapeRight;
+                case 90:
+                    disporientation = FlipLandscape ? DisplayOrientation.LandscapeLeft : DisplayOrientation.LandscapeRight;
                     break;
-                case 270: disporientation = FlipLandscape ? DisplayOrientation.LandscapeRight : DisplayOrientation.LandscapeLeft;
+                case 270:
+                    disporientation = FlipLandscape ? DisplayOrientation.LandscapeRight : DisplayOrientation.LandscapeLeft;
                     break;
-                case 0: disporientation = DisplayOrientation.Portrait;
+                case 0:
+                    disporientation = DisplayOrientation.Portrait;
                     break;
-                case 180: disporientation = DisplayOrientation.PortraitDown;
+                case 180:
+                    disporientation = DisplayOrientation.PortraitDown;
                     break;
                 default:
                     disporientation = DisplayOrientation.LandscapeLeft;

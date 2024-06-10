@@ -52,7 +52,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
             string message,
             Exception innerException
             )
-            :base(message, innerException)
+            : base(message, innerException)
         {
         }
 

@@ -67,7 +67,7 @@ namespace MonoGame.Framework
         {
             throw new NotSupportedException("The Windows platform does not support asynchronous run loops");
         }
-        
+
         public override void Exit()
         {
             if (_window != null)
@@ -115,10 +115,10 @@ namespace MonoGame.Framework
         public override void Present()
         {
             var device = Game.GraphicsDevice;
-            if ( device != null )
+            if (device != null)
                 device.Present();
         }
-		
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

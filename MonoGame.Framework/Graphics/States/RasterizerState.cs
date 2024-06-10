@@ -10,7 +10,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Contains rasterizer state, which determines how to convert vector data (shapes) into raster data (pixels).
     /// </summary>
 	public partial class RasterizerState : GraphicsResource
-	{
+    {
         private readonly bool _defaultStateObject;
 
         private CullMode _cullMode;
@@ -26,14 +26,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The default value is <see cref="CullMode.CullCounterClockwiseFace"/>
         /// </summary>
         public CullMode CullMode
-	    {
-	        get { return _cullMode; }
+        {
+            get { return _cullMode; }
             set
             {
                 ThrowIfBound();
                 _cullMode = value;
             }
-	    }
+        }
 
         /// <summary>
         /// Gets or Sets the depth bias for polygons, which is the amount of bias to apply to the depth of a primitive
@@ -45,28 +45,28 @@ namespace Microsoft.Xna.Framework.Graphics
         /// a polygon with a value of <c>1.0f</c> appears drawn in front of a polygon with a value of <c>0.0f</c>
         /// </remarks>
 	    public float DepthBias
-	    {
-	        get { return _depthBias; }
-	        set
-	        {
+        {
+            get { return _depthBias; }
+            set
+            {
                 ThrowIfBound();
                 _depthBias = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the fille mode, which defines how a triangle is filled during rendering.
         /// The default is <see cref="FillMode.Solid"/>.
         /// </summary>
 	    public FillMode FillMode
-	    {
-	        get { return _fillMode; }
-	        set
-	        {
+        {
+            get { return _fillMode; }
+            set
+            {
                 ThrowIfBound();
                 _fillMode = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that indicates whether multisample antialiasing is enabled.
@@ -78,14 +78,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// mutlisample buffer.  This property has no effect when rendering to a buffer that does not support multisampling.
         /// </remarks>
 	    public bool MultiSampleAntiAlias
-	    {
-	        get { return _multiSampleAntiAlias; }
-	        set
-	        {
+        {
+            get { return _multiSampleAntiAlias; }
+            set
+            {
                 ThrowIfBound();
                 _multiSampleAntiAlias = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that indicates whether scissor testing is enabled.
@@ -95,14 +95,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// contained within a <see cref="GraphicsDevice.ScissorRectangle">GraphicsDevice.ScissorRectangle</see>
         /// </remarks>
 	    public bool ScissorTestEnable
-	    {
-	        get { return _scissorTestEnable; }
-	        set
-	        {
+        {
+            get { return _scissorTestEnable; }
+            set
+            {
                 ThrowIfBound();
                 _scissorTestEnable = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a bias value that takes into account the slope of a polygon.  This bias value is applied to
@@ -120,14 +120,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <code>m = max( abs(delta z / delta x), abs(delta z / delta y) )</code>
         /// </remarks>
 	    public float SlopeScaleDepthBias
-	    {
-	        get { return _slopeScaleDepthBias; }
-	        set
-	        {
+        {
+            get { return _slopeScaleDepthBias; }
+            set
+            {
                 ThrowIfBound();
                 _slopeScaleDepthBias = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that indicates whether depth clipping is enabled.
@@ -199,47 +199,47 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Creates a new instance of <b>RasterizerState</b>.
         /// </summary>
         public RasterizerState()
-		{
-			CullMode = CullMode.CullCounterClockwiseFace;
-			FillMode = FillMode.Solid;
-			DepthBias = 0;
-			MultiSampleAntiAlias = true;
-			ScissorTestEnable = false;
-			SlopeScaleDepthBias = 0;
+        {
+            CullMode = CullMode.CullCounterClockwiseFace;
+            FillMode = FillMode.Solid;
+            DepthBias = 0;
+            MultiSampleAntiAlias = true;
+            ScissorTestEnable = false;
+            SlopeScaleDepthBias = 0;
             DepthClipEnable = true;
-		}
+        }
 
-	    private RasterizerState(string name, CullMode cullMode)
+        private RasterizerState(string name, CullMode cullMode)
             : this()
-	    {
-	        Name = name;
-	        _cullMode = cullMode;
-	        _defaultStateObject = true;
-	    }
+        {
+            Name = name;
+            _cullMode = cullMode;
+            _defaultStateObject = true;
+        }
 
-	    private RasterizerState(RasterizerState cloneSource)
-	    {
-	        Name = cloneSource.Name;
-	        _cullMode = cloneSource._cullMode;
-	        _fillMode = cloneSource._fillMode;
-	        _depthBias = cloneSource._depthBias;
-	        _multiSampleAntiAlias = cloneSource._multiSampleAntiAlias;
-	        _scissorTestEnable = cloneSource._scissorTestEnable;
-	        _slopeScaleDepthBias = cloneSource._slopeScaleDepthBias;
-	        _depthClipEnable = cloneSource._depthClipEnable;
-	    }
+        private RasterizerState(RasterizerState cloneSource)
+        {
+            Name = cloneSource.Name;
+            _cullMode = cloneSource._cullMode;
+            _fillMode = cloneSource._fillMode;
+            _depthBias = cloneSource._depthBias;
+            _multiSampleAntiAlias = cloneSource._multiSampleAntiAlias;
+            _scissorTestEnable = cloneSource._scissorTestEnable;
+            _slopeScaleDepthBias = cloneSource._slopeScaleDepthBias;
+            _depthClipEnable = cloneSource._depthClipEnable;
+        }
 
-		static RasterizerState ()
-		{
-		    CullClockwise = new RasterizerState("RasterizerState.CullClockwise", CullMode.CullClockwiseFace);
-		    CullCounterClockwise = new RasterizerState("RasterizerState.CullCounterClockwise", CullMode.CullCounterClockwiseFace);
-		    CullNone = new RasterizerState("RasterizerState.CullNone", CullMode.None);
-		}
+        static RasterizerState()
+        {
+            CullClockwise = new RasterizerState("RasterizerState.CullClockwise", CullMode.CullClockwiseFace);
+            CullCounterClockwise = new RasterizerState("RasterizerState.CullCounterClockwise", CullMode.CullCounterClockwiseFace);
+            CullNone = new RasterizerState("RasterizerState.CullNone", CullMode.None);
+        }
 
-	    internal RasterizerState Clone()
-	    {
-	        return new RasterizerState(this);
-	    }
+        internal RasterizerState Clone()
+        {
+            return new RasterizerState(this);
+        }
 
         partial void PlatformDispose();
 

@@ -103,9 +103,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         {
             const float maxVal = 0x7FFF;
 
-            var v2 = new Vector2();
-            v2.X = ((short)(short2Packed & 0xFFFF)) / maxVal;
-            v2.Y = (short)(short2Packed >> 0x10) / maxVal;
+            var v2 = new Vector2
+            {
+                X = ((short)(short2Packed & 0xFFFF)) / maxVal,
+                Y = (short)(short2Packed >> 0x10) / maxVal
+            };
             return v2;
         }
 
@@ -132,9 +134,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         {
             const float maxVal = 0x7FFF;
 
-            var v4 = new Vector4(0, 0, 0, 1);
-            v4.X = ((short)((short2Packed >> 0x00) & 0xFFFF)) / maxVal;
-            v4.Y = ((short)((short2Packed >> 0x10) & 0xFFFF)) / maxVal;
+            var v4 = new Vector4(0, 0, 0, 1)
+            {
+                X = ((short)((short2Packed >> 0x00) & 0xFFFF)) / maxVal,
+                Y = ((short)((short2Packed >> 0x10) & 0xFFFF)) / maxVal
+            };
             return v4;
         }
     }

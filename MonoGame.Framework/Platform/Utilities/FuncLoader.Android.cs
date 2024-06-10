@@ -31,7 +31,7 @@ namespace MonoGame.Framework.Utilities
             var libpath = Path.Combine(nlibpath, libname);
             lib = dlopen(libpath, RTLD_LAZY);
             if (lib != IntPtr.Zero)
-            {	
+            {
                 Console.WriteLine("FuncLoader.LoadLibrary {0}", libpath);
                 return lib;
             }

@@ -64,7 +64,7 @@ namespace Microsoft.Xna.Framework.Input
             foreach (var entry in Joysticks)
                 Sdl.Joystick.Close(entry.Value);
 
-            Joysticks.Clear ();
+            Joysticks.Clear();
         }
 
         private static void RecalculateLastConnectedIndex()
@@ -107,7 +107,7 @@ namespace Microsoft.Xna.Framework.Input
                 Identifier = Sdl.Joystick.GetGUID(jdevice).ToString(),
                 IsGamepad = (Sdl.GameController.IsGameController(index) == 1),
                 AxisCount = Sdl.Joystick.NumAxes(jdevice),
-                ButtonCount = Sdl.Joystick.NumButtons(jdevice), 
+                ButtonCount = Sdl.Joystick.NumButtons(jdevice),
                 HatCount = Sdl.Joystick.NumHats(jdevice)
             };
         }

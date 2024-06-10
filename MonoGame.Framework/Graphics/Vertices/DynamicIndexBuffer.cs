@@ -14,7 +14,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// For more information on drawing with dynamic buffers, see <see cref="DynamicVertexBuffer">DynamicVertexBuffer Class</see>
     /// </remarks>
 	public class DynamicIndexBuffer : IndexBuffer
-	{
+    {
         /// <summary>
         /// Special offset used internally by GraphicsDevice.DrawUserXXX() methods.
         /// </summary>
@@ -57,9 +57,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </list>
         /// </exception>
 		public DynamicIndexBuffer(GraphicsDevice graphicsDevice, IndexElementSize indexElementSize, int indexCount, BufferUsage usage) :
-			base(graphicsDevice, indexElementSize, indexCount, usage, true)
-		{
-		}
+            base(graphicsDevice, indexElementSize, indexCount, usage, true)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of <b>DynamicIndexBuffer</b> with the specified parameters.

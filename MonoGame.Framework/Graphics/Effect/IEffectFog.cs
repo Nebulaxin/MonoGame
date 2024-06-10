@@ -1,15 +1,13 @@
 // MonoGame - Copyright (C) MonoGame Foundation, Inc
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
-using System;
-
 namespace Microsoft.Xna.Framework.Graphics
 {
     /// <summary>
     /// The common effect fog rendering parameters.
     /// </summary>
 	public interface IEffectFog
-	{
+    {
         /// <summary>
         /// The floating point fog color.
         /// </summary>
@@ -37,6 +35,6 @@ namespace Microsoft.Xna.Framework.Graphics
         /// same value everything is fully fogged.
         /// </remarks>
 		float FogStart { get; set; }
-	}
+    }
 }
 

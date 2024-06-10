@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             _bitmapData = sourceData;
         }
 
-		protected override bool TryCopyFrom(BitmapContent sourceBitmap, Rectangle sourceRegion, Rectangle destinationRegion)
+        protected override bool TryCopyFrom(BitmapContent sourceBitmap, Rectangle sourceRegion, Rectangle destinationRegion)
         {
             SurfaceFormat sourceFormat;
             if (!sourceBitmap.TryGetFormat(out sourceFormat))
@@ -71,24 +71,24 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             BitmapContent.Copy(sourceBitmap, sourceRegion, colorBitmap, new Rectangle(0, 0, colorBitmap.Width, colorBitmap.Height));
             sourceBitmap = colorBitmap;
 
-			ATICompressor.CompressionFormat targetFormat;
-			switch (format)
+            ATICompressor.CompressionFormat targetFormat;
+            switch (format)
             {
-				case SurfaceFormat.RgbaAtcExplicitAlpha:
-					targetFormat = ATICompressor.CompressionFormat.AtcRgbaExplicitAlpha;
-					break;
-				case SurfaceFormat.RgbaAtcInterpolatedAlpha:
-					targetFormat = ATICompressor.CompressionFormat.AtcRgbaInterpolatedAlpha;
-					break;
-				default:
-					return false;
-			}
+                case SurfaceFormat.RgbaAtcExplicitAlpha:
+                    targetFormat = ATICompressor.CompressionFormat.AtcRgbaExplicitAlpha;
+                    break;
+                case SurfaceFormat.RgbaAtcInterpolatedAlpha:
+                    targetFormat = ATICompressor.CompressionFormat.AtcRgbaInterpolatedAlpha;
+                    break;
+                default:
+                    return false;
+            }
 
-			var sourceData = sourceBitmap.GetPixelData();
-			var compressedData = ATICompressor.Compress(sourceData, Width, Height, targetFormat);
-			SetPixelData(compressedData);
+            var sourceData = sourceBitmap.GetPixelData();
+            var compressedData = ATICompressor.Compress(sourceData, Width, Height, targetFormat);
+            SetPixelData(compressedData);
 
-			return true;
+            return true;
         }
 
         protected override bool TryCopyTo(BitmapContent destinationBitmap, Rectangle sourceRegion, Rectangle destinationRegion)

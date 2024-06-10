@@ -1047,9 +1047,11 @@ namespace Microsoft.Xna.Framework
             var rot4 = rot1 * rot2;
             var rot5 = rot1 * rot3;
 
-            var v = new Vector2();
-            v.X = (float)((double)value.X * (1.0 - (double)rot5.Y - (double)rot5.Z) + (double)value.Y * ((double)rot4.Y - (double)rot4.Z));
-            v.Y = (float)((double)value.X * ((double)rot4.Y + (double)rot4.Z) + (double)value.Y * (1.0 - (double)rot4.X - (double)rot5.Z));
+            var v = new Vector2
+            {
+                X = (float)((double)value.X * (1.0 - (double)rot5.Y - (double)rot5.Z) + (double)value.Y * ((double)rot4.Y - (double)rot4.Z)),
+                Y = (float)((double)value.X * ((double)rot4.Y + (double)rot4.Z) + (double)value.Y * (1.0 - (double)rot4.X - (double)rot5.Z))
+            };
             result.X = v.X;
             result.Y = v.Y;
         }

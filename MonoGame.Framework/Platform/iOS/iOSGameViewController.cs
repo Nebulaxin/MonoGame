@@ -12,25 +12,25 @@ using ObjCRuntime;
 
 namespace Microsoft.Xna.Framework
 {
-    class iOSGameViewController : 
-    #if TVOS
+    class iOSGameViewController :
+#if TVOS
         GameController.GCEventViewController
-    #else
+#else
         UIViewController
-    #endif
+#endif
     {
         iOSGamePlatform _platform;
-        #if TVOS
+#if TVOS
         IPlatformBackButton platformBackButton;
-        #endif
+#endif
 
         public iOSGameViewController(iOSGamePlatform platform)
         {
             if (platform == null)
                 throw new ArgumentNullException("platform");
             _platform = platform;
-            SupportedOrientations = 
-                DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight 
+            SupportedOrientations =
+                DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
                 | DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
         }
 
@@ -40,29 +40,29 @@ namespace Microsoft.Xna.Framework
 
         public override void LoadView()
         {
-			CGRect frame;
+            CGRect frame;
             if (ParentViewController != null && ParentViewController.View != null)
             {
-				frame = new CGRect(CGPoint.Empty, ParentViewController.View.Frame.Size);
+                frame = new CGRect(CGPoint.Empty, ParentViewController.View.Frame.Size);
             }
             else
             {
                 UIScreen screen = UIScreen.MainScreen;
 
-                #if !TVOS
+#if !TVOS
                 // iOS 7 and older reverses width/height in landscape mode when reporting resolution,
                 // iOS 8+ reports resolution correctly in all cases
                 if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
                 {
-					frame = new CGRect(0, 0, (nfloat)Math.Max(screen.Bounds.Width, screen.Bounds.Height), (nfloat)Math.Min(screen.Bounds.Width, screen.Bounds.Height));
+                    frame = new CGRect(0, 0, (nfloat)Math.Max(screen.Bounds.Width, screen.Bounds.Height), (nfloat)Math.Min(screen.Bounds.Width, screen.Bounds.Height));
                 }
                 else
                 {
-					frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
+                    frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
                 }
-                #else
+#else
                 frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
-                #endif
+#endif
             }
 
             base.View = new iOSGameView(_platform, frame);
@@ -70,16 +70,16 @@ namespace Microsoft.Xna.Framework
             // Need to set resize mask to ensure a view resize (which in iOS 8+ corresponds with a rotation) adjusts
             // the view and underlying CALayer correctly
             View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-            #if TVOS
+#if TVOS
             ControllerUserInteractionEnabled = false;
-            #endif
+#endif
         }
 
         public new iOSGameView View
         {
             get { return (iOSGameView)base.View; }
         }
-        #if !TVOS
+#if !TVOS
 
         #region Autorotation for iOS 5 or older
         public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
@@ -119,9 +119,9 @@ namespace Microsoft.Xna.Framework
 
         #region iOS 8 or newer
 
-		public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
+        public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
         {
-			CGSize oldSize = View.Bounds.Size;
+            CGSize oldSize = View.Bounds.Size;
 
             if (oldSize != toSize)
             {
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework
                 coordinator.AnimateAlongsideTransition((context) =>
                     {
                         DidRotate(prevOrientation);
-                    }, (context) => 
+                    }, (context) =>
                     {
                     });
 
@@ -161,9 +161,9 @@ namespace Microsoft.Xna.Framework
 
         #endregion
 
-        #endif
+#endif
 
-        #if TVOS
+#if TVOS
 
         public override UIView PreferredFocusedView
         {
@@ -209,6 +209,6 @@ namespace Microsoft.Xna.Framework
             if (ControllerUserInteractionEnabled)
                 base.PressesEnded(presses, evt);
         }
-        #endif
+#endif
     }
 }

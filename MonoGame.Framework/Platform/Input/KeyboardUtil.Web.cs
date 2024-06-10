@@ -4,7 +4,7 @@ namespace Microsoft.Xna.Framework.Input
 {
     public static class KeyboardUtil
     {
-        public static Keys ToXna (int key, int location)
+        public static Keys ToXna(int key, int location)
         {
             switch (key)
             {

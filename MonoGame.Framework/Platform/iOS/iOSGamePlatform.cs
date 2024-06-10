@@ -37,21 +37,21 @@ namespace Microsoft.Xna.Framework
 
             _applicationObservers = new List<NSObject>();
 
-            #if !TVOS
+#if !TVOS
             UIApplication.SharedApplication.SetStatusBarHidden(true, UIStatusBarAnimation.Fade);
-            #endif
+#endif
 
             // Create a full-screen window
-            _mainWindow = new UIWindow (UIScreen.MainScreen.Bounds);
-			//_mainWindow.AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;
-			
-            game.Services.AddService (typeof(UIWindow), _mainWindow);
+            _mainWindow = new UIWindow(UIScreen.MainScreen.Bounds);
+            //_mainWindow.AutoresizingMask = UIViewAutoresizing.FlexibleDimensions;
+
+            game.Services.AddService(typeof(UIWindow), _mainWindow);
 
             _viewController = new iOSGameViewController(this);
-            game.Services.AddService (typeof(UIViewController), _viewController);
-            Window = new iOSGameWindow (_viewController);
+            game.Services.AddService(typeof(UIViewController), _viewController);
+            Window = new iOSGameWindow(_viewController);
 
-            _mainWindow.Add (_viewController.View);
+            _mainWindow.Add(_viewController.View);
 
             _viewController.InterfaceOrientationChanged += ViewController_InterfaceOrientationChanged;
 
@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework
             //Guide.Initialise(game);
         }
 
-        public override void TargetElapsedTimeChanged ()
+        public override void TargetElapsedTimeChanged()
         {
             CreateDisplayLink();
         }
@@ -104,8 +104,8 @@ namespace Microsoft.Xna.Framework
             {
                 if (_viewController != null)
                 {
-                    _viewController.View.RemoveFromSuperview ();
-                    _viewController.RemoveFromParentViewController ();
+                    _viewController.View.RemoveFromSuperview();
+                    _viewController.RemoveFromParentViewController();
                     _viewController.Dispose();
                     _viewController = null;
                 }
@@ -120,7 +120,7 @@ namespace Microsoft.Xna.Framework
 
         public override void BeforeInitialize()
         {
-            base.BeforeInitialize ();
+            base.BeforeInitialize();
 
             _viewController.View.LayoutSubviews();
         }
@@ -160,7 +160,7 @@ namespace Microsoft.Xna.Framework
             //        point, it should be possible to pass Game.Tick
             //        directly to NSTimer.CreateRepeatingTimer.
             _viewController.View.MakeCurrent();
-            Game.Tick ();
+            Game.Tick();
             Threading.Run();
 
             if (!IsPlayingVideo)
@@ -171,7 +171,7 @@ namespace Microsoft.Xna.Framework
                     // disposing resources disposed from a non-ui thread
                     Game.GraphicsDevice.Present();
                 }
-                _viewController.View.Present ();
+                _viewController.View.Present();
             }
         }
 
@@ -230,9 +230,9 @@ namespace Microsoft.Xna.Framework
         private void Application_DidBecomeActive(NSNotification notification)
         {
             IsActive = true;
-            #if TVOS
+#if TVOS
             _viewController.ControllerUserInteractionEnabled = false;
-            #endif
+#endif
             //TouchPanel.Reset();
         }
 
@@ -244,62 +244,64 @@ namespace Microsoft.Xna.Framework
         private void Application_WillTerminate(NSNotification notification)
         {
             // FIXME: Cleanly end the run loop.
-			if ( Game != null )
-			{
-				// TODO MonoGameGame.Terminate();
-			}
+            if (Game != null)
+            {
+                // TODO MonoGameGame.Terminate();
+            }
         }
 
         #endregion Notification Handling
 
         #region Helper Property
 
-        private DisplayOrientation CurrentOrientation {
-            get {
-                #if TVOS
+        private DisplayOrientation CurrentOrientation
+        {
+            get
+            {
+#if TVOS
                 return DisplayOrientation.LandscapeLeft;
-                #else
+#else
                 return OrientationConverter.ToDisplayOrientation(_viewController.InterfaceOrientation);
-                #endif
+#endif
             }
         }
 
         #endregion
 
-		private void ViewController_InterfaceOrientationChanged (object sender, EventArgs e)
-		{
-			var orientation = CurrentOrientation;
+        private void ViewController_InterfaceOrientationChanged(object sender, EventArgs e)
+        {
+            var orientation = CurrentOrientation;
 
-			// FIXME: The presentation parameters for the GraphicsDevice should
-			//        be managed by the GraphicsDevice itself.  Not by
-			//        iOSGamePlatform.
-			var gdm = (GraphicsDeviceManager) Game.Services.GetService (typeof (IGraphicsDeviceManager));
+            // FIXME: The presentation parameters for the GraphicsDevice should
+            //        be managed by the GraphicsDevice itself.  Not by
+            //        iOSGamePlatform.
+            var gdm = (GraphicsDeviceManager)Game.Services.GetService(typeof(IGraphicsDeviceManager));
 
             TouchPanel.DisplayOrientation = orientation;
 
-			if (gdm != null)
-			{	
+            if (gdm != null)
+            {
 
-				var presentParams = gdm.GraphicsDevice.PresentationParameters;
-				presentParams.BackBufferWidth = gdm.PreferredBackBufferWidth;
-				presentParams.BackBufferHeight = gdm.PreferredBackBufferHeight;
+                var presentParams = gdm.GraphicsDevice.PresentationParameters;
+                presentParams.BackBufferWidth = gdm.PreferredBackBufferWidth;
+                presentParams.BackBufferHeight = gdm.PreferredBackBufferHeight;
 
-				presentParams.DisplayOrientation = orientation;
+                presentParams.DisplayOrientation = orientation;
 
                 // Recalculate our views.
                 ViewController.View.LayoutSubviews();
-				
+
                 gdm.ApplyChanges();
-			}
-			
-		}
+            }
 
-		public override void BeginScreenDeviceChange (bool willBeFullScreen)
-		{
-		}
+        }
 
-		public override void EndScreenDeviceChange (string screenDeviceName, int clientWidth,int clientHeight)
-		{
-		}
-	}
+        public override void BeginScreenDeviceChange(bool willBeFullScreen)
+        {
+        }
+
+        public override void EndScreenDeviceChange(string screenDeviceName, int clientWidth, int clientHeight)
+        {
+        }
+    }
 }

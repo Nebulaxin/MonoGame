@@ -103,9 +103,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		/// <returns>The expanded value.</returns>
 		public readonly Vector2 ToVector2()
 		{
-			var v2 = new Vector2();
-			v2.X = (short)(_short2Packed & 0xFFFF);
-			v2.Y = (short)(_short2Packed >> 0x10);
+			var v2 = new Vector2
+			{
+				X = (short)(_short2Packed & 0xFFFF),
+				Y = (short)(_short2Packed >> 0x10)
+			};
 			return v2;
 		}
 
@@ -130,9 +132,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		/// <inheritdoc />
 		public readonly Vector4 ToVector4()
 		{
-			var v4 = new Vector4(0, 0, 0, 1);
-			v4.X = (short)(_short2Packed & 0xFFFF);
-			v4.Y = (short)(_short2Packed >> 0x10);
+			var v4 = new Vector4(0, 0, 0, 1)
+			{
+				X = (short)(_short2Packed & 0xFFFF),
+				Y = (short)(_short2Packed >> 0x10)
+			};
 			return v4;
 		}
 	}

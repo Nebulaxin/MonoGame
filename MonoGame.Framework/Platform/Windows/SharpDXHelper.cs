@@ -132,7 +132,7 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-		static public RawVector2 ToVector2(this Vector2 vec)
+        static public RawVector2 ToVector2(this Vector2 vec)
         {
             return new RawVector2(vec.X, vec.Y);
         }

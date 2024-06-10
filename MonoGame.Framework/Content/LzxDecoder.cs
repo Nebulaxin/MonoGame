@@ -44,7 +44,6 @@
 #endregion
 
 using System;
-using System.Diagnostics;
 
 namespace Microsoft.Xna.Framework.Content
 {
@@ -66,9 +65,11 @@ namespace Microsoft.Xna.Framework.Content
 			if (window < 15 || window > 21) throw new UnsupportedWindowSizeRange();
 
 			// let's initialise our state
-			m_state = new LzxState();
-			m_state.actual_size = 0;
-			m_state.window = new byte[wndsize];
+			m_state = new LzxState
+			{
+				actual_size = 0,
+				window = new byte[wndsize]
+			};
 			for (int i = 0; i < wndsize; i++) m_state.window[i] = 0xDC;
 			m_state.actual_size = wndsize;
 			m_state.window_size = wndsize;

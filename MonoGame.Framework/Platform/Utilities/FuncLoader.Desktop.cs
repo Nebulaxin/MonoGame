@@ -32,7 +32,7 @@ namespace MonoGame.Framework.Utilities
             [DllImport("/usr/lib/libSystem.dylib")]
             public static extern IntPtr dlsym(IntPtr handle, string symbol);
         }
-        
+
         private const int RTLD_LAZY = 0x0001;
 
         public static IntPtr LoadLibraryExt(string libname)

@@ -24,16 +24,16 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             throw new InvalidContentException("Not have enough entries in space-separated list!");
         }
 
-        protected internal abstract T Deserialize(string [] inputs, ref int index);
+        protected internal abstract T Deserialize(string[] inputs, ref int index);
 
         protected internal abstract void Serialize(T value, List<string> results);
 
-        
+
 
         protected internal void Deserialize(IntermediateReader input, List<T> results)
         {
             var elements = PackedElementsHelper.ReadElements(input);
-                            
+
             for (var index = 0; index < elements.Length;)
             {
                 if (elements.Length - index < _elementCount)

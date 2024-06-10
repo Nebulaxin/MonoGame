@@ -457,7 +457,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Utilities.LZ4
 
 		private static unsafe LZ4HC_Data_Structure LZ4HC_Create(byte* src)
 		{
-			var hc4 = new LZ4HC_Data_Structure {
+			var hc4 = new LZ4HC_Data_Structure
+			{
 				hashTable = new int[HASHHC_TABLESIZE],
 				chainTable = new ushort[MAXD]
 			};

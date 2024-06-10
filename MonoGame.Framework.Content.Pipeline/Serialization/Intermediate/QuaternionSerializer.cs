@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
         protected internal override Quaternion Deserialize(string[] inputs, ref int index)
         {
-            return new Quaternion(  XmlConvert.ToSingle(inputs[index++]),
+            return new Quaternion(XmlConvert.ToSingle(inputs[index++]),
                                     XmlConvert.ToSingle(inputs[index++]),
                                     XmlConvert.ToSingle(inputs[index++]),
                                     XmlConvert.ToSingle(inputs[index++]));

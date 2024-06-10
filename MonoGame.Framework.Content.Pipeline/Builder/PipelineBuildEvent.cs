@@ -119,12 +119,12 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
         public static PipelineBuildEvent Load(string filePath)
         {
             var fullFilePath = Path.GetFullPath(filePath);
-            var deserializer = new XmlSerializer(typeof (PipelineBuildEvent));
+            var deserializer = new XmlSerializer(typeof(PipelineBuildEvent));
             PipelineBuildEvent pipelineEvent;
             try
             {
                 using (var textReader = new XmlTextReader(fullFilePath))
-                    pipelineEvent = (PipelineBuildEvent) deserializer.Deserialize(textReader);
+                    pipelineEvent = (PipelineBuildEvent)deserializer.Deserialize(textReader);
             }
             catch (Exception)
             {
@@ -151,7 +151,7 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
                 ParametersXml.Add(new Pair { Key = pair.Key, Value = ConvertToString(pair.Value) });
 
             // Serialize our state.
-            var serializer = new XmlSerializer(typeof (PipelineBuildEvent));
+            var serializer = new XmlSerializer(typeof(PipelineBuildEvent));
             using (var textWriter = new StreamWriter(fullFilePath, false, new UTF8Encoding(false)))
                 serializer.Serialize(textWriter, this);
         }

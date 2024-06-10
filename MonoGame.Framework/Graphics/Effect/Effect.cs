@@ -5,7 +5,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using MonoGame.Framework.Utilities;
 
 namespace Microsoft.Xna.Framework.Graphics
 {

@@ -6,7 +6,6 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Text.RegularExpressions;
 
 namespace Microsoft.Xna.Framework.Design
 {

@@ -6,8 +6,8 @@ using System.Text;
 
 namespace Microsoft.Xna.Framework.Content.Pipeline.Builder.Convertors
 {
-	public class StringToColorConverter : TypeConverter
-	{
+    public class StringToColorConverter : TypeConverter
+    {
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             if (destinationType == typeof(string))
@@ -18,20 +18,20 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Builder.Convertors
 
         public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
         {
-            if (destinationType != typeof (string))            
+            if (destinationType != typeof(string))
                 return base.ConvertTo(context, culture, value, destinationType);
 
             var color = (Color)value;
             return string.Format("{0},{1},{2},{3}", color.R, color.G, color.B, color.A);
         }
 
-		public override bool CanConvertFrom (ITypeDescriptorContext context, Type sourceType)
-		{
-			if (sourceType == typeof (string))
-				return true;
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+        {
+            if (sourceType == typeof(string))
+                return true;
 
-			return base.CanConvertFrom (context, sourceType);
-		}
+            return base.CanConvertFrom(context, sourceType);
+        }
 
         public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
         {
@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Builder.Convertors
                     }
                 }
                 else // Assume the string is in the MonoGame "r,g,b,a" format
-                {                    
+                {
                     string[] values = (strValue).Split(new char[] { ',' }, StringSplitOptions.None);
                     if (values.Length == 4)
                     {

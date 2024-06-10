@@ -33,10 +33,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         public bool MoveToElement(string elementName)
         {
             var nodeType = Xml.MoveToContent();
-            return  nodeType == XmlNodeType.Element && 
+            return nodeType == XmlNodeType.Element &&
                     Xml.Name == elementName;
         }
- 
+
         public T ReadObject<T>(ContentSerializerAttribute format)
         {
             return ReadObject(format, Serializer.GetTypeSerializer(typeof(T)), default(T));
@@ -78,23 +78,23 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                     Xml.MoveToElement();
                 }
             }
-            
+
             return ReadRawObject(format, typeSerializer, existingInstance);
         }
 
         public T ReadObject<T>(ContentSerializerAttribute format, T existingInstance)
         {
-            return ReadObject(format, Serializer.GetTypeSerializer(typeof(T)), existingInstance);            
+            return ReadObject(format, Serializer.GetTypeSerializer(typeof(T)), existingInstance);
         }
 
         public T ReadRawObject<T>(ContentSerializerAttribute format)
         {
-            return ReadRawObject(format, Serializer.GetTypeSerializer(typeof(T)), default(T));         
+            return ReadRawObject(format, Serializer.GetTypeSerializer(typeof(T)), default(T));
         }
 
         public T ReadRawObject<T>(ContentSerializerAttribute format, ContentTypeSerializer typeSerializer)
         {
-            return ReadRawObject(format, typeSerializer, default(T));         
+            return ReadRawObject(format, typeSerializer, default(T));
         }
 
         public T ReadRawObject<T>(ContentSerializerAttribute format, ContentTypeSerializer typeSerializer, T existingInstance)
@@ -125,7 +125,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
         public T ReadRawObject<T>(ContentSerializerAttribute format, T existingInstance)
         {
-            return ReadRawObject(format, Serializer.GetTypeSerializer(typeof(T)), existingInstance);           
+            return ReadRawObject(format, Serializer.GetTypeSerializer(typeof(T)), existingInstance);
         }
 
         public void ReadSharedResource<T>(ContentSerializerAttribute format, Action<T> fixup)
@@ -144,7 +144,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
 
             if (string.IsNullOrEmpty(str))
                 return;
-            
+
             // Do we already have one for this?
             Action<object> prevFixup;
             if (!_resourceFixups.TryGetValue(str, out prevFixup))

@@ -24,7 +24,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary>
         /// The XML element name to use for each item in the collection.
         /// </summary>
-        public string CollectionItemName { get; private set;}
+        public string CollectionItemName { get; private set; }
     }
 }
 

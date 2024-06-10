@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework
             // Draw the resume texture in the middle of the screen and make it spin
             spriteBatch.Begin();
             spriteBatch.Draw(resumeTexture,
-                            new Vector2(sw / 2, sh / 2), 
+                            new Vector2(sw / 2, sh / 2),
                             null, Color.White, rotation,
                             new Vector2(tw / 2, th / 2),
                             scale, SpriteEffects.None, 0.0f);

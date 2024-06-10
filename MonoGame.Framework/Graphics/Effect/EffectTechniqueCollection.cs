@@ -7,7 +7,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public class EffectTechniqueCollection : IEnumerable<EffectTechnique>
     {
-		private readonly EffectTechnique[] _techniques;
+        private readonly EffectTechnique[] _techniques;
 
         /// <summary>
         /// Gets the number of elements contained in the collection.
@@ -33,7 +33,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public EffectTechnique this[int index]
         {
-            get { return _techniques [index]; }
+            get { return _techniques[index]; }
         }
 
         /// <summary>
@@ -42,17 +42,17 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="name">The name of the technique to retrieve.</param>
         public EffectTechnique this[string name]
         {
-            get 
+            get
             {
                 // TODO: Add a name to technique lookup table.
-				foreach (var technique in _techniques) 
+                foreach (var technique in _techniques)
                 {
-					if (technique.Name == name)
-						return technique;
-			    }
+                    if (technique.Name == name)
+                        return technique;
+                }
 
-			    return null;
-		    }
+                return null;
+            }
         }
 
         /// <inheritdoc/>

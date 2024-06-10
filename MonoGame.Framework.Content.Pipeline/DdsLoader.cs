@@ -466,7 +466,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
                 header.dwPitchOrLinearSize = (uint)(bitmapContent.Width * 4);
                 header.dwDepth = (uint)0;
                 header.dwMipMapCount = (uint)0;
-                
+
                 writer.Write((uint)header.dwSize);
                 writer.Write((uint)header.dwFlags);
                 writer.Write((uint)header.dwHeight);
