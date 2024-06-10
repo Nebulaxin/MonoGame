@@ -84,9 +84,8 @@ namespace MonoGame.Framework.Utilities
 		public override int Read( byte[] buffer, int offset, int count )
 		{
 #if CHECK_ARGS
-			if( buffer == null )
-				throw new ArgumentNullException(nameof(buffer));
-			if ( offset < 0 || count < 0 || buffer.Length - count < offset )
+			ArgumentNullException.ThrowIfNull(buffer);
+			if (offset < 0 || count < 0 || buffer.Length - count < offset)
 				throw new ArgumentOutOfRangeException();
 
 			if( input == null )

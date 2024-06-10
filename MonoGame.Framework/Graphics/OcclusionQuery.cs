@@ -70,8 +70,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public OcclusionQuery(GraphicsDevice graphicsDevice)
         {
-            if (graphicsDevice == null)
-                throw new ArgumentNullException(nameof(graphicsDevice));
+            ArgumentNullException.ThrowIfNull(graphicsDevice);
             if (graphicsDevice.GraphicsProfile == GraphicsProfile.Reach)
                 throw new NotSupportedException("The Reach profile does not support occlusion queries.");
 

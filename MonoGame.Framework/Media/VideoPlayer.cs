@@ -192,8 +192,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <param name="video">Video to play.</param>
         public void Play(Video video)
         {
-            if (video == null)
-                throw new ArgumentNullException("video is null.");
+            ArgumentNullException.ThrowIfNull(video);
 
             if (_currentVideo == video)
             {

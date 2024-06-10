@@ -149,8 +149,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="destinationBoneTransforms">The array receiving the transformed bones.</param>
         public void CopyAbsoluteBoneTransformsTo(Matrix[] destinationBoneTransforms)
 		{
-			if (destinationBoneTransforms == null)
-                throw new ArgumentNullException(nameof(destinationBoneTransforms));
+            ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
             if (destinationBoneTransforms.Length < this.Bones.Count)
                 throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
             int count = this.Bones.Count;
@@ -181,8 +180,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void CopyBoneTransformsFrom(Matrix[] sourceBoneTransforms)
         {
-            if (sourceBoneTransforms == null)
-                throw new ArgumentNullException(nameof(sourceBoneTransforms));
+            ArgumentNullException.ThrowIfNull(sourceBoneTransforms);
             if (sourceBoneTransforms.Length < Bones.Count)
                 throw new ArgumentOutOfRangeException(nameof(sourceBoneTransforms));
 
@@ -205,8 +203,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void CopyBoneTransformsTo(Matrix[] destinationBoneTransforms)
         {
-            if (destinationBoneTransforms == null)
-                throw new ArgumentNullException(nameof(destinationBoneTransforms));
+            ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
             if (destinationBoneTransforms.Length < Bones.Count)
                 throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
 

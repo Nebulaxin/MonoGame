@@ -58,8 +58,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
 		public void Add(Playlist item)
         {
-            if (item == null)
-                throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull(item);
 
             if (innerlist.Count == 0)
             {

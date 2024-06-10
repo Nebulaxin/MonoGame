@@ -275,8 +275,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new <see cref="BoundingSphere"/>.</returns>
         public static BoundingSphere CreateFromPoints(IEnumerable<Vector3> points)
         {
-            if (points == null )
-                throw new ArgumentNullException(nameof(points));
+            ArgumentNullException.ThrowIfNull(points);
 
             // From "Real-Time Collision Detection" (Page 89)
 

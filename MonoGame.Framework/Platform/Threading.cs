@@ -96,8 +96,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="action">The action to be run on the UI thread</param>
         internal static void BlockOnUIThread(Action action)
         {
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
+            ArgumentNullException.ThrowIfNull(action);
 
             BlockOnUIThread(_metaAction, action);
         }
@@ -110,8 +109,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="state">The data to pass to <paramref name="action"/></param>.
         internal static void BlockOnUIThread<TState>(Action<TState> action, TState state)
         {
-            if (action == null)
-                throw new ArgumentNullException(nameof(action));
+            ArgumentNullException.ThrowIfNull(action);
 
 #if DIRECTX || PSM
             action(state);

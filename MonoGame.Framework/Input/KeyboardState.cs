@@ -260,8 +260,7 @@ namespace Microsoft.Xna.Framework.Input
         /// This array is not cleared, and it must be equal to or larger than the number of keys pressed.</param>
         public void GetPressedKeys(Keys[] keys)
         {
-            if (keys == null)
-                throw new System.ArgumentNullException(nameof(keys));
+            System.ArgumentNullException.ThrowIfNull(keys);
 
             uint count = CountBits(_keys0) + CountBits(_keys1) + CountBits(_keys2) + CountBits(_keys3)
                     + CountBits(_keys4) + CountBits(_keys5) + CountBits(_keys6) + CountBits(_keys7);

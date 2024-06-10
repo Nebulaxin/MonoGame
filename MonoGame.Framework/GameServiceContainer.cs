@@ -36,10 +36,8 @@ namespace Microsoft.Xna.Framework
         /// </exception>
         public void AddService(Type type, object provider)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-            if (provider == null)
-                throw new ArgumentNullException(nameof(provider));
+            ArgumentNullException.ThrowIfNull(type);
+            ArgumentNullException.ThrowIfNull(provider);
             if (!ReflectionHelpers.IsAssignableFrom(type, provider))
                 throw new ArgumentException("The provider does not match the specified service type!");
 
@@ -57,8 +55,7 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentNullException">If the specified type is <code>null</code>.</exception>
         public object GetService(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
+            ArgumentNullException.ThrowIfNull(type);
 
             if (services.TryGetValue(type, out object service))
                 return service;
@@ -73,8 +70,7 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentNullException">If the specified type is <code>null</code>.</exception>
         public void RemoveService(Type type)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
+            ArgumentNullException.ThrowIfNull(type);
 
             services.Remove(type);
         }

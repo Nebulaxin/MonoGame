@@ -247,8 +247,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static SoundEffect FromFile(string path)
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            ArgumentNullException.ThrowIfNull(path);
 
             using (var stream = File.OpenRead(path))
                 return FromStream(stream);
@@ -273,8 +272,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static SoundEffect FromStream(Stream stream)
         {
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
+            ArgumentNullException.ThrowIfNull(stream);
 
             return new SoundEffect(stream);
         }

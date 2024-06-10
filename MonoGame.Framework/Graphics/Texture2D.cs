@@ -618,8 +618,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(T[] data) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             this.GetData(0, null, data, 0, data.Length);
         }
 
@@ -637,8 +636,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public static Texture2D FromFile(GraphicsDevice graphicsDevice, string path, Action<byte[]> colorProcessor)
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
+            ArgumentNullException.ThrowIfNull(path);
 
             using (var stream = File.OpenRead(path))
                 return FromStream(graphicsDevice, stream, colorProcessor);
@@ -674,10 +672,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public static Texture2D FromStream(GraphicsDevice graphicsDevice, Stream stream, Action<byte[]> colorProcessor)
         {
-            if (graphicsDevice == null)
-                throw new ArgumentNullException(nameof(graphicsDevice));
-            if (stream == null)
-                throw new ArgumentNullException(nameof(stream));
+            ArgumentNullException.ThrowIfNull(graphicsDevice);
+            ArgumentNullException.ThrowIfNull(stream);
 
             try
             {
@@ -763,8 +759,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new ArgumentException("arraySlice must be smaller than the ArraySize of this texture and larger than 0.", nameof(arraySlice));
             if (!textureBounds.Contains(checkedRect) || checkedRect.Width <= 0 || checkedRect.Height <= 0)
                 throw new ArgumentException("Rectangle must be inside the texture bounds", nameof(rect));
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             var tSize = ReflectionHelpers.SizeOf<T>.Get();
             var fSize = Format.GetSize();
             if (tSize > fSize || fSize % tSize != 0)

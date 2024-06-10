@@ -86,8 +86,7 @@ namespace Microsoft.Xna.Framework.Media
 		public void Add(Song item)
         {
 
-            if (item == null)
-                throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull(item);
 
             if (innerlist.Count == 0)
             {

@@ -78,8 +78,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         private WaveBank(AudioEngine audioEngine, string waveBankFilename, bool streaming, int offset, int packetsize)
         {
-            if (audioEngine == null)
-                throw new ArgumentNullException(nameof(audioEngine));
+            ArgumentNullException.ThrowIfNull(audioEngine);
             if (string.IsNullOrEmpty(waveBankFilename))
                 throw new ArgumentNullException("nonStreamingWaveBankFilename");
 
