@@ -2,18 +2,17 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+internal class DoubleReader : ContentTypeReader<double>
 {
-    internal class DoubleReader : ContentTypeReader<double>
+    public DoubleReader()
     {
-        public DoubleReader()
-        {
-        }
+    }
 
-        protected internal override double Read(ContentReader input, double existingInstance)
-        {
-            return input.ReadDouble();
-        }
+    protected internal override double Read(ContentReader input, double existingInstance)
+    {
+        return input.ReadDouble();
     }
 }
+
 

@@ -4,62 +4,61 @@
 
 using MonoGame.OpenGL;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+partial class OcclusionQuery
 {
-    partial class OcclusionQuery
+    private int glQueryId = -1;
+
+    private void PlatformConstruct()
     {
-        private int glQueryId = -1;
+        GL.GenQueries(1, out glQueryId);
+        GraphicsExtensions.CheckGLError();
+    }
 
-        private void PlatformConstruct()
+    private void PlatformBegin()
+    {
+        GL.BeginQuery(QueryTarget.SamplesPassed, glQueryId);
+        GraphicsExtensions.CheckGLError();
+    }
+
+    private void PlatformEnd()
+    {
+        GL.EndQuery(QueryTarget.SamplesPassed);
+        GraphicsExtensions.CheckGLError();
+    }
+
+    private bool PlatformGetResult(out int pixelCount)
+    {
+        int resultReady = 0;
+        GL.GetQueryObject(glQueryId, GetQueryObjectParam.QueryResultAvailable, out resultReady);
+        GraphicsExtensions.CheckGLError();
+
+        if (resultReady == 0)
         {
-            GL.GenQueries(1, out glQueryId);
-            GraphicsExtensions.CheckGLError();
+            pixelCount = 0;
+            return false;
         }
 
-        private void PlatformBegin()
-        {
-            GL.BeginQuery(QueryTarget.SamplesPassed, glQueryId);
-            GraphicsExtensions.CheckGLError();
-        }
+        GL.GetQueryObject(glQueryId, GetQueryObjectParam.QueryResult, out pixelCount);
+        GraphicsExtensions.CheckGLError();
 
-        private void PlatformEnd()
-        {
-            GL.EndQuery(QueryTarget.SamplesPassed);
-            GraphicsExtensions.CheckGLError();
-        }
+        return true;
+    }
 
-        private bool PlatformGetResult(out int pixelCount)
+    /// <summary/>
+    protected override void Dispose(bool disposing)
+    {
+        if (!IsDisposed)
         {
-            int resultReady = 0;
-            GL.GetQueryObject(glQueryId, GetQueryObjectParam.QueryResultAvailable, out resultReady);
-            GraphicsExtensions.CheckGLError();
-
-            if (resultReady == 0)
+            if (glQueryId > -1)
             {
-                pixelCount = 0;
-                return false;
+                GraphicsDevice.DisposeQuery(glQueryId);
+                glQueryId = -1;
             }
-
-            GL.GetQueryObject(glQueryId, GetQueryObjectParam.QueryResult, out pixelCount);
-            GraphicsExtensions.CheckGLError();
-
-            return true;
         }
 
-        /// <summary/>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                if (glQueryId > -1)
-                {
-                    GraphicsDevice.DisposeQuery(glQueryId);
-                    glQueryId = -1;
-                }
-            }
-
-            base.Dispose(disposing);
-        }
+        base.Dispose(disposing);
     }
 }
+
 

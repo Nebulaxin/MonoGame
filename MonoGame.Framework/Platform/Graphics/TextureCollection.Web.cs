@@ -4,23 +4,22 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public sealed partial class TextureCollection
 {
-    public sealed partial class TextureCollection
+    void PlatformInit()
     {
-        void PlatformInit()
-        {
 
-        }
+    }
 
-        void PlatformClear()
-        {
+    void PlatformClear()
+    {
 
-        }
+    }
 
-        void PlatformSetTextures(GraphicsDevice device)
-        {
+    void PlatformSetTextures(GraphicsDevice device)
+    {
 
-        }
     }
 }
+

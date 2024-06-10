@@ -5,8 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Microsoft.Xna.Framework.Media
-{
+namespace Microsoft.Xna.Framework.Media;
     class MusicProperties
     {
         public StorageFile File { get; private set; }
@@ -103,6 +102,6 @@ namespace Microsoft.Xna.Framework.Media
             stream.Write(this.TrackNumber);
         }
     }
-}
+
 
 #endif

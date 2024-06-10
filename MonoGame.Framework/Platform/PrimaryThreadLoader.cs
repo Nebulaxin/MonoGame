@@ -1,88 +1,86 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+/// <summary>
+/// Interface used to add an object to be loaded on the primary thread
+/// </summary>
+interface IPrimaryThreadLoaded
 {
-    /// <summary>
-    /// Interface used to add an object to be loaded on the primary thread
-    /// </summary>
-    interface IPrimaryThreadLoaded
+    bool Load();
+}
+
+/// <summary>
+/// Static class that is called before every draw to load resources that need to finish loading on the primary thread
+/// </summary>
+internal static class PrimaryThreadLoader
+{
+    private static readonly object ListLockObject = new object();
+    private static readonly List<IPrimaryThreadLoaded> NeedToLoad = new List<IPrimaryThreadLoaded>();
+    private static readonly List<IPrimaryThreadLoaded> RemoveList = new List<IPrimaryThreadLoaded>();
+    private static DateTime _lastUpdate = DateTime.UtcNow;
+
+    public static void AddToList(IPrimaryThreadLoaded primaryThreadLoaded)
     {
-        bool Load();
+        lock (ListLockObject)
+        {
+            NeedToLoad.Add(primaryThreadLoaded);
+        }
     }
 
-    /// <summary>
-    /// Static class that is called before every draw to load resources that need to finish loading on the primary thread
-    /// </summary>
-    internal static class PrimaryThreadLoader
+    public static void RemoveFromList(IPrimaryThreadLoaded primaryThreadLoaded)
     {
-        private static readonly object ListLockObject = new object();
-        private static readonly List<IPrimaryThreadLoaded> NeedToLoad = new List<IPrimaryThreadLoaded>();
-        private static readonly List<IPrimaryThreadLoaded> RemoveList = new List<IPrimaryThreadLoaded>();
-        private static DateTime _lastUpdate = DateTime.UtcNow;
-
-        public static void AddToList(IPrimaryThreadLoaded primaryThreadLoaded)
+        lock (ListLockObject)
         {
-            lock (ListLockObject)
-            {
-                NeedToLoad.Add(primaryThreadLoaded);
-            }
+            NeedToLoad.Remove(primaryThreadLoaded);
         }
+    }
 
-        public static void RemoveFromList(IPrimaryThreadLoaded primaryThreadLoaded)
+    public static void RemoveFromList(List<IPrimaryThreadLoaded> primaryThreadLoadeds)
+    {
+        lock (ListLockObject)
         {
-            lock (ListLockObject)
+            foreach (var primaryThreadLoaded in primaryThreadLoadeds)
             {
                 NeedToLoad.Remove(primaryThreadLoaded);
             }
         }
+    }
 
-        public static void RemoveFromList(List<IPrimaryThreadLoaded> primaryThreadLoadeds)
+    public static void Clear()
+    {
+        lock (ListLockObject)
         {
-            lock (ListLockObject)
-            {
-                foreach (var primaryThreadLoaded in primaryThreadLoadeds)
-                {
-                    NeedToLoad.Remove(primaryThreadLoaded);
-                }
-            }
+            NeedToLoad.Clear();
         }
+    }
 
-        public static void Clear()
+    /// <summary>
+    /// Loops through list and loads the item.  If successful, it is removed from the list.
+    /// </summary>
+    public static void DoLoads()
+    {
+        if ((DateTime.UtcNow - _lastUpdate).Milliseconds < 250) return;
+
+        _lastUpdate = DateTime.UtcNow;
+        lock (ListLockObject)
         {
-            lock (ListLockObject)
+            for (int i = 0; i < NeedToLoad.Count; i++)
             {
-                NeedToLoad.Clear();
+                var primaryThreadLoaded = NeedToLoad[i];
+                if (primaryThreadLoaded.Load())
+                {
+                    RemoveList.Add(primaryThreadLoaded);
+                }
             }
-        }
 
-        /// <summary>
-        /// Loops through list and loads the item.  If successful, it is removed from the list.
-        /// </summary>
-        public static void DoLoads()
-        {
-            if ((DateTime.UtcNow - _lastUpdate).Milliseconds < 250) return;
-
-            _lastUpdate = DateTime.UtcNow;
-            lock (ListLockObject)
+            for (int i = 0; i < RemoveList.Count; i++)
             {
-                for (int i = 0; i < NeedToLoad.Count; i++)
-                {
-                    var primaryThreadLoaded = NeedToLoad[i];
-                    if (primaryThreadLoaded.Load())
-                    {
-                        RemoveList.Add(primaryThreadLoaded);
-                    }
-                }
-
-                for (int i = 0; i < RemoveList.Count; i++)
-                {
-                    var primaryThreadLoaded = RemoveList[i];
-                    NeedToLoad.Remove(primaryThreadLoaded);
-                }
-
-                RemoveList.Clear();
+                var primaryThreadLoaded = RemoveList[i];
+                NeedToLoad.Remove(primaryThreadLoaded);
             }
+
+            RemoveList.Clear();
         }
     }
 }

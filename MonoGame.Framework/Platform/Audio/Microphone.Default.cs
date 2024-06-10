@@ -5,31 +5,30 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework.Audio
+namespace Microsoft.Xna.Framework.Audio;
+/// <summary>
+/// Provides microphones capture features. 
+/// </summary>	
+public sealed partial class Microphone
 {
-    /// <summary>
-    /// Provides microphones capture features. 
-    /// </summary>	
-    public sealed partial class Microphone
+    internal void PlatformStart()
     {
-        internal void PlatformStart()
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        internal void PlatformStop()
-        {
-            throw new NotImplementedException();
-        }
+    internal void PlatformStop()
+    {
+        throw new NotImplementedException();
+    }
 
-        internal void Update()
-        {
-            throw new NotImplementedException();
-        }
+    internal void Update()
+    {
+        throw new NotImplementedException();
+    }
 
-        internal int PlatformGetData(byte[] buffer, int offset, int count)
-        {
-            throw new NotImplementedException();
-        }
+    internal int PlatformGetData(byte[] buffer, int offset, int count)
+    {
+        throw new NotImplementedException();
     }
 }
+

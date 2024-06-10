@@ -1,0 +1,9 @@
+{
+    "commandOnAllFiles.commands": {
+        "Fix all": {
+            "command": "editor.action.quickFix",
+            "includeFileExtensions": [ ".cs" ],
+            "includeFolders": [ "MonoGame.Framework", "MonoGame.Framework.Content.Pipeline" ]
+        }
+    }
+}

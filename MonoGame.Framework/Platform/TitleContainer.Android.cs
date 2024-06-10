@@ -5,14 +5,13 @@
 using System;
 using System.IO;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+partial class TitleContainer
 {
-    partial class TitleContainer
+    private static Stream PlatformOpenStream(string safeName)
     {
-        private static Stream PlatformOpenStream(string safeName)
-        {
-            return Android.App.Application.Context.Assets.Open(safeName);
-        }
+        return Android.App.Application.Context.Assets.Open(safeName);
     }
 }
+
 

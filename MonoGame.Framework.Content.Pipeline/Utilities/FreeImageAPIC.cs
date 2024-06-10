@@ -13,120 +13,119 @@
 
 using System;
 
-namespace FreeImageAPI
+namespace FreeImageAPI;
+partial class FreeImage
 {
-    partial class FreeImage
+    public static unsafe void CopyMemory(byte* dest, byte* src, int len)
     {
-        public static unsafe void CopyMemory(byte* dest, byte* src, int len)
+        if (len >= 0x10)
         {
-            if (len >= 0x10)
+            do
             {
-                do
-                {
-                    *((int*)dest) = *((int*)src);
-                    *((int*)(dest + 4)) = *((int*)(src + 4));
-                    *((int*)(dest + 8)) = *((int*)(src + 8));
-                    *((int*)(dest + 12)) = *((int*)(src + 12));
-                    dest += 0x10;
-                    src += 0x10;
-                }
-                while ((len -= 0x10) >= 0x10);
+                *((int*)dest) = *((int*)src);
+                *((int*)(dest + 4)) = *((int*)(src + 4));
+                *((int*)(dest + 8)) = *((int*)(src + 8));
+                *((int*)(dest + 12)) = *((int*)(src + 12));
+                dest += 0x10;
+                src += 0x10;
             }
-            if (len > 0)
-            {
-                if ((len & 8) != 0)
-                {
-                    *((int*)dest) = *((int*)src);
-                    *((int*)(dest + 4)) = *((int*)(src + 4));
-                    dest += 8;
-                    src += 8;
-                }
-                if ((len & 4) != 0)
-                {
-                    *((int*)dest) = *((int*)src);
-                    dest += 4;
-                    src += 4;
-                }
-                if ((len & 2) != 0)
-                {
-                    *((short*)dest) = *((short*)src);
-                    dest += 2;
-                    src += 2;
-                }
-                if ((len & 1) != 0)
-                {
-                    *dest = *src;
-                }
-            }
+            while ((len -= 0x10) >= 0x10);
         }
-
-        public static unsafe IntPtr ConvertFromRawBits(
-            byte[] bits,
-            FREE_IMAGE_TYPE type,
-            int width,
-            int height,
-            int pitch,
-            uint bpp,
-            uint red_mask,
-            uint green_mask,
-            uint blue_mask,
-            bool topdown)
+        if (len > 0)
         {
-            fixed (byte* ptr = bits)
+            if ((len & 8) != 0)
             {
-                return ConvertFromRawBits(
-                    (IntPtr)ptr,
-                    type,
-                    width,
-                    height,
-                    pitch,
-                    bpp,
-                    red_mask,
-                    green_mask,
-                    blue_mask,
-                    topdown);
+                *((int*)dest) = *((int*)src);
+                *((int*)(dest + 4)) = *((int*)(src + 4));
+                dest += 8;
+                src += 8;
             }
-        }
-
-        public static unsafe IntPtr ConvertFromRawBits(
-            IntPtr bits,
-            FREE_IMAGE_TYPE type,
-            int width,
-            int height,
-            int pitch,
-            uint bpp,
-            uint red_mask,
-            uint green_mask,
-            uint blue_mask,
-            bool topdown)
-        {
-            byte* addr = (byte*)bits;
-            if ((addr == null) || (width <= 0) || (height <= 0))
+            if ((len & 4) != 0)
             {
-                return IntPtr.Zero;
+                *((int*)dest) = *((int*)src);
+                dest += 4;
+                src += 4;
             }
-
-            IntPtr dib = AllocateT(type, width, height, (int)bpp, red_mask, green_mask, blue_mask);
-            if (dib != IntPtr.Zero)
+            if ((len & 2) != 0)
             {
-                if (topdown)
-                {
-                    for (int i = height - 1; i >= 0; --i)
-                    {
-                        CopyMemory((byte*)GetScanLine(dib, i), addr, (int)GetLine(dib));
-                        addr += pitch;
-                    }
-                }
-                else
-                {
-                    for (int i = 0; i < height; ++i)
-                    {
-                        CopyMemory((byte*)GetScanLine(dib, i), addr, (int)GetLine(dib));
-                        addr += pitch;
-                    }
-                }
+                *((short*)dest) = *((short*)src);
+                dest += 2;
+                src += 2;
             }
-            return dib;
+            if ((len & 1) != 0)
+            {
+                *dest = *src;
+            }
         }
     }
+
+    public static unsafe IntPtr ConvertFromRawBits(
+        byte[] bits,
+        FREE_IMAGE_TYPE type,
+        int width,
+        int height,
+        int pitch,
+        uint bpp,
+        uint red_mask,
+        uint green_mask,
+        uint blue_mask,
+        bool topdown)
+    {
+        fixed (byte* ptr = bits)
+        {
+            return ConvertFromRawBits(
+                (IntPtr)ptr,
+                type,
+                width,
+                height,
+                pitch,
+                bpp,
+                red_mask,
+                green_mask,
+                blue_mask,
+                topdown);
+        }
+    }
+
+    public static unsafe IntPtr ConvertFromRawBits(
+        IntPtr bits,
+        FREE_IMAGE_TYPE type,
+        int width,
+        int height,
+        int pitch,
+        uint bpp,
+        uint red_mask,
+        uint green_mask,
+        uint blue_mask,
+        bool topdown)
+    {
+        byte* addr = (byte*)bits;
+        if ((addr == null) || (width <= 0) || (height <= 0))
+        {
+            return IntPtr.Zero;
+        }
+
+        IntPtr dib = AllocateT(type, width, height, (int)bpp, red_mask, green_mask, blue_mask);
+        if (dib != IntPtr.Zero)
+        {
+            if (topdown)
+            {
+                for (int i = height - 1; i >= 0; --i)
+                {
+                    CopyMemory((byte*)GetScanLine(dib, i), addr, (int)GetLine(dib));
+                    addr += pitch;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < height; ++i)
+                {
+                    CopyMemory((byte*)GetScanLine(dib, i), addr, (int)GetLine(dib));
+                    addr += pitch;
+                }
+            }
+        }
+        return dib;
+    }
 }
+

@@ -4,25 +4,24 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+/// <summary>
+/// This class is used in the <see cref="GameWindow.FileDrop"/> event as <see cref="EventArgs"/>.
+/// </summary>
+public struct FileDropEventArgs
 {
     /// <summary>
-    /// This class is used in the <see cref="GameWindow.FileDrop"/> event as <see cref="EventArgs"/>.
+    /// Creates an instance of <see cref="FileDropEventArgs"/>.
     /// </summary>
-    public struct FileDropEventArgs
+    /// <param name="files">Array of paths to dropped files.</param>
+    public FileDropEventArgs(string[] files)
     {
-        /// <summary>
-        /// Creates an instance of <see cref="FileDropEventArgs"/>.
-        /// </summary>
-        /// <param name="files">Array of paths to dropped files.</param>
-        public FileDropEventArgs(string[] files)
-        {
-            Files = files;
-        }
-
-        /// <summary>
-        /// The paths of dropped files
-        /// </summary>
-        public string[] Files { get; private set; }
+        Files = files;
     }
+
+    /// <summary>
+    /// The paths of dropped files
+    /// </summary>
+    public string[] Files { get; private set; }
 }
+

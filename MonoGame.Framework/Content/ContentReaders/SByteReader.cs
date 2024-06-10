@@ -2,17 +2,16 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+internal class SByteReader : ContentTypeReader<sbyte>
 {
-    internal class SByteReader : ContentTypeReader<sbyte>
+    public SByteReader()
     {
-        public SByteReader()
-        {
-        }
+    }
 
-        protected internal override sbyte Read(ContentReader input, sbyte existingInstance)
-        {
-            return input.ReadSByte();
-        }
+    protected internal override sbyte Read(ContentReader input, sbyte existingInstance)
+    {
+        return input.ReadSByte();
     }
 }
+

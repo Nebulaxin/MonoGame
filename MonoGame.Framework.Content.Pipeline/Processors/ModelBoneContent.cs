@@ -2,51 +2,50 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
+namespace Microsoft.Xna.Framework.Content.Pipeline.Processors;
+public sealed class ModelBoneContent
 {
-    public sealed class ModelBoneContent
+    private ModelBoneContentCollection _children;
+    private int _index;
+    private string _name;
+    private ModelBoneContent _parent;
+    private Matrix _transform;
+
+    internal ModelBoneContent() { }
+
+    internal ModelBoneContent(string name, int index, Matrix transform, ModelBoneContent parent)
     {
-        private ModelBoneContentCollection _children;
-        private int _index;
-        private string _name;
-        private ModelBoneContent _parent;
-        private Matrix _transform;
+        _name = name;
+        _index = index;
+        _transform = transform;
+        _parent = parent;
+    }
 
-        internal ModelBoneContent() { }
+    public ModelBoneContentCollection Children
+    {
+        get { return _children; }
+        internal set { _children = value; }
+    }
 
-        internal ModelBoneContent(string name, int index, Matrix transform, ModelBoneContent parent)
-        {
-            _name = name;
-            _index = index;
-            _transform = transform;
-            _parent = parent;
-        }
+    public int Index
+    {
+        get { return _index; }
+    }
 
-        public ModelBoneContentCollection Children
-        {
-            get { return _children; }
-            internal set { _children = value; }
-        }
+    public string Name
+    {
+        get { return _name; }
+    }
 
-        public int Index
-        {
-            get { return _index; }
-        }
+    public ModelBoneContent Parent
+    {
+        get { return _parent; }
+    }
 
-        public string Name
-        {
-            get { return _name; }
-        }
-
-        public ModelBoneContent Parent
-        {
-            get { return _parent; }
-        }
-
-        public Matrix Transform
-        {
-            get { return _transform; }
-            set { _transform = value; }
-        }
+    public Matrix Transform
+    {
+        get { return _transform; }
+        set { _transform = value; }
     }
 }
+

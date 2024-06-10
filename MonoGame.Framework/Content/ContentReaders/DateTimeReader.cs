@@ -4,21 +4,20 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+internal class DateTimeReader : ContentTypeReader<DateTime>
 {
-    internal class DateTimeReader : ContentTypeReader<DateTime>
+    public DateTimeReader()
     {
-        public DateTimeReader()
-        {
-        }
+    }
 
-        protected internal override DateTime Read(ContentReader input, DateTime existingInstance)
-        {
-            ulong value = input.ReadUInt64();
-            ulong mask = (ulong)3 << 62;
-            long ticks = (long)(value & ~mask);
-            DateTimeKind kind = (DateTimeKind)((value >> 62) & 3);
-            return new DateTime(ticks, kind);
-        }
+    protected internal override DateTime Read(ContentReader input, DateTime existingInstance)
+    {
+        ulong value = input.ReadUInt64();
+        ulong mask = (ulong)3 << 62;
+        long ticks = (long)(value & ~mask);
+        DateTimeKind kind = (DateTimeKind)((value >> 62) & 3);
+        return new DateTime(ticks, kind);
     }
 }
+

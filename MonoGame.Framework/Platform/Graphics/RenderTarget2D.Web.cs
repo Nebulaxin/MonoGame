@@ -4,33 +4,32 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class RenderTarget2D
 {
-    public partial class RenderTarget2D
+    private void PlatformConstruct(
+        GraphicsDevice graphicsDevice,
+        int width,
+        int height,
+        bool mipMap,
+        DepthFormat preferredDepthFormat,
+        int preferredMultiSampleCount,
+        RenderTargetUsage usage,
+        bool shared)
     {
-        private void PlatformConstruct(
-            GraphicsDevice graphicsDevice,
-            int width,
-            int height,
-            bool mipMap,
-            DepthFormat preferredDepthFormat,
-            int preferredMultiSampleCount,
-            RenderTargetUsage usage,
-            bool shared)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        private void PlatformGraphicsDeviceResetting()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGraphicsDeviceResetting()
+    {
+        throw new NotImplementedException();
+    }
 
-        protected override void Dispose(bool disposing)
-        {
-            throw new NotImplementedException();
+    protected override void Dispose(bool disposing)
+    {
+        throw new NotImplementedException();
 
-            base.Dispose(disposing);
-        }
+        base.Dispose(disposing);
     }
 }
+

@@ -11,26 +11,25 @@ using UIKit;
 using Foundation;
 #endif
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+partial class TitleContainer
 {
-    partial class TitleContainer
+    static partial void PlatformInit()
     {
-        static partial void PlatformInit()
-        {
-            Location = NSBundle.MainBundle.ResourcePath;
+        Location = NSBundle.MainBundle.ResourcePath;
 #if IOS
             SupportRetina = UIScreen.MainScreen.Scale >= 2.0f;
             RetinaScale = (int)Math.Round(UIScreen.MainScreen.Scale);
 #endif
-        }
+    }
 
 #if IOS
         static internal bool SupportRetina { get; private set; }
         static internal int RetinaScale { get; private set; }
 #endif
 
-        private static Stream PlatformOpenStream(string safeName)
-        {
+    private static Stream PlatformOpenStream(string safeName)
+    {
 #if IOS
             var absolutePath = Path.Combine(Location, safeName);
             if (SupportRetina)
@@ -48,10 +47,10 @@ namespace Microsoft.Xna.Framework
             }
             return File.OpenRead(absolutePath);
 #else
-            var absolutePath = Path.Combine(Location, safeName);
-            return File.OpenRead(absolutePath);
+        var absolutePath = Path.Combine(Location, safeName);
+        return File.OpenRead(absolutePath);
 #endif
-        }
     }
 }
+
 

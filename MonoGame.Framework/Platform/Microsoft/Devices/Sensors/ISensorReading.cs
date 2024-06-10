@@ -4,11 +4,10 @@
 
 using System;
 
-namespace Microsoft.Devices.Sensors
+namespace Microsoft.Devices.Sensors;
+public interface ISensorReading
 {
-	public interface ISensorReading
-	{
-		DateTimeOffset Timestamp { get; }
-	}
+	DateTimeOffset Timestamp { get; }
 }
+
 

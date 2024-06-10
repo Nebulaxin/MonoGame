@@ -4,28 +4,27 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
+namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics;
+/// <summary>
+/// Flags that describe style information to be applied to text.
+/// You can combine these flags by using a bitwise OR operator (|).
+/// </summary>
+[Flags]
+public enum FontDescriptionStyle
 {
     /// <summary>
-    /// Flags that describe style information to be applied to text.
-    /// You can combine these flags by using a bitwise OR operator (|).
+    /// Bold text.
     /// </summary>
-    [Flags]
-    public enum FontDescriptionStyle
-    {
-        /// <summary>
-        /// Bold text.
-        /// </summary>
-        Bold,
+    Bold,
 
-        /// <summary>
-        /// Italic text.
-        /// </summary>
-        Italic,
+    /// <summary>
+    /// Italic text.
+    /// </summary>
+    Italic,
 
-        /// <summary>
-        /// Normal text.
-        /// </summary>
-        Regular,
-    }
+    /// <summary>
+    /// Normal text.
+    /// </summary>
+    Regular,
 }
+

@@ -5,18 +5,17 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
+namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics;
+public class TextureCubeContent : TextureContent
 {
-    public class TextureCubeContent : TextureContent
+    public TextureCubeContent() :
+        base(new MipmapChainCollection(6, true))
     {
-        public TextureCubeContent() :
-            base(new MipmapChainCollection(6, true))
-        {
-        }
+    }
 
-        public override void Validate(GraphicsProfile? targetProf)
-        {
-            throw new NotImplementedException();
-        }
+    public override void Validate(GraphicsProfile? targetProf)
+    {
+        throw new NotImplementedException();
     }
 }
+

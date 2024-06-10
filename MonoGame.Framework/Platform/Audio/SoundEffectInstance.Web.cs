@@ -5,74 +5,73 @@
 using System;
 using System.IO;
 
-namespace Microsoft.Xna.Framework.Audio
+namespace Microsoft.Xna.Framework.Audio;
+public partial class SoundEffectInstance : IDisposable
 {
-    public partial class SoundEffectInstance : IDisposable
+    internal void PlatformInitialize(byte[] buffer, int sampleRate, int channels)
     {
-        internal void PlatformInitialize(byte[] buffer, int sampleRate, int channels)
-        {
-        }
+    }
 
-        private void PlatformApply3D(AudioListener listener, AudioEmitter emitter)
-        {
-        }
+    private void PlatformApply3D(AudioListener listener, AudioEmitter emitter)
+    {
+    }
 
-        private void PlatformPause()
-        {
-        }
+    private void PlatformPause()
+    {
+    }
 
-        private void PlatformPlay()
-        {
-        }
+    private void PlatformPlay()
+    {
+    }
 
-        private void PlatformResume()
-        {
-        }
+    private void PlatformResume()
+    {
+    }
 
-        private void PlatformStop(bool immediate)
-        {
-        }
+    private void PlatformStop(bool immediate)
+    {
+    }
 
-        private void PlatformSetIsLooped(bool value)
-        {
-        }
+    private void PlatformSetIsLooped(bool value)
+    {
+    }
 
-        private bool PlatformGetIsLooped()
-        {
-            return false;
-        }
+    private bool PlatformGetIsLooped()
+    {
+        return false;
+    }
 
-        private void PlatformSetPan(float value)
-        {
-        }
+    private void PlatformSetPan(float value)
+    {
+    }
 
-        private void PlatformSetPitch(float value)
-        {
-        }
+    private void PlatformSetPitch(float value)
+    {
+    }
 
-        private SoundState PlatformGetState()
-        {
-            return SoundState.Stopped;
-        }
+    private SoundState PlatformGetState()
+    {
+        return SoundState.Stopped;
+    }
 
-        private void PlatformSetVolume(float value)
-        {
-        }
+    private void PlatformSetVolume(float value)
+    {
+    }
 
-        internal void PlatformSetReverbMix(float mix)
-        {
-        }
+    internal void PlatformSetReverbMix(float mix)
+    {
+    }
 
-        internal void PlatformSetFilter(FilterMode mode, float filterQ, float frequency)
-        {
-        }
+    internal void PlatformSetFilter(FilterMode mode, float filterQ, float frequency)
+    {
+    }
 
-        internal void PlatformClearFilter()
-        {
-        }
+    internal void PlatformClearFilter()
+    {
+    }
 
-        private void PlatformDispose(bool disposing)
-        {
-        }
+    private void PlatformDispose(bool disposing)
+    {
     }
 }
+

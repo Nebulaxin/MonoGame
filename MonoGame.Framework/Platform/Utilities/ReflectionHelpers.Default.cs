@@ -3,34 +3,33 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-namespace MonoGame.Framework.Utilities
+namespace MonoGame.Framework.Utilities;
+internal static partial class ReflectionHelpers
 {
-    internal static partial class ReflectionHelpers
+    /// <summary>
+    /// Generics handler for Marshal.SizeOf
+    /// </summary>
+    internal static class SizeOf<T>
     {
-        /// <summary>
-        /// Generics handler for Marshal.SizeOf
-        /// </summary>
-        internal static class SizeOf<T>
+        static int _sizeOf;
+
+        static SizeOf()
         {
-            static int _sizeOf;
-
-            static SizeOf()
-            {
-                _sizeOf = Marshal.SizeOf<T>();
-            }
-
-            static public int Get()
-            {
-                return _sizeOf;
-            }
+            _sizeOf = Marshal.SizeOf<T>();
         }
 
-        /// <summary>
-        /// Fallback handler for Marshal.SizeOf(type)
-        /// </summary>
-        internal static int ManagedSizeOf(Type type)
+        static public int Get()
         {
-            return Marshal.SizeOf(type);
+            return _sizeOf;
         }
     }
+
+    /// <summary>
+    /// Fallback handler for Marshal.SizeOf(type)
+    /// </summary>
+    internal static int ManagedSizeOf(Type type)
+    {
+        return Marshal.SizeOf(type);
+    }
 }
+

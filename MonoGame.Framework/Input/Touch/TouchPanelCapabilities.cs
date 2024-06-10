@@ -10,27 +10,26 @@ using UIKit;
 #endif
 
 
-namespace Microsoft.Xna.Framework.Input.Touch
+namespace Microsoft.Xna.Framework.Input.Touch;
+/// <summary>
+/// Allows retrieval of capabilities information from touch panel device.
+/// </summary>
+public struct TouchPanelCapabilities
 {
-    /// <summary>
-    /// Allows retrieval of capabilities information from touch panel device.
-    /// </summary>
-    public struct TouchPanelCapabilities
+    private bool hasPressure;
+    private bool isConnected;
+    private int maximumTouchCount;
+    private bool initialized;
+
+    internal void Initialize()
     {
-        private bool hasPressure;
-        private bool isConnected;
-        private int maximumTouchCount;
-        private bool initialized;
-
-        internal void Initialize()
+        if (!initialized)
         {
-            if (!initialized)
-            {
-                initialized = true;
+            initialized = true;
 
-                // There does not appear to be a way of finding out if a touch device supports pressure.
-                // XNA does not expose a pressure value, so let's assume it doesn't support it.
-                hasPressure = false;
+            // There does not appear to be a way of finding out if a touch device supports pressure.
+            // XNA does not expose a pressure value, so let's assume it doesn't support it.
+            hasPressure = false;
 
 #if WINDOWS_UAP
                 // Is a touch device present?
@@ -65,44 +64,44 @@ namespace Microsoft.Xna.Framework.Input.Touch
                 else //Pad
                     maximumTouchCount = 11;
 #else
-                //Touch isn't implemented in OpenTK, so no linux or mac https://github.com/opentk/opentk/issues/80
-                isConnected = false;
+            //Touch isn't implemented in OpenTK, so no linux or mac https://github.com/opentk/opentk/issues/80
+            isConnected = false;
 #endif
-            }
         }
+    }
 
-        /// <summary>
-        /// Returns <see langword="true"/> if a touch device supports pressure.
-        /// </summary>
-        public readonly bool HasPressure
+    /// <summary>
+    /// Returns <see langword="true"/> if a touch device supports pressure.
+    /// </summary>
+    public readonly bool HasPressure
+    {
+        get
         {
-            get
-            {
-                return hasPressure;
-            }
+            return hasPressure;
         }
+    }
 
-        /// <summary>
-        /// Returns true if a device is available for use.
-        /// </summary>
-        public readonly bool IsConnected
+    /// <summary>
+    /// Returns true if a device is available for use.
+    /// </summary>
+    public readonly bool IsConnected
+    {
+        get
         {
-            get
-            {
-                return isConnected;
-            }
+            return isConnected;
         }
+    }
 
-        /// <summary>
-        /// Returns the maximum number of touch locations tracked by the touch panel device.
-        /// </summary>
-        public readonly int MaximumTouchCount
+    /// <summary>
+    /// Returns the maximum number of touch locations tracked by the touch panel device.
+    /// </summary>
+    public readonly int MaximumTouchCount
+    {
+        get
         {
-            get
-            {
-                return maximumTouchCount;
-            }
+            return maximumTouchCount;
         }
+    }
 
 #if WINDOWS
         [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, ExactSpelling = true)]
@@ -110,5 +109,5 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
         const int SM_MAXIMUMTOUCHES = 95;
 #endif
-    }
 }
+

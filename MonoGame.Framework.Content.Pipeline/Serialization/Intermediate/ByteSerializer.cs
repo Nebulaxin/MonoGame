@@ -5,24 +5,22 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+[ContentTypeSerializer]
+class ByteSerializer : ElementSerializer<byte>
 {
-    [ContentTypeSerializer]
-    class ByteSerializer : ElementSerializer<byte>
+    public ByteSerializer() :
+        base("byte", 1)
     {
-        public ByteSerializer() :
-            base("byte", 1)
-        {
-        }
+    }
 
-        protected internal override byte Deserialize(string[] inputs, ref int index)
-        {
-            return XmlConvert.ToByte(inputs[index++]);
-        }
+    protected internal override byte Deserialize(string[] inputs, ref int index)
+    {
+        return XmlConvert.ToByte(inputs[index++]);
+    }
 
-        protected internal override void Serialize(byte value, List<string> results)
-        {
-            results.Add(XmlConvert.ToString(value));
-        }
+    protected internal override void Serialize(byte value, List<string> results)
+    {
+        results.Add(XmlConvert.ToString(value));
     }
 }

@@ -4,12 +4,11 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+partial class GamePlatform
 {
-    partial class GamePlatform
+    internal static GamePlatform PlatformCreate(Game game)
     {
-        internal static GamePlatform PlatformCreate(Game game)
-        {
 #if IOS
             return new iOSGamePlatform(game);
 #elif ANDROID
@@ -19,6 +18,6 @@ namespace Microsoft.Xna.Framework
 #elif WEB
             return new WebGamePlatform(game);
 #endif
-        }
     }
 }
+

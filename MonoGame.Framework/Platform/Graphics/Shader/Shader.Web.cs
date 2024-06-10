@@ -5,23 +5,22 @@
 using System;
 using System.IO;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+internal partial class Shader
 {
-    internal partial class Shader
+    private static int PlatformProfile()
     {
-        private static int PlatformProfile()
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        private void PlatformConstruct(ShaderStage stage, byte[] shaderBytecode)
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformConstruct(ShaderStage stage, byte[] shaderBytecode)
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformGraphicsDeviceResetting()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGraphicsDeviceResetting()
+    {
+        throw new NotImplementedException();
     }
 }
+

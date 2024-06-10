@@ -4,22 +4,21 @@
 
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+class VertexBufferReader : ContentTypeReader<VertexBuffer>
 {
-    class VertexBufferReader : ContentTypeReader<VertexBuffer>
+    protected internal override VertexBuffer Read(ContentReader input, VertexBuffer existingInstance)
     {
-        protected internal override VertexBuffer Read(ContentReader input, VertexBuffer existingInstance)
-        {
-            var declaration = input.ReadRawObject<VertexDeclaration>();
-            var vertexCount = (int)input.ReadUInt32();
-            int dataSize = vertexCount * declaration.VertexStride;
-            byte[] data = ContentManager.ScratchBufferPool.Get(dataSize);
-            input.Read(data, 0, dataSize);
+        var declaration = input.ReadRawObject<VertexDeclaration>();
+        var vertexCount = (int)input.ReadUInt32();
+        int dataSize = vertexCount * declaration.VertexStride;
+        byte[] data = ContentManager.ScratchBufferPool.Get(dataSize);
+        input.Read(data, 0, dataSize);
 
-            var buffer = new VertexBuffer(input.GetGraphicsDevice(), declaration, vertexCount, BufferUsage.None);
-            buffer.SetData(data, 0, dataSize);
-            ContentManager.ScratchBufferPool.Return(data);
-            return buffer;
-        }
+        var buffer = new VertexBuffer(input.GetGraphicsDevice(), declaration, vertexCount, BufferUsage.None);
+        buffer.SetData(data, 0, dataSize);
+        ContentManager.ScratchBufferPool.Return(data);
+        return buffer;
     }
 }
+

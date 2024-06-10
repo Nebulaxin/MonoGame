@@ -4,44 +4,42 @@
 
 using System.IO;
 
-namespace Microsoft.Xna.Framework.Audio
+namespace Microsoft.Xna.Framework.Audio;
+struct DspParameter
 {
-    struct DspParameter
+    public float Value;
+    public readonly float MinValue;
+    public readonly float MaxValue;
+
+    public DspParameter(BinaryReader reader)
     {
-        public float Value;
-        public readonly float MinValue;
-        public readonly float MaxValue;
+        // This is 1 if the type is byte sized and 0 for 
+        // floats... not sure if we should use this info.
+        reader.ReadByte();
 
-        public DspParameter(BinaryReader reader)
-        {
-            // This is 1 if the type is byte sized and 0 for 
-            // floats... not sure if we should use this info.
-            reader.ReadByte();
+        // The value and the min/max range for limiting the 
+        // results from the RPC curve when animated.
+        Value = reader.ReadSingle();
+        MinValue = reader.ReadSingle();
+        MaxValue = reader.ReadSingle();
 
-            // The value and the min/max range for limiting the 
-            // results from the RPC curve when animated.
-            Value = reader.ReadSingle();
-            MinValue = reader.ReadSingle();
-            MaxValue = reader.ReadSingle();
+        // Looks to always be zero...  maybe some padding
+        // for future expansion that never occured?
+        reader.ReadUInt16();
+    }
 
-            // Looks to always be zero...  maybe some padding
-            // for future expansion that never occured?
-            reader.ReadUInt16();
-        }
+    public void SetValue(float value)
+    {
+        if (value < MinValue)
+            Value = MinValue;
+        else if (value > MaxValue)
+            Value = MaxValue;
+        else
+            Value = value;
+    }
 
-        public void SetValue(float value)
-        {
-            if (value < MinValue)
-                Value = MinValue;
-            else if (value > MaxValue)
-                Value = MaxValue;
-            else
-                Value = value;
-        }
-
-        public override readonly string ToString()
-        {
-            return "Value:" + Value + " MinValue:" + MinValue + " MaxValue:" + MaxValue;
-        }
+    public override readonly string ToString()
+    {
+        return "Value:" + Value + " MinValue:" + MinValue + " MaxValue:" + MaxValue;
     }
 }

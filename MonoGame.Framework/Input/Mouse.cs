@@ -4,67 +4,66 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+/// <summary>
+/// Allows reading position and button click information from mouse.
+/// </summary>
+public static partial class Mouse
 {
+    internal static GameWindow PrimaryWindow;
+
+    private static readonly MouseState _defaultState = new();
+
     /// <summary>
-    /// Allows reading position and button click information from mouse.
-    /// </summary>
-    public static partial class Mouse
+    /// Gets or sets the window handle for current mouse processing.
+    /// </summary> 
+    public static IntPtr WindowHandle
     {
-        internal static GameWindow PrimaryWindow;
+        get { return PlatformGetWindowHandle(); }
+        set { PlatformSetWindowHandle(value); }
+    }
 
-        private static readonly MouseState _defaultState = new();
+    /// <summary>
+    /// This API is an extension to XNA.
+    /// Gets mouse state information that includes position and button
+    /// presses for the provided window
+    /// </summary>
+    /// <returns>Current state of the mouse.</returns>
+    public static MouseState GetState(GameWindow window)
+    {
+        return PlatformGetState(window);
+    }
 
-        /// <summary>
-        /// Gets or sets the window handle for current mouse processing.
-        /// </summary> 
-        public static IntPtr WindowHandle
-        {
-            get { return PlatformGetWindowHandle(); }
-            set { PlatformSetWindowHandle(value); }
-        }
+    /// <summary>
+    /// Gets mouse state information that includes position and button presses
+    /// for the primary window
+    /// </summary>
+    /// <returns>Current state of the mouse.</returns>
+    public static MouseState GetState()
+    {
+        if (PrimaryWindow != null)
+            return GetState(PrimaryWindow);
 
-        /// <summary>
-        /// This API is an extension to XNA.
-        /// Gets mouse state information that includes position and button
-        /// presses for the provided window
-        /// </summary>
-        /// <returns>Current state of the mouse.</returns>
-        public static MouseState GetState(GameWindow window)
-        {
-            return PlatformGetState(window);
-        }
+        return _defaultState;
+    }
 
-        /// <summary>
-        /// Gets mouse state information that includes position and button presses
-        /// for the primary window
-        /// </summary>
-        /// <returns>Current state of the mouse.</returns>
-        public static MouseState GetState()
-        {
-            if (PrimaryWindow != null)
-                return GetState(PrimaryWindow);
+    /// <summary>
+    /// Sets mouse cursor's relative position to game-window.
+    /// </summary>
+    /// <param name="x">Relative horizontal position of the cursor.</param>
+    /// <param name="y">Relative vertical position of the cursor.</param>
+    public static void SetPosition(int x, int y)
+    {
+        PlatformSetPosition(x, y);
+    }
 
-            return _defaultState;
-        }
-
-        /// <summary>
-        /// Sets mouse cursor's relative position to game-window.
-        /// </summary>
-        /// <param name="x">Relative horizontal position of the cursor.</param>
-        /// <param name="y">Relative vertical position of the cursor.</param>
-        public static void SetPosition(int x, int y)
-        {
-            PlatformSetPosition(x, y);
-        }
-
-        /// <summary>
-        /// Sets the cursor image to the specified MouseCursor.
-        /// </summary>
-        /// <param name="cursor">Mouse cursor to use for the cursor image.</param>
-        public static void SetCursor(MouseCursor cursor)
-        {
-            PlatformSetCursor(cursor);
-        }
+    /// <summary>
+    /// Sets the cursor image to the specified MouseCursor.
+    /// </summary>
+    /// <param name="cursor">Mouse cursor to use for the cursor image.</param>
+    public static void SetCursor(MouseCursor cursor)
+    {
+        PlatformSetCursor(cursor);
     }
 }
+

@@ -6,136 +6,135 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Represents a texture resource
+/// </summary>
+public abstract partial class Texture : GraphicsResource
 {
+    internal SurfaceFormat _format;
+    internal int _levelCount;
+
+    private readonly int _sortingKey = Interlocked.Increment(ref _lastSortingKey);
+    private static int _lastSortingKey;
+
     /// <summary>
-    /// Represents a texture resource
+    /// Gets a unique identifier of this texture for sorting purposes.
     /// </summary>
-	public abstract partial class Texture : GraphicsResource
+    /// <remarks>
+    /// <para>For example, this value is used by <see cref="SpriteBatch"/> when drawing with <see cref="SpriteSortMode.Texture"/>.</para>
+    /// <para>The value is an implementation detail and may change between application launches or MonoGame versions.
+    /// It is only guaranteed to stay consistent during application lifetime.</para>
+    /// </remarks>
+    internal int SortingKey
     {
-        internal SurfaceFormat _format;
-        internal int _levelCount;
+        get { return _sortingKey; }
+    }
 
-        private readonly int _sortingKey = Interlocked.Increment(ref _lastSortingKey);
-        private static int _lastSortingKey;
+    /// <summary>
+    /// Gets the surface format used by this <b>Texture</b>.
+    /// </summary>
+    public SurfaceFormat Format
+    {
+        get { return _format; }
+    }
 
-        /// <summary>
-        /// Gets a unique identifier of this texture for sorting purposes.
-        /// </summary>
-        /// <remarks>
-        /// <para>For example, this value is used by <see cref="SpriteBatch"/> when drawing with <see cref="SpriteSortMode.Texture"/>.</para>
-        /// <para>The value is an implementation detail and may change between application launches or MonoGame versions.
-        /// It is only guaranteed to stay consistent during application lifetime.</para>
-        /// </remarks>
-        internal int SortingKey
+    /// <summary>
+    /// Gets the number of mipmap levels in this <b>Texture</b>.
+    /// </summary>
+    public int LevelCount
+    {
+        get { return _levelCount; }
+    }
+
+    internal static int CalculateMipLevels(int width, int height = 0, int depth = 0)
+    {
+        int levels = 1;
+        int size = Math.Max(Math.Max(width, height), depth);
+        while (size > 1)
         {
-            get { return _sortingKey; }
+            size = size / 2;
+            levels++;
         }
+        return levels;
+    }
 
-        /// <summary>
-        /// Gets the surface format used by this <b>Texture</b>.
-        /// </summary>
-		public SurfaceFormat Format
+    internal static void GetSizeForLevel(int width, int height, int level, out int w, out int h)
+    {
+        w = width;
+        h = height;
+        while (level > 0)
         {
-            get { return _format; }
+            --level;
+            w /= 2;
+            h /= 2;
         }
+        if (w == 0)
+            w = 1;
+        if (h == 0)
+            h = 1;
+    }
 
-        /// <summary>
-        /// Gets the number of mipmap levels in this <b>Texture</b>.
-        /// </summary>
-		public int LevelCount
+    internal static void GetSizeForLevel(int width, int height, int depth, int level, out int w, out int h, out int d)
+    {
+        w = width;
+        h = height;
+        d = depth;
+        while (level > 0)
         {
-            get { return _levelCount; }
+            --level;
+            w /= 2;
+            h /= 2;
+            d /= 2;
         }
+        if (w == 0)
+            w = 1;
+        if (h == 0)
+            h = 1;
+        if (d == 0)
+            d = 1;
+    }
 
-        internal static int CalculateMipLevels(int width, int height = 0, int depth = 0)
+    internal int GetPitch(int width)
+    {
+        Debug.Assert(width > 0, "The width is negative!");
+
+        int pitch;
+
+        switch (_format)
         {
-            int levels = 1;
-            int size = Math.Max(Math.Max(width, height), depth);
-            while (size > 1)
-            {
-                size = size / 2;
-                levels++;
-            }
-            return levels;
-        }
+            case SurfaceFormat.Dxt1:
+            case SurfaceFormat.Dxt1SRgb:
+            case SurfaceFormat.Dxt1a:
+            case SurfaceFormat.RgbPvrtc2Bpp:
+            case SurfaceFormat.RgbaPvrtc2Bpp:
+            case SurfaceFormat.RgbEtc1:
+            case SurfaceFormat.Rgb8Etc2:
+            case SurfaceFormat.Srgb8Etc2:
+            case SurfaceFormat.Rgb8A1Etc2:
+            case SurfaceFormat.Srgb8A1Etc2:
+            case SurfaceFormat.Dxt3:
+            case SurfaceFormat.Dxt3SRgb:
+            case SurfaceFormat.Dxt5:
+            case SurfaceFormat.Dxt5SRgb:
+            case SurfaceFormat.RgbPvrtc4Bpp:
+            case SurfaceFormat.RgbaPvrtc4Bpp:
+                pitch = (width + 3) / 4 * _format.GetSize();
+                break;
 
-        internal static void GetSizeForLevel(int width, int height, int level, out int w, out int h)
-        {
-            w = width;
-            h = height;
-            while (level > 0)
-            {
-                --level;
-                w /= 2;
-                h /= 2;
-            }
-            if (w == 0)
-                w = 1;
-            if (h == 0)
-                h = 1;
-        }
+            default:
+                pitch = width * _format.GetSize();
+                break;
+        };
 
-        internal static void GetSizeForLevel(int width, int height, int depth, int level, out int w, out int h, out int d)
-        {
-            w = width;
-            h = height;
-            d = depth;
-            while (level > 0)
-            {
-                --level;
-                w /= 2;
-                h /= 2;
-                d /= 2;
-            }
-            if (w == 0)
-                w = 1;
-            if (h == 0)
-                h = 1;
-            if (d == 0)
-                d = 1;
-        }
+        return pitch;
+    }
 
-        internal int GetPitch(int width)
-        {
-            Debug.Assert(width > 0, "The width is negative!");
-
-            int pitch;
-
-            switch (_format)
-            {
-                case SurfaceFormat.Dxt1:
-                case SurfaceFormat.Dxt1SRgb:
-                case SurfaceFormat.Dxt1a:
-                case SurfaceFormat.RgbPvrtc2Bpp:
-                case SurfaceFormat.RgbaPvrtc2Bpp:
-                case SurfaceFormat.RgbEtc1:
-                case SurfaceFormat.Rgb8Etc2:
-                case SurfaceFormat.Srgb8Etc2:
-                case SurfaceFormat.Rgb8A1Etc2:
-                case SurfaceFormat.Srgb8A1Etc2:
-                case SurfaceFormat.Dxt3:
-                case SurfaceFormat.Dxt3SRgb:
-                case SurfaceFormat.Dxt5:
-                case SurfaceFormat.Dxt5SRgb:
-                case SurfaceFormat.RgbPvrtc4Bpp:
-                case SurfaceFormat.RgbaPvrtc4Bpp:
-                    pitch = (width + 3) / 4 * _format.GetSize();
-                    break;
-
-                default:
-                    pitch = width * _format.GetSize();
-                    break;
-            };
-
-            return pitch;
-        }
-
-        /// <inheritdoc />
-        internal protected override void GraphicsDeviceResetting()
-        {
-            PlatformGraphicsDeviceResetting();
-        }
+    /// <inheritdoc />
+    internal protected override void GraphicsDeviceResetting()
+    {
+        PlatformGraphicsDeviceResetting();
     }
 }
+
 

@@ -5,42 +5,41 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+/// <summary>
+/// Writes the dictionary to the output.
+/// </summary>
+[ContentTypeWriter]
+class DictionaryWriter<K, V> : BuiltInContentWriter<Dictionary<K, V>>
 {
-    /// <summary>
-    /// Writes the dictionary to the output.
-    /// </summary>
-    [ContentTypeWriter]
-    class DictionaryWriter<K, V> : BuiltInContentWriter<Dictionary<K, V>>
+    ContentTypeWriter _keyWriter;
+    ContentTypeWriter _valueWriter;
+
+    /// <inheritdoc/>
+    internal override void OnAddedToContentWriter(ContentWriter output)
     {
-        ContentTypeWriter _keyWriter;
-        ContentTypeWriter _valueWriter;
+        base.OnAddedToContentWriter(output);
 
-        /// <inheritdoc/>
-        internal override void OnAddedToContentWriter(ContentWriter output)
+        _keyWriter = output.GetTypeWriter(typeof(K));
+        _valueWriter = output.GetTypeWriter(typeof(V));
+    }
+
+    public override bool CanDeserializeIntoExistingObject
+    {
+        get { return true; }
+    }
+
+    protected internal override void Write(ContentWriter output, Dictionary<K, V> value)
+    {
+        if (value == null)
+            throw new ArgumentNullException("value");
+
+        output.Write(value.Count);
+        foreach (var element in value)
         {
-            base.OnAddedToContentWriter(output);
-
-            _keyWriter = output.GetTypeWriter(typeof(K));
-            _valueWriter = output.GetTypeWriter(typeof(V));
-        }
-
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return true; }
-        }
-
-        protected internal override void Write(ContentWriter output, Dictionary<K, V> value)
-        {
-            if (value == null)
-                throw new ArgumentNullException("value");
-
-            output.Write(value.Count);
-            foreach (var element in value)
-            {
-                output.WriteObject(element.Key, _keyWriter);
-                output.WriteObject(element.Value, _valueWriter);
-            }
+            output.WriteObject(element.Key, _keyWriter);
+            output.WriteObject(element.Value, _valueWriter);
         }
     }
 }
+

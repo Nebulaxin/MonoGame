@@ -10,156 +10,155 @@ using Foundation;
 using CoreGraphics;
 using ObjCRuntime;
 
-namespace Microsoft.Xna.Framework
-{
-    class iOSGameViewController :
+namespace Microsoft.Xna.Framework;
+class iOSGameViewController :
 #if TVOS
         GameController.GCEventViewController
 #else
-        UIViewController
+    UIViewController
 #endif
-    {
-        iOSGamePlatform _platform;
+{
+    iOSGamePlatform _platform;
 #if TVOS
         IPlatformBackButton platformBackButton;
 #endif
 
-        public iOSGameViewController(iOSGamePlatform platform)
+    public iOSGameViewController(iOSGamePlatform platform)
+    {
+        if (platform == null)
+            throw new ArgumentNullException("platform");
+        _platform = platform;
+        SupportedOrientations =
+            DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
+            | DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
+    }
+
+    public event EventHandler<EventArgs> InterfaceOrientationChanged;
+
+    public DisplayOrientation SupportedOrientations { get; set; }
+
+    public override void LoadView()
+    {
+        CGRect frame;
+        if (ParentViewController != null && ParentViewController.View != null)
         {
-            if (platform == null)
-                throw new ArgumentNullException("platform");
-            _platform = platform;
-            SupportedOrientations =
-                DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight
-                | DisplayOrientation.Portrait | DisplayOrientation.PortraitDown;
+            frame = new CGRect(CGPoint.Empty, ParentViewController.View.Frame.Size);
         }
-
-        public event EventHandler<EventArgs> InterfaceOrientationChanged;
-
-        public DisplayOrientation SupportedOrientations { get; set; }
-
-        public override void LoadView()
+        else
         {
-            CGRect frame;
-            if (ParentViewController != null && ParentViewController.View != null)
+            UIScreen screen = UIScreen.MainScreen;
+
+#if !TVOS
+            // iOS 7 and older reverses width/height in landscape mode when reporting resolution,
+            // iOS 8+ reports resolution correctly in all cases
+            if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
             {
-                frame = new CGRect(CGPoint.Empty, ParentViewController.View.Frame.Size);
+                frame = new CGRect(0, 0, (nfloat)Math.Max(screen.Bounds.Width, screen.Bounds.Height), (nfloat)Math.Min(screen.Bounds.Width, screen.Bounds.Height));
             }
             else
             {
-                UIScreen screen = UIScreen.MainScreen;
-
-#if !TVOS
-                // iOS 7 and older reverses width/height in landscape mode when reporting resolution,
-                // iOS 8+ reports resolution correctly in all cases
-                if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight)
-                {
-                    frame = new CGRect(0, 0, (nfloat)Math.Max(screen.Bounds.Width, screen.Bounds.Height), (nfloat)Math.Min(screen.Bounds.Width, screen.Bounds.Height));
-                }
-                else
-                {
-                    frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
-                }
+                frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
+            }
 #else
                 frame = new CGRect(0, 0, screen.Bounds.Width, screen.Bounds.Height);
 #endif
-            }
+        }
 
-            base.View = new iOSGameView(_platform, frame);
+        base.View = new iOSGameView(_platform, frame);
 
-            // Need to set resize mask to ensure a view resize (which in iOS 8+ corresponds with a rotation) adjusts
-            // the view and underlying CALayer correctly
-            View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+        // Need to set resize mask to ensure a view resize (which in iOS 8+ corresponds with a rotation) adjusts
+        // the view and underlying CALayer correctly
+        View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 #if TVOS
             ControllerUserInteractionEnabled = false;
 #endif
-        }
+    }
 
-        public new iOSGameView View
-        {
-            get { return (iOSGameView)base.View; }
-        }
+    public new iOSGameView View
+    {
+        get { return (iOSGameView)base.View; }
+    }
 #if !TVOS
 
-        #region Autorotation for iOS 5 or older
-        public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+    #region Autorotation for iOS 5 or older
+    public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
+    {
+        DisplayOrientation supportedOrientations = OrientationConverter.Normalize(SupportedOrientations);
+        var toOrientation = OrientationConverter.ToDisplayOrientation(toInterfaceOrientation);
+        return (toOrientation & supportedOrientations) == toOrientation;
+    }
+    #endregion
+
+    #region Autorotation for iOS 6 or newer
+    public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
+    {
+        return OrientationConverter.ToUIInterfaceOrientationMask(this.SupportedOrientations);
+    }
+
+    public override bool ShouldAutorotate()
+    {
+        return true;
+    }
+    #endregion
+
+    public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
+    {
+        base.DidRotate(fromInterfaceOrientation);
+        EventHelpers.Raise(this, InterfaceOrientationChanged, EventArgs.Empty);
+    }
+    #region Hide statusbar for iOS 7 or newer
+    public override bool PrefersStatusBarHidden()
+    {
+        return _platform.Game.graphicsDeviceManager.IsFullScreen;
+    }
+    #endregion
+
+
+
+
+    #region iOS 8 or newer
+
+    public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
+    {
+        CGSize oldSize = View.Bounds.Size;
+
+        if (oldSize != toSize)
         {
-            DisplayOrientation supportedOrientations = OrientationConverter.Normalize(SupportedOrientations);
-            var toOrientation = OrientationConverter.ToDisplayOrientation(toInterfaceOrientation);
-            return (toOrientation & supportedOrientations) == toOrientation;
-        }
-        #endregion
+            UIInterfaceOrientation prevOrientation = InterfaceOrientation;
 
-        #region Autorotation for iOS 6 or newer
-        public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
-        {
-            return OrientationConverter.ToUIInterfaceOrientationMask(this.SupportedOrientations);
-        }
+            // In iOS 8+ DidRotate is no longer called after a rotation
+            // But we need to notify iOSGamePlatform to update back buffer so we explicitly call it 
 
-        public override bool ShouldAutorotate()
-        {
-            return true;
-        }
-        #endregion
+            // We do this within the animateAlongside action, which at the point of calling
+            // will have the new InterfaceOrientation set
+            coordinator.AnimateAlongsideTransition((context) =>
+                {
+                    DidRotate(prevOrientation);
+                }, (context) =>
+                {
+                });
 
-        public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
-        {
-            base.DidRotate(fromInterfaceOrientation);
-            EventHelpers.Raise(this, InterfaceOrientationChanged, EventArgs.Empty);
-        }
-        #region Hide statusbar for iOS 7 or newer
-        public override bool PrefersStatusBarHidden()
-        {
-            return _platform.Game.graphicsDeviceManager.IsFullScreen;
-        }
-        #endregion
-
-
-
-
-        #region iOS 8 or newer
-
-        public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
-        {
-            CGSize oldSize = View.Bounds.Size;
-
-            if (oldSize != toSize)
-            {
-                UIInterfaceOrientation prevOrientation = InterfaceOrientation;
-
-                // In iOS 8+ DidRotate is no longer called after a rotation
-                // But we need to notify iOSGamePlatform to update back buffer so we explicitly call it 
-
-                // We do this within the animateAlongside action, which at the point of calling
-                // will have the new InterfaceOrientation set
-                coordinator.AnimateAlongsideTransition((context) =>
-                    {
-                        DidRotate(prevOrientation);
-                    }, (context) =>
-                    {
-                    });
-
-            }
-
-            base.ViewWillTransitionToSize(toSize, coordinator);
         }
 
-        #endregion
+        base.ViewWillTransitionToSize(toSize, coordinator);
+    }
 
-        #region iOS 11 or newer
+    #endregion
 
-        /// <summary>
-        /// Defer system gestures on all screen edges in full screen mode.
-        /// </summary>
-        public override UIRectEdge PreferredScreenEdgesDeferringSystemGestures
+    #region iOS 11 or newer
+
+    /// <summary>
+    /// Defer system gestures on all screen edges in full screen mode.
+    /// </summary>
+    public override UIRectEdge PreferredScreenEdgesDeferringSystemGestures
+    {
+        get
         {
-            get
-            {
-                return _platform.Game.graphicsDeviceManager.IsFullScreen ? UIRectEdge.All : base.PreferredScreenEdgesDeferringSystemGestures;
-            }
+            return _platform.Game.graphicsDeviceManager.IsFullScreen ? UIRectEdge.All : base.PreferredScreenEdgesDeferringSystemGestures;
         }
+    }
 
-        #endregion
+    #endregion
 
 #endif
 
@@ -210,5 +209,5 @@ namespace Microsoft.Xna.Framework
                 base.PressesEnded(presses, evt);
         }
 #endif
-    }
 }
+

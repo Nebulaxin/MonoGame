@@ -5,54 +5,53 @@
 using System;
 using MonoGame.OpenGL;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class RenderTargetCube
 {
-    public partial class RenderTargetCube
+    private static Action<RenderTargetCube> DisposeAction =
+        (t) => t.GraphicsDevice.PlatformDeleteRenderTarget(t);
+
+    int IRenderTarget.GLTexture
     {
-        private static Action<RenderTargetCube> DisposeAction =
-            (t) => t.GraphicsDevice.PlatformDeleteRenderTarget(t);
+        get { return glTexture; }
+    }
 
-        int IRenderTarget.GLTexture
+    TextureTarget IRenderTarget.GLTarget
+    {
+        get { return glTarget; }
+    }
+
+    int IRenderTarget.GLColorBuffer { get; set; }
+    int IRenderTarget.GLDepthBuffer { get; set; }
+    int IRenderTarget.GLStencilBuffer { get; set; }
+
+    TextureTarget IRenderTarget.GetFramebufferTarget(RenderTargetBinding renderTargetBinding)
+    {
+        return TextureTarget.TextureCubeMapPositiveX + renderTargetBinding.ArraySlice;
+    }
+
+    private void PlatformConstruct(
+        GraphicsDevice graphicsDevice, bool mipMap, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
+    {
+        Threading.BlockOnUIThread(() =>
         {
-            get { return glTexture; }
-        }
+            graphicsDevice.PlatformCreateRenderTarget(
+                this, size, size, mipMap, this.Format, preferredDepthFormat, preferredMultiSampleCount, usage);
+        });
+    }
 
-        TextureTarget IRenderTarget.GLTarget
+    /// <summary/>
+    protected override void Dispose(bool disposing)
+    {
+        if (!IsDisposed)
         {
-            get { return glTarget; }
-        }
-
-        int IRenderTarget.GLColorBuffer { get; set; }
-        int IRenderTarget.GLDepthBuffer { get; set; }
-        int IRenderTarget.GLStencilBuffer { get; set; }
-
-        TextureTarget IRenderTarget.GetFramebufferTarget(RenderTargetBinding renderTargetBinding)
-        {
-            return TextureTarget.TextureCubeMapPositiveX + renderTargetBinding.ArraySlice;
-        }
-
-        private void PlatformConstruct(
-            GraphicsDevice graphicsDevice, bool mipMap, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
-        {
-            Threading.BlockOnUIThread(() =>
+            if (GraphicsDevice != null)
             {
-                graphicsDevice.PlatformCreateRenderTarget(
-                    this, size, size, mipMap, this.Format, preferredDepthFormat, preferredMultiSampleCount, usage);
-            });
-        }
-
-        /// <summary/>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                if (GraphicsDevice != null)
-                {
-                    Threading.BlockOnUIThread(DisposeAction, this);
-                }
+                Threading.BlockOnUIThread(DisposeAction, this);
             }
-
-            base.Dispose(disposing);
         }
+
+        base.Dispose(disposing);
     }
 }
+

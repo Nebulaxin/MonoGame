@@ -16,28 +16,27 @@ using Android.Graphics;
 using Android.Provider;
 #endif
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+/// <summary>
+/// Provides access to an album in the media library
+/// </summary>
+/// <remarks>
+/// <para>
+/// The <b>Album</b> class provides information about an album, 
+/// including the album's <see cref="Name"/>, <see cref="Artist"/>, and <see cref="Songs"/>.
+/// </para>
+/// <para>
+/// You can obtain an <b>Album</b> object through the
+/// <see cref="P:Microsoft.Xna.Framework.Media.AlbumCollection.Item(System.Int32)"/>
+/// indexer and the <see cref="Song.Album">Song.Album</see> property.
+/// </para>
+/// </remarks>
+public sealed class Album : IDisposable
 {
-    /// <summary>
-    /// Provides access to an album in the media library
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// The <b>Album</b> class provides information about an album, 
-    /// including the album's <see cref="Name"/>, <see cref="Artist"/>, and <see cref="Songs"/>.
-    /// </para>
-    /// <para>
-    /// You can obtain an <b>Album</b> object through the
-    /// <see cref="P:Microsoft.Xna.Framework.Media.AlbumCollection.Item(System.Int32)"/>
-    /// indexer and the <see cref="Song.Album">Song.Album</see> property.
-    /// </para>
-    /// </remarks>
-    public sealed class Album : IDisposable
-    {
-        private Artist artist;
-        private Genre genre;
-        private string album;
-        private SongCollection songCollection;
+    private Artist artist;
+    private Genre genre;
+    private string album;
+    private SongCollection songCollection;
 #if WINDOWS_UAP
         private StorageItemThumbnail thumbnail;
 #elif IOS && !TVOS
@@ -46,49 +45,49 @@ namespace Microsoft.Xna.Framework.Media
         private Android.Net.Uri thumbnail;
 #endif
 
-        /// <summary>
-        /// Gets the <see cref="Media.Artist"/> of the Album.
-        /// </summary>
-        /// <value>
-        /// <see cref="Media.Artist"/> of this Album.
-        /// </value>
-        public Artist Artist
+    /// <summary>
+    /// Gets the <see cref="Media.Artist"/> of the Album.
+    /// </summary>
+    /// <value>
+    /// <see cref="Media.Artist"/> of this Album.
+    /// </value>
+    public Artist Artist
+    {
+        get
         {
-            get
-            {
-                return artist;
-            }
+            return artist;
         }
+    }
 
-        /// <summary>
-        /// Gets the duration of the Album.
-        /// </summary>
-        public TimeSpan Duration
+    /// <summary>
+    /// Gets the duration of the Album.
+    /// </summary>
+    public TimeSpan Duration
+    {
+        get
         {
-            get
-            {
-                return TimeSpan.Zero; // Not implemented
-            }
+            return TimeSpan.Zero; // Not implemented
         }
+    }
 
-        /// <summary>
-        /// Gets the <see cref="Media.Genre"/> of the Album.
-        /// </summary>
-        public Genre Genre
+    /// <summary>
+    /// Gets the <see cref="Media.Genre"/> of the Album.
+    /// </summary>
+    public Genre Genre
+    {
+        get
         {
-            get
-            {
-                return genre;
-            }
+            return genre;
         }
+    }
 
-        /// <summary>
-        /// Gets a value indicating whether the Album has associated album art.
-        /// </summary>
-        public bool HasArt
+    /// <summary>
+    /// Gets a value indicating whether the Album has associated album art.
+    /// </summary>
+    public bool HasArt
+    {
+        get
         {
-            get
-            {
 #if WINDOWS_UAP
                 return this.thumbnail != null;
 #elif IOS && !TVOS
@@ -97,51 +96,51 @@ namespace Microsoft.Xna.Framework.Media
 #elif ANDROID
                 return this.thumbnail != null;
 #else
-                return false;
+            return false;
 #endif
-            }
         }
+    }
 
-        /// <summary>
-        /// Gets a value indicating whether the object is disposed.
-        /// </summary>
-        public bool IsDisposed
+    /// <summary>
+    /// Gets a value indicating whether the object is disposed.
+    /// </summary>
+    public bool IsDisposed
+    {
+        get
         {
-            get
-            {
-                return false;
-            }
+            return false;
         }
+    }
 
-        /// <summary>
-        /// Gets the name of the Album.
-        /// </summary>
-        public string Name
+    /// <summary>
+    /// Gets the name of the Album.
+    /// </summary>
+    public string Name
+    {
+        get
         {
-            get
-            {
-                return album;
-            }
+            return album;
         }
+    }
 
-        /// <summary>
-        /// Gets a <see cref="SongCollection"/> that contains the songs on the Album.
-        /// </summary>
-        public SongCollection Songs
+    /// <summary>
+    /// Gets a <see cref="SongCollection"/> that contains the songs on the Album.
+    /// </summary>
+    public SongCollection Songs
+    {
+        get
         {
-            get
-            {
-                return songCollection;
-            }
+            return songCollection;
         }
+    }
 
-        private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
-        {
-            this.songCollection = songCollection;
-            album = name;
-            this.artist = artist;
-            this.genre = genre;
-        }
+    private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
+    {
+        this.songCollection = songCollection;
+        album = name;
+        this.artist = artist;
+        this.genre = genre;
+    }
 #if WINDOWS_UAP
         internal Album(SongCollection songCollection, string name, Artist artist, Genre genre, StorageItemThumbnail thumbnail)
             : this(songCollection, name, artist, genre)
@@ -162,14 +161,14 @@ namespace Microsoft.Xna.Framework.Media
         }
 #endif
 
-        /// <inheritdoc cref="IDisposable.Dispose()"/>
-        public void Dispose()
-        {
+    /// <inheritdoc cref="IDisposable.Dispose()"/>
+    public void Dispose()
+    {
 #if WINDOWS_UAP
             if (this.thumbnail != null)
                 this.thumbnail.Dispose();
 #endif
-        }
+    }
 
 #if IOS && !TVOS
         public UIImage GetAlbumArt(int width = 0, int height = 0)
@@ -193,19 +192,19 @@ namespace Microsoft.Xna.Framework.Media
             return scaledAlbumArt;
         }
 #else
-        /// <summary>
-        /// Returns the stream that contains the album art image data.
-        /// </summary>
-        public Stream GetAlbumArt()
-        {
+    /// <summary>
+    /// Returns the stream that contains the album art image data.
+    /// </summary>
+    public Stream GetAlbumArt()
+    {
 #if WINDOWS_UAP
             if (this.HasArt)
                 return this.thumbnail.AsStream();
             return null;
 #else
-            throw new NotImplementedException();
+        throw new NotImplementedException();
 #endif
-        }
+    }
 #endif
 
 #if IOS && !TVOS
@@ -219,36 +218,36 @@ namespace Microsoft.Xna.Framework.Media
             return this.GetAlbumArt(220, 220);
         }
 #else
-        /// <summary>
-        /// Returns the stream that contains the album thumbnail image data.
-        /// </summary>
-        public Stream GetThumbnail()
-        {
+    /// <summary>
+    /// Returns the stream that contains the album thumbnail image data.
+    /// </summary>
+    public Stream GetThumbnail()
+    {
 #if WINDOWS_UAP
             if (this.HasArt)
                 return this.thumbnail.AsStream();
 
             return null;
 #else
-            throw new NotImplementedException();
+        throw new NotImplementedException();
 #endif
-        }
+    }
 #endif
 
-        /// <summary>
-        /// Returns a String representation of this Album.
-        /// </summary>
-        public override string ToString()
-        {
-            return album.ToString();
-        }
+    /// <summary>
+    /// Returns a String representation of this Album.
+    /// </summary>
+    public override string ToString()
+    {
+        return album.ToString();
+    }
 
-        /// <summary>
-        /// Gets the hash code for this instance.
-        /// </summary>
-        public override int GetHashCode()
-        {
-            return album.GetHashCode();
-        }
+    /// <summary>
+    /// Gets the hash code for this instance.
+    /// </summary>
+    public override int GetHashCode()
+    {
+        return album.GetHashCode();
     }
 }
+

@@ -5,33 +5,32 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+public partial class MouseCursor
 {
-    public partial class MouseCursor
+    private static void PlatformInitalize()
     {
-        private static void PlatformInitalize()
-        {
-            Arrow = new MouseCursor(IntPtr.Zero);
-            IBeam = new MouseCursor(IntPtr.Zero);
-            Wait = new MouseCursor(IntPtr.Zero);
-            Crosshair = new MouseCursor(IntPtr.Zero);
-            WaitArrow = new MouseCursor(IntPtr.Zero);
-            SizeNWSE = new MouseCursor(IntPtr.Zero);
-            SizeNESW = new MouseCursor(IntPtr.Zero);
-            SizeWE = new MouseCursor(IntPtr.Zero);
-            SizeNS = new MouseCursor(IntPtr.Zero);
-            SizeAll = new MouseCursor(IntPtr.Zero);
-            No = new MouseCursor(IntPtr.Zero);
-            Hand = new MouseCursor(IntPtr.Zero);
-        }
+        Arrow = new MouseCursor(IntPtr.Zero);
+        IBeam = new MouseCursor(IntPtr.Zero);
+        Wait = new MouseCursor(IntPtr.Zero);
+        Crosshair = new MouseCursor(IntPtr.Zero);
+        WaitArrow = new MouseCursor(IntPtr.Zero);
+        SizeNWSE = new MouseCursor(IntPtr.Zero);
+        SizeNESW = new MouseCursor(IntPtr.Zero);
+        SizeWE = new MouseCursor(IntPtr.Zero);
+        SizeNS = new MouseCursor(IntPtr.Zero);
+        SizeAll = new MouseCursor(IntPtr.Zero);
+        No = new MouseCursor(IntPtr.Zero);
+        Hand = new MouseCursor(IntPtr.Zero);
+    }
 
-        private static MouseCursor PlatformFromTexture2D(Texture2D texture, int originx, int originy)
-        {
-            return new MouseCursor(IntPtr.Zero);
-        }
+    private static MouseCursor PlatformFromTexture2D(Texture2D texture, int originx, int originy)
+    {
+        return new MouseCursor(IntPtr.Zero);
+    }
 
-        private void PlatformDispose()
-        {
-        }
+    private void PlatformDispose()
+    {
     }
 }
+

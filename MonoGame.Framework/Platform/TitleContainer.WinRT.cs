@@ -7,40 +7,39 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources.Core;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+partial class TitleContainer
 {
-    partial class TitleContainer
+    static internal ResourceContext ResourceContext;
+    static internal ResourceMap FileResourceMap;
+
+    static partial void PlatformInit()
     {
-        static internal ResourceContext ResourceContext;
-        static internal ResourceMap FileResourceMap;
+        Location = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
 
-        static partial void PlatformInit()
+        ResourceContext = new Windows.ApplicationModel.Resources.Core.ResourceContext();
+        FileResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("Files");
+    }
+
+    private static async Task<Stream> OpenStreamAsync(string name)
+    {
+        try
         {
-            Location = Windows.ApplicationModel.Package.Current.InstalledLocation.Path;
-
-            ResourceContext = new Windows.ApplicationModel.Resources.Core.ResourceContext();
-            FileResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("Files");
+            var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///" + name));
+            var randomAccessStream = await file.OpenReadAsync();
+            return randomAccessStream.AsStreamForRead();
         }
-
-        private static async Task<Stream> OpenStreamAsync(string name)
+        catch (IOException)
         {
-            try
-            {
-                var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///" + name));
-                var randomAccessStream = await file.OpenReadAsync();
-                return randomAccessStream.AsStreamForRead();
-            }
-            catch (IOException)
-            {
-                // The file must not exist... return a null stream.
-                return null;
-            }
-        }
-
-        private static Stream PlatformOpenStream(string safeName)
-        {
-            return Task.Run(() => OpenStreamAsync(safeName).Result).Result;
+            // The file must not exist... return a null stream.
+            return null;
         }
     }
+
+    private static Stream PlatformOpenStream(string safeName)
+    {
+        return Task.Run(() => OpenStreamAsync(safeName).Result).Result;
+    }
 }
+
 

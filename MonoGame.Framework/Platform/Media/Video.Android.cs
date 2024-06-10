@@ -6,36 +6,35 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+/// <summary>
+/// Represents a video.
+/// </summary>
+public sealed partial class Video : IDisposable
 {
-    /// <summary>
-    /// Represents a video.
-    /// </summary>
-    public sealed partial class Video : IDisposable
-    {
-        internal Android.Media.MediaPlayer Player;
+    internal Android.Media.MediaPlayer Player;
 
-        private void PlatformInitialize()
+    private void PlatformInitialize()
+    {
+        Player = new Android.Media.MediaPlayer();
+        if (Player != null)
         {
-            Player = new Android.Media.MediaPlayer();
-            if (Player != null)
+            var afd = Game.Activity.Assets.OpenFd(FileName);
+            if (afd != null)
             {
-                var afd = Game.Activity.Assets.OpenFd(FileName);
-                if (afd != null)
-                {
-                    Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
-                    Player.Prepare();
-                }
+                Player.SetDataSource(afd.FileDescriptor, afd.StartOffset, afd.Length);
+                Player.Prepare();
             }
         }
+    }
 
-        private void PlatformDispose(bool disposing)
-        {
-            if (Player == null)
-                return;
+    private void PlatformDispose(bool disposing)
+    {
+        if (Player == null)
+            return;
 
-            Player.Dispose();
-            Player = null;
-        }
+        Player.Dispose();
+        Player = null;
     }
 }
+

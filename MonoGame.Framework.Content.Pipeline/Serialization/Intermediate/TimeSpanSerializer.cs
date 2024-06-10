@@ -6,24 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+[ContentTypeSerializer]
+class TimeSpanSerializer : ElementSerializer<TimeSpan>
 {
-    [ContentTypeSerializer]
-    class TimeSpanSerializer : ElementSerializer<TimeSpan>
+    public TimeSpanSerializer() :
+        base("TimeSpan", 1)
     {
-        public TimeSpanSerializer() :
-            base("TimeSpan", 1)
-        {
-        }
+    }
 
-        protected internal override TimeSpan Deserialize(string[] inputs, ref int index)
-        {
-            return XmlConvert.ToTimeSpan(inputs[index++]);
-        }
+    protected internal override TimeSpan Deserialize(string[] inputs, ref int index)
+    {
+        return XmlConvert.ToTimeSpan(inputs[index++]);
+    }
 
-        protected internal override void Serialize(TimeSpan value, List<string> results)
-        {
-            results.Add(XmlConvert.ToString(value));
-        }
+    protected internal override void Serialize(TimeSpan value, List<string> results)
+    {
+        results.Add(XmlConvert.ToString(value));
     }
 }

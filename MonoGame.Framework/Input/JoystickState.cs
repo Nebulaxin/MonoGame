@@ -5,131 +5,130 @@
 using System.Linq;
 using System.Text;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+/// <summary>
+/// Describes current joystick state.
+/// </summary>
+public struct JoystickState
 {
     /// <summary>
-    /// Describes current joystick state.
+    /// Gets a value indicating whether the joystick is connected.
     /// </summary>
-    public struct JoystickState
+    /// <value><c>true</c> if the joystick is connected; otherwise, <c>false</c>.</value>
+    public bool IsConnected { get; internal set; }
+
+    /// <summary>
+    /// Gets the joystick axis values.
+    /// </summary>
+    /// <value>An array list of ints that indicate axis values.</value>
+    public int[] Axes { get; internal set; }
+
+    /// <summary>
+    /// Gets the joystick button values.
+    /// </summary>
+    /// <value>An array list of ButtonState that indicate button values.</value>
+    public ButtonState[] Buttons { get; internal set; }
+
+    /// <summary>
+    /// Gets the joystick hat values.
+    /// </summary>
+    /// <value>An array list of <see cref="JoystickHat"/> that indicate hat values.</value>
+    public JoystickHat[] Hats { get; internal set; }
+
+    /// <summary>
+    /// Determines whether a specified instance of <see cref="JoystickState"/> is
+    /// equal to another specified <see cref="JoystickState"/>.
+    /// </summary>
+    /// <param name="left">The first <see cref="JoystickState"/> to compare.</param>
+    /// <param name="right">The second <see cref="JoystickState"/> to compare.</param>
+    /// <returns><c>true</c> if <c>left</c> and <c>right</c> are equal; otherwise, <c>false</c>.</returns>
+    public static bool operator ==(JoystickState left, JoystickState right)
     {
-        /// <summary>
-        /// Gets a value indicating whether the joystick is connected.
-        /// </summary>
-        /// <value><c>true</c> if the joystick is connected; otherwise, <c>false</c>.</value>
-        public bool IsConnected { get; internal set; }
+        return left.IsConnected == right.IsConnected &&
+           left.Axes.SequenceEqual(right.Axes) &&
+           left.Buttons.SequenceEqual(right.Buttons) &&
+           left.Hats.SequenceEqual(right.Hats);
+    }
 
-        /// <summary>
-        /// Gets the joystick axis values.
-        /// </summary>
-        /// <value>An array list of ints that indicate axis values.</value>
-        public int[] Axes { get; internal set; }
+    /// <summary>
+    /// Determines whether a specified instance of <see cref="JoystickState"/> is not
+    /// equal to another specified <see cref="JoystickState"/>.
+    /// </summary>
+    /// <param name="left">The first <see cref="JoystickState"/> to compare.</param>
+    /// <param name="right">The second <see cref="JoystickState"/> to compare.</param>
+    /// <returns><c>true</c> if <c>left</c> and <c>right</c> are not equal; otherwise, <c>false</c>.</returns>
+    public static bool operator !=(JoystickState left, JoystickState right)
+    {
+        return !(left == right);
+    }
 
-        /// <summary>
-        /// Gets the joystick button values.
-        /// </summary>
-        /// <value>An array list of ButtonState that indicate button values.</value>
-        public ButtonState[] Buttons { get; internal set; }
+    /// <summary>
+    /// Determines whether the specified <see cref="object"/> is equal to the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.
+    /// </summary>
+    /// <param name="obj">The <see cref="object"/> to compare with the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.</param>
+    /// <returns><c>true</c> if the specified <see cref="object"/> is equal to the current
+    /// <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>; otherwise, <c>false</c>.</returns>
+    public override readonly bool Equals(object obj)
+    {
+        return (obj is JoystickState) && (this == (JoystickState)obj);
+    }
 
-        /// <summary>
-        /// Gets the joystick hat values.
-        /// </summary>
-        /// <value>An array list of <see cref="JoystickHat"/> that indicate hat values.</value>
-        public JoystickHat[] Hats { get; internal set; }
+    /// <summary>
+    /// Serves as a hash function for a <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/> object.
+    /// </summary>
+    /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
+    /// hash table.</returns>
+    public override readonly int GetHashCode()
+    {
+        var hash = 0;
 
-        /// <summary>
-        /// Determines whether a specified instance of <see cref="JoystickState"/> is
-        /// equal to another specified <see cref="JoystickState"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="JoystickState"/> to compare.</param>
-        /// <param name="right">The second <see cref="JoystickState"/> to compare.</param>
-        /// <returns><c>true</c> if <c>left</c> and <c>right</c> are equal; otherwise, <c>false</c>.</returns>
-        public static bool operator ==(JoystickState left, JoystickState right)
+        if (IsConnected)
         {
-            return left.IsConnected == right.IsConnected &&
-               left.Axes.SequenceEqual(right.Axes) &&
-               left.Buttons.SequenceEqual(right.Buttons) &&
-               left.Hats.SequenceEqual(right.Hats);
-        }
-
-        /// <summary>
-        /// Determines whether a specified instance of <see cref="JoystickState"/> is not
-        /// equal to another specified <see cref="JoystickState"/>.
-        /// </summary>
-        /// <param name="left">The first <see cref="JoystickState"/> to compare.</param>
-        /// <param name="right">The second <see cref="JoystickState"/> to compare.</param>
-        /// <returns><c>true</c> if <c>left</c> and <c>right</c> are not equal; otherwise, <c>false</c>.</returns>
-        public static bool operator !=(JoystickState left, JoystickState right)
-        {
-            return !(left == right);
-        }
-
-        /// <summary>
-        /// Determines whether the specified <see cref="object"/> is equal to the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.
-        /// </summary>
-        /// <param name="obj">The <see cref="object"/> to compare with the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.</param>
-        /// <returns><c>true</c> if the specified <see cref="object"/> is equal to the current
-        /// <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>; otherwise, <c>false</c>.</returns>
-        public override readonly bool Equals(object obj)
-        {
-            return (obj is JoystickState) && (this == (JoystickState)obj);
-        }
-
-        /// <summary>
-        /// Serves as a hash function for a <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/> object.
-        /// </summary>
-        /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
-        /// hash table.</returns>
-        public override readonly int GetHashCode()
-        {
-            var hash = 0;
-
-            if (IsConnected)
+            unchecked
             {
-                unchecked
-                {
-                    foreach (var axis in Axes)
-                        hash = (hash * 397) ^ axis;
-
-                    for (int i = 0; i < Buttons.Length; i++)
-                        hash = hash ^ ((int)Buttons[i] << (i % 32));
-
-                    foreach (var hat in Hats)
-                        hash = (hash * 397) ^ hat.GetHashCode();
-                }
-            }
-
-            return hash;
-        }
-
-        /// <summary>
-        /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.
-        /// </summary>
-        /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.</returns>
-        public override readonly string ToString()
-        {
-            var ret = new StringBuilder(54 - 2 + Axes.Length * 7 + Buttons.Length + Hats.Length * 5);
-            ret.Append("[JoystickState: IsConnected=" + (IsConnected ? 1 : 0));
-
-            if (IsConnected)
-            {
-                ret.Append(", Axes=");
                 foreach (var axis in Axes)
-                    ret.Append((axis > 0 ? "+" : "") + axis.ToString("00000") + " ");
-                ret.Length--;
+                    hash = (hash * 397) ^ axis;
 
-                ret.Append(", Buttons=");
-                foreach (var button in Buttons)
-                    ret.Append((int)button);
+                for (int i = 0; i < Buttons.Length; i++)
+                    hash = hash ^ ((int)Buttons[i] << (i % 32));
 
-                ret.Append(", Hats=");
                 foreach (var hat in Hats)
-                    ret.Append(hat + " ");
-                ret.Length--;
+                    hash = (hash * 397) ^ hat.GetHashCode();
             }
-
-            ret.Append("]");
-            return ret.ToString();
         }
+
+        return hash;
+    }
+
+    /// <summary>
+    /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.
+    /// </summary>
+    /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.</returns>
+    public override readonly string ToString()
+    {
+        var ret = new StringBuilder(54 - 2 + Axes.Length * 7 + Buttons.Length + Hats.Length * 5);
+        ret.Append("[JoystickState: IsConnected=" + (IsConnected ? 1 : 0));
+
+        if (IsConnected)
+        {
+            ret.Append(", Axes=");
+            foreach (var axis in Axes)
+                ret.Append((axis > 0 ? "+" : "") + axis.ToString("00000") + " ");
+            ret.Length--;
+
+            ret.Append(", Buttons=");
+            foreach (var button in Buttons)
+                ret.Append((int)button);
+
+            ret.Append(", Hats=");
+            foreach (var hat in Hats)
+                ret.Append(hat + " ");
+            ret.Length--;
+        }
+
+        ret.Append("]");
+        return ret.ToString();
     }
 }
+
 

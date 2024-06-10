@@ -5,62 +5,61 @@
 using System;
 using SharpDX.Direct3D11;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public abstract partial class Texture
 {
-    public abstract partial class Texture
+    private Resource _texture;
+
+    private ShaderResourceView _resourceView;
+
+    /// <summary>
+    /// Gets the handle to a shared resource.
+    /// </summary>
+    /// <returns>
+    /// The handle of the shared resource, or <see cref="IntPtr.Zero"/> if the texture was not
+    /// created as a shared resource.
+    /// </returns>
+    public IntPtr GetSharedHandle()
     {
-        private Resource _texture;
+        using (var resource = GetTexture().QueryInterface<SharpDX.DXGI.Resource>())
+            return resource.SharedHandle;
+    }
 
-        private ShaderResourceView _resourceView;
+    internal abstract Resource CreateTexture();
 
-        /// <summary>
-        /// Gets the handle to a shared resource.
-        /// </summary>
-        /// <returns>
-        /// The handle of the shared resource, or <see cref="IntPtr.Zero"/> if the texture was not
-        /// created as a shared resource.
-        /// </returns>
-        public IntPtr GetSharedHandle()
-        {
-            using (var resource = GetTexture().QueryInterface<SharpDX.DXGI.Resource>())
-                return resource.SharedHandle;
-        }
+    internal Resource GetTexture()
+    {
+        if (_texture == null)
+            _texture = CreateTexture();
 
-        internal abstract Resource CreateTexture();
+        return _texture;
+    }
 
-        internal Resource GetTexture()
-        {
-            if (_texture == null)
-                _texture = CreateTexture();
+    internal ShaderResourceView GetShaderResourceView()
+    {
+        if (_resourceView == null)
+            _resourceView = new ShaderResourceView(GraphicsDevice._d3dDevice, GetTexture());
 
-            return _texture;
-        }
+        return _resourceView;
+    }
 
-        internal ShaderResourceView GetShaderResourceView()
-        {
-            if (_resourceView == null)
-                _resourceView = new ShaderResourceView(GraphicsDevice._d3dDevice, GetTexture());
+    private void PlatformGraphicsDeviceResetting()
+    {
+        SharpDX.Utilities.Dispose(ref _resourceView);
+        SharpDX.Utilities.Dispose(ref _texture);
+    }
 
-            return _resourceView;
-        }
-
-        private void PlatformGraphicsDeviceResetting()
+    /// <summary />
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
         {
             SharpDX.Utilities.Dispose(ref _resourceView);
             SharpDX.Utilities.Dispose(ref _texture);
         }
 
-        /// <summary />
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                SharpDX.Utilities.Dispose(ref _resourceView);
-                SharpDX.Utilities.Dispose(ref _texture);
-            }
-
-            base.Dispose(disposing);
-        }
+        base.Dispose(disposing);
     }
 }
+
 

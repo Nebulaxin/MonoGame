@@ -5,17 +5,16 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
+namespace Microsoft.Xna.Framework.Content.Pipeline.Processors;
+/// <summary>
+/// A collection of <see cref="ModelMeshPartContent"/> objects.
+/// This class cannot be inherited.
+/// </summary>
+public sealed class ModelMeshContentCollection : ReadOnlyCollection<ModelMeshContent>
 {
-    /// <summary>
-    /// A collection of <see cref="ModelMeshPartContent"/> objects.
-    /// This class cannot be inherited.
-    /// </summary>
-    public sealed class ModelMeshContentCollection : ReadOnlyCollection<ModelMeshContent>
+    internal ModelMeshContentCollection(IList<ModelMeshContent> list)
+        : base(list)
     {
-        internal ModelMeshContentCollection(IList<ModelMeshContent> list)
-            : base(list)
-        {
-        }
     }
 }
+

@@ -9,61 +9,60 @@ using AudioToolbox;
 using AVFoundation;
 #endif
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+public static partial class MediaPlayer
 {
-    public static partial class MediaPlayer
+
+    #region Properties
+
+    private static void PlatformInitialize()
     {
 
-        #region Properties
+    }
 
-        private static void PlatformInitialize()
-        {
+    private static bool PlatformGetIsMuted()
+    {
+        return _isMuted;
+    }
 
-        }
+    private static void PlatformSetIsMuted(bool muted)
+    {
+        _isMuted = muted;
 
-        private static bool PlatformGetIsMuted()
-        {
-            return _isMuted;
-        }
+        if (_queue.Count == 0)
+            return;
 
-        private static void PlatformSetIsMuted(bool muted)
-        {
-            _isMuted = muted;
+        var newVolume = _isMuted ? 0.0f : _volume;
+        _queue.SetVolume(newVolume);
+    }
 
-            if (_queue.Count == 0)
-                return;
+    private static bool PlatformGetIsRepeating()
+    {
+        return _isRepeating;
+    }
 
-            var newVolume = _isMuted ? 0.0f : _volume;
-            _queue.SetVolume(newVolume);
-        }
+    private static void PlatformSetIsRepeating(bool repeating)
+    {
+        _isRepeating = repeating;
+    }
 
-        private static bool PlatformGetIsRepeating()
-        {
-            return _isRepeating;
-        }
+    private static bool PlatformGetIsShuffled()
+    {
+        return _isShuffled;
+    }
 
-        private static void PlatformSetIsRepeating(bool repeating)
-        {
-            _isRepeating = repeating;
-        }
+    private static void PlatformSetIsShuffled(bool shuffled)
+    {
+        _isShuffled = shuffled;
+    }
 
-        private static bool PlatformGetIsShuffled()
-        {
-            return _isShuffled;
-        }
+    private static TimeSpan PlatformGetPlayPosition()
+    {
+        if (_queue.ActiveSong == null)
+            return TimeSpan.Zero;
 
-        private static void PlatformSetIsShuffled(bool shuffled)
-        {
-            _isShuffled = shuffled;
-        }
-
-        private static TimeSpan PlatformGetPlayPosition()
-        {
-            if (_queue.ActiveSong == null)
-                return TimeSpan.Zero;
-
-            return _queue.ActiveSong.Position;
-        }
+        return _queue.ActiveSong.Position;
+    }
 
 #if (IOS && !TVOS) || ANDROID
         private static void PlatformSetPlayPosition(TimeSpan playPosition)
@@ -73,70 +72,70 @@ namespace Microsoft.Xna.Framework.Media
         }
 #endif
 
-        private static MediaState PlatformGetState()
-        {
-            return _state;
-        }
+    private static MediaState PlatformGetState()
+    {
+        return _state;
+    }
 
-        private static float PlatformGetVolume()
-        {
-            return _volume;
-        }
+    private static float PlatformGetVolume()
+    {
+        return _volume;
+    }
 
-        private static void PlatformSetVolume(float volume)
-        {
-            _volume = volume;
+    private static void PlatformSetVolume(float volume)
+    {
+        _volume = volume;
 
-            if (_queue.ActiveSong == null)
-                return;
+        if (_queue.ActiveSong == null)
+            return;
 
-            _queue.SetVolume(_isMuted ? 0.0f : _volume);
-        }
+        _queue.SetVolume(_isMuted ? 0.0f : _volume);
+    }
 
-        private static bool PlatformGetGameHasControl()
-        {
+    private static bool PlatformGetGameHasControl()
+    {
 #if IOS
             return !AVAudioSession.SharedInstance().OtherAudioPlaying;
 #else
-            // TODO: Fix me!
-            return true;
+        // TODO: Fix me!
+        return true;
 #endif
-        }
-        #endregion
+    }
+    #endregion
 
-        private static void PlatformPause()
-        {
-            if (_queue.ActiveSong == null)
-                return;
+    private static void PlatformPause()
+    {
+        if (_queue.ActiveSong == null)
+            return;
 
-            _queue.ActiveSong.Pause();
-        }
+        _queue.ActiveSong.Pause();
+    }
 
-        private static void PlatformPlaySong(Song song, TimeSpan? startPosition)
-        {
-            if (_queue.ActiveSong == null)
-                return;
+    private static void PlatformPlaySong(Song song, TimeSpan? startPosition)
+    {
+        if (_queue.ActiveSong == null)
+            return;
 
-            song.SetEventHandler(OnSongFinishedPlaying);
+        song.SetEventHandler(OnSongFinishedPlaying);
 
-            song.Volume = _isMuted ? 0.0f : _volume;
-            song.Play(startPosition);
-        }
+        song.Volume = _isMuted ? 0.0f : _volume;
+        song.Play(startPosition);
+    }
 
-        private static void PlatformResume()
-        {
-            if (_queue.ActiveSong == null)
-                return;
+    private static void PlatformResume()
+    {
+        if (_queue.ActiveSong == null)
+            return;
 
-            _queue.ActiveSong.Resume();
-        }
+        _queue.ActiveSong.Resume();
+    }
 
-        private static void PlatformStop()
-        {
-            // Loop through so that we reset the PlayCount as well
-            foreach (var song in Queue.Songs)
-                _queue.ActiveSong.Stop();
-        }
+    private static void PlatformStop()
+    {
+        // Loop through so that we reset the PlayCount as well
+        foreach (var song in Queue.Songs)
+            _queue.ActiveSong.Stop();
     }
 }
+
 

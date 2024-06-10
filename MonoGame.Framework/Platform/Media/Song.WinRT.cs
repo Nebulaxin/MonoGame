@@ -6,110 +6,108 @@ using System;
 using System.IO;
 using Windows.Storage;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+public sealed partial class Song
 {
-    public sealed partial class Song
+    private Album album;
+    private Artist artist;
+    private Genre genre;
+
+    private MusicProperties musicProperties;
+
+    public StorageFile StorageFile
     {
-        private Album album;
-        private Artist artist;
-        private Genre genre;
+        get { return this.musicProperties.File; }
+    }
 
-        private MusicProperties musicProperties;
+    internal Song(Album album, Artist artist, Genre genre, MusicProperties musicProperties)
+    {
+        this.album = album;
+        this.artist = artist;
+        this.genre = genre;
+        this.musicProperties = musicProperties;
+    }
 
-        public StorageFile StorageFile
-        {
-            get { return this.musicProperties.File; }
-        }
+    private void PlatformInitialize(string fileName)
+    {
 
-        internal Song(Album album, Artist artist, Genre genre, MusicProperties musicProperties)
-        {
-            this.album = album;
-            this.artist = artist;
-            this.genre = genre;
-            this.musicProperties = musicProperties;
-        }
+    }
 
-        private void PlatformInitialize(string fileName)
-        {
+    private void PlatformDispose(bool disposing)
+    {
 
-        }
+    }
 
-        private void PlatformDispose(bool disposing)
-        {
+    private Album PlatformGetAlbum()
+    {
+        return this.album;
+    }
 
-        }
+    private void PlatformSetAlbum(Album album)
+    {
+        this.album = album;
+    }
 
-        private Album PlatformGetAlbum()
-        {
-            return this.album;
-        }
+    private Artist PlatformGetArtist()
+    {
+        return this.artist;
+    }
 
-        private void PlatformSetAlbum(Album album)
-        {
-            this.album = album;
-        }
+    private Genre PlatformGetGenre()
+    {
+        return this.genre;
+    }
 
-        private Artist PlatformGetArtist()
-        {
-            return this.artist;
-        }
+    private TimeSpan PlatformGetDuration()
+    {
+        if (this.musicProperties != null)
+            return this.musicProperties.Duration;
 
-        private Genre PlatformGetGenre()
-        {
-            return this.genre;
-        }
+        return _duration;
+    }
 
-        private TimeSpan PlatformGetDuration()
-        {
-            if (this.musicProperties != null)
-                return this.musicProperties.Duration;
+    private bool PlatformIsProtected()
+    {
+        if (this.musicProperties != null)
+            return this.musicProperties.IsProtected;
 
-            return _duration;
-        }
+        return false;
+    }
 
-        private bool PlatformIsProtected()
-        {
-            if (this.musicProperties != null)
-                return this.musicProperties.IsProtected;
+    private bool PlatformIsRated()
+    {
+        if (this.musicProperties != null)
+            return this.musicProperties.Rating != 0;
 
-            return false;
-        }
+        return false;
+    }
 
-        private bool PlatformIsRated()
-        {
-            if (this.musicProperties != null)
-                return this.musicProperties.Rating != 0;
+    private string PlatformGetName()
+    {
+        if (this.musicProperties != null)
+            return this.musicProperties.Title;
 
-            return false;
-        }
+        return Path.GetFileNameWithoutExtension(_name);
+    }
 
-        private string PlatformGetName()
-        {
-            if (this.musicProperties != null)
-                return this.musicProperties.Title;
+    private int PlatformGetPlayCount()
+    {
+        return _playCount;
+    }
 
-            return Path.GetFileNameWithoutExtension(_name);
-        }
+    private int PlatformGetRating()
+    {
+        if (this.musicProperties != null)
+            return this.musicProperties.Rating;
 
-        private int PlatformGetPlayCount()
-        {
-            return _playCount;
-        }
+        return 0;
+    }
 
-        private int PlatformGetRating()
-        {
-            if (this.musicProperties != null)
-                return this.musicProperties.Rating;
+    private int PlatformGetTrackNumber()
+    {
+        if (this.musicProperties != null)
+            return this.musicProperties.TrackNumber;
 
-            return 0;
-        }
-
-        private int PlatformGetTrackNumber()
-        {
-            if (this.musicProperties != null)
-                return this.musicProperties.TrackNumber;
-
-            return 0;
-        }
+        return 0;
     }
 }

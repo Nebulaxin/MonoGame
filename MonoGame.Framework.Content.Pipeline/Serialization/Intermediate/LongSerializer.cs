@@ -5,24 +5,22 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+[ContentTypeSerializer]
+class LongSerializer : ElementSerializer<long>
 {
-    [ContentTypeSerializer]
-    class LongSerializer : ElementSerializer<long>
+    public LongSerializer() :
+        base("long", 1)
     {
-        public LongSerializer() :
-            base("long", 1)
-        {
-        }
+    }
 
-        protected internal override long Deserialize(string[] inputs, ref int index)
-        {
-            return XmlConvert.ToInt64(inputs[index++]);
-        }
+    protected internal override long Deserialize(string[] inputs, ref int index)
+    {
+        return XmlConvert.ToInt64(inputs[index++]);
+    }
 
-        protected internal override void Serialize(long value, List<string> results)
-        {
-            results.Add(XmlConvert.ToString(value));
-        }
+    protected internal override void Serialize(long value, List<string> results)
+    {
+        results.Add(XmlConvert.ToString(value));
     }
 }

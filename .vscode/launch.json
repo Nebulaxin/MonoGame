@@ -10,9 +10,20 @@
             "request": "launch",
             "preLaunchTask": "mgcb-editor-mac",
             "program": "${workspaceFolder}/Artifacts/MonoGame.Content.Builder.Editor/Mac/Debug/MGCB Editor.app/Contents/MacOS/mgcb-editor-mac",
-            "args": [],
+            "args": [ ],
             "cwd": "${workspaceFolder}/Artifacts/MonoGame.Content.Builder.Editor/Mac/Debug",
             "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Build ConsoleCheck",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-Build",
+            "program": "${workspaceFolder}/build/bin/Debug/net8.0/Build.dll",
+            "args": [ "-t", "Build ConsoleCheck" ],
+            "cwd": "${workspaceFolder}/build",
+            "console": "integratedTerminal",
             "stopAtEntry": false
         }
     ]

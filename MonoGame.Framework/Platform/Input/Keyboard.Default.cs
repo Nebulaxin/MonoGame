@@ -4,20 +4,19 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+public static partial class Keyboard
 {
-    public static partial class Keyboard
+    static List<Keys> _keys;
+
+    private static KeyboardState PlatformGetState()
     {
-        static List<Keys> _keys;
+        return new KeyboardState(_keys);
+    }
 
-        private static KeyboardState PlatformGetState()
-        {
-            return new KeyboardState(_keys);
-        }
-
-        internal static void SetKeys(List<Keys> keys)
-        {
-            _keys = keys;
-        }
+    internal static void SetKeys(List<Keys> keys)
+    {
+        _keys = keys;
     }
 }
+

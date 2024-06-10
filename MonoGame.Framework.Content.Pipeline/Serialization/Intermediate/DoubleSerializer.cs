@@ -5,24 +5,22 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+[ContentTypeSerializer]
+class DoubleSerializer : ElementSerializer<double>
 {
-    [ContentTypeSerializer]
-    class DoubleSerializer : ElementSerializer<double>
+    public DoubleSerializer() :
+        base("double", 1)
     {
-        public DoubleSerializer() :
-            base("double", 1)
-        {
-        }
+    }
 
-        protected internal override double Deserialize(string[] inputs, ref int index)
-        {
-            return XmlConvert.ToDouble(inputs[index++]);
-        }
+    protected internal override double Deserialize(string[] inputs, ref int index)
+    {
+        return XmlConvert.ToDouble(inputs[index++]);
+    }
 
-        protected internal override void Serialize(double value, List<string> results)
-        {
-            results.Add(XmlConvert.ToString(value));
-        }
+    protected internal override void Serialize(double value, List<string> results)
+    {
+        results.Add(XmlConvert.ToString(value));
     }
 }

@@ -8,36 +8,35 @@
 //       So for reference as to the messages received, you can find more information at
 //       https://learn.microsoft.com/en-us/windows/win32/api/d3d11sdklayers/ns-d3d11sdklayers-d3d11_message
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Represents a debug message from the graphics subsystem.
+/// </summary>
+public class GraphicsDebugMessage
 {
     /// <summary>
-    /// Represents a debug message from the graphics subsystem.
+    /// Gets or Sets the message.
     /// </summary>
-    public class GraphicsDebugMessage
-    {
-        /// <summary>
-        /// Gets or Sets the message.
-        /// </summary>
-        public string Message { get; set; }
+    public string Message { get; set; }
 
-        /// <summary>
-        /// Gets or Sets the debug severity level of the message.
-        /// </summary>
-        public string Severity { get; set; }
+    /// <summary>
+    /// Gets or Sets the debug severity level of the message.
+    /// </summary>
+    public string Severity { get; set; }
 
-        /// <summary>
-        /// Gets or Sets the ID of the debug message.
-        /// </summary>
-        public int Id { get; set; }
+    /// <summary>
+    /// Gets or Sets the ID of the debug message.
+    /// </summary>
+    public int Id { get; set; }
 
-        /// <summary>
-        /// Gets or Sets the string representation of the debug message ID.
-        /// </summary>
-        public string IdName { get; set; }
+    /// <summary>
+    /// Gets or Sets the string representation of the debug message ID.
+    /// </summary>
+    public string IdName { get; set; }
 
-        /// <summary>
-        /// Gets or Sets the category of the debug message.
-        /// </summary>
-        public string Category { get; set; }
-    }
+    /// <summary>
+    /// Gets or Sets the category of the debug message.
+    /// </summary>
+    public string Category { get; set; }
 }
+

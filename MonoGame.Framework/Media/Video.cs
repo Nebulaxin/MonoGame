@@ -4,91 +4,90 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+/// <summary>
+/// Represents a video.
+/// </summary>
+public sealed partial class Video : IDisposable
 {
+    private bool _disposed;
+
+    #region Public API
+
     /// <summary>
-    /// Represents a video.
+    /// I actually think this is a file PATH...
     /// </summary>
-    public sealed partial class Video : IDisposable
+    public string FileName { get; private set; }
+
+    /// <summary>
+    /// Gets the duration of the Video.
+    /// </summary>
+    public TimeSpan Duration { get; internal set; }
+
+    /// <summary>
+    /// Gets the frame rate of this video.
+    /// </summary>
+    public float FramesPerSecond { get; internal set; }
+
+    /// <summary>
+    /// Gets the height of this video, in pixels.
+    /// </summary>
+    public int Height { get; internal set; }
+
+    /// <summary>
+    /// Gets the VideoSoundtrackType for this video.
+    /// </summary>
+    public VideoSoundtrackType VideoSoundtrackType { get; internal set; }
+
+    /// <summary>
+    /// Gets the width of this video, in pixels.
+    /// </summary>
+    public int Width { get; internal set; }
+
+    #endregion
+
+    #region Internal API
+
+    internal Video(string fileName, float durationMS) :
+        this(fileName)
     {
-        private bool _disposed;
+        Duration = TimeSpan.FromMilliseconds(durationMS);
+    }
 
-        #region Public API
-
-        /// <summary>
-        /// I actually think this is a file PATH...
-        /// </summary>
-        public string FileName { get; private set; }
-
-        /// <summary>
-        /// Gets the duration of the Video.
-        /// </summary>
-        public TimeSpan Duration { get; internal set; }
-
-        /// <summary>
-        /// Gets the frame rate of this video.
-        /// </summary>
-        public float FramesPerSecond { get; internal set; }
-
-        /// <summary>
-        /// Gets the height of this video, in pixels.
-        /// </summary>
-        public int Height { get; internal set; }
-
-        /// <summary>
-        /// Gets the VideoSoundtrackType for this video.
-        /// </summary>
-        public VideoSoundtrackType VideoSoundtrackType { get; internal set; }
-
-        /// <summary>
-        /// Gets the width of this video, in pixels.
-        /// </summary>
-        public int Width { get; internal set; }
-
-        #endregion
-
-        #region Internal API
-
-        internal Video(string fileName, float durationMS) :
-            this(fileName)
-        {
-            Duration = TimeSpan.FromMilliseconds(durationMS);
-        }
-
-        internal Video(string fileName)
-        {
-            FileName = fileName;
+    internal Video(string fileName)
+    {
+        FileName = fileName;
 
 #if !WINDOWS_UAP
-            PlatformInitialize();
+        PlatformInitialize();
 #endif
-        }
-
-        /// <summary/>
-        ~Video()
-        {
-            Dispose(false);
-        }
-
-        #endregion
-
-        #region IDisposable Implementation
-        /// <inheritdoc cref="IDisposable.Dispose()"/>
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                //PlatformDispose(disposing);
-                _disposed = true;
-            }
-        }
-
-        #endregion
     }
+
+    /// <summary/>
+    ~Video()
+    {
+        Dispose(false);
+    }
+
+    #endregion
+
+    #region IDisposable Implementation
+    /// <inheritdoc cref="IDisposable.Dispose()"/>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            //PlatformDispose(disposing);
+            _disposed = true;
+        }
+    }
+
+    #endregion
 }
+

@@ -4,20 +4,19 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class RenderTargetCube
 {
-    public partial class RenderTargetCube
+    private void PlatformConstruct(GraphicsDevice graphicsDevice, bool mipMap, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
     {
-        private void PlatformConstruct(GraphicsDevice graphicsDevice, bool mipMap, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        protected override void Dispose(bool disposing)
-        {
-            throw new NotImplementedException();
+    protected override void Dispose(bool disposing)
+    {
+        throw new NotImplementedException();
 
-            base.Dispose(disposing);
-        }
+        base.Dispose(disposing);
     }
 }
+

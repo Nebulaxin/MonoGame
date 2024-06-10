@@ -4,23 +4,22 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+internal partial class ConstantBuffer
 {
-    internal partial class ConstantBuffer
+    private void PlatformInitialize()
     {
-        private void PlatformInitialize()
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        private void PlatformClear()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformClear()
+    {
+        throw new NotImplementedException();
+    }
 
-        public unsafe void PlatformApply(GraphicsDevice device, int program)
-        {
-            throw new NotImplementedException();
-        }
+    public unsafe void PlatformApply(GraphicsDevice device, int program)
+    {
+        throw new NotImplementedException();
     }
 }
+

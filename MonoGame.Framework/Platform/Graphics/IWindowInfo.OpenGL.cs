@@ -4,16 +4,15 @@
 
 using System;
 
-namespace MonoGame.OpenGL
+namespace MonoGame.OpenGL;
+/// <summary>
+/// Represents an interface for retrieving window information.
+/// </summary>
+public interface IWindowInfo
 {
     /// <summary>
-    /// Represents an interface for retrieving window information.
+    /// Gets the handle of the window.
     /// </summary>
-    public interface IWindowInfo
-    {
-        /// <summary>
-        /// Gets the handle of the window.
-        /// </summary>
-        IntPtr Handle { get; }
-    }
+    IntPtr Handle { get; }
 }
+

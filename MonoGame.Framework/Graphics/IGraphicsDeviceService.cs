@@ -4,38 +4,37 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Provider of a <see cref="Graphics.GraphicsDevice"/>.
+/// </summary>
+public interface IGraphicsDeviceService
 {
     /// <summary>
-    /// Provider of a <see cref="Graphics.GraphicsDevice"/>.
+    /// The provided <see cref="Graphics.GraphicsDevice"/>.
     /// </summary>
-    public interface IGraphicsDeviceService
-    {
-        /// <summary>
-        /// The provided <see cref="Graphics.GraphicsDevice"/>.
-        /// </summary>
-        GraphicsDevice GraphicsDevice { get; }
+    GraphicsDevice GraphicsDevice { get; }
 
-        /// <summary>
-        /// Raised when a new <see cref="Graphics.GraphicsDevice"/> has been created.
-        /// </summary>
-		event EventHandler<EventArgs> DeviceCreated;
+    /// <summary>
+    /// Raised when a new <see cref="Graphics.GraphicsDevice"/> has been created.
+    /// </summary>
+    event EventHandler<EventArgs> DeviceCreated;
 
-        /// <summary>
-        /// Raised when the <see cref="GraphicsDevice"/> is disposed.
-        /// </summary>
-        event EventHandler<EventArgs> DeviceDisposing;
+    /// <summary>
+    /// Raised when the <see cref="GraphicsDevice"/> is disposed.
+    /// </summary>
+    event EventHandler<EventArgs> DeviceDisposing;
 
-        /// <summary>
-        /// Raised when the <see cref="GraphicsDevice"/> has reset.
-        /// </summary>
-        /// <seealso cref="Graphics.GraphicsDevice.Reset"/>
-        event EventHandler<EventArgs> DeviceReset;
+    /// <summary>
+    /// Raised when the <see cref="GraphicsDevice"/> has reset.
+    /// </summary>
+    /// <seealso cref="Graphics.GraphicsDevice.Reset"/>
+    event EventHandler<EventArgs> DeviceReset;
 
-        /// <summary>
-        /// Raised before the <see cref="GraphicsDevice"/> is resetting.
-        /// </summary>
-        event EventHandler<EventArgs> DeviceResetting;
-    }
+    /// <summary>
+    /// Raised before the <see cref="GraphicsDevice"/> is resetting.
+    /// </summary>
+    event EventHandler<EventArgs> DeviceResetting;
 }
+
 

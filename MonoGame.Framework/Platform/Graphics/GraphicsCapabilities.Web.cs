@@ -4,14 +4,12 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+internal partial class GraphicsCapabilities
 {
-    internal partial class GraphicsCapabilities
+    private void PlatformInitialize(GraphicsDevice device)
     {
-        private void PlatformInitialize(GraphicsDevice device)
-        {
-            throw new NotImplementedException();
-        }
-
+        throw new NotImplementedException();
     }
+
 }

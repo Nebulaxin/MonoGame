@@ -4,38 +4,37 @@
 
 using SharpDX.MediaFoundation;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+/// <summary>
+/// This class provides a way for the MediaManager to be initialised exactly once, 
+/// regardless of how many different places need it, and which is called first.
+/// </summary>
+internal sealed class MediaManagerState
 {
+    private static bool started;
+
     /// <summary>
-    /// This class provides a way for the MediaManager to be initialised exactly once, 
-    /// regardless of how many different places need it, and which is called first.
+    /// Ensures that the MediaManager has been initialised. Must be called from UI thread.
     /// </summary>
-    internal sealed class MediaManagerState
+    public static void CheckStartup()
     {
-        private static bool started;
-
-        /// <summary>
-        /// Ensures that the MediaManager has been initialised. Must be called from UI thread.
-        /// </summary>
-        public static void CheckStartup()
+        if (!started)
         {
-            if (!started)
-            {
-                started = true;
-                MediaManager.Startup(true);
-            }
+            started = true;
+            MediaManager.Startup(true);
         }
+    }
 
-        /// <summary>
-        /// Ensures that the MediaManager has been shutdown. Must be called from UI thread.
-        /// </summary>
-        public static void CheckShutdown()
+    /// <summary>
+    /// Ensures that the MediaManager has been shutdown. Must be called from UI thread.
+    /// </summary>
+    public static void CheckShutdown()
+    {
+        if (started)
         {
-            if (started)
-            {
-                started = false;
-                MediaManager.Shutdown();
-            }
+            started = false;
+            MediaManager.Shutdown();
         }
     }
 }
+

@@ -7,209 +7,208 @@ using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework.Audio
+namespace Microsoft.Xna.Framework.Audio;
+/// <summary>
+/// Provides functionality for manipulating multiple sounds at a time.
+/// </summary>
+public struct AudioCategory : IEquatable<AudioCategory>
 {
-    /// <summary>
-    /// Provides functionality for manipulating multiple sounds at a time.
-    /// </summary>
-    public struct AudioCategory : IEquatable<AudioCategory>
+    readonly string _name;
+    readonly AudioEngine _engine;
+    readonly List<XactSound> _sounds;
+
+    // This is a bit gross, but we use an array here
+    // instead of a field since AudioCategory is a struct
+    // This allows us to save _volume when the user
+    // holds onto a reference of AudioCategory, or when a cue
+    // is created/loaded after the volume's already been set.
+    internal float[] _volume;
+
+    internal bool isBackgroundMusic;
+    internal bool isPublic;
+
+    internal bool instanceLimit;
+    internal int maxInstances;
+    internal MaxInstanceBehavior InstanceBehavior;
+
+    internal CrossfadeType fadeType;
+    internal float fadeIn;
+    internal float fadeOut;
+
+
+    internal AudioCategory(AudioEngine audioengine, string name, BinaryReader reader)
     {
-        readonly string _name;
-        readonly AudioEngine _engine;
-        readonly List<XactSound> _sounds;
+        Debug.Assert(audioengine != null);
+        Debug.Assert(!string.IsNullOrEmpty(name));
 
-        // This is a bit gross, but we use an array here
-        // instead of a field since AudioCategory is a struct
-        // This allows us to save _volume when the user
-        // holds onto a reference of AudioCategory, or when a cue
-        // is created/loaded after the volume's already been set.
-        internal float[] _volume;
+        _sounds = [];
+        _name = name;
+        _engine = audioengine;
 
-        internal bool isBackgroundMusic;
-        internal bool isPublic;
+        maxInstances = reader.ReadByte();
+        instanceLimit = maxInstances != 0xff;
 
-        internal bool instanceLimit;
-        internal int maxInstances;
-        internal MaxInstanceBehavior InstanceBehavior;
+        fadeIn = reader.ReadUInt16() / 1000f;
+        fadeOut = reader.ReadUInt16() / 1000f;
 
-        internal CrossfadeType fadeType;
-        internal float fadeIn;
-        internal float fadeOut;
+        byte instanceFlags = reader.ReadByte();
+        fadeType = (CrossfadeType)(instanceFlags & 0x7);
+        InstanceBehavior = (MaxInstanceBehavior)(instanceFlags >> 3);
 
+        reader.ReadUInt16(); //unkn
 
-        internal AudioCategory(AudioEngine audioengine, string name, BinaryReader reader)
+        var volume = XactHelpers.ParseVolumeFromDecibels(reader.ReadByte());
+        _volume = [volume];
+
+        byte visibilityFlags = reader.ReadByte();
+        isBackgroundMusic = (visibilityFlags & 0x1) != 0;
+        isPublic = (visibilityFlags & 0x2) != 0;
+    }
+
+    internal readonly void AddSound(XactSound sound)
+    {
+        _sounds.Add(sound);
+    }
+
+    internal readonly int GetPlayingInstanceCount()
+    {
+        var sum = 0;
+        for (var i = 0; i < _sounds.Count; i++)
         {
-            Debug.Assert(audioengine != null);
-            Debug.Assert(!string.IsNullOrEmpty(name));
-
-            _sounds = [];
-            _name = name;
-            _engine = audioengine;
-
-            maxInstances = reader.ReadByte();
-            instanceLimit = maxInstances != 0xff;
-
-            fadeIn = reader.ReadUInt16() / 1000f;
-            fadeOut = reader.ReadUInt16() / 1000f;
-
-            byte instanceFlags = reader.ReadByte();
-            fadeType = (CrossfadeType)(instanceFlags & 0x7);
-            InstanceBehavior = (MaxInstanceBehavior)(instanceFlags >> 3);
-
-            reader.ReadUInt16(); //unkn
-
-            var volume = XactHelpers.ParseVolumeFromDecibels(reader.ReadByte());
-            _volume = [volume];
-
-            byte visibilityFlags = reader.ReadByte();
-            isBackgroundMusic = (visibilityFlags & 0x1) != 0;
-            isPublic = (visibilityFlags & 0x2) != 0;
+            if (_sounds[i].Playing)
+                sum++;
         }
+        return sum;
+    }
 
-        internal readonly void AddSound(XactSound sound)
+    internal readonly XactSound GetOldestInstance()
+    {
+        for (var i = 0; i < _sounds.Count; i++)
         {
-            _sounds.Add(sound);
+            if (_sounds[i].Playing)
+                return _sounds[i];
         }
+        return null;
+    }
 
-        internal readonly int GetPlayingInstanceCount()
+    /// <summary>
+    /// Gets the category's friendly name.
+    /// </summary>
+    public readonly string Name { get { return _name; } }
+
+    /// <summary>
+    /// Pauses all associated sounds.
+    /// </summary>
+    public readonly void Pause()
+    {
+        foreach (var sound in _sounds)
+            sound.Pause();
+    }
+
+    /// <summary>
+    /// Resumes all associated paused sounds.
+    /// </summary>
+    public readonly void Resume()
+    {
+        foreach (var sound in _sounds)
+            sound.Resume();
+    }
+
+    /// <summary>
+    /// Stops all associated sounds.
+    /// </summary>
+    public readonly void Stop(AudioStopOptions options)
+    {
+        foreach (var sound in _sounds)
+            sound.Stop(options);
+    }
+
+    /// <summary>
+    /// Set the volume for this <see cref="AudioCategory"/>.
+    /// </summary>
+    /// <param name="volume">The new volume of the category.</param>
+    /// <exception cref="ArgumentException">If the volume is less than zero.</exception>
+    public readonly void SetVolume(float volume)
+    {
+        if (volume < 0)
+            throw new ArgumentException("The volume must be positive.");
+
+        // Updating all the sounds in a category can be
+        // very expensive... so avoid it if we can.
+        if (_volume[0] == volume)
+            return;
+
+        _volume[0] = volume;
+
+        foreach (var sound in _sounds)
+            sound.UpdateCategoryVolume(volume);
+    }
+
+    /// <summary>
+    /// Determines whether two AudioCategory instances are equal.
+    /// </summary>
+    /// <param name="first">First AudioCategory instance to compare.</param>
+    /// <param name="second">Second AudioCategory instance to compare.</param>
+    /// <returns>true if the objects are equal or false if they aren't.</returns>
+    public static bool operator ==(AudioCategory first, AudioCategory second)
+    {
+        return first._engine == second._engine && first._name.Equals(second._name, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// Determines whether two AudioCategory instances are not equal.
+    /// </summary>
+    /// <param name="first">First AudioCategory instance to compare.</param>
+    /// <param name="second">Second AudioCategory instance to compare.</param>
+    /// <returns>true if the objects are not equal or false if they are.</returns>
+    public static bool operator !=(AudioCategory first, AudioCategory second)
+    {
+        return first._engine != second._engine || !first._name.Equals(second._name, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// Determines whether two AudioCategory instances are equal.
+    /// </summary>
+    /// <param name="other">AudioCategory to compare with this instance.</param>
+    /// <returns>true if the objects are equal or false if they aren't</returns>
+    public readonly bool Equals(AudioCategory other)
+    {
+        return _engine == other._engine && _name.Equals(other._name, StringComparison.Ordinal);
+    }
+
+    /// <summary>
+    /// Determines whether two AudioCategory instances are equal.
+    /// </summary>
+    /// <param name="obj">Object to compare with this instance.</param>
+    /// <returns>true if the objects are equal or false if they aren't.</returns>
+    public override readonly bool Equals(object obj)
+    {
+        if (obj is AudioCategory)
         {
-            var sum = 0;
-            for (var i = 0; i < _sounds.Count; i++)
-            {
-                if (_sounds[i].Playing)
-                    sum++;
-            }
-            return sum;
-        }
-
-        internal readonly XactSound GetOldestInstance()
-        {
-            for (var i = 0; i < _sounds.Count; i++)
-            {
-                if (_sounds[i].Playing)
-                    return _sounds[i];
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Gets the category's friendly name.
-        /// </summary>
-        public readonly string Name { get { return _name; } }
-
-        /// <summary>
-        /// Pauses all associated sounds.
-        /// </summary>
-        public readonly void Pause()
-        {
-            foreach (var sound in _sounds)
-                sound.Pause();
-        }
-
-        /// <summary>
-        /// Resumes all associated paused sounds.
-        /// </summary>
-        public readonly void Resume()
-        {
-            foreach (var sound in _sounds)
-                sound.Resume();
-        }
-
-        /// <summary>
-        /// Stops all associated sounds.
-        /// </summary>
-        public readonly void Stop(AudioStopOptions options)
-        {
-            foreach (var sound in _sounds)
-                sound.Stop(options);
-        }
-
-        /// <summary>
-        /// Set the volume for this <see cref="AudioCategory"/>.
-        /// </summary>
-        /// <param name="volume">The new volume of the category.</param>
-        /// <exception cref="ArgumentException">If the volume is less than zero.</exception>
-        public readonly void SetVolume(float volume)
-        {
-            if (volume < 0)
-                throw new ArgumentException("The volume must be positive.");
-
-            // Updating all the sounds in a category can be
-            // very expensive... so avoid it if we can.
-            if (_volume[0] == volume)
-                return;
-
-            _volume[0] = volume;
-
-            foreach (var sound in _sounds)
-                sound.UpdateCategoryVolume(volume);
-        }
-
-        /// <summary>
-        /// Determines whether two AudioCategory instances are equal.
-        /// </summary>
-        /// <param name="first">First AudioCategory instance to compare.</param>
-        /// <param name="second">Second AudioCategory instance to compare.</param>
-        /// <returns>true if the objects are equal or false if they aren't.</returns>
-        public static bool operator ==(AudioCategory first, AudioCategory second)
-        {
-            return first._engine == second._engine && first._name.Equals(second._name, StringComparison.Ordinal);
-        }
-
-        /// <summary>
-        /// Determines whether two AudioCategory instances are not equal.
-        /// </summary>
-        /// <param name="first">First AudioCategory instance to compare.</param>
-        /// <param name="second">Second AudioCategory instance to compare.</param>
-        /// <returns>true if the objects are not equal or false if they are.</returns>
-        public static bool operator !=(AudioCategory first, AudioCategory second)
-        {
-            return first._engine != second._engine || !first._name.Equals(second._name, StringComparison.Ordinal);
-        }
-
-        /// <summary>
-        /// Determines whether two AudioCategory instances are equal.
-        /// </summary>
-        /// <param name="other">AudioCategory to compare with this instance.</param>
-        /// <returns>true if the objects are equal or false if they aren't</returns>
-        public readonly bool Equals(AudioCategory other)
-        {
+            var other = (AudioCategory)obj;
             return _engine == other._engine && _name.Equals(other._name, StringComparison.Ordinal);
         }
 
-        /// <summary>
-        /// Determines whether two AudioCategory instances are equal.
-        /// </summary>
-        /// <param name="obj">Object to compare with this instance.</param>
-        /// <returns>true if the objects are equal or false if they aren't.</returns>
-        public override readonly bool Equals(object obj)
-        {
-            if (obj is AudioCategory)
-            {
-                var other = (AudioCategory)obj;
-                return _engine == other._engine && _name.Equals(other._name, StringComparison.Ordinal);
-            }
+        return false;
+    }
 
-            return false;
-        }
+    /// <summary>
+    /// Gets the hash code for this instance.
+    /// </summary>
+    /// <returns>Hash code for this object.</returns>
+    public override readonly int GetHashCode()
+    {
+        return _name.GetHashCode() ^ _engine.GetHashCode();
+    }
 
-        /// <summary>
-        /// Gets the hash code for this instance.
-        /// </summary>
-        /// <returns>Hash code for this object.</returns>
-        public override readonly int GetHashCode()
-        {
-            return _name.GetHashCode() ^ _engine.GetHashCode();
-        }
-
-        /// <summary>
-        /// Returns the name of this AudioCategory
-        /// </summary>
-        /// <returns>Friendly name of the AudioCategory</returns>
-        public override readonly string ToString()
-        {
-            return _name;
-        }
+    /// <summary>
+    /// Returns the name of this AudioCategory
+    /// </summary>
+    /// <returns>Friendly name of the AudioCategory</returns>
+    public override readonly string ToString()
+    {
+        return _name;
     }
 }
+
 

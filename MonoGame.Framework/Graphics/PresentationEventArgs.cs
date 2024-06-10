@@ -4,15 +4,14 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+internal class PresentationEventArgs : EventArgs
 {
-    internal class PresentationEventArgs : EventArgs
-    {
-        public PresentationParameters PresentationParameters { get; private set; }
+    public PresentationParameters PresentationParameters { get; private set; }
 
-        public PresentationEventArgs(PresentationParameters presentationParameters)
-        {
-            PresentationParameters = presentationParameters;
-        }
+    public PresentationEventArgs(PresentationParameters presentationParameters)
+    {
+        PresentationParameters = presentationParameters;
     }
 }
+

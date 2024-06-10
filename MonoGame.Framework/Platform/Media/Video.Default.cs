@@ -4,18 +4,17 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+public sealed partial class Video : IDisposable
 {
-    public sealed partial class Video : IDisposable
+    private void PlatformInitialize()
     {
-        private void PlatformInitialize()
-        {
-            throw new NotImplementedException("Video is not implemented on this platform.");
-        }
+        throw new NotImplementedException("Video is not implemented on this platform.");
+    }
 
-        private void PlatformDispose(bool disposing)
-        {
-            throw new NotImplementedException("Video is not implemented on this platform.");
-        }
+    private void PlatformDispose(bool disposing)
+    {
+        throw new NotImplementedException("Video is not implemented on this platform.");
     }
 }
+

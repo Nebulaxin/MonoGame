@@ -6,14 +6,13 @@ using System;
 using System.IO;
 using Microsoft.Xna.Framework.Audio;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+public sealed partial class Song : IEquatable<Song>, IDisposable
 {
-    public sealed partial class Song : IEquatable<Song>, IDisposable
-    {
-        private SoundEffectInstance _sound;
+    private SoundEffectInstance _sound;
 
-        private void PlatformInitialize(string fileName)
-        {
+    private void PlatformInitialize(string fileName)
+    {
 
 #if MONOMAC || (WINDOWS && OPENGL) || WEB
 
@@ -23,157 +22,156 @@ namespace Microsoft.Xna.Framework.Media
                 _sound = soundEffect.CreateInstance();
             }
 #endif
-        }
+    }
 
-        private void PlatformDispose(bool disposing)
+    private void PlatformDispose(bool disposing)
+    {
+        if (_sound == null)
+            return;
+
+        _sound.Dispose();
+        _sound = null;
+    }
+
+    internal void OnFinishedPlaying(object sender, EventArgs args)
+    {
+        if (DonePlaying == null)
+            return;
+
+        DonePlaying(sender, args);
+    }
+
+    /// <summary>
+    /// Set the event handler for "Finished Playing". Done this way to prevent multiple bindings.
+    /// </summary>
+    internal void SetEventHandler(FinishedPlayingHandler handler)
+    {
+        if (DonePlaying != null)
+            return;
+
+        DonePlaying += handler;
+    }
+
+    internal void Play(TimeSpan? startPosition)
+    {
+        if (startPosition.HasValue)
+            throw new Exception("startPosition not implemented on this Platform"); //Should be possible to implement in OpenAL
+        if (_sound == null)
+            return;
+
+        PlatformPlay();
+
+        _playCount++;
+    }
+
+    private void PlatformPlay()
+    {
+        _sound.Play();
+    }
+
+    internal void Resume()
+    {
+        if (_sound == null)
+            return;
+
+        PlatformResume();
+    }
+
+    private void PlatformResume()
+    {
+        _sound.Resume();
+    }
+
+    internal void Pause()
+    {
+        if (_sound == null)
+            return;
+
+        _sound.Pause();
+    }
+
+    internal void Stop()
+    {
+        if (_sound == null)
+            return;
+
+        _sound.Stop();
+        _playCount = 0;
+    }
+
+    internal float Volume
+    {
+        get
         {
-            if (_sound == null)
-                return;
-
-            _sound.Dispose();
-            _sound = null;
+            if (_sound != null)
+                return _sound.Volume;
+            else
+                return 0.0f;
         }
 
-        internal void OnFinishedPlaying(object sender, EventArgs args)
+        set
         {
-            if (DonePlaying == null)
-                return;
-
-            DonePlaying(sender, args);
+            if (_sound != null && _sound.Volume != value)
+                _sound.Volume = value;
         }
+    }
 
-        /// <summary>
-        /// Set the event handler for "Finished Playing". Done this way to prevent multiple bindings.
-        /// </summary>
-        internal void SetEventHandler(FinishedPlayingHandler handler)
+    internal TimeSpan Position
+    {
+        get
         {
-            if (DonePlaying != null)
-                return;
-
-            DonePlaying += handler;
+            // TODO: Implement
+            return new TimeSpan(0);
         }
+    }
 
-        internal void Play(TimeSpan? startPosition)
-        {
-            if (startPosition.HasValue)
-                throw new Exception("startPosition not implemented on this Platform"); //Should be possible to implement in OpenAL
-            if (_sound == null)
-                return;
+    private Album PlatformGetAlbum()
+    {
+        return null;
+    }
 
-            PlatformPlay();
+    private Artist PlatformGetArtist()
+    {
+        return null;
+    }
 
-            _playCount++;
-        }
+    private Genre PlatformGetGenre()
+    {
+        return null;
+    }
 
-        private void PlatformPlay()
-        {
-            _sound.Play();
-        }
+    private TimeSpan PlatformGetDuration()
+    {
+        return _duration;
+    }
 
-        internal void Resume()
-        {
-            if (_sound == null)
-                return;
+    private bool PlatformIsProtected()
+    {
+        return false;
+    }
 
-            PlatformResume();
-        }
+    private bool PlatformIsRated()
+    {
+        return false;
+    }
 
-        private void PlatformResume()
-        {
-            _sound.Resume();
-        }
+    private string PlatformGetName()
+    {
+        return Path.GetFileNameWithoutExtension(_name);
+    }
 
-        internal void Pause()
-        {
-            if (_sound == null)
-                return;
+    private int PlatformGetPlayCount()
+    {
+        return _playCount;
+    }
 
-            _sound.Pause();
-        }
+    private int PlatformGetRating()
+    {
+        return 0;
+    }
 
-        internal void Stop()
-        {
-            if (_sound == null)
-                return;
-
-            _sound.Stop();
-            _playCount = 0;
-        }
-
-        internal float Volume
-        {
-            get
-            {
-                if (_sound != null)
-                    return _sound.Volume;
-                else
-                    return 0.0f;
-            }
-
-            set
-            {
-                if (_sound != null && _sound.Volume != value)
-                    _sound.Volume = value;
-            }
-        }
-
-        internal TimeSpan Position
-        {
-            get
-            {
-                // TODO: Implement
-                return new TimeSpan(0);
-            }
-        }
-
-        private Album PlatformGetAlbum()
-        {
-            return null;
-        }
-
-        private Artist PlatformGetArtist()
-        {
-            return null;
-        }
-
-        private Genre PlatformGetGenre()
-        {
-            return null;
-        }
-
-        private TimeSpan PlatformGetDuration()
-        {
-            return _duration;
-        }
-
-        private bool PlatformIsProtected()
-        {
-            return false;
-        }
-
-        private bool PlatformIsRated()
-        {
-            return false;
-        }
-
-        private string PlatformGetName()
-        {
-            return Path.GetFileNameWithoutExtension(_name);
-        }
-
-        private int PlatformGetPlayCount()
-        {
-            return _playCount;
-        }
-
-        private int PlatformGetRating()
-        {
-            return 0;
-        }
-
-        private int PlatformGetTrackNumber()
-        {
-            return 0;
-        }
+    private int PlatformGetTrackNumber()
+    {
+        return 0;
     }
 }

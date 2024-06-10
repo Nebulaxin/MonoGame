@@ -5,27 +5,26 @@
 using System;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+/// <summary>
+/// Helper extension methods for <see cref="ContentReader"/>.
+/// </summary>
+public static class ContentReaderExtensions
 {
     /// <summary>
-    /// Helper extension methods for <see cref="ContentReader"/>.
+    /// Returns the <see cref="GraphicsDevice"/> instance from the service provider of the
+    /// <see cref="ContentManager"/> associated with this content reader.
     /// </summary>
-    public static class ContentReaderExtensions
+    /// <returns>The <see cref="GraphicsDevice"/>.</returns>
+    /// <exception cref="InvalidOperationException">
+    /// The <see cref="ContentManager.ServiceProvider">ContentManager.ServiceProvider</see> does not contain a
+    /// <see cref="GraphicsDevice"/> instance.
+    /// </exception>
+    public static GraphicsDevice GetGraphicsDevice(this ContentReader contentReader)
     {
-        /// <summary>
-        /// Returns the <see cref="GraphicsDevice"/> instance from the service provider of the
-        /// <see cref="ContentManager"/> associated with this content reader.
-        /// </summary>
-        /// <returns>The <see cref="GraphicsDevice"/>.</returns>
-        /// <exception cref="InvalidOperationException">
-        /// The <see cref="ContentManager.ServiceProvider">ContentManager.ServiceProvider</see> does not contain a
-        /// <see cref="GraphicsDevice"/> instance.
-        /// </exception>
-        public static GraphicsDevice GetGraphicsDevice(this ContentReader contentReader)
-        {
-            var serviceProvider = contentReader.ContentManager.ServiceProvider;
-            var graphicsDeviceService = serviceProvider.GetService(typeof(IGraphicsDeviceService)) as IGraphicsDeviceService ?? throw new InvalidOperationException("No Graphics Device Service");
-            return graphicsDeviceService.GraphicsDevice;
-        }
+        var serviceProvider = contentReader.ContentManager.ServiceProvider;
+        var graphicsDeviceService = serviceProvider.GetService(typeof(IGraphicsDeviceService)) as IGraphicsDeviceService ?? throw new InvalidOperationException("No Graphics Device Service");
+        return graphicsDeviceService.GraphicsDevice;
     }
 }
+

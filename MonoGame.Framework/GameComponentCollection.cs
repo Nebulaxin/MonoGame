@@ -5,98 +5,97 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+/// <summary>
+/// A collection of <see cref="IGameComponent"/> instances.
+/// </summary>
+public sealed class GameComponentCollection : Collection<IGameComponent>
 {
     /// <summary>
-    /// A collection of <see cref="IGameComponent"/> instances.
+    /// Event that is triggered when a <see cref="GameComponent"/> is added
+    /// to this <see cref="GameComponentCollection"/>.
     /// </summary>
-    public sealed class GameComponentCollection : Collection<IGameComponent>
+    public event EventHandler<GameComponentCollectionEventArgs> ComponentAdded;
+
+    /// <summary>
+    /// Event that is triggered when a <see cref="GameComponent"/> is removed
+    /// from this <see cref="GameComponentCollection"/>.
+    /// </summary>
+    public event EventHandler<GameComponentCollectionEventArgs> ComponentRemoved;
+
+    /// <summary>
+    /// Removes every <see cref="GameComponent"/> from this <see cref="GameComponentCollection"/>.
+    /// Triggers <see cref="ComponentRemoved"/> once for each <see cref="GameComponent"/> removed.
+    /// </summary>
+    protected override void ClearItems()
     {
-        /// <summary>
-        /// Event that is triggered when a <see cref="GameComponent"/> is added
-        /// to this <see cref="GameComponentCollection"/>.
-        /// </summary>
-        public event EventHandler<GameComponentCollectionEventArgs> ComponentAdded;
-
-        /// <summary>
-        /// Event that is triggered when a <see cref="GameComponent"/> is removed
-        /// from this <see cref="GameComponentCollection"/>.
-        /// </summary>
-        public event EventHandler<GameComponentCollectionEventArgs> ComponentRemoved;
-
-        /// <summary>
-        /// Removes every <see cref="GameComponent"/> from this <see cref="GameComponentCollection"/>.
-        /// Triggers <see cref="ComponentRemoved"/> once for each <see cref="GameComponent"/> removed.
-        /// </summary>
-        protected override void ClearItems()
+        for (int i = 0; i < base.Count; i++)
         {
-            for (int i = 0; i < base.Count; i++)
-            {
-                OnComponentRemoved(new GameComponentCollectionEventArgs(base[i]));
-            }
-            base.ClearItems();
+            OnComponentRemoved(new GameComponentCollectionEventArgs(base[i]));
         }
+        base.ClearItems();
+    }
 
-        /// <summary>
-        /// Inserts an element into the collection at the specified index.
-        /// Triggers <see cref="ComponentAdded"/>.
-        /// </summary>
-        /// <param name="index">The zero-based index at which item should be inserted.</param>
-        /// <param name="item">The object to insert.</param>
-        /// <exception cref="ArgumentException">
-        /// Specified <see cref="IGameComponent"/> is already present in the collection.
-        /// </exception>
-        protected override void InsertItem(int index, IGameComponent item)
+    /// <summary>
+    /// Inserts an element into the collection at the specified index.
+    /// Triggers <see cref="ComponentAdded"/>.
+    /// </summary>
+    /// <param name="index">The zero-based index at which item should be inserted.</param>
+    /// <param name="item">The object to insert.</param>
+    /// <exception cref="ArgumentException">
+    /// Specified <see cref="IGameComponent"/> is already present in the collection.
+    /// </exception>
+    protected override void InsertItem(int index, IGameComponent item)
+    {
+        if (base.IndexOf(item) != -1)
         {
-            if (base.IndexOf(item) != -1)
-            {
-                throw new ArgumentException("Cannot Add Same Component Multiple Times");
-            }
-            base.InsertItem(index, item);
-            if (item != null)
-            {
-                OnComponentAdded(new GameComponentCollectionEventArgs(item));
-            }
+            throw new ArgumentException("Cannot Add Same Component Multiple Times");
         }
-
-        private void OnComponentAdded(GameComponentCollectionEventArgs eventArgs)
+        base.InsertItem(index, item);
+        if (item != null)
         {
-            EventHelpers.Raise(this, ComponentAdded, eventArgs);
-        }
-
-        private void OnComponentRemoved(GameComponentCollectionEventArgs eventArgs)
-        {
-            EventHelpers.Raise(this, ComponentRemoved, eventArgs);
-        }
-
-        /// <summary>
-        /// Removes the element at the specified index of the <see cref="GameComponentCollection"/>.
-        /// Triggers <see cref="ComponentRemoved"/>.
-        /// </summary>
-        /// <param name="index">The zero-based index of the element to remove.</param>
-        protected override void RemoveItem(int index)
-        {
-            IGameComponent gameComponent = base[index];
-            base.RemoveItem(index);
-            if (gameComponent != null)
-            {
-                OnComponentRemoved(new GameComponentCollectionEventArgs(gameComponent));
-            }
-        }
-
-        /// <summary>
-        /// Replaces the element at the specified index.
-        /// </summary>
-        /// <remarks>
-        /// This method is not supported and will always throw <see cref="NotSupportedException"/>
-        /// </remarks>
-        /// <param name="index">The zero-based index of the element to replace.</param>
-        /// <param name="item">The new value for the element at the specified index.</param>
-        /// <exception cref="NotSupportedException">Thrown always</exception>
-        protected override void SetItem(int index, IGameComponent item)
-        {
-            throw new NotSupportedException();
+            OnComponentAdded(new GameComponentCollectionEventArgs(item));
         }
     }
+
+    private void OnComponentAdded(GameComponentCollectionEventArgs eventArgs)
+    {
+        EventHelpers.Raise(this, ComponentAdded, eventArgs);
+    }
+
+    private void OnComponentRemoved(GameComponentCollectionEventArgs eventArgs)
+    {
+        EventHelpers.Raise(this, ComponentRemoved, eventArgs);
+    }
+
+    /// <summary>
+    /// Removes the element at the specified index of the <see cref="GameComponentCollection"/>.
+    /// Triggers <see cref="ComponentRemoved"/>.
+    /// </summary>
+    /// <param name="index">The zero-based index of the element to remove.</param>
+    protected override void RemoveItem(int index)
+    {
+        IGameComponent gameComponent = base[index];
+        base.RemoveItem(index);
+        if (gameComponent != null)
+        {
+            OnComponentRemoved(new GameComponentCollectionEventArgs(gameComponent));
+        }
+    }
+
+    /// <summary>
+    /// Replaces the element at the specified index.
+    /// </summary>
+    /// <remarks>
+    /// This method is not supported and will always throw <see cref="NotSupportedException"/>
+    /// </remarks>
+    /// <param name="index">The zero-based index of the element to replace.</param>
+    /// <param name="item">The new value for the element at the specified index.</param>
+    /// <exception cref="NotSupportedException">Thrown always</exception>
+    protected override void SetItem(int index, IGameComponent item)
+    {
+        throw new NotSupportedException();
+    }
 }
+
 

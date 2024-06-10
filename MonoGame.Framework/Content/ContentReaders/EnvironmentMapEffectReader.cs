@@ -4,24 +4,23 @@
 
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+class EnvironmentMapEffectReader : ContentTypeReader<EnvironmentMapEffect>
 {
-    class EnvironmentMapEffectReader : ContentTypeReader<EnvironmentMapEffect>
+    protected internal override EnvironmentMapEffect Read(ContentReader input, EnvironmentMapEffect existingInstance)
     {
-        protected internal override EnvironmentMapEffect Read(ContentReader input, EnvironmentMapEffect existingInstance)
+        var effect = new EnvironmentMapEffect(input.GetGraphicsDevice())
         {
-            var effect = new EnvironmentMapEffect(input.GetGraphicsDevice())
-            {
-                Texture = input.ReadExternalReference<Texture>() as Texture2D,
-                EnvironmentMap = input.ReadExternalReference<TextureCube>() as TextureCube,
-                EnvironmentMapAmount = input.ReadSingle(),
-                EnvironmentMapSpecular = input.ReadVector3(),
-                FresnelFactor = input.ReadSingle(),
-                DiffuseColor = input.ReadVector3(),
-                EmissiveColor = input.ReadVector3(),
-                Alpha = input.ReadSingle()
-            };
-            return effect;
-        }
+            Texture = input.ReadExternalReference<Texture>() as Texture2D,
+            EnvironmentMap = input.ReadExternalReference<TextureCube>() as TextureCube,
+            EnvironmentMapAmount = input.ReadSingle(),
+            EnvironmentMapSpecular = input.ReadVector3(),
+            FresnelFactor = input.ReadSingle(),
+            DiffuseColor = input.ReadVector3(),
+            EmissiveColor = input.ReadVector3(),
+            Alpha = input.ReadSingle()
+        };
+        return effect;
     }
 }
+

@@ -1,20 +1,19 @@
 ﻿using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Provides data for the <see cref="GraphicsDevice.ResourceDestroyed"/> event. This class cannot be inherited.
+/// </summary>
+public sealed class ResourceDestroyedEventArgs : EventArgs
 {
     /// <summary>
-    /// Provides data for the <see cref="GraphicsDevice.ResourceDestroyed"/> event. This class cannot be inherited.
+    /// The name of the destroyed resource.
     /// </summary>
-    public sealed class ResourceDestroyedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// The name of the destroyed resource.
-        /// </summary>
-        public string Name { get; internal set; }
+    public string Name { get; internal set; }
 
-        /// <summary>
-        /// The resource manager tag of the destroyed resource.
-        /// </summary>
-        public object Tag { get; internal set; }
-    }
+    /// <summary>
+    /// The resource manager tag of the destroyed resource.
+    /// </summary>
+    public object Tag { get; internal set; }
 }
+

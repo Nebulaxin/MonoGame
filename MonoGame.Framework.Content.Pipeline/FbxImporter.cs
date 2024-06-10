@@ -5,23 +5,22 @@
 using System;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline
+namespace Microsoft.Xna.Framework.Content.Pipeline;
+/// <summary>
+/// Provides methods for reading AutoDesk (.fbx) files for use in the Content Pipeline.
+/// </summary>
+[ContentImporter(".fbx", DisplayName = "Fbx Importer - MonoGame", DefaultProcessor = "ModelProcessor")]
+public class FbxImporter : ContentImporter<NodeContent>
 {
-    /// <summary>
-    /// Provides methods for reading AutoDesk (.fbx) files for use in the Content Pipeline.
-    /// </summary>
-    [ContentImporter(".fbx", DisplayName = "Fbx Importer - MonoGame", DefaultProcessor = "ModelProcessor")]
-    public class FbxImporter : ContentImporter<NodeContent>
+    public override NodeContent Import(string filename, ContentImporterContext context)
     {
-        public override NodeContent Import(string filename, ContentImporterContext context)
-        {
-            if (filename == null)
-                throw new ArgumentNullException("filename");
-            if (context == null)
-                throw new ArgumentNullException("context");
+        if (filename == null)
+            throw new ArgumentNullException("filename");
+        if (context == null)
+            throw new ArgumentNullException("context");
 
-            var importer = new OpenAssetImporter("FbxImporter", true);
-            return importer.Import(filename, context);
-        }
+        var importer = new OpenAssetImporter("FbxImporter", true);
+        return importer.Import(filename, context);
     }
 }
+

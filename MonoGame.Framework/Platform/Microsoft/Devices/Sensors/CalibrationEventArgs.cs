@@ -4,21 +4,19 @@
 
 using System;
 
-namespace Microsoft.Devices.Sensors
+namespace Microsoft.Devices.Sensors;
+/// <summary>
+/// Provides data for Calibrate and events.
+/// </summary>
+public class CalibrationEventArgs : EventArgs
 {
     /// <summary>
-    /// Provides data for Calibrate and events.
+    /// Initializes a new instance of the CalibrationEventArgs class.
     /// </summary>
-    public class CalibrationEventArgs : EventArgs
+    /// <remarks>
+    /// Obtain a CalibrationEventArgs object by implementing a handler for the Compass.Calibrate event.
+    /// </remarks>
+    public CalibrationEventArgs()
     {
-        /// <summary>
-        /// Initializes a new instance of the CalibrationEventArgs class.
-        /// </summary>
-        /// <remarks>
-        /// Obtain a CalibrationEventArgs object by implementing a handler for the Compass.Calibrate event.
-        /// </remarks>
-        public CalibrationEventArgs()
-        {
-        }
     }
 }

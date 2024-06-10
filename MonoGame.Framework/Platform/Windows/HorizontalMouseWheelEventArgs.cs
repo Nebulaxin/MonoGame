@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace Microsoft.Xna.Framework.Windows
+namespace Microsoft.Xna.Framework.Windows;
+internal class HorizontalMouseWheelEventArgs : EventArgs
 {
-    internal class HorizontalMouseWheelEventArgs : EventArgs
-    {
-        internal int Delta { get; private set; }
+    internal int Delta { get; private set; }
 
-        internal HorizontalMouseWheelEventArgs(int delta)
-        {
-            Delta = delta;
-        }
+    internal HorizontalMouseWheelEventArgs(int delta)
+    {
+        Delta = delta;
     }
 }
+

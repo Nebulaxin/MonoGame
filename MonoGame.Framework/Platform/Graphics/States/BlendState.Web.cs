@@ -5,14 +5,13 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class BlendState
 {
-    public partial class BlendState
+    internal void PlatformApplyState(GraphicsDevice device)
     {
-        internal void PlatformApplyState(GraphicsDevice device)
-        {
 
-        }
     }
 }
+
 

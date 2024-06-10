@@ -4,14 +4,13 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class DepthStencilState
 {
-    public partial class DepthStencilState
+    internal void PlatformApplyState(GraphicsDevice device)
     {
-        internal void PlatformApplyState(GraphicsDevice device)
-        {
 
-        }
     }
 }
+
 

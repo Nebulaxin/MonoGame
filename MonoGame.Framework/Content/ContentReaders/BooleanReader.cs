@@ -2,17 +2,16 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+internal class BooleanReader : ContentTypeReader<bool>
 {
-    internal class BooleanReader : ContentTypeReader<bool>
+    public BooleanReader()
     {
-        public BooleanReader()
-        {
-        }
+    }
 
-        protected internal override bool Read(ContentReader input, bool existingInstance)
-        {
-            return input.ReadBoolean();
-        }
+    protected internal override bool Read(ContentReader input, bool existingInstance)
+    {
+        return input.ReadBoolean();
     }
 }
+

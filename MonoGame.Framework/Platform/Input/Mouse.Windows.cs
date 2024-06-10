@@ -6,44 +6,43 @@ using System;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+public static partial class Mouse
 {
-    public static partial class Mouse
+    [DllImportAttribute("user32.dll", EntryPoint = "SetCursorPos")]
+    [return: MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
+    private static extern bool SetCursorPos(int X, int Y);
+
+    private static Control _window;
+
+    private static IntPtr PlatformGetWindowHandle()
     {
-        [DllImportAttribute("user32.dll", EntryPoint = "SetCursorPos")]
-        [return: MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.Bool)]
-        private static extern bool SetCursorPos(int X, int Y);
+        return _window.Handle;
+    }
 
-        private static Control _window;
+    private static void PlatformSetWindowHandle(IntPtr windowHandle)
+    {
+        _window = Control.FromHandle(windowHandle);
+    }
 
-        private static IntPtr PlatformGetWindowHandle()
-        {
-            return _window.Handle;
-        }
+    private static MouseState PlatformGetState(GameWindow window)
+    {
+        return window.MouseState;
+    }
 
-        private static void PlatformSetWindowHandle(IntPtr windowHandle)
-        {
-            _window = Control.FromHandle(windowHandle);
-        }
+    private static void PlatformSetPosition(int x, int y)
+    {
+        PrimaryWindow.MouseState.X = x;
+        PrimaryWindow.MouseState.Y = y;
 
-        private static MouseState PlatformGetState(GameWindow window)
-        {
-            return window.MouseState;
-        }
+        var pt = _window.PointToScreen(new System.Drawing.Point(x, y));
+        SetCursorPos(pt.X, pt.Y);
+    }
 
-        private static void PlatformSetPosition(int x, int y)
-        {
-            PrimaryWindow.MouseState.X = x;
-            PrimaryWindow.MouseState.Y = y;
-
-            var pt = _window.PointToScreen(new System.Drawing.Point(x, y));
-            SetCursorPos(pt.X, pt.Y);
-        }
-
-        /// <inheritdoc cref="Mouse.SetCursor"/>
-        public static void PlatformSetCursor(MouseCursor cursor)
-        {
-            _window.Cursor = cursor.Cursor;
-        }
+    /// <inheritdoc cref="Mouse.SetCursor"/>
+    public static void PlatformSetCursor(MouseCursor cursor)
+    {
+        _window.Cursor = cursor.Cursor;
     }
 }
+

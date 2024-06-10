@@ -8,28 +8,27 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class IndexBuffer
 {
-    public partial class IndexBuffer
+    private void PlatformConstruct(IndexElementSize indexElementSize, int indexCount)
     {
-        private void PlatformConstruct(IndexElementSize indexElementSize, int indexCount)
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        private void PlatformGraphicsDeviceResetting()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGraphicsDeviceResetting()
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformGetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount) where T : struct
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount) where T : struct
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformSetDataInternal<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformSetDataInternal<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
+    {
+        throw new NotImplementedException();
     }
 }
+

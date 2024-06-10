@@ -5,32 +5,30 @@
 using System;
 using System.Diagnostics;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+class EnumSerializer : ContentTypeSerializer
 {
-    class EnumSerializer : ContentTypeSerializer
+    public EnumSerializer(Type targetType) :
+        base(targetType, targetType.Name)
     {
-        public EnumSerializer(Type targetType) :
-            base(targetType, targetType.Name)
-        {
-        }
+    }
 
-        protected internal override object Deserialize(IntermediateReader input, ContentSerializerAttribute format, object existingInstance)
+    protected internal override object Deserialize(IntermediateReader input, ContentSerializerAttribute format, object existingInstance)
+    {
+        var str = input.Xml.ReadString();
+        try
         {
-            var str = input.Xml.ReadString();
-            try
-            {
-                return Enum.Parse(TargetType, str, true);
-            }
-            catch (Exception ex)
-            {
-                throw input.NewInvalidContentException(ex, "Invalid enum value '{0}' for type '{1}'", str, TargetType.Name);
-            }
+            return Enum.Parse(TargetType, str, true);
         }
+        catch (Exception ex)
+        {
+            throw input.NewInvalidContentException(ex, "Invalid enum value '{0}' for type '{1}'", str, TargetType.Name);
+        }
+    }
 
-        protected internal override void Serialize(IntermediateWriter output, object value, ContentSerializerAttribute format)
-        {
-            Debug.Assert(value.GetType() == TargetType, "Got invalid value type!");
-            output.Xml.WriteString(value.ToString());
-        }
+    protected internal override void Serialize(IntermediateWriter output, object value, ContentSerializerAttribute format)
+    {
+        Debug.Assert(value.GetType() == TargetType, "Got invalid value type!");
+        output.Xml.WriteString(value.ToString());
     }
 }

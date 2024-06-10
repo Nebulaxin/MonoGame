@@ -4,78 +4,77 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+public static partial class MessageBox
 {
-    public static partial class MessageBox
+    private static Form _dialog;
+    private static TaskCompletionSource<int?> _tcs;
+
+    private static Task<int?> PlatformShow(string title, string description, List<string> buttons)
     {
-        private static Form _dialog;
-        private static TaskCompletionSource<int?> _tcs;
+        _tcs = new TaskCompletionSource<int?>();
 
-        private static Task<int?> PlatformShow(string title, string description, List<string> buttons)
+        var parent = Application.OpenForms[0];
+
+        parent.Invoke(new MethodInvoker(() =>
         {
-            _tcs = new TaskCompletionSource<int?>();
+            var dialog = _dialog = new Form();
+            dialog.Text = title;
+            dialog.FormBorderStyle = FormBorderStyle.FixedDialog;
+            dialog.MinimizeBox = false;
+            dialog.MaximizeBox = false;
+            dialog.ControlBox = false;
+            dialog.StartPosition = FormStartPosition.CenterParent;
 
-            var parent = Application.OpenForms[0];
+            var desc = new Label();
+            desc.Text = description;
+            desc.Parent = dialog;
+            desc.Top = 25;
+            desc.TextAlign = ContentAlignment.MiddleCenter;
+            desc.AutoSize = true;
+            desc.Margin = new Padding(25, 0, 25, 0);
+            desc.Left = (desc.Parent.ClientSize.Width - desc.Width) / 2;
 
-            parent.Invoke(new MethodInvoker(() =>
+            var bgroup = new FlowLayoutPanel();
+            bgroup.FlowDirection = FlowDirection.LeftToRight;
+            bgroup.Parent = dialog;
+            bgroup.Top = desc.Bottom + 25;
+            bgroup.AutoSize = true;
+            bgroup.Margin = new Padding(15);
+            bgroup.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+
+            for (var i = 0; i < buttons.Count; i++)
             {
-                var dialog = _dialog = new Form();
-                dialog.Text = title;
-                dialog.FormBorderStyle = FormBorderStyle.FixedDialog;
-                dialog.MinimizeBox = false;
-                dialog.MaximizeBox = false;
-                dialog.ControlBox = false;
-                dialog.StartPosition = FormStartPosition.CenterParent;
+                string btext = buttons[i];
+                var button = new Button();
+                button.Text = btext;
+                button.DialogResult = (DialogResult)i + 1;
+                button.Parent = bgroup;
+                if (i == 0)
+                    dialog.AcceptButton = button;
+            }
 
-                var desc = new Label();
-                desc.Text = description;
-                desc.Parent = dialog;
-                desc.Top = 25;
-                desc.TextAlign = ContentAlignment.MiddleCenter;
-                desc.AutoSize = true;
-                desc.Margin = new Padding(25, 0, 25, 0);
-                desc.Left = (desc.Parent.ClientSize.Width - desc.Width) / 2;
+            bgroup.Left = (bgroup.Parent.ClientSize.Width - bgroup.Width) / 2;
+            dialog.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            dialog.AutoSize = true;
 
-                var bgroup = new FlowLayoutPanel();
-                bgroup.FlowDirection = FlowDirection.LeftToRight;
-                bgroup.Parent = dialog;
-                bgroup.Top = desc.Bottom + 25;
-                bgroup.AutoSize = true;
-                bgroup.Margin = new Padding(15);
-                bgroup.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            var result = (int)dialog.ShowDialog(parent);
+            _dialog = null;
 
-                for (var i = 0; i < buttons.Count; i++)
-                {
-                    string btext = buttons[i];
-                    var button = new Button();
-                    button.Text = btext;
-                    button.DialogResult = (DialogResult)i + 1;
-                    button.Parent = bgroup;
-                    if (i == 0)
-                        dialog.AcceptButton = button;
-                }
+            if (_tcs.Task.IsCompleted)
+                return;
 
-                bgroup.Left = (bgroup.Parent.ClientSize.Width - bgroup.Width) / 2;
-                dialog.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-                dialog.AutoSize = true;
+            _tcs.SetResult(result - 1);
+        }));
 
-                var result = (int)dialog.ShowDialog(parent);
-                _dialog = null;
+        return _tcs.Task;
+    }
 
-                if (_tcs.Task.IsCompleted)
-                    return;
-
-                _tcs.SetResult(result - 1);
-            }));
-
-            return _tcs.Task;
-        }
-
-        private static void PlatformCancel(int? result)
-        {
-            if (_dialog != null)
-                _dialog.Close();
-            _tcs.SetResult(result);
-        }
+    private static void PlatformCancel(int? result)
+    {
+        if (_dialog != null)
+            _dialog.Close();
+        _tcs.SetResult(result);
     }
 }
+

@@ -6,76 +6,75 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Represents the binding of a <see cref="RenderTarget2D"/> used in an array of bindings when setting multiple
+/// render targets on the graphics device.
+/// </summary>
+public struct RenderTargetBinding
 {
+    private readonly Texture _renderTarget;
+    private readonly int _arraySlice;
+    private DepthFormat _depthFormat;
+
     /// <summary>
-    /// Represents the binding of a <see cref="RenderTarget2D"/> used in an array of bindings when setting multiple
-    /// render targets on the graphics device.
+    /// Gets the the render target texture
     /// </summary>
-	public struct RenderTargetBinding
+    public readonly Texture RenderTarget
     {
-        private readonly Texture _renderTarget;
-        private readonly int _arraySlice;
-        private DepthFormat _depthFormat;
+        get { return _renderTarget; }
+    }
 
-        /// <summary>
-        /// Gets the the render target texture
-        /// </summary>
-		public readonly Texture RenderTarget
-        {
-            get { return _renderTarget; }
-        }
+    /// <summary>
+    ///
+    /// </summary>
+    public readonly int ArraySlice
+    {
+        get { return _arraySlice; }
+    }
 
-        /// <summary>
-        ///
-        /// </summary>
-        public readonly int ArraySlice
-        {
-            get { return _arraySlice; }
-        }
+    /// <summary>
+    /// Gets the depth format specified for the render target
+    /// </summary>
+    internal readonly DepthFormat DepthFormat
+    {
+        get { return _depthFormat; }
+    }
 
-        /// <summary>
-        /// Gets the depth format specified for the render target
-        /// </summary>
-        internal readonly DepthFormat DepthFormat
-        {
-            get { return _depthFormat; }
-        }
+    /// <summary>
+    /// Creates a new <b>RenderTargetBinding</b> for the specified render target.
+    /// </summary>
+    /// <param name="renderTarget">The render target to create the binding for.</param>
+    /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
+    public RenderTargetBinding(RenderTarget2D renderTarget)
+    {
+        ArgumentNullException.ThrowIfNull(renderTarget);
 
-        /// <summary>
-        /// Creates a new <b>RenderTargetBinding</b> for the specified render target.
-        /// </summary>
-        /// <param name="renderTarget">The render target to create the binding for.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
-		public RenderTargetBinding(RenderTarget2D renderTarget)
-        {
-            ArgumentNullException.ThrowIfNull(renderTarget);
+        _renderTarget = renderTarget;
+        _arraySlice = (int)CubeMapFace.PositiveX;
+        _depthFormat = renderTarget.DepthStencilFormat;
+    }
 
-            _renderTarget = renderTarget;
-            _arraySlice = (int)CubeMapFace.PositiveX;
-            _depthFormat = renderTarget.DepthStencilFormat;
-        }
+    /// <summary>
+    /// Creates a new <b>RenderTargetBinding</b> with the specified parameters.
+    /// </summary>
+    /// <param name="renderTarget">A cube map render target.</param>
+    /// <param name="cubeMapFace">The cube map of the render target.</param>
+    /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// The <paramref name="cubeMapFace"/> parameter is less than <see cref="CubeMapFace.PositiveX"/> or greater
+    /// than <see cref="CubeMapFace.NegativeZ"/>.
+    /// </exception>
+    public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace)
+    {
+        ArgumentNullException.ThrowIfNull(renderTarget);
+        if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
+            throw new ArgumentOutOfRangeException(nameof(cubeMapFace));
 
-        /// <summary>
-        /// Creates a new <b>RenderTargetBinding</b> with the specified parameters.
-        /// </summary>
-        /// <param name="renderTarget">A cube map render target.</param>
-        /// <param name="cubeMapFace">The cube map of the render target.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// The <paramref name="cubeMapFace"/> parameter is less than <see cref="CubeMapFace.PositiveX"/> or greater
-        /// than <see cref="CubeMapFace.NegativeZ"/>.
-        /// </exception>
-        public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace)
-        {
-            ArgumentNullException.ThrowIfNull(renderTarget);
-            if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
-                throw new ArgumentOutOfRangeException(nameof(cubeMapFace));
-
-            _renderTarget = renderTarget;
-            _arraySlice = (int)cubeMapFace;
-            _depthFormat = renderTarget.DepthStencilFormat;
-        }
+        _renderTarget = renderTarget;
+        _arraySlice = (int)cubeMapFace;
+        _depthFormat = renderTarget.DepthStencilFormat;
+    }
 
 #if DIRECTX
 
@@ -141,15 +140,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
 #endif
 
-        /// <summary>
-        /// Implicitly converts a <see cref="RenderTarget2D"/> instance to a <b>RenderTargetBinding</b> instance.
-        /// </summary>
-        /// <param name="renderTarget">The render target to convert.</param>
-        /// <returns>A new <b>RenderTargetBinding</b> instance bound to the specified render target.</returns>
-        public static implicit operator RenderTargetBinding(RenderTarget2D renderTarget)
-        {
-            return new RenderTargetBinding(renderTarget);
-        }
+    /// <summary>
+    /// Implicitly converts a <see cref="RenderTarget2D"/> instance to a <b>RenderTargetBinding</b> instance.
+    /// </summary>
+    /// <param name="renderTarget">The render target to convert.</param>
+    /// <returns>A new <b>RenderTargetBinding</b> instance bound to the specified render target.</returns>
+    public static implicit operator RenderTargetBinding(RenderTarget2D renderTarget)
+    {
+        return new RenderTargetBinding(renderTarget);
+    }
 
 #if DIRECTX
 
@@ -164,5 +163,5 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
 #endif
-    }
 }
+

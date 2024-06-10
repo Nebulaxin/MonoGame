@@ -5,47 +5,46 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
+namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics;
+/// <summary>
+/// Provides methods for maintaining a mipmap chain.
+/// </summary>
+public sealed class MipmapChainCollection : Collection<MipmapChain>
 {
-    /// <summary>
-    /// Provides methods for maintaining a mipmap chain.
-    /// </summary>
-    public sealed class MipmapChainCollection : Collection<MipmapChain>
+    private readonly bool _fixedSize;
+
+    private const string CannotResizeError = "Cannot resize MipmapChainCollection. This type of texture has a fixed number of faces.";
+
+    internal MipmapChainCollection(int count, bool fixedSize)
     {
-        private readonly bool _fixedSize;
+        for (var i = 0; i < count; i++)
+            Add(new MipmapChain());
 
-        private const string CannotResizeError = "Cannot resize MipmapChainCollection. This type of texture has a fixed number of faces.";
+        _fixedSize = fixedSize;
+    }
 
-        internal MipmapChainCollection(int count, bool fixedSize)
-        {
-            for (var i = 0; i < count; i++)
-                Add(new MipmapChain());
+    protected override void ClearItems()
+    {
+        if (_fixedSize)
+            throw new NotSupportedException(CannotResizeError);
 
-            _fixedSize = fixedSize;
-        }
+        base.ClearItems();
+    }
 
-        protected override void ClearItems()
-        {
-            if (_fixedSize)
-                throw new NotSupportedException(CannotResizeError);
+    protected override void RemoveItem(int index)
+    {
+        if (_fixedSize)
+            throw new NotSupportedException(CannotResizeError);
 
-            base.ClearItems();
-        }
+        base.RemoveItem(index);
+    }
 
-        protected override void RemoveItem(int index)
-        {
-            if (_fixedSize)
-                throw new NotSupportedException(CannotResizeError);
+    protected override void InsertItem(int index, MipmapChain item)
+    {
+        if (_fixedSize)
+            throw new NotSupportedException(CannotResizeError);
 
-            base.RemoveItem(index);
-        }
-
-        protected override void InsertItem(int index, MipmapChain item)
-        {
-            if (_fixedSize)
-                throw new NotSupportedException(CannotResizeError);
-
-            base.InsertItem(index, item);
-        }
+        base.InsertItem(index, item);
     }
 }
+

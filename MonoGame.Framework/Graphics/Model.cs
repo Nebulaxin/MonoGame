@@ -5,209 +5,208 @@
 using System;
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// A basic 3D model with per mesh parent bones.
+/// </summary>
+public sealed class Model
 {
+    private static Matrix[] sharedDrawBoneMatrices;
+
+    private GraphicsDevice graphicsDevice;
+
     /// <summary>
-    /// A basic 3D model with per mesh parent bones.
+    /// A collection of <see cref="ModelBone"/> objects which describe how each mesh in the
+    /// mesh collection for this model relates to its parent mesh.
     /// </summary>
-	public sealed class Model
+    public ModelBoneCollection Bones { get; private set; }
+
+    /// <summary>
+    /// A collection of <see cref="ModelMesh"/> objects which compose the model. Each <see cref="ModelMesh"/>
+    /// in a model may be moved independently and may be composed of multiple materials
+    /// identified as <see cref="ModelMeshPart"/> objects.
+    /// </summary>
+    public ModelMeshCollection Meshes { get; private set; }
+
+    /// <summary>
+    /// Root bone for this model.
+    /// </summary>
+    public ModelBone Root { get; set; }
+
+    /// <summary>
+    /// Custom attached object.
+    /// <remarks>
+    /// Skinning data is example of attached object for model.
+    /// </remarks>
+    /// </summary>
+    public object Tag { get; set; }
+
+    internal Model()
     {
-        private static Matrix[] sharedDrawBoneMatrices;
 
-        private GraphicsDevice graphicsDevice;
+    }
 
-        /// <summary>
-        /// A collection of <see cref="ModelBone"/> objects which describe how each mesh in the
-        /// mesh collection for this model relates to its parent mesh.
-        /// </summary>
-        public ModelBoneCollection Bones { get; private set; }
-
-        /// <summary>
-        /// A collection of <see cref="ModelMesh"/> objects which compose the model. Each <see cref="ModelMesh"/>
-        /// in a model may be moved independently and may be composed of multiple materials
-        /// identified as <see cref="ModelMeshPart"/> objects.
-        /// </summary>
-        public ModelMeshCollection Meshes { get; private set; }
-
-        /// <summary>
-        /// Root bone for this model.
-        /// </summary>
-        public ModelBone Root { get; set; }
-
-        /// <summary>
-        /// Custom attached object.
-        /// <remarks>
-        /// Skinning data is example of attached object for model.
-        /// </remarks>
-        /// </summary>
-        public object Tag { get; set; }
-
-        internal Model()
+    /// <summary>
+    /// Constructs a model. 
+    /// </summary>
+    /// <param name="graphicsDevice">A valid reference to <see cref="GraphicsDevice"/>.</param>
+    /// <param name="bones">The collection of bones.</param>
+    /// <param name="meshes">The collection of meshes.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="graphicsDevice"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="bones"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="meshes"/> is null.
+    /// </exception>
+    public Model(GraphicsDevice graphicsDevice, List<ModelBone> bones, List<ModelMesh> meshes)
+    {
+        if (graphicsDevice == null)
         {
-
+            throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
         }
 
-        /// <summary>
-        /// Constructs a model. 
-        /// </summary>
-        /// <param name="graphicsDevice">A valid reference to <see cref="GraphicsDevice"/>.</param>
-        /// <param name="bones">The collection of bones.</param>
-        /// <param name="meshes">The collection of meshes.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="graphicsDevice"/> is null.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="bones"/> is null.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="meshes"/> is null.
-        /// </exception>
-        public Model(GraphicsDevice graphicsDevice, List<ModelBone> bones, List<ModelMesh> meshes)
+        // TODO: Complete member initialization
+        this.graphicsDevice = graphicsDevice;
+
+        Bones = new ModelBoneCollection(bones);
+        Meshes = new ModelMeshCollection(meshes);
+    }
+
+    internal void BuildHierarchy()
+    {
+        var globalScale = Matrix.CreateScale(0.01f);
+
+        foreach (var node in Root.Children)
         {
-            if (graphicsDevice == null)
-            {
-                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
-            }
+            BuildHierarchy(node, Root.Transform * globalScale, 0);
+        }
+    }
 
-            // TODO: Complete member initialization
-            this.graphicsDevice = graphicsDevice;
+    private void BuildHierarchy(ModelBone node, Matrix parentTransform, int level)
+    {
+        node.ModelTransform = node.Transform * parentTransform;
 
-            Bones = new ModelBoneCollection(bones);
-            Meshes = new ModelMeshCollection(meshes);
+        foreach (var child in node.Children)
+        {
+            BuildHierarchy(child, node.ModelTransform, level + 1);
         }
 
-        internal void BuildHierarchy()
-        {
-            var globalScale = Matrix.CreateScale(0.01f);
+        //string s = string.Empty;
+        //
+        //for (int i = 0; i < level; i++) 
+        //{
+        //	s += "\t";
+        //}
+        //
+        //Debug.WriteLine("{0}:{1}", s, node.Name);
+    }
 
-            foreach (var node in Root.Children)
-            {
-                BuildHierarchy(node, Root.Transform * globalScale, 0);
-            }
+    /// <summary>
+    /// Draws the model meshes.
+    /// </summary>
+    /// <param name="world">The world transform.</param>
+    /// <param name="view">The view transform.</param>
+    /// <param name="projection">The projection transform.</param>
+    public void Draw(Matrix world, Matrix view, Matrix projection)
+    {
+        int boneCount = Bones.Count;
+
+        if (sharedDrawBoneMatrices == null ||
+            sharedDrawBoneMatrices.Length < boneCount)
+        {
+            sharedDrawBoneMatrices = new Matrix[boneCount];
         }
 
-        private void BuildHierarchy(ModelBone node, Matrix parentTransform, int level)
-        {
-            node.ModelTransform = node.Transform * parentTransform;
+        // Look up combined bone matrices for the entire model.            
+        CopyAbsoluteBoneTransformsTo(sharedDrawBoneMatrices);
 
-            foreach (var child in node.Children)
+        // Draw the model.
+        foreach (ModelMesh mesh in Meshes)
+        {
+            foreach (Effect effect in mesh.Effects)
             {
-                BuildHierarchy(child, node.ModelTransform, level + 1);
+                IEffectMatrices effectMatricies = effect as IEffectMatrices ?? throw new InvalidOperationException("This model contains a custom effect which does not implement the IEffectMatrices interface, so it cannot be drawn using Model.Draw. Instead, call ModelMesh.Draw after setting the appropriate effect parameters.");
+                effectMatricies.World = sharedDrawBoneMatrices[mesh.ParentBone.Index] * world;
+                effectMatricies.View = view;
+                effectMatricies.Projection = projection;
             }
 
-            //string s = string.Empty;
-            //
-            //for (int i = 0; i < level; i++) 
-            //{
-            //	s += "\t";
-            //}
-            //
-            //Debug.WriteLine("{0}:{1}", s, node.Name);
+            mesh.Draw();
         }
+    }
 
-        /// <summary>
-        /// Draws the model meshes.
-        /// </summary>
-        /// <param name="world">The world transform.</param>
-        /// <param name="view">The view transform.</param>
-        /// <param name="projection">The projection transform.</param>
-        public void Draw(Matrix world, Matrix view, Matrix projection)
+    /// <summary>
+    /// Copies bone transforms relative to all parent bones of the each bone from this model to a given array.
+    /// </summary>
+    /// <param name="destinationBoneTransforms">The array receiving the transformed bones.</param>
+    public void CopyAbsoluteBoneTransformsTo(Matrix[] destinationBoneTransforms)
+    {
+        ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
+        if (destinationBoneTransforms.Length < Bones.Count)
+            throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
+        int count = Bones.Count;
+        for (int index1 = 0; index1 < count; ++index1)
         {
-            int boneCount = Bones.Count;
-
-            if (sharedDrawBoneMatrices == null ||
-                sharedDrawBoneMatrices.Length < boneCount)
+            ModelBone modelBone = Bones[index1];
+            if (modelBone.Parent == null)
             {
-                sharedDrawBoneMatrices = new Matrix[boneCount];
+                destinationBoneTransforms[index1] = modelBone.transform;
             }
-
-            // Look up combined bone matrices for the entire model.            
-            CopyAbsoluteBoneTransformsTo(sharedDrawBoneMatrices);
-
-            // Draw the model.
-            foreach (ModelMesh mesh in Meshes)
+            else
             {
-                foreach (Effect effect in mesh.Effects)
-                {
-                    IEffectMatrices effectMatricies = effect as IEffectMatrices ?? throw new InvalidOperationException("This model contains a custom effect which does not implement the IEffectMatrices interface, so it cannot be drawn using Model.Draw. Instead, call ModelMesh.Draw after setting the appropriate effect parameters.");
-                    effectMatricies.World = sharedDrawBoneMatrices[mesh.ParentBone.Index] * world;
-                    effectMatricies.View = view;
-                    effectMatricies.Projection = projection;
-                }
-
-                mesh.Draw();
-            }
-        }
-
-        /// <summary>
-        /// Copies bone transforms relative to all parent bones of the each bone from this model to a given array.
-        /// </summary>
-        /// <param name="destinationBoneTransforms">The array receiving the transformed bones.</param>
-        public void CopyAbsoluteBoneTransformsTo(Matrix[] destinationBoneTransforms)
-        {
-            ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
-            if (destinationBoneTransforms.Length < Bones.Count)
-                throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
-            int count = Bones.Count;
-            for (int index1 = 0; index1 < count; ++index1)
-            {
-                ModelBone modelBone = Bones[index1];
-                if (modelBone.Parent == null)
-                {
-                    destinationBoneTransforms[index1] = modelBone.transform;
-                }
-                else
-                {
-                    int index2 = modelBone.Parent.Index;
-                    Matrix.Multiply(ref modelBone.transform, ref destinationBoneTransforms[index2], out destinationBoneTransforms[index1]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Copies bone transforms relative to <see cref="Root"/> bone from a given array to this model.
-        /// </summary>
-        /// <param name="sourceBoneTransforms">The array of prepared bone transform data.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="sourceBoneTransforms"/> is null.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="sourceBoneTransforms"/> is invalid.
-        /// </exception>
-        public void CopyBoneTransformsFrom(Matrix[] sourceBoneTransforms)
-        {
-            ArgumentNullException.ThrowIfNull(sourceBoneTransforms);
-            if (sourceBoneTransforms.Length < Bones.Count)
-                throw new ArgumentOutOfRangeException(nameof(sourceBoneTransforms));
-
-            int count = Bones.Count;
-            for (int i = 0; i < count; i++)
-            {
-                Bones[i].Transform = sourceBoneTransforms[i];
-            }
-        }
-
-        /// <summary>
-        /// Copies bone transforms relative to <see cref="Root"/> bone from this model to a given array.
-        /// </summary>
-        /// <param name="destinationBoneTransforms">The array receiving the transformed bones.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="destinationBoneTransforms"/> is null.
-        /// </exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="destinationBoneTransforms"/> is invalid.
-        /// </exception>
-        public void CopyBoneTransformsTo(Matrix[] destinationBoneTransforms)
-        {
-            ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
-            if (destinationBoneTransforms.Length < Bones.Count)
-                throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
-
-            int count = Bones.Count;
-            for (int i = 0; i < count; i++)
-            {
-                destinationBoneTransforms[i] = Bones[i].Transform;
+                int index2 = modelBone.Parent.Index;
+                Matrix.Multiply(ref modelBone.transform, ref destinationBoneTransforms[index2], out destinationBoneTransforms[index1]);
             }
         }
     }
+
+    /// <summary>
+    /// Copies bone transforms relative to <see cref="Root"/> bone from a given array to this model.
+    /// </summary>
+    /// <param name="sourceBoneTransforms">The array of prepared bone transform data.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="sourceBoneTransforms"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="sourceBoneTransforms"/> is invalid.
+    /// </exception>
+    public void CopyBoneTransformsFrom(Matrix[] sourceBoneTransforms)
+    {
+        ArgumentNullException.ThrowIfNull(sourceBoneTransforms);
+        if (sourceBoneTransforms.Length < Bones.Count)
+            throw new ArgumentOutOfRangeException(nameof(sourceBoneTransforms));
+
+        int count = Bones.Count;
+        for (int i = 0; i < count; i++)
+        {
+            Bones[i].Transform = sourceBoneTransforms[i];
+        }
+    }
+
+    /// <summary>
+    /// Copies bone transforms relative to <see cref="Root"/> bone from this model to a given array.
+    /// </summary>
+    /// <param name="destinationBoneTransforms">The array receiving the transformed bones.</param>
+    /// <exception cref="ArgumentNullException">
+    /// <paramref name="destinationBoneTransforms"/> is null.
+    /// </exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="destinationBoneTransforms"/> is invalid.
+    /// </exception>
+    public void CopyBoneTransformsTo(Matrix[] destinationBoneTransforms)
+    {
+        ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
+        if (destinationBoneTransforms.Length < Bones.Count)
+            throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
+
+        int count = Bones.Count;
+        for (int i = 0; i < count; i++)
+        {
+            destinationBoneTransforms[i] = Bones[i].Transform;
+        }
+    }
 }
+

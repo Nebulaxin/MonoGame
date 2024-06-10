@@ -2,20 +2,19 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Defines options for filling the primitive.
+/// </summary>
+public enum FillMode
 {
     /// <summary>
-    /// Defines options for filling the primitive.
+    /// Draw solid faces for each primitive.
     /// </summary>
-    public enum FillMode
-    {
-        /// <summary>
-        /// Draw solid faces for each primitive.
-        /// </summary>
-        Solid,
-        /// <summary>
-        /// Draw lines for each primitive.
-        /// </summary>
-        WireFrame
-    }
+    Solid,
+    /// <summary>
+    /// Draw lines for each primitive.
+    /// </summary>
+    WireFrame
 }
+

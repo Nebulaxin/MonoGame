@@ -2,17 +2,16 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE.txt', which is part of this source code package.
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+internal class Vector2Reader : ContentTypeReader<Vector2>
 {
-	internal class Vector2Reader : ContentTypeReader<Vector2>
+	public Vector2Reader()
 	{
-		public Vector2Reader()
-		{
-		}
+	}
 
-		protected internal override Vector2 Read(ContentReader input, Vector2 existingInstance)
-		{
-			return input.ReadVector2();
-		}
+	protected internal override Vector2 Read(ContentReader input, Vector2 existingInstance)
+	{
+		return input.ReadVector2();
 	}
 }
+

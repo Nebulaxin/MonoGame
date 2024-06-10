@@ -4,27 +4,26 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+/// <summary>
+/// This is used to specify the version when deserializing this object at runtime.
+/// </summary>
+[AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
+public sealed class ContentSerializerTypeVersionAttribute : Attribute
 {
     /// <summary>
-    /// This is used to specify the version when deserializing this object at runtime.
+    /// Creates an instance of the attribute.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
-    public sealed class ContentSerializerTypeVersionAttribute : Attribute
+    /// <param name="typeVersion">The version passed to the type at runtime.</param>
+    public ContentSerializerTypeVersionAttribute(int typeVersion)
     {
-        /// <summary>
-        /// Creates an instance of the attribute.
-        /// </summary>
-        /// <param name="typeVersion">The version passed to the type at runtime.</param>
-        public ContentSerializerTypeVersionAttribute(int typeVersion)
-        {
-            TypeVersion = typeVersion;
-        }
-
-        /// <summary>
-        /// The version passed to the type at runtime.
-        /// </summary>
-        public int TypeVersion { get; private set; }
+        TypeVersion = typeVersion;
     }
+
+    /// <summary>
+    /// The version passed to the type at runtime.
+    /// </summary>
+    public int TypeVersion { get; private set; }
 }
+
 

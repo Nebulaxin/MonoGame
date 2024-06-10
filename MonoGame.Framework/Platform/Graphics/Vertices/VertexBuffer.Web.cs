@@ -8,41 +8,40 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class VertexBuffer
 {
-    public partial class VertexBuffer
+    private void PlatformConstruct()
     {
-        private void PlatformConstruct()
-        {
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
+    }
 
-        private void PlatformGetData<T>(
-            int offsetInBytes,
-            T[] data,
-            int startIndex,
-            int elementCount,
-            int vertexStride)
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGetData<T>(
+        int offsetInBytes,
+        T[] data,
+        int startIndex,
+        int elementCount,
+        int vertexStride)
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformSetDataInternal<T>(
-            int offsetInBytes,
-            T[] data,
-            int startIndex,
-            int elementCount,
-            int vertexStride,
-            SetDataOptions options,
-            int bufferSize,
-            int elementSizeInBytes)
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformSetDataInternal<T>(
+        int offsetInBytes,
+        T[] data,
+        int startIndex,
+        int elementCount,
+        int vertexStride,
+        SetDataOptions options,
+        int bufferSize,
+        int elementSizeInBytes)
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformGraphicsDeviceResetting()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGraphicsDeviceResetting()
+    {
+        throw new NotImplementedException();
     }
 }
+

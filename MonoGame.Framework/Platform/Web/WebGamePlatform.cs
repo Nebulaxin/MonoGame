@@ -12,101 +12,100 @@ using JSIL.Meta;
 
 using MonoGame.Web;
 
-namespace Microsoft.Xna.Framework
-{
-    using MonoGame.Web;
+namespace Microsoft.Xna.Framework;
+using MonoGame.Web;
 
-    public interface IHasCallback
+public interface IHasCallback
+{
+    void Callback();
+}
+
+class WebGamePlatform : GamePlatform, IHasCallback
+{
+    private WebGameWindow _view;
+
+    public WebGamePlatform(Game game)
+        : base(game)
     {
-        void Callback();
+        Window = new WebGameWindow(this);
+
+        _view = (WebGameWindow)Window;
     }
 
-    class WebGamePlatform : GamePlatform, IHasCallback
+    public virtual void Callback()
     {
-        private WebGameWindow _view;
+        this.Game.Tick();
+    }
 
-        public WebGamePlatform(Game game)
-            : base(game)
+    public override void Exit()
+    {
+    }
+
+    public override void RunLoop()
+    {
+        throw new InvalidOperationException("You can not run a synchronous loop on the web platform.");
+    }
+
+    public override void StartRunLoop()
+    {
+        ResetWindowBounds();
+        _view.window.setInterval((Action)(() =>
         {
-            Window = new WebGameWindow(this);
+            _view.ProcessEvents();
+            Game.Tick();
+        }), 25);
+    }
 
-            _view = (WebGameWindow)Window;
+    public override bool BeforeUpdate(GameTime gameTime)
+    {
+        return true;
+    }
+
+    public override bool BeforeDraw(GameTime gameTime)
+    {
+        return true;
+    }
+
+    public override void EnterFullScreen()
+    {
+        ResetWindowBounds();
+    }
+
+    public override void ExitFullScreen()
+    {
+        ResetWindowBounds();
+    }
+
+    internal void ResetWindowBounds()
+    {
+        var graphicsDeviceManager = (GraphicsDeviceManager)Game.Services.GetService(typeof(IGraphicsDeviceManager));
+
+        if (graphicsDeviceManager.IsFullScreen)
+        {
+
         }
-
-        public virtual void Callback()
+        else
         {
-            this.Game.Tick();
+            _view.glcanvas.style.width = graphicsDeviceManager.PreferredBackBufferWidth + "px";
+            _view.glcanvas.style.height = graphicsDeviceManager.PreferredBackBufferHeight + "px";
         }
+    }
 
-        public override void Exit()
+    public override void BeginScreenDeviceChange(bool willBeFullScreen)
+    {
+    }
+
+    public override void EndScreenDeviceChange(string screenDeviceName, int clientWidth, int clientHeight)
+    {
+    }
+
+    public override GameRunBehavior DefaultRunBehavior
+    {
+        get
         {
-        }
-
-        public override void RunLoop()
-        {
-            throw new InvalidOperationException("You can not run a synchronous loop on the web platform.");
-        }
-
-        public override void StartRunLoop()
-        {
-            ResetWindowBounds();
-            _view.window.setInterval((Action)(() =>
-            {
-                _view.ProcessEvents();
-                Game.Tick();
-            }), 25);
-        }
-
-        public override bool BeforeUpdate(GameTime gameTime)
-        {
-            return true;
-        }
-
-        public override bool BeforeDraw(GameTime gameTime)
-        {
-            return true;
-        }
-
-        public override void EnterFullScreen()
-        {
-            ResetWindowBounds();
-        }
-
-        public override void ExitFullScreen()
-        {
-            ResetWindowBounds();
-        }
-
-        internal void ResetWindowBounds()
-        {
-            var graphicsDeviceManager = (GraphicsDeviceManager)Game.Services.GetService(typeof(IGraphicsDeviceManager));
-
-            if (graphicsDeviceManager.IsFullScreen)
-            {
-
-            }
-            else
-            {
-                _view.glcanvas.style.width = graphicsDeviceManager.PreferredBackBufferWidth + "px";
-                _view.glcanvas.style.height = graphicsDeviceManager.PreferredBackBufferHeight + "px";
-            }
-        }
-
-        public override void BeginScreenDeviceChange(bool willBeFullScreen)
-        {
-        }
-
-        public override void EndScreenDeviceChange(string screenDeviceName, int clientWidth, int clientHeight)
-        {
-        }
-
-        public override GameRunBehavior DefaultRunBehavior
-        {
-            get
-            {
-                return GameRunBehavior.Asynchronous;
-            }
+            return GameRunBehavior.Asynchronous;
         }
     }
 }
+
 

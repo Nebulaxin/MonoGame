@@ -5,22 +5,21 @@
 using System;
 using TOutput = System.TimeSpan;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+/// <summary>
+/// Writes the TimeSpan value to the output.
+/// </summary>
+[ContentTypeWriter]
+class TimeSpanWriter : BuiltInContentWriter<TOutput>
 {
     /// <summary>
-    /// Writes the TimeSpan value to the output.
+    /// Writes the value to the output.
     /// </summary>
-    [ContentTypeWriter]
-    class TimeSpanWriter : BuiltInContentWriter<TOutput>
+    /// <param name="output">The output writer object.</param>
+    /// <param name="value">The value to write to the output.</param>
+    protected internal override void Write(ContentWriter output, TOutput value)
     {
-        /// <summary>
-        /// Writes the value to the output.
-        /// </summary>
-        /// <param name="output">The output writer object.</param>
-        /// <param name="value">The value to write to the output.</param>
-        protected internal override void Write(ContentWriter output, TOutput value)
-        {
-            output.Write(value.Ticks);
-        }
+        output.Write(value.Ticks);
     }
 }
+

@@ -4,199 +4,198 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Defines the blend state for a single render target.
+/// </summary>
+public class TargetBlendState
 {
-    /// <summary>
-    /// Defines the blend state for a single render target.
-    /// </summary>
-	public class TargetBlendState
+    private readonly BlendState _parent;
+    private BlendFunction _alphaBlendFunction;
+    private Blend _alphaDestinationBlend;
+    private Blend _alphaSourceBlend;
+    private BlendFunction _colorBlendFunction;
+    private Blend _colorDestinationBlend;
+    private Blend _colorSourceBlend;
+    private ColorWriteChannels _colorWriteChannels;
+
+    internal TargetBlendState(BlendState parent)
     {
-        private readonly BlendState _parent;
-        private BlendFunction _alphaBlendFunction;
-        private Blend _alphaDestinationBlend;
-        private Blend _alphaSourceBlend;
-        private BlendFunction _colorBlendFunction;
-        private Blend _colorDestinationBlend;
-        private Blend _colorSourceBlend;
-        private ColorWriteChannels _colorWriteChannels;
+        _parent = parent;
+        AlphaBlendFunction = BlendFunction.Add;
+        AlphaDestinationBlend = Blend.Zero;
+        AlphaSourceBlend = Blend.One;
+        ColorBlendFunction = BlendFunction.Add;
+        ColorDestinationBlend = Blend.Zero;
+        ColorSourceBlend = Blend.One;
+        ColorWriteChannels = ColorWriteChannels.All;
+    }
 
-        internal TargetBlendState(BlendState parent)
+    internal TargetBlendState Clone(BlendState parent)
+    {
+        return new TargetBlendState(parent)
         {
-            _parent = parent;
-            AlphaBlendFunction = BlendFunction.Add;
-            AlphaDestinationBlend = Blend.Zero;
-            AlphaSourceBlend = Blend.One;
-            ColorBlendFunction = BlendFunction.Add;
-            ColorDestinationBlend = Blend.Zero;
-            ColorSourceBlend = Blend.One;
-            ColorWriteChannels = ColorWriteChannels.All;
-        }
+            AlphaBlendFunction = AlphaBlendFunction,
+            AlphaDestinationBlend = AlphaDestinationBlend,
+            AlphaSourceBlend = AlphaSourceBlend,
+            ColorBlendFunction = ColorBlendFunction,
+            ColorDestinationBlend = ColorDestinationBlend,
+            ColorSourceBlend = ColorSourceBlend,
+            ColorWriteChannels = ColorWriteChannels
+        };
+    }
 
-        internal TargetBlendState Clone(BlendState parent)
+    /// <summary>
+    /// Gets or Sets the blend function for the alpha component.
+    /// </summary>
+    /// <remarks>
+    /// This property specifies the blending operation that will be used to combine the alpha components
+    /// of the source and destination pixels. The blend function affects how the final alpha value is calculated.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public BlendFunction AlphaBlendFunction
+    {
+        get { return _alphaBlendFunction; }
+        set
         {
-            return new TargetBlendState(parent)
-            {
-                AlphaBlendFunction = AlphaBlendFunction,
-                AlphaDestinationBlend = AlphaDestinationBlend,
-                AlphaSourceBlend = AlphaSourceBlend,
-                ColorBlendFunction = ColorBlendFunction,
-                ColorDestinationBlend = ColorDestinationBlend,
-                ColorSourceBlend = ColorSourceBlend,
-                ColorWriteChannels = ColorWriteChannels
-            };
+            _parent.ThrowIfBound();
+            _alphaBlendFunction = value;
         }
+    }
 
-        /// <summary>
-        /// Gets or Sets the blend function for the alpha component.
-        /// </summary>
-        /// <remarks>
-        /// This property specifies the blending operation that will be used to combine the alpha components
-        /// of the source and destination pixels. The blend function affects how the final alpha value is calculated.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public BlendFunction AlphaBlendFunction
+    /// <summary>
+    /// Gets or Sets the blend factor for the alpha component of the destination pixel.
+    /// </summary>
+    /// <remarks>
+    /// This property specifies the blend factor that will be used for the destination alpha component
+    /// when combining the source and destination pixels. The blend factor affects how the final alpha value is
+    /// calculated.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public Blend AlphaDestinationBlend
+    {
+        get { return _alphaDestinationBlend; }
+        set
         {
-            get { return _alphaBlendFunction; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _alphaBlendFunction = value;
-            }
+            _parent.ThrowIfBound();
+            _alphaDestinationBlend = value;
         }
+    }
 
-        /// <summary>
-        /// Gets or Sets the blend factor for the alpha component of the destination pixel.
-        /// </summary>
-        /// <remarks>
-        /// This property specifies the blend factor that will be used for the destination alpha component
-        /// when combining the source and destination pixels. The blend factor affects how the final alpha value is
-        /// calculated.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public Blend AlphaDestinationBlend
+    /// <summary>
+    /// Gets or Sets the blend factor for the alpha component of the source pixel.
+    /// </summary>
+    /// <remarks>
+    /// This property specifies the blend factor that will be used for the source alpha component
+    /// when combining the source and destination pixels. The blend factor affects how the final alpha value is
+    /// calculated.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public Blend AlphaSourceBlend
+    {
+        get { return _alphaSourceBlend; }
+        set
         {
-            get { return _alphaDestinationBlend; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _alphaDestinationBlend = value;
-            }
+            _parent.ThrowIfBound();
+            _alphaSourceBlend = value;
         }
+    }
 
-        /// <summary>
-        /// Gets or Sets the blend factor for the alpha component of the source pixel.
-        /// </summary>
-        /// <remarks>
-        /// This property specifies the blend factor that will be used for the source alpha component
-        /// when combining the source and destination pixels. The blend factor affects how the final alpha value is
-        /// calculated.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public Blend AlphaSourceBlend
+    /// <summary>
+    /// Gets or Sets the blend function for the color components (red, green, and blue).
+    /// </summary>
+    /// <remarks>
+    /// This property specifies the blending operation that will be used to combine the color components
+    /// (red, green, and blue) of the source and destination pixels. The blend function affects how the final color
+    /// values are calculated.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public BlendFunction ColorBlendFunction
+    {
+        get { return _colorBlendFunction; }
+        set
         {
-            get { return _alphaSourceBlend; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _alphaSourceBlend = value;
-            }
+            _parent.ThrowIfBound();
+            _colorBlendFunction = value;
         }
+    }
 
-        /// <summary>
-        /// Gets or Sets the blend function for the color components (red, green, and blue).
-        /// </summary>
-        /// <remarks>
-        /// This property specifies the blending operation that will be used to combine the color components
-        /// (red, green, and blue) of the source and destination pixels. The blend function affects how the final color
-        /// values are calculated.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public BlendFunction ColorBlendFunction
+    /// <summary>
+    /// Gets or Sets the blend factor for the color components (red, green, and blue) of the destination pixel.
+    /// </summary>
+    /// <remarks>
+    /// This property specifies the blend factor that will be used for the destination color components
+    /// when combining the source and destination pixels. The blend factor affects how the final color values are
+    /// calculated.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public Blend ColorDestinationBlend
+    {
+        get { return _colorDestinationBlend; }
+        set
         {
-            get { return _colorBlendFunction; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _colorBlendFunction = value;
-            }
+            _parent.ThrowIfBound();
+            _colorDestinationBlend = value;
         }
+    }
 
-        /// <summary>
-        /// Gets or Sets the blend factor for the color components (red, green, and blue) of the destination pixel.
-        /// </summary>
-        /// <remarks>
-        /// This property specifies the blend factor that will be used for the destination color components
-        /// when combining the source and destination pixels. The blend factor affects how the final color values are
-        /// calculated.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public Blend ColorDestinationBlend
+    /// <summary>
+    /// Gets or Sets the blend factor for the color components (red, green, and blue) of the source pixel.
+    /// </summary>
+    /// <remarks>
+    /// This property specifies the blend factor that will be used for the source color components
+    /// when combining the source and destination pixels. The blend factor affects how the final color values are
+    /// calculated.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public Blend ColorSourceBlend
+    {
+        get { return _colorSourceBlend; }
+        set
         {
-            get { return _colorDestinationBlend; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _colorDestinationBlend = value;
-            }
+            _parent.ThrowIfBound();
+            _colorSourceBlend = value;
         }
+    }
 
-        /// <summary>
-        /// Gets or Sets the blend factor for the color components (red, green, and blue) of the source pixel.
-        /// </summary>
-        /// <remarks>
-        /// This property specifies the blend factor that will be used for the source color components
-        /// when combining the source and destination pixels. The blend factor affects how the final color values are
-        /// calculated.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public Blend ColorSourceBlend
+    /// <summary>
+    /// Gets or Sets a value that determines which color channels to enable for writing to the render target.
+    /// </summary>
+    /// <remarks>
+    /// This property controls which color channels (red, green, blue, and alpha) are enabled for writing
+    /// to the render target during the blending operation. By default, all color channels are enabled for writing.
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">
+    /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
+    /// bound to the graphics device.
+    /// </exception>
+    public ColorWriteChannels ColorWriteChannels
+    {
+        get { return _colorWriteChannels; }
+        set
         {
-            get { return _colorSourceBlend; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _colorSourceBlend = value;
-            }
+            _parent.ThrowIfBound();
+            _colorWriteChannels = value;
         }
-
-        /// <summary>
-        /// Gets or Sets a value that determines which color channels to enable for writing to the render target.
-        /// </summary>
-        /// <remarks>
-        /// This property controls which color channels (red, green, blue, and alpha) are enabled for writing
-        /// to the render target during the blending operation. By default, all color channels are enabled for writing.
-        /// </remarks>
-        /// <exception cref="InvalidOperationException">
-        /// The exception is thrown if you attempt to change the property after the <see cref="BlendState"/> has been
-        /// bound to the graphics device.
-        /// </exception>
-	    public ColorWriteChannels ColorWriteChannels
-        {
-            get { return _colorWriteChannels; }
-            set
-            {
-                _parent.ThrowIfBound();
-                _colorWriteChannels = value;
-            }
-        }
+    }
 
 #if DIRECTX
 
@@ -300,6 +299,6 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 #endif
 
-    }
 }
+
 

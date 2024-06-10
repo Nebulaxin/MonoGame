@@ -7,17 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
+namespace Microsoft.Xna.Framework.Content.Pipeline.Processors;
+/// <summary>
+/// As the name implies, this processor simply passes data through as-is.
+/// </summary>
+[ContentProcessor(DisplayName = "No Processing Required")]
+public class PassThroughProcessor : ContentProcessor<object, object>
 {
-    /// <summary>
-    /// As the name implies, this processor simply passes data through as-is.
-    /// </summary>
-    [ContentProcessor(DisplayName = "No Processing Required")]
-    public class PassThroughProcessor : ContentProcessor<object, object>
+    public override object Process(object input, ContentProcessorContext context)
     {
-        public override object Process(object input, ContentProcessorContext context)
-        {
-            return input;
-        }
+        return input;
     }
 }
+

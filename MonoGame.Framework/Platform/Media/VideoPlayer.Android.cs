@@ -6,74 +6,72 @@ using System;
 using Android.Widget;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+public sealed partial class VideoPlayer : IDisposable
 {
-    public sealed partial class VideoPlayer : IDisposable
+    private Game _game;
+
+    private void PlatformInitialize()
     {
-        private Game _game;
+        _game = Game.Instance;
+    }
 
-        private void PlatformInitialize()
-        {
-            _game = Game.Instance;
-        }
+    private Texture2D PlatformGetTexture()
+    {
+        throw new NotImplementedException();
+    }
 
-        private Texture2D PlatformGetTexture()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformGetState(ref MediaState result)
+    {
+    }
 
-        private void PlatformGetState(ref MediaState result)
-        {
-        }
+    private void PlatformPause()
+    {
+        _currentVideo.Player.Pause();
+    }
 
-        private void PlatformPause()
-        {
-            _currentVideo.Player.Pause();
-        }
+    private void PlatformResume()
+    {
+        _currentVideo.Player.Start();
+    }
 
-        private void PlatformResume()
-        {
-            _currentVideo.Player.Start();
-        }
+    private void PlatformPlay()
+    {
+        _currentVideo.Player.SetDisplay(((AndroidGameWindow)_game.Window).GameView.Holder);
+        _currentVideo.Player.Start();
 
-        private void PlatformPlay()
-        {
-            _currentVideo.Player.SetDisplay(((AndroidGameWindow)_game.Window).GameView.Holder);
-            _currentVideo.Player.Start();
+        AndroidGamePlatform.IsPlayingVdeo = true;
+    }
 
-            AndroidGamePlatform.IsPlayingVdeo = true;
-        }
+    private void PlatformStop()
+    {
+        _currentVideo.Player.Stop();
 
-        private void PlatformStop()
-        {
-            _currentVideo.Player.Stop();
+        AndroidGamePlatform.IsPlayingVdeo = false;
+        _currentVideo.Player.SetDisplay(null);
+    }
 
-            AndroidGamePlatform.IsPlayingVdeo = false;
-            _currentVideo.Player.SetDisplay(null);
-        }
+    private void PlatformSetIsLooped()
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformSetIsLooped()
-        {
-            throw new NotImplementedException();
-        }
+    private void PlatformSetIsMuted()
+    {
+        throw new NotImplementedException();
+    }
 
-        private void PlatformSetIsMuted()
-        {
-            throw new NotImplementedException();
-        }
+    private TimeSpan PlatformGetPlayPosition()
+    {
+        throw new NotImplementedException();
+    }
 
-        private TimeSpan PlatformGetPlayPosition()
-        {
-            throw new NotImplementedException();
-        }
+    private TimeSpan PlatformSetVolume()
+    {
+        throw new NotImplementedException();
+    }
 
-        private TimeSpan PlatformSetVolume()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void PlatformDispose(bool disposing)
-        {
-        }
+    private void PlatformDispose(bool disposing)
+    {
     }
 }

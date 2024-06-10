@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace MonoGame.OpenGL
+namespace MonoGame.OpenGL;
+internal class WindowInfo : IWindowInfo
 {
-    internal class WindowInfo : IWindowInfo
-    {
-        public IntPtr Handle { get; private set; }
+    public IntPtr Handle { get; private set; }
 
-        public WindowInfo(IntPtr handle)
-        {
-            Handle = handle;
-        }
+    public WindowInfo(IntPtr handle)
+    {
+        Handle = handle;
     }
 }
+

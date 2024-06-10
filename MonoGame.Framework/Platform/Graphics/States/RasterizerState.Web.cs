@@ -4,13 +4,12 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class RasterizerState
 {
-    public partial class RasterizerState
+    internal void PlatformApplyState(GraphicsDevice device)
     {
-        internal void PlatformApplyState(GraphicsDevice device)
-        {
 
-        }
     }
 }
+

@@ -8,12 +8,11 @@ using System;
 using Windows.UI.ViewManagement;
 #endif
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+partial class GamePlatform
 {
-    partial class GamePlatform
+    internal static GamePlatform PlatformCreate(Game game)
     {
-        internal static GamePlatform PlatformCreate(Game game)
-        {
 #if DESKTOPGL || ANGLE
             return new SdlGamePlatform(game);
 #elif WINDOWS && DIRECTX
@@ -21,6 +20,6 @@ namespace Microsoft.Xna.Framework
 #elif WINDOWS_UAP
             return new UAPGamePlatform(game);
 #endif
-        }
     }
 }
+

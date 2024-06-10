@@ -4,27 +4,26 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+/// <summary>
+/// This is used to specify the type to use when deserializing this object at runtime.
+/// </summary>
+[AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
+public sealed class ContentSerializerRuntimeTypeAttribute : Attribute
 {
     /// <summary>
-    /// This is used to specify the type to use when deserializing this object at runtime.
+    /// Creates an instance of the attribute.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Struct | AttributeTargets.Class)]
-    public sealed class ContentSerializerRuntimeTypeAttribute : Attribute
+    /// <param name="runtimeType">The name of the type to use at runtime.</param>
+    public ContentSerializerRuntimeTypeAttribute(string runtimeType)
     {
-        /// <summary>
-        /// Creates an instance of the attribute.
-        /// </summary>
-        /// <param name="runtimeType">The name of the type to use at runtime.</param>
-        public ContentSerializerRuntimeTypeAttribute(string runtimeType)
-        {
-            RuntimeType = runtimeType;
-        }
-
-        /// <summary>
-        /// The name of the type to use at runtime.
-        /// </summary>
-        public string RuntimeType { get; private set; }
+        RuntimeType = runtimeType;
     }
+
+    /// <summary>
+    /// The name of the type to use at runtime.
+    /// </summary>
+    public string RuntimeType { get; private set; }
 }
+
 

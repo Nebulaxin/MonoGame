@@ -4,17 +4,16 @@
 
 using System.IO;
 
-namespace MonoGame.Framework.Content.Pipeline.Builder
+namespace MonoGame.Framework.Content.Pipeline.Builder;
+public static class FileHelper
 {
-    public static class FileHelper
+    /// <summary>
+    /// Checks  deletes a file from disk without throwing exceptions.
+    /// </summary>
+    public static void DeleteIfExists(string path)
     {
-        /// <summary>
-        /// Checks  deletes a file from disk without throwing exceptions.
-        /// </summary>
-        public static void DeleteIfExists(string path)
-        {
-            if (File.Exists(path))
-                File.Delete(path);
-        }
+        if (File.Exists(path))
+            File.Delete(path);
     }
 }
+

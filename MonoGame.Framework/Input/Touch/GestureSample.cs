@@ -4,108 +4,107 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Input.Touch
+namespace Microsoft.Xna.Framework.Input.Touch;
+/// <summary>
+/// Represents data from a multi-touch gesture over a span of time.
+/// </summary>
+public struct GestureSample
 {
+    // attributes
+    private GestureType _gestureType;
+    private TimeSpan _timestamp;
+    private Vector2 _position;
+    private Vector2 _position2;
+    private Vector2 _delta;
+    private Vector2 _delta2;
+
+    #region Properties
+
     /// <summary>
-    /// Represents data from a multi-touch gesture over a span of time.
+    /// Gets the type of the gesture.
     /// </summary>
-    public struct GestureSample
+    public readonly GestureType GestureType
     {
-        // attributes
-        private GestureType _gestureType;
-        private TimeSpan _timestamp;
-        private Vector2 _position;
-        private Vector2 _position2;
-        private Vector2 _delta;
-        private Vector2 _delta2;
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the type of the gesture.
-        /// </summary>
-        public readonly GestureType GestureType
+        get
         {
-            get
-            {
-                return _gestureType;
-            }
-        }
-
-        /// <summary>
-        /// Gets the starting time for this multi-touch gesture sample.
-        /// </summary>
-        public readonly TimeSpan Timestamp
-        {
-            get
-            {
-                return _timestamp;
-            }
-        }
-
-        /// <summary>
-        /// Gets the position of the first touch-point in the gesture sample.
-        /// </summary>
-        public readonly Vector2 Position
-        {
-            get
-            {
-                return _position;
-            }
-        }
-
-        /// <summary>
-        /// Gets the position of the second touch-point in the gesture sample.
-        /// </summary>
-        public readonly Vector2 Position2
-        {
-            get
-            {
-                return _position2;
-            }
-        }
-
-        /// <summary>
-        /// Gets the delta information for the first touch-point in the gesture sample.
-        /// </summary>
-        public readonly Vector2 Delta
-        {
-            get
-            {
-                return _delta;
-            }
-        }
-
-        /// <summary>
-        /// Gets the delta information for the second touch-point in the gesture sample.
-        /// </summary>
-        public readonly Vector2 Delta2
-        {
-            get
-            {
-                return _delta2;
-            }
-        }
-        #endregion
-
-        /// <summary>
-        /// Initializes a new <see cref="GestureSample"/>.
-        /// </summary>
-        /// <param name="gestureType"><see cref="GestureType"/></param>
-        /// <param name="timestamp"></param>
-        /// <param name="position"></param>
-        /// <param name="position2"></param>
-        /// <param name="delta"></param>
-        /// <param name="delta2"></param>
-        public GestureSample(GestureType gestureType, TimeSpan timestamp, Vector2 position, Vector2 position2, Vector2 delta, Vector2 delta2)
-        {
-            _gestureType = gestureType;
-            _timestamp = timestamp;
-            _position = position;
-            _position2 = position2;
-            _delta = delta;
-            _delta2 = delta2;
+            return _gestureType;
         }
     }
+
+    /// <summary>
+    /// Gets the starting time for this multi-touch gesture sample.
+    /// </summary>
+    public readonly TimeSpan Timestamp
+    {
+        get
+        {
+            return _timestamp;
+        }
+    }
+
+    /// <summary>
+    /// Gets the position of the first touch-point in the gesture sample.
+    /// </summary>
+    public readonly Vector2 Position
+    {
+        get
+        {
+            return _position;
+        }
+    }
+
+    /// <summary>
+    /// Gets the position of the second touch-point in the gesture sample.
+    /// </summary>
+    public readonly Vector2 Position2
+    {
+        get
+        {
+            return _position2;
+        }
+    }
+
+    /// <summary>
+    /// Gets the delta information for the first touch-point in the gesture sample.
+    /// </summary>
+    public readonly Vector2 Delta
+    {
+        get
+        {
+            return _delta;
+        }
+    }
+
+    /// <summary>
+    /// Gets the delta information for the second touch-point in the gesture sample.
+    /// </summary>
+    public readonly Vector2 Delta2
+    {
+        get
+        {
+            return _delta2;
+        }
+    }
+    #endregion
+
+    /// <summary>
+    /// Initializes a new <see cref="GestureSample"/>.
+    /// </summary>
+    /// <param name="gestureType"><see cref="GestureType"/></param>
+    /// <param name="timestamp"></param>
+    /// <param name="position"></param>
+    /// <param name="position2"></param>
+    /// <param name="delta"></param>
+    /// <param name="delta2"></param>
+    public GestureSample(GestureType gestureType, TimeSpan timestamp, Vector2 position, Vector2 position2, Vector2 delta, Vector2 delta2)
+    {
+        _gestureType = gestureType;
+        _timestamp = timestamp;
+        _position = position;
+        _position2 = position2;
+        _delta = delta;
+        _delta2 = delta2;
+    }
 }
+
 

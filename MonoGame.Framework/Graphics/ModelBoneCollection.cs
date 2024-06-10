@@ -7,126 +7,125 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Represents a set of bones associated with a model.
+/// </summary>
+public class ModelBoneCollection : ReadOnlyCollection<ModelBone>
 {
     /// <summary>
-    /// Represents a set of bones associated with a model.
+    /// Initializes a new instance of the <see cref="ModelBoneCollection"/>
+    /// class that is a read-only wrapper around the specified list.
     /// </summary>
-    public class ModelBoneCollection : ReadOnlyCollection<ModelBone>
+    /// <param name="list">The list to wrap.</param>
+    public ModelBoneCollection(IList<ModelBone> list)
+        : base(list)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ModelBoneCollection"/>
-        /// class that is a read-only wrapper around the specified list.
-        /// </summary>
-        /// <param name="list">The list to wrap.</param>
-        public ModelBoneCollection(IList<ModelBone> list)
-            : base(list)
+
+    }
+
+    /// <summary>
+    /// Retrieves a <see cref="ModelBone"/> from the collection, given the name of the bone.
+    /// </summary>
+    /// <param name="boneName">The name of the bone to retrieve.</param>
+    public ModelBone this[string boneName]
+    {
+        get
         {
-
-        }
-
-        /// <summary>
-        /// Retrieves a <see cref="ModelBone"/> from the collection, given the name of the bone.
-        /// </summary>
-        /// <param name="boneName">The name of the bone to retrieve.</param>
-        public ModelBone this[string boneName]
-        {
-            get
-            {
-                if (!TryGetValue(boneName, out ModelBone ret))
-                    throw new KeyNotFoundException();
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Finds a bone with a given name if it exists in the collection.
-        /// </summary>
-        /// <param name="boneName">The name of the bone to find.</param>
-        /// <param name="value">The bone named boneName, if found.</param>
-        /// <returns>true if the bone was found</returns>
-        public bool TryGetValue(string boneName, out ModelBone value)
-        {
-            if (string.IsNullOrEmpty(boneName))
-                throw new ArgumentNullException(nameof(boneName));
-
-            foreach (ModelBone bone in this)
-            {
-                if (bone.Name == boneName)
-                {
-                    value = bone;
-                    return true;
-                }
-            }
-
-            value = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Returns a <see cref="Enumerator">ModelBoneCollection.Enumerator</see>
-        /// that can iterate through a collection.
-        /// </summary>
-        /// <returns></returns>
-        public new Enumerator GetEnumerator()
-        {
-            return new Enumerator(this);
-        }
-
-        /// <summary>
-        /// Provides the ability to iterate through the bones in an ModelBoneCollection.
-        /// </summary>
-        public struct Enumerator : IEnumerator<ModelBone>
-        {
-            private readonly ModelBoneCollection _collection;
-            private int _position;
-
-            internal Enumerator(ModelBoneCollection collection)
-            {
-                _collection = collection;
-                _position = -1;
-            }
-
-
-            /// <summary>
-            /// Gets the current element in the ModelBoneCollection.
-            /// </summary>
-            public readonly ModelBone Current { get { return _collection[_position]; } }
-
-            /// <summary>
-            /// Advances the enumerator to the next element of the ModelBoneCollection.
-            /// </summary>
-            public bool MoveNext()
-            {
-                _position++;
-                return _position < _collection.Count;
-            }
-
-            #region IDisposable
-
-            /// <summary>
-            /// Immediately releases the unmanaged resources used by this object.
-            /// </summary>
-            public readonly void Dispose()
-            {
-            }
-
-            #endregion
-
-            #region IEnumerator Members
-
-            readonly object IEnumerator.Current
-            {
-                get { return _collection[_position]; }
-            }
-
-            /// <inheritdoc/>
-            public void Reset()
-            {
-                _position = -1;
-            }
-
-            #endregion
+            if (!TryGetValue(boneName, out ModelBone ret))
+                throw new KeyNotFoundException();
+            return ret;
         }
     }
+
+    /// <summary>
+    /// Finds a bone with a given name if it exists in the collection.
+    /// </summary>
+    /// <param name="boneName">The name of the bone to find.</param>
+    /// <param name="value">The bone named boneName, if found.</param>
+    /// <returns>true if the bone was found</returns>
+    public bool TryGetValue(string boneName, out ModelBone value)
+    {
+        if (string.IsNullOrEmpty(boneName))
+            throw new ArgumentNullException(nameof(boneName));
+
+        foreach (ModelBone bone in this)
+        {
+            if (bone.Name == boneName)
+            {
+                value = bone;
+                return true;
+            }
+        }
+
+        value = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Returns a <see cref="Enumerator">ModelBoneCollection.Enumerator</see>
+    /// that can iterate through a collection.
+    /// </summary>
+    /// <returns></returns>
+    public new Enumerator GetEnumerator()
+    {
+        return new Enumerator(this);
+    }
+
+    /// <summary>
+    /// Provides the ability to iterate through the bones in an ModelBoneCollection.
+    /// </summary>
+    public struct Enumerator : IEnumerator<ModelBone>
+    {
+        private readonly ModelBoneCollection _collection;
+        private int _position;
+
+        internal Enumerator(ModelBoneCollection collection)
+        {
+            _collection = collection;
+            _position = -1;
+        }
+
+
+        /// <summary>
+        /// Gets the current element in the ModelBoneCollection.
+        /// </summary>
+        public readonly ModelBone Current { get { return _collection[_position]; } }
+
+        /// <summary>
+        /// Advances the enumerator to the next element of the ModelBoneCollection.
+        /// </summary>
+        public bool MoveNext()
+        {
+            _position++;
+            return _position < _collection.Count;
+        }
+
+        #region IDisposable
+
+        /// <summary>
+        /// Immediately releases the unmanaged resources used by this object.
+        /// </summary>
+        public readonly void Dispose()
+        {
+        }
+
+        #endregion
+
+        #region IEnumerator Members
+
+        readonly object IEnumerator.Current
+        {
+            get { return _collection[_position]; }
+        }
+
+        /// <inheritdoc/>
+        public void Reset()
+        {
+            _position = -1;
+        }
+
+        #endregion
+    }
 }
+

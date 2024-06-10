@@ -5,103 +5,102 @@
 using System.Runtime.Serialization;
 using System.Runtime.InteropServices;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+/// <summary>
+/// Describes a custom vertex format structure that contains position.
+/// </summary>
+[DataContract]
+[StructLayout(LayoutKind.Sequential, Pack = 1)]
+public struct VertexPosition : IVertexType
 {
     /// <summary>
-    /// Describes a custom vertex format structure that contains position.
+    /// The XYZ vertex position.
     /// </summary>
-    [DataContract]
-    [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct VertexPosition : IVertexType
+    [DataMember]
+    public Vector3 Position;
+    /// <inheritdoc cref="IVertexType.VertexDeclaration"/>
+    public static readonly VertexDeclaration VertexDeclaration;
+
+    /// <summary>
+    /// Creates an instance of <see cref="VertexPosition"/>.
+    /// </summary>
+    /// <param name="position">Position of the vertex.</param>
+    public VertexPosition(Vector3 position)
     {
-        /// <summary>
-        /// The XYZ vertex position.
-        /// </summary>
-        [DataMember]
-        public Vector3 Position;
-        /// <inheritdoc cref="IVertexType.VertexDeclaration"/>
-		public static readonly VertexDeclaration VertexDeclaration;
+        Position = position;
+    }
 
-        /// <summary>
-        /// Creates an instance of <see cref="VertexPosition"/>.
-        /// </summary>
-        /// <param name="position">Position of the vertex.</param>
-        public VertexPosition(Vector3 position)
-        {
-            Position = position;
-        }
+    readonly VertexDeclaration IVertexType.VertexDeclaration
+    {
+        get { return VertexDeclaration; }
+    }
 
-        readonly VertexDeclaration IVertexType.VertexDeclaration
-        {
-            get { return VertexDeclaration; }
-        }
+    /// <inheritdoc/>
+    public override readonly int GetHashCode()
+    {
+        return Position.GetHashCode();
+    }
 
-        /// <inheritdoc/>
-        public override readonly int GetHashCode()
-        {
-            return Position.GetHashCode();
-        }
+    /// <summary>
+    /// Retrieves a string representation of this object.
+    /// </summary>
+    /// <returns>String representation of this object.</returns>
+    public override readonly string ToString()
+    {
+        return "{{Position:" + Position + "}}";
+    }
 
-        /// <summary>
-        /// Retrieves a string representation of this object.
-        /// </summary>
-        /// <returns>String representation of this object.</returns>
-        public override readonly string ToString()
-        {
-            return "{{Position:" + Position + "}}";
-        }
+    /// <summary>
+    /// Returns a value that indicates whether two <see cref="VertexPosition"/> are equal
+    /// </summary>
+    /// <param name="left">The vertex on the left of the equality operator.</param>
+    /// <param name="right">The vertex on the right of the equality operator.</param>
+    /// <returns>
+    /// <see langword="true"/> if the vertices are the same; <see langword="false"/> otherwise.
+    /// </returns>
+    public static bool operator ==(VertexPosition left, VertexPosition right)
+    {
+        return left.Position == right.Position;
+    }
 
-        /// <summary>
-        /// Returns a value that indicates whether two <see cref="VertexPosition"/> are equal
-        /// </summary>
-        /// <param name="left">The vertex on the left of the equality operator.</param>
-        /// <param name="right">The vertex on the right of the equality operator.</param>
-        /// <returns>
-        /// <see langword="true"/> if the vertices are the same; <see langword="false"/> otherwise.
-        /// </returns>
-        public static bool operator ==(VertexPosition left, VertexPosition right)
-        {
-            return left.Position == right.Position;
-        }
+    /// <summary>
+    /// Returns a value that indicates whether two <see cref="VertexPosition"/> are different
+    /// </summary>
+    /// <param name="left">The vertex on the left of the equality operator.</param>
+    /// <param name="right">The vertex on the right of the equality operator.</param>
+    /// <returns>
+    /// <see langword="true"/> if the vertices are different; <see langword="false"/> otherwise.
+    /// </returns>
+    public static bool operator !=(VertexPosition left, VertexPosition right)
+    {
+        return !(left == right);
+    }
 
-        /// <summary>
-        /// Returns a value that indicates whether two <see cref="VertexPosition"/> are different
-        /// </summary>
-        /// <param name="left">The vertex on the left of the equality operator.</param>
-        /// <param name="right">The vertex on the right of the equality operator.</param>
-        /// <returns>
-        /// <see langword="true"/> if the vertices are different; <see langword="false"/> otherwise.
-        /// </returns>
-        public static bool operator !=(VertexPosition left, VertexPosition right)
+    /// <summary>
+    /// Compares an object with the vertex.
+    /// </summary>
+    /// <param name="obj">The object to compare.</param>
+    /// <returns>
+    /// <see langword="true"/> if the object is equal to the current vertex; <see langword="false"/> otherwise.
+    /// </returns>
+    public override readonly bool Equals(object obj)
+    {
+        if (obj == null)
         {
-            return !(left == right);
+            return false;
         }
+        if (obj.GetType() != GetType())
+        {
+            return false;
+        }
+        return this == (VertexPosition)obj;
+    }
 
-        /// <summary>
-        /// Compares an object with the vertex.
-        /// </summary>
-        /// <param name="obj">The object to compare.</param>
-        /// <returns>
-        /// <see langword="true"/> if the object is equal to the current vertex; <see langword="false"/> otherwise.
-        /// </returns>
-        public override readonly bool Equals(object obj)
-        {
-            if (obj == null)
-            {
-                return false;
-            }
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-            return this == (VertexPosition)obj;
-        }
-
-        static VertexPosition()
-        {
-            VertexElement[] elements = [new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0)];
-            VertexDeclaration declaration = new(elements);
-            VertexDeclaration = declaration;
-        }
+    static VertexPosition()
+    {
+        VertexElement[] elements = [new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0)];
+        VertexDeclaration declaration = new(elements);
+        VertexDeclaration = declaration;
     }
 }
+

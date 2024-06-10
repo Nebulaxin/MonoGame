@@ -4,73 +4,72 @@
 
 using System.IO;
 
-namespace MonoGame.Framework.Utilities
+namespace MonoGame.Framework.Utilities;
+internal static class Hash
 {
-    internal static class Hash
+    /// <summary>
+    /// Compute a hash from a byte array.
+    /// </summary>
+    /// <remarks>
+    /// Modified FNV Hash in C#
+    /// http://stackoverflow.com/a/468084
+    /// </remarks>
+    internal static int ComputeHash(params byte[] data)
     {
-        /// <summary>
-        /// Compute a hash from a byte array.
-        /// </summary>
-        /// <remarks>
-        /// Modified FNV Hash in C#
-        /// http://stackoverflow.com/a/468084
-        /// </remarks>
-        internal static int ComputeHash(params byte[] data)
+        unchecked
         {
-            unchecked
-            {
-                const int p = 16777619;
-                var hash = (int)2166136261;
+            const int p = 16777619;
+            var hash = (int)2166136261;
 
-                for (var i = 0; i < data.Length; i++)
-                    hash = (hash ^ data[i]) * p;
+            for (var i = 0; i < data.Length; i++)
+                hash = (hash ^ data[i]) * p;
 
-                hash += hash << 13;
-                hash ^= hash >> 7;
-                hash += hash << 3;
-                hash ^= hash >> 17;
-                hash += hash << 5;
-                return hash;
-            }
+            hash += hash << 13;
+            hash ^= hash >> 7;
+            hash += hash << 3;
+            hash ^= hash >> 17;
+            hash += hash << 5;
+            return hash;
         }
+    }
 
-        /// <summary>
-        /// Compute a hash from the content of a stream and restore the position.
-        /// </summary>
-        /// <remarks>
-        /// Modified FNV Hash in C#
-        /// http://stackoverflow.com/a/468084
-        /// </remarks>
-        internal static int ComputeHash(Stream stream)
+    /// <summary>
+    /// Compute a hash from the content of a stream and restore the position.
+    /// </summary>
+    /// <remarks>
+    /// Modified FNV Hash in C#
+    /// http://stackoverflow.com/a/468084
+    /// </remarks>
+    internal static int ComputeHash(Stream stream)
+    {
+        System.Diagnostics.Debug.Assert(stream.CanSeek);
+
+        unchecked
         {
-            System.Diagnostics.Debug.Assert(stream.CanSeek);
+            const int p = 16777619;
+            var hash = (int)2166136261;
 
-            unchecked
+            var prevPosition = stream.Position;
+            stream.Position = 0;
+
+            var data = new byte[1024];
+            int length;
+            while ((length = stream.Read(data, 0, data.Length)) != 0)
             {
-                const int p = 16777619;
-                var hash = (int)2166136261;
-
-                var prevPosition = stream.Position;
-                stream.Position = 0;
-
-                var data = new byte[1024];
-                int length;
-                while ((length = stream.Read(data, 0, data.Length)) != 0)
-                {
-                    for (var i = 0; i < length; i++)
-                        hash = (hash ^ data[i]) * p;
-                }
-
-                // Restore stream position.
-                stream.Position = prevPosition;
-
-                hash += hash << 13;
-                hash ^= hash >> 7;
-                hash += hash << 3;
-                hash ^= hash >> 17;
-                hash += hash << 5;
-                return hash;
+                for (var i = 0; i < length; i++)
+                    hash = (hash ^ data[i]) * p;
             }
+
+            // Restore stream position.
+            stream.Position = prevPosition;
+
+            hash += hash << 13;
+            hash ^= hash >> 7;
+            hash += hash << 3;
+            hash ^= hash >> 17;
+            hash += hash << 5;
+            return hash;
         }
     }
 }
+

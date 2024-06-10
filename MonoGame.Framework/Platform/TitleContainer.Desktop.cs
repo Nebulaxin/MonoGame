@@ -6,12 +6,11 @@ using System;
 using System.IO;
 using MonoGame.Framework.Utilities;
 
-namespace Microsoft.Xna.Framework
+namespace Microsoft.Xna.Framework;
+partial class TitleContainer
 {
-    partial class TitleContainer
+    static partial void PlatformInit()
     {
-        static partial void PlatformInit()
-        {
 #if WINDOWS || DESKTOPGL
 #if DESKTOPGL
             // Check for the package Resources Folder first. This is where the assets
@@ -22,13 +21,13 @@ namespace Microsoft.Xna.Framework
 #endif
             Location = AppDomain.CurrentDomain.BaseDirectory;
 #endif
-        }
+    }
 
-        private static Stream PlatformOpenStream(string safeName)
-        {
-            var absolutePath = Path.Combine(Location, safeName);
-            return File.OpenRead(absolutePath);
-        }
+    private static Stream PlatformOpenStream(string safeName)
+    {
+        var absolutePath = Path.Combine(Location, safeName);
+        return File.OpenRead(absolutePath);
     }
 }
+
 

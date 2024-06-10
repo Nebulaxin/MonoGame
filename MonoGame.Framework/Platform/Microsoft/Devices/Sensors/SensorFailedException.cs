@@ -4,16 +4,15 @@
 
 using System;
 
-namespace Microsoft.Devices.Sensors
+namespace Microsoft.Devices.Sensors;
+public class SensorFailedException : Exception
 {
-    public class SensorFailedException : Exception
-    {
-        public int ErrorId { get; protected set; }
+    public int ErrorId { get; protected set; }
 
-        internal SensorFailedException(string message)
-            : base(message)
-        {
-        }
+    internal SensorFailedException(string message)
+        : base(message)
+    {
     }
 }
+
 

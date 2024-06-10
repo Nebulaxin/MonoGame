@@ -4,18 +4,17 @@
 
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
+namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics;
+/// <summary>
+/// Provides a collection of vertex position values.
+/// </summary>
+public sealed class PositionCollection : Collection<Vector3>
 {
     /// <summary>
-    /// Provides a collection of vertex position values.
+    /// Initializes a new instance of PositionCollection.
     /// </summary>
-    public sealed class PositionCollection : Collection<Vector3>
+    public PositionCollection()
     {
-        /// <summary>
-        /// Initializes a new instance of PositionCollection.
-        /// </summary>
-        public PositionCollection()
-        {
-        }
     }
 }
+

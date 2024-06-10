@@ -5,22 +5,21 @@
 using System;
 using TOutput = System.Single;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
+namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
+/// <summary>
+/// Writes the single precision floating point value to the output.
+/// </summary>
+[ContentTypeWriter]
+class SingleWriter : BuiltInContentWriter<TOutput>
 {
     /// <summary>
-    /// Writes the single precision floating point value to the output.
+    /// Writes the value to the output.
     /// </summary>
-    [ContentTypeWriter]
-    class SingleWriter : BuiltInContentWriter<TOutput>
+    /// <param name="output">The output writer object.</param>
+    /// <param name="value">The value to write to the output.</param>
+    protected internal override void Write(ContentWriter output, TOutput value)
     {
-        /// <summary>
-        /// Writes the value to the output.
-        /// </summary>
-        /// <param name="output">The output writer object.</param>
-        /// <param name="value">The value to write to the output.</param>
-        protected internal override void Write(ContentWriter output, TOutput value)
-        {
-            output.Write(value);
-        }
+        output.Write(value);
     }
 }
+

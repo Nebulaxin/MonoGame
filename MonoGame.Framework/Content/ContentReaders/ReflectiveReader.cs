@@ -9,182 +9,181 @@ using System.Linq;
 using System.Reflection;
 using MonoGame.Framework.Utilities;
 
-namespace Microsoft.Xna.Framework.Content
+namespace Microsoft.Xna.Framework.Content;
+internal class ReflectiveReader<T> : ContentTypeReader
 {
-    internal class ReflectiveReader<T> : ContentTypeReader
+    delegate void ReadElement(ContentReader input, object parent);
+
+    private List<ReadElement> _readers;
+
+    private ConstructorInfo _constructor;
+
+    private ContentTypeReader _baseTypeReader;
+
+
+    public ReflectiveReader()
+        : base(typeof(T))
     {
-        delegate void ReadElement(ContentReader input, object parent);
+    }
 
-        private List<ReadElement> _readers;
+    public override bool CanDeserializeIntoExistingObject
+    {
+        get { return TargetType.IsClass(); }
+    }
 
-        private ConstructorInfo _constructor;
+    protected internal override void Initialize(ContentTypeReaderManager manager)
+    {
+        base.Initialize(manager);
 
-        private ContentTypeReader _baseTypeReader;
+        var baseType = ReflectionHelpers.GetBaseType(TargetType);
+        if (baseType != null && baseType != typeof(object))
+            _baseTypeReader = manager.GetTypeReader(baseType);
 
+        _constructor = TargetType.GetDefaultConstructor();
 
-        public ReflectiveReader()
-            : base(typeof(T))
+        var properties = TargetType.GetAllProperties();
+        var fields = TargetType.GetAllFields();
+        _readers = new List<ReadElement>(fields.Length + properties.Length);
+
+        // Gather the properties.
+        foreach (var property in properties)
         {
+            var read = GetElementReader(manager, property);
+            if (read != null)
+                _readers.Add(read);
         }
 
-        public override bool CanDeserializeIntoExistingObject
+        // Gather the fields.
+        foreach (var field in fields)
         {
-            get { return TargetType.IsClass(); }
+            var read = GetElementReader(manager, field);
+            if (read != null)
+                _readers.Add(read);
         }
+    }
 
-        protected internal override void Initialize(ContentTypeReaderManager manager)
+    private static ReadElement GetElementReader(ContentTypeReaderManager manager, MemberInfo member)
+    {
+        var property = member as PropertyInfo;
+        var field = member as FieldInfo;
+        Debug.Assert(field != null || property != null);
+
+        if (property != null)
         {
-            base.Initialize(manager);
-
-            var baseType = ReflectionHelpers.GetBaseType(TargetType);
-            if (baseType != null && baseType != typeof(object))
-                _baseTypeReader = manager.GetTypeReader(baseType);
-
-            _constructor = TargetType.GetDefaultConstructor();
-
-            var properties = TargetType.GetAllProperties();
-            var fields = TargetType.GetAllFields();
-            _readers = new List<ReadElement>(fields.Length + properties.Length);
-
-            // Gather the properties.
-            foreach (var property in properties)
-            {
-                var read = GetElementReader(manager, property);
-                if (read != null)
-                    _readers.Add(read);
-            }
-
-            // Gather the fields.
-            foreach (var field in fields)
-            {
-                var read = GetElementReader(manager, field);
-                if (read != null)
-                    _readers.Add(read);
-            }
-        }
-
-        private static ReadElement GetElementReader(ContentTypeReaderManager manager, MemberInfo member)
-        {
-            var property = member as PropertyInfo;
-            var field = member as FieldInfo;
-            Debug.Assert(field != null || property != null);
-
-            if (property != null)
-            {
-                // Properties must have at least a getter.
-                if (property.CanRead == false)
-                    return null;
-
-                // Skip over indexer properties.
-                if (property.GetIndexParameters().Any())
-                    return null;
-            }
-
-            // Are we explicitly asked to ignore this item?
-            if (ReflectionHelpers.GetCustomAttribute<ContentSerializerIgnoreAttribute>(member) != null)
+            // Properties must have at least a getter.
+            if (property.CanRead == false)
                 return null;
 
-            var contentSerializerAttribute = ReflectionHelpers.GetCustomAttribute<ContentSerializerAttribute>(member);
-            if (contentSerializerAttribute == null)
-            {
-                if (property != null)
-                {
-                    // There is no ContentSerializerAttribute, so non-public
-                    // properties cannot be deserialized.
-                    if (!ReflectionHelpers.PropertyIsPublic(property))
-                        return null;
+            // Skip over indexer properties.
+            if (property.GetIndexParameters().Any())
+                return null;
+        }
 
-                    // If the read-only property has a type reader,
-                    // and CanDeserializeIntoExistingObject is true,
-                    // then it is safe to deserialize into the existing object.
-                    if (!property.CanWrite)
-                    {
-                        var typeReader = manager.GetTypeReader(property.PropertyType);
-                        if (typeReader == null || !typeReader.CanDeserializeIntoExistingObject)
-                            return null;
-                    }
-                }
-                else
-                {
-                    // There is no ContentSerializerAttribute, so non-public
-                    // fields cannot be deserialized.
-                    if (!field.IsPublic)
-                        return null;
+        // Are we explicitly asked to ignore this item?
+        if (ReflectionHelpers.GetCustomAttribute<ContentSerializerIgnoreAttribute>(member) != null)
+            return null;
 
-                    // evolutional: Added check to skip initialise only fields
-                    if (field.IsInitOnly)
-                        return null;
-                }
-            }
-
-            Action<object, object> setter;
-            Type elementType;
+        var contentSerializerAttribute = ReflectionHelpers.GetCustomAttribute<ContentSerializerAttribute>(member);
+        if (contentSerializerAttribute == null)
+        {
             if (property != null)
             {
-                elementType = property.PropertyType;
-                if (property.CanWrite)
-                    setter = (o, v) => property.SetValue(o, v, null);
-                else
-                    setter = (o, v) => { };
+                // There is no ContentSerializerAttribute, so non-public
+                // properties cannot be deserialized.
+                if (!ReflectionHelpers.PropertyIsPublic(property))
+                    return null;
+
+                // If the read-only property has a type reader,
+                // and CanDeserializeIntoExistingObject is true,
+                // then it is safe to deserialize into the existing object.
+                if (!property.CanWrite)
+                {
+                    var typeReader = manager.GetTypeReader(property.PropertyType);
+                    if (typeReader == null || !typeReader.CanDeserializeIntoExistingObject)
+                        return null;
+                }
             }
             else
             {
-                elementType = field.FieldType;
-                setter = field.SetValue;
+                // There is no ContentSerializerAttribute, so non-public
+                // fields cannot be deserialized.
+                if (!field.IsPublic)
+                    return null;
+
+                // evolutional: Added check to skip initialise only fields
+                if (field.IsInitOnly)
+                    return null;
             }
+        }
 
-            // Shared resources get special treatment.
-            if (contentSerializerAttribute != null && contentSerializerAttribute.SharedResource)
-            {
-                return (input, parent) =>
-                {
-                    Action<object> action = value => setter(parent, value);
-                    input.ReadSharedResource(action);
-                };
-            }
+        Action<object, object> setter;
+        Type elementType;
+        if (property != null)
+        {
+            elementType = property.PropertyType;
+            if (property.CanWrite)
+                setter = (o, v) => property.SetValue(o, v, null);
+            else
+                setter = (o, v) => { };
+        }
+        else
+        {
+            elementType = field.FieldType;
+            setter = field.SetValue;
+        }
 
-            // We need to have a reader at this point.
-            var reader = manager.GetTypeReader(elementType);
-            if (reader == null)
-                if (elementType == typeof(Array))
-                    reader = new ArrayReader<Array>();
-                else
-                    throw new ContentLoadException($"Content reader could not be found for {elementType.FullName} type.");
-
-            // We use the construct delegate to pick the correct existing 
-            // object to be the target of deserialization.
-            Func<object, object> construct = parent => null;
-            if (property != null && !property.CanWrite)
-                construct = parent => property.GetValue(parent, null);
-
+        // Shared resources get special treatment.
+        if (contentSerializerAttribute != null && contentSerializerAttribute.SharedResource)
+        {
             return (input, parent) =>
             {
-                var existing = construct(parent);
-                var obj2 = input.ReadObject(reader, existing);
-                setter(parent, obj2);
+                Action<object> action = value => setter(parent, value);
+                input.ReadSharedResource(action);
             };
         }
 
-        protected internal override object Read(ContentReader input, object existingInstance)
-        {
-            T obj;
-            if (existingInstance != null)
-                obj = (T)existingInstance;
+        // We need to have a reader at this point.
+        var reader = manager.GetTypeReader(elementType);
+        if (reader == null)
+            if (elementType == typeof(Array))
+                reader = new ArrayReader<Array>();
             else
-                obj = _constructor == null ? (T)Activator.CreateInstance(typeof(T)) : (T)_constructor.Invoke(null);
+                throw new ContentLoadException($"Content reader could not be found for {elementType.FullName} type.");
 
-            _baseTypeReader?.Read(input, obj);
+        // We use the construct delegate to pick the correct existing 
+        // object to be the target of deserialization.
+        Func<object, object> construct = parent => null;
+        if (property != null && !property.CanWrite)
+            construct = parent => property.GetValue(parent, null);
 
-            // Box the type.
-            var boxed = (object)obj;
+        return (input, parent) =>
+        {
+            var existing = construct(parent);
+            var obj2 = input.ReadObject(reader, existing);
+            setter(parent, obj2);
+        };
+    }
 
-            foreach (var reader in _readers)
-                reader(input, boxed);
+    protected internal override object Read(ContentReader input, object existingInstance)
+    {
+        T obj;
+        if (existingInstance != null)
+            obj = (T)existingInstance;
+        else
+            obj = _constructor == null ? (T)Activator.CreateInstance(typeof(T)) : (T)_constructor.Invoke(null);
 
-            // Unbox it... required for value types.
-            obj = (T)boxed;
+        _baseTypeReader?.Read(input, obj);
 
-            return obj;
-        }
+        // Box the type.
+        var boxed = (object)obj;
+
+        foreach (var reader in _readers)
+            reader(input, boxed);
+
+        // Unbox it... required for value types.
+        obj = (T)boxed;
+
+        return obj;
     }
 }
+

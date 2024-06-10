@@ -7,61 +7,60 @@ using System.Collections.Generic;
 using UIKit;
 #endif
 
-namespace Microsoft.Xna.Framework.Media
+namespace Microsoft.Xna.Framework.Media;
+/// <summary>
+/// Provides methods and properties to access the source or sources from which the media will be read.
+/// </summary>
+/// <remarks>
+/// <para>
+/// MediaSource provides access to the source or sources from which the media will be read.
+/// A source can be either the local device, or a device connected through Windows Media Connect.
+/// </para>
+/// </remarks>
+public sealed class MediaSource
 {
-    /// <summary>
-    /// Provides methods and properties to access the source or sources from which the media will be read.
-    /// </summary>
-    /// <remarks>
-    /// <para>
-    /// MediaSource provides access to the source or sources from which the media will be read.
-    /// A source can be either the local device, or a device connected through Windows Media Connect.
-    /// </para>
-    /// </remarks>
-	public sealed class MediaSource
+    private MediaSourceType _type;
+    private string _name;
+    internal MediaSource(string name, MediaSourceType type)
     {
-        private MediaSourceType _type;
-        private string _name;
-        internal MediaSource(string name, MediaSourceType type)
-        {
-            _name = name;
-            _type = type;
-        }
+        _name = name;
+        _type = type;
+    }
 
-        /// <summary>
-        /// Gets the <see cref="MediaSourceType"/> of this media source.
-        /// </summary>
-        public MediaSourceType MediaSourceType
+    /// <summary>
+    /// Gets the <see cref="MediaSourceType"/> of this media source.
+    /// </summary>
+    public MediaSourceType MediaSourceType
+    {
+        get
         {
-            get
-            {
-                return _type;
-            }
+            return _type;
         }
+    }
 
-        /// <summary>
-        /// Gets the name of this media source.
-        /// </summary>
-        public string Name
+    /// <summary>
+    /// Gets the name of this media source.
+    /// </summary>
+    public string Name
+    {
+        get
         {
-            get
-            {
-                return _name;
-            }
+            return _name;
         }
+    }
 
-        /// <summary>
-        /// Gets the available media sources with which a media library can be constructed.
-        /// </summary>
-        /// <returns>This method will always return a single media source: the local device.</returns>
-		public static IList<MediaSource> GetAvailableMediaSources()
-        {
+    /// <summary>
+    /// Gets the available media sources with which a media library can be constructed.
+    /// </summary>
+    /// <returns>This method will always return a single media source: the local device.</returns>
+    public static IList<MediaSource> GetAvailableMediaSources()
+    {
 #if IOS
 			MediaSource[] result = { new MediaSource(UIDevice.CurrentDevice.SystemName, MediaSourceType.LocalDevice) };
 #else
-            MediaSource[] result = [new MediaSource("DummpMediaSource", MediaSourceType.LocalDevice)];
+        MediaSource[] result = [new MediaSource("DummpMediaSource", MediaSourceType.LocalDevice)];
 #endif
-            return result;
-        }
+        return result;
     }
 }
+

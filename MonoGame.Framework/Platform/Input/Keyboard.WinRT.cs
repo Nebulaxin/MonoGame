@@ -4,37 +4,36 @@
 
 using System.Collections.Generic;
 
-namespace Microsoft.Xna.Framework.Input
+namespace Microsoft.Xna.Framework.Input;
+public static partial class Keyboard
 {
-    public static partial class Keyboard
+    static KeyboardState _keyboardState;
+    static KeyboardState _nextKeyboardState;
+
+    private static KeyboardState PlatformGetState()
     {
-        static KeyboardState _keyboardState;
-        static KeyboardState _nextKeyboardState;
-
-        private static KeyboardState PlatformGetState()
-        {
-            return _keyboardState;
-        }
-
-        internal static void UpdateState()
-        {
-            _keyboardState = _nextKeyboardState;
-        }
-
-        internal static void SetKey(Keys key)
-        {
-            _nextKeyboardState.InternalSetKey(key);
-        }
-
-        internal static void ClearKey(Keys key)
-        {
-            _nextKeyboardState.InternalClearKey(key);
-        }
-
-        internal static void Clear()
-        {
-            _nextKeyboardState.InternalClearAllKeys();
-        }
-
+        return _keyboardState;
     }
+
+    internal static void UpdateState()
+    {
+        _keyboardState = _nextKeyboardState;
+    }
+
+    internal static void SetKey(Keys key)
+    {
+        _nextKeyboardState.InternalSetKey(key);
+    }
+
+    internal static void ClearKey(Keys key)
+    {
+        _nextKeyboardState.InternalClearKey(key);
+    }
+
+    internal static void Clear()
+    {
+        _nextKeyboardState.InternalClearAllKeys();
+    }
+
 }
+

@@ -5,12 +5,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
+namespace Microsoft.Xna.Framework.Content.Pipeline.Processors;
+public sealed class ModelBoneContentCollection : ReadOnlyCollection<ModelBoneContent>
 {
-    public sealed class ModelBoneContentCollection : ReadOnlyCollection<ModelBoneContent>
+    internal ModelBoneContentCollection(IList<ModelBoneContent> list) : base(list)
     {
-        internal ModelBoneContentCollection(IList<ModelBoneContent> list) : base(list)
-        {
-        }
     }
 }
+

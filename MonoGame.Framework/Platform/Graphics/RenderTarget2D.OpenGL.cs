@@ -5,58 +5,57 @@
 using System;
 using MonoGame.OpenGL;
 
-namespace Microsoft.Xna.Framework.Graphics
+namespace Microsoft.Xna.Framework.Graphics;
+public partial class RenderTarget2D
 {
-    public partial class RenderTarget2D
+    private static Action<RenderTarget2D> DisposeAction =
+        (t) => t.GraphicsDevice.PlatformDeleteRenderTarget(t);
+
+    int IRenderTarget.GLTexture
     {
-        private static Action<RenderTarget2D> DisposeAction =
-            (t) => t.GraphicsDevice.PlatformDeleteRenderTarget(t);
+        get { return glTexture; }
+    }
 
-        int IRenderTarget.GLTexture
+    TextureTarget IRenderTarget.GLTarget
+    {
+        get { return glTarget; }
+    }
+
+    int IRenderTarget.GLColorBuffer { get; set; }
+    int IRenderTarget.GLDepthBuffer { get; set; }
+    int IRenderTarget.GLStencilBuffer { get; set; }
+
+    TextureTarget IRenderTarget.GetFramebufferTarget(RenderTargetBinding renderTargetBinding)
+    {
+        return glTarget;
+    }
+
+    private void PlatformConstruct(GraphicsDevice graphicsDevice, int width, int height, bool mipMap,
+        DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, bool shared)
+    {
+        Threading.BlockOnUIThread(() =>
         {
-            get { return glTexture; }
-        }
+            graphicsDevice.PlatformCreateRenderTarget(
+                this, width, height, mipMap, this.Format, preferredDepthFormat, preferredMultiSampleCount, usage);
+        });
+    }
 
-        TextureTarget IRenderTarget.GLTarget
+    private void PlatformGraphicsDeviceResetting()
+    {
+    }
+
+    /// <summary/>
+    protected override void Dispose(bool disposing)
+    {
+        if (!IsDisposed)
         {
-            get { return glTarget; }
-        }
-
-        int IRenderTarget.GLColorBuffer { get; set; }
-        int IRenderTarget.GLDepthBuffer { get; set; }
-        int IRenderTarget.GLStencilBuffer { get; set; }
-
-        TextureTarget IRenderTarget.GetFramebufferTarget(RenderTargetBinding renderTargetBinding)
-        {
-            return glTarget;
-        }
-
-        private void PlatformConstruct(GraphicsDevice graphicsDevice, int width, int height, bool mipMap,
-            DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, bool shared)
-        {
-            Threading.BlockOnUIThread(() =>
+            if (GraphicsDevice != null)
             {
-                graphicsDevice.PlatformCreateRenderTarget(
-                    this, width, height, mipMap, this.Format, preferredDepthFormat, preferredMultiSampleCount, usage);
-            });
-        }
-
-        private void PlatformGraphicsDeviceResetting()
-        {
-        }
-
-        /// <summary/>
-        protected override void Dispose(bool disposing)
-        {
-            if (!IsDisposed)
-            {
-                if (GraphicsDevice != null)
-                {
-                    Threading.BlockOnUIThread(DisposeAction, this);
-                }
+                Threading.BlockOnUIThread(DisposeAction, this);
             }
-
-            base.Dispose(disposing);
         }
+
+        base.Dispose(disposing);
     }
 }
+

@@ -5,141 +5,140 @@
 
 using System;
 
-namespace Microsoft.Xna.Framework.Graphics.PackedVector
+namespace Microsoft.Xna.Framework.Graphics.PackedVector;
+/// <summary>
+/// Packed vector type containing two 16-bit signed normalized values, ranging from −1 to 1.
+/// </summary>
+public struct NormalizedShort2 : IPackedVector<uint>, IEquatable<NormalizedShort2>
 {
+    private uint short2Packed;
+
+
     /// <summary>
-    /// Packed vector type containing two 16-bit signed normalized values, ranging from −1 to 1.
+    /// Initializes a new instance of this structure.
     /// </summary>
-	public struct NormalizedShort2 : IPackedVector<uint>, IEquatable<NormalizedShort2>
+    /// <param name="vector">
+    /// A <see cref="Vector2"/> value who's components contain the initial values for this structure.
+    /// </param>
+    public NormalizedShort2(Vector2 vector)
     {
-        private uint short2Packed;
+        short2Packed = PackInTwo(vector.X, vector.Y);
+    }
 
+    /// <summary>
+    /// Initializes a new instance of this structure.
+    /// </summary>
+    /// <param name="x">The initial x-component value for this structure.</param>
+    /// <param name="y">The initial y-component value for this structure.</param>
+    public NormalizedShort2(float x, float y)
+    {
+        short2Packed = PackInTwo(x, y);
+    }
 
-        /// <summary>
-        /// Initializes a new instance of this structure.
-        /// </summary>
-        /// <param name="vector">
-        /// A <see cref="Vector2"/> value who's components contain the initial values for this structure.
-        /// </param>
-        public NormalizedShort2(Vector2 vector)
+    /// <summary>
+    /// Returns a value that indicates whether the two value are not equal.
+    /// </summary>
+    /// <param name="a">The value on the left of the inequality operator.</param>
+    /// <param name="b">The value on the right of the inequality operator.</param>
+    /// <returns>true if the two value are not equal; otherwise, false.</returns>
+    public static bool operator !=(NormalizedShort2 a, NormalizedShort2 b)
+    {
+        return !a.Equals(b);
+    }
+
+    /// <summary>
+    /// Returns a value that indicates whether the two values are equal.
+    /// </summary>
+    /// <param name="a">The value on the left of the equality operator.</param>
+    /// <param name="b">The value on the right of the equality operator.</param>
+    /// <returns>true if the two values are equal; otherwise, false.</returns>
+    public static bool operator ==(NormalizedShort2 a, NormalizedShort2 b)
+    {
+        return a.Equals(b);
+    }
+
+    /// <inheritdoc />
+    public uint PackedValue
+    {
+        readonly get
         {
-            short2Packed = PackInTwo(vector.X, vector.Y);
+            return short2Packed;
         }
-
-        /// <summary>
-        /// Initializes a new instance of this structure.
-        /// </summary>
-        /// <param name="x">The initial x-component value for this structure.</param>
-        /// <param name="y">The initial y-component value for this structure.</param>
-        public NormalizedShort2(float x, float y)
+        set
         {
-            short2Packed = PackInTwo(x, y);
-        }
-
-        /// <summary>
-        /// Returns a value that indicates whether the two value are not equal.
-        /// </summary>
-        /// <param name="a">The value on the left of the inequality operator.</param>
-        /// <param name="b">The value on the right of the inequality operator.</param>
-        /// <returns>true if the two value are not equal; otherwise, false.</returns>
-        public static bool operator !=(NormalizedShort2 a, NormalizedShort2 b)
-        {
-            return !a.Equals(b);
-        }
-
-        /// <summary>
-        /// Returns a value that indicates whether the two values are equal.
-        /// </summary>
-        /// <param name="a">The value on the left of the equality operator.</param>
-        /// <param name="b">The value on the right of the equality operator.</param>
-        /// <returns>true if the two values are equal; otherwise, false.</returns>
-        public static bool operator ==(NormalizedShort2 a, NormalizedShort2 b)
-        {
-            return a.Equals(b);
-        }
-
-        /// <inheritdoc />
-        public uint PackedValue
-        {
-            readonly get
-            {
-                return short2Packed;
-            }
-            set
-            {
-                short2Packed = value;
-            }
-        }
-
-        /// <inheritdoc />
-		public override readonly bool Equals(object obj)
-        {
-            return (obj is NormalizedShort2) && Equals((NormalizedShort2)obj);
-        }
-
-        /// <inheritdoc />
-        public readonly bool Equals(NormalizedShort2 other)
-        {
-            return short2Packed.Equals(other.short2Packed);
-        }
-
-        /// <inheritdoc />
-		public override readonly int GetHashCode()
-        {
-            return short2Packed.GetHashCode();
-        }
-
-        /// <inheritdoc />
-        public override readonly string ToString()
-        {
-            return short2Packed.ToString("X");
-        }
-
-        /// <summary>
-        /// Expands the packed representation to a <see cref="Vector2"/>.
-        /// </summary>
-        /// <returns>The expanded value.</returns>
-		public readonly Vector2 ToVector2()
-        {
-            const float maxVal = 0x7FFF;
-
-            var v2 = new Vector2
-            {
-                X = ((short)(short2Packed & 0xFFFF)) / maxVal,
-                Y = (short)(short2Packed >> 0x10) / maxVal
-            };
-            return v2;
-        }
-
-        private static uint PackInTwo(float vectorX, float vectorY)
-        {
-            const float maxPos = 0x7FFF;
-            const float minNeg = -maxPos;
-
-            // clamp the value between min and max values
-            // Round rather than truncate.
-            var word2 = (uint)((int)MathHelper.Clamp(MathF.Round(vectorX * maxPos), minNeg, maxPos) & 0xFFFF);
-            var word1 = (uint)(((int)MathHelper.Clamp(MathF.Round(vectorY * maxPos), minNeg, maxPos) & 0xFFFF) << 0x10);
-
-            return word2 | word1;
-        }
-
-        void IPackedVector.PackFromVector4(Vector4 vector)
-        {
-            short2Packed = PackInTwo(vector.X, vector.Y);
-        }
-
-        /// <inheritdoc />
-		public readonly Vector4 ToVector4()
-        {
-            const float maxVal = 0x7FFF;
-
-            var v4 = new Vector4(0, 0, 0, 1)
-            {
-                X = ((short)((short2Packed >> 0x00) & 0xFFFF)) / maxVal,
-                Y = ((short)((short2Packed >> 0x10) & 0xFFFF)) / maxVal
-            };
-            return v4;
+            short2Packed = value;
         }
     }
+
+    /// <inheritdoc />
+    public override readonly bool Equals(object obj)
+    {
+        return (obj is NormalizedShort2) && Equals((NormalizedShort2)obj);
+    }
+
+    /// <inheritdoc />
+    public readonly bool Equals(NormalizedShort2 other)
+    {
+        return short2Packed.Equals(other.short2Packed);
+    }
+
+    /// <inheritdoc />
+    public override readonly int GetHashCode()
+    {
+        return short2Packed.GetHashCode();
+    }
+
+    /// <inheritdoc />
+    public override readonly string ToString()
+    {
+        return short2Packed.ToString("X");
+    }
+
+    /// <summary>
+    /// Expands the packed representation to a <see cref="Vector2"/>.
+    /// </summary>
+    /// <returns>The expanded value.</returns>
+    public readonly Vector2 ToVector2()
+    {
+        const float maxVal = 0x7FFF;
+
+        var v2 = new Vector2
+        {
+            X = ((short)(short2Packed & 0xFFFF)) / maxVal,
+            Y = (short)(short2Packed >> 0x10) / maxVal
+        };
+        return v2;
+    }
+
+    private static uint PackInTwo(float vectorX, float vectorY)
+    {
+        const float maxPos = 0x7FFF;
+        const float minNeg = -maxPos;
+
+        // clamp the value between min and max values
+        // Round rather than truncate.
+        var word2 = (uint)((int)MathHelper.Clamp(MathF.Round(vectorX * maxPos), minNeg, maxPos) & 0xFFFF);
+        var word1 = (uint)(((int)MathHelper.Clamp(MathF.Round(vectorY * maxPos), minNeg, maxPos) & 0xFFFF) << 0x10);
+
+        return word2 | word1;
+    }
+
+    void IPackedVector.PackFromVector4(Vector4 vector)
+    {
+        short2Packed = PackInTwo(vector.X, vector.Y);
+    }
+
+    /// <inheritdoc />
+    public readonly Vector4 ToVector4()
+    {
+        const float maxVal = 0x7FFF;
+
+        var v4 = new Vector4(0, 0, 0, 1)
+        {
+            X = ((short)((short2Packed >> 0x00) & 0xFFFF)) / maxVal,
+            Y = ((short)((short2Packed >> 0x10) & 0xFFFF)) / maxVal
+        };
+        return v4;
+    }
 }
+
