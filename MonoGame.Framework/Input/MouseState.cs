@@ -209,14 +209,8 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int X
         {
-            get
-            {
-                return _x;
-            }
-            internal set
-            {
-                _x = value;
-            }
+            get => _x;
+            internal set => _x = value;
         }
 
         /// <summary>
@@ -224,14 +218,8 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int Y
         {
-            get
-            {
-                return _y;
-            }
-            internal set
-            {
-                _y = value;
-            }
+            get => _y;
+            internal set => _y = value;
         }
 
         /// <summary>
@@ -244,10 +232,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState LeftButton
         {
-            get
-            {
-                return ((_buttons & LeftButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
-            }
+            get => ((_buttons & LeftButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             internal set
             {
                 if (value == ButtonState.Pressed)
@@ -266,10 +251,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState MiddleButton
         {
-            get
-            {
-                return ((_buttons & MiddleButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
-            }
+            get => ((_buttons & MiddleButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             internal set
             {
                 if (value == ButtonState.Pressed)
@@ -288,10 +270,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState RightButton
         {
-            get
-            {
-                return ((_buttons & RightButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
-            }
+            get => ((_buttons & RightButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             internal set
             {
                 if (value == ButtonState.Pressed)
@@ -310,11 +289,8 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int ScrollWheelValue
         {
-            get
-            {
-                return _scrollWheelValue;
-            }
-            internal set { _scrollWheelValue = value; }
+            get => _scrollWheelValue;
+            internal set => _scrollWheelValue = value;
         }
 
         /// <summary>
@@ -322,11 +298,8 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int HorizontalScrollWheelValue
         {
-            get
-            {
-                return _horizontalScrollWheelValue;
-            }
-            internal set { _horizontalScrollWheelValue = value; }
+            get => _horizontalScrollWheelValue;
+            internal set => _horizontalScrollWheelValue = value;
         }
 
         /// <summary>
@@ -334,10 +307,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState XButton1
         {
-            get
-            {
-                return ((_buttons & XButton1Flag) > 0) ? ButtonState.Pressed : ButtonState.Released;
-            }
+            get => ((_buttons & XButton1Flag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             internal set
             {
                 if (value == ButtonState.Pressed)
@@ -356,10 +326,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState XButton2
         {
-            get
-            {
-                return ((_buttons & XButton2Flag) > 0) ? ButtonState.Pressed : ButtonState.Released;
-            }
+            get => ((_buttons & XButton2Flag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             internal set
             {
                 if (value == ButtonState.Pressed)

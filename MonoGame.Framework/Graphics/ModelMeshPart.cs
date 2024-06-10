@@ -21,13 +21,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets or sets the material <see cref="Effect"/> for this mesh part.
         /// </summary>
-        public Effect Effect 
+        public Effect Effect
         {
-            get 
-            {
-                return _effect;
-            }
-            set 
+            get => _effect;
+            set
             {
                 if (value == _effect)
                     return;
@@ -51,8 +48,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 // Set the new effect.
                 _effect = value;
-                
-                if (_effect != null && !parent.Effects.Contains(_effect))                
+
+                if (_effect != null && !parent.Effects.Contains(_effect))
                     parent.Effects.Add(_effect);
             }
         }

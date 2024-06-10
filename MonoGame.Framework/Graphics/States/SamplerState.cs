@@ -118,7 +118,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public TextureAddressMode AddressU
         {
-            get { return _addressU; }
+            get => _addressU;
             set
             {
                 ThrowIfBound();
@@ -131,7 +131,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public TextureAddressMode AddressV
         {
-            get { return _addressV; }
+            get => _addressV;
             set
             {
                 ThrowIfBound();
@@ -144,7 +144,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public TextureAddressMode AddressW
         {
-            get { return _addressW; }
+            get => _addressW;
             set
             {
                 ThrowIfBound();
@@ -158,7 +158,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Color BorderColor
         {
-            get { return _borderColor; }
+            get => _borderColor;
             set
             {
                 ThrowIfBound();
@@ -171,7 +171,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public TextureFilter Filter
         {
-            get { return _filter; }
+            get => _filter;
             set
             {
                 ThrowIfBound();
@@ -189,7 +189,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public int MaxAnisotropy
         {
-            get { return _maxAnisotropy; }
+            get => _maxAnisotropy;
             set
             {
                 ThrowIfBound();
@@ -205,7 +205,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
         public int MaxMipLevel
         {
-            get { return _maxMipLevel; }
+            get => _maxMipLevel;
             set
             {
                 ThrowIfBound();
@@ -223,7 +223,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public float MipMapLevelOfDetailBias
         {
-            get { return _mipMapLevelOfDetailBias; }
+            get => _mipMapLevelOfDetailBias;
             set
             {
                 ThrowIfBound();
@@ -236,7 +236,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public CompareFunction ComparisonFunction
         {
-            get { return _comparisonFunction; }
+            get => _comparisonFunction;
             set
             {
                 ThrowIfBound();
@@ -249,7 +249,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public TextureFilterMode FilterMode
         {
-            get { return _filterMode; }
+            get => _filterMode;
             set
             {
                 ThrowIfBound();

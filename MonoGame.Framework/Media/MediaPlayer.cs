@@ -49,8 +49,8 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public static bool IsMuted
         {
-            get { return PlatformGetIsMuted(); }
-            set { PlatformSetIsMuted(value); }
+            get => PlatformGetIsMuted();
+            set => PlatformSetIsMuted(value);
         }
 
         /// <summary>
@@ -60,10 +60,10 @@ namespace Microsoft.Xna.Framework.Media
         /// When set to <see langword="true"/>, the playback queue will begin
         /// playing again after all songs in the queue have been played.
         /// </remarks>
-        public static bool IsRepeating 
+        public static bool IsRepeating
         {
-            get { return PlatformGetIsRepeating(); }
-            set { PlatformSetIsRepeating(value); }
+            get => PlatformGetIsRepeating();
+            set => PlatformSetIsRepeating(value);
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace Microsoft.Xna.Framework.Media
         /// </remarks>
         public static bool IsShuffled
         {
-            get { return PlatformGetIsShuffled(); }
-            set { PlatformSetIsShuffled(value); }
+            get => PlatformGetIsShuffled();
+            set => PlatformSetIsShuffled(value);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public static MediaState State
         {
-            get { return PlatformGetState(); }
+            get => PlatformGetState();
             private set
             {
                 if (_state != value)
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </remarks>
         public static float Volume
         {
-            get { return PlatformGetVolume(); }
+            get => PlatformGetVolume();
             set
             {
                 var volume = MathHelper.Clamp(value, 0, 1);

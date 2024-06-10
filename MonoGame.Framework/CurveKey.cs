@@ -32,8 +32,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveContinuity Continuity
         {
-            get { return this._continuity; }
-            set { this._continuity = value; }
+            get => this._continuity;
+            set => this._continuity = value;
         }
 
         /// <summary>
@@ -48,8 +48,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float TangentIn
         {
-            get { return this._tangentIn; }
-            set { this._tangentIn = value; }
+            get => this._tangentIn;
+            set => this._tangentIn = value;
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float TangentOut
         {
-            get { return this._tangentOut; }
-            set { this._tangentOut = value; }
+            get => this._tangentOut;
+            set => this._tangentOut = value;
         }
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float Value
         {
-            get { return this._value; }
-            set { this._value = value; }
+            get => this._value;
+            set => this._value = value;
         }
 
         #endregion

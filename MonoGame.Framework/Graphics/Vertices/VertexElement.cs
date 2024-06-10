@@ -22,8 +22,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>The offset in bytes.</value>
         public int Offset
         {
-            get { return _offset; }
-            set { _offset = value; }
+            get => _offset;
+            set => _offset = value;
         }
 
         /// <summary>
@@ -32,8 +32,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>The data format.</value>
         public VertexElementFormat VertexElementFormat
         {
-            get { return _format; }
-            set { _format = value; }
+            get => _format;
+            set => _format = value;
         }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>The HLSL semantic of the element in the vertex shader input.</value>
         public VertexElementUsage VertexElementUsage
         {
-            get { return _usage; }
-            set { _usage = value; }
+            get => _usage;
+            set => _usage = value;
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public int UsageIndex
         {
-            get { return _usageIndex; }
-            set { _usageIndex = value; }
+            get => _usageIndex;
+            set => _usageIndex = value;
         }
 
         /// <summary>

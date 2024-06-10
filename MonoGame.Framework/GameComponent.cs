@@ -26,7 +26,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool Enabled
         {
-            get { return _enabled; }
+            get => _enabled;
             set
             {
                 if (_enabled != value)
@@ -44,7 +44,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public int UpdateOrder
         {
-            get { return _updateOrder; }
+            get => _updateOrder;
             set
             {
                 if (_updateOrder != value)

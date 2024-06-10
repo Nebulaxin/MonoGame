@@ -25,14 +25,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ushort PackedValue
         {
-            get
-            {
-                return this.packedValue;
-            }
-            set
-            {
-                this.packedValue = value;
-            }
+            get => this.packedValue;
+            set => this.packedValue = value;
         }
 
         /// <summary>

@@ -420,10 +420,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public GraphicsProfile GraphicsProfile
         {
-            get
-            {
-                return _graphicsProfile;
-            }
+            get => _graphicsProfile;
             set
             {
                 _shouldApplyChanges = true;
@@ -446,7 +443,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public bool IsFullScreen
         {
-            get { return _wantFullScreen; }
+            get => _wantFullScreen;
             set
             {
                 _shouldApplyChanges = true;
@@ -461,7 +458,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool HardwareModeSwitch
         {
-            get { return _hardwareModeSwitch;}
+            get => _hardwareModeSwitch;
             set
             {
                 _shouldApplyChanges = true;
@@ -485,7 +482,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public bool PreferHalfPixelOffset
         {
-            get { return _preferHalfPixelOffset; }
+            get => _preferHalfPixelOffset;
             set
             {
                 if (this.GraphicsDevice != null)
@@ -503,10 +500,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public bool PreferMultiSampling
         {
-            get
-            {
-                return _preferMultiSampling;
-            }
+            get => _preferMultiSampling;
             set
             {
                 _shouldApplyChanges = true;
@@ -523,10 +517,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public SurfaceFormat PreferredBackBufferFormat
         {
-            get
-            {
-                return _preferredBackBufferFormat;
-            }
+            get => _preferredBackBufferFormat;
             set
             {
                 _shouldApplyChanges = true;
@@ -543,10 +534,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public int PreferredBackBufferHeight
         {
-            get
-            {
-                return _preferredBackBufferHeight;
-            }
+            get => _preferredBackBufferHeight;
             set
             {
                 _shouldApplyChanges = true;
@@ -563,10 +551,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public int PreferredBackBufferWidth
         {
-            get
-            {
-                return _preferredBackBufferWidth;
-            }
+            get => _preferredBackBufferWidth;
             set
             {
                 _shouldApplyChanges = true;
@@ -584,10 +569,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public DepthFormat PreferredDepthStencilFormat
         {
-            get
-            {
-                return _preferredDepthStencilFormat;
-            }
+            get => _preferredDepthStencilFormat;
             set
             {
                 _shouldApplyChanges = true;
@@ -607,10 +589,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public bool SynchronizeWithVerticalRetrace
         {
-            get
-            {
-                return _synchronizedWithVerticalRetrace;
-            }
+            get => _synchronizedWithVerticalRetrace;
             set
             {
                 _shouldApplyChanges = true;
@@ -628,10 +607,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public DisplayOrientation SupportedOrientations
         {
-            get
-            {
-                return _supportedOrientations;
-            }
+            get => _supportedOrientations;
             set
             {
                 _shouldApplyChanges = true;

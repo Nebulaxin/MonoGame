@@ -116,9 +116,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Get or set the color a <see cref="RenderTarget2D"/> is cleared to when it is set.
         /// </summary>
         public static Color DiscardColor {
-			get { return _discardColor; }
-			set { _discardColor = value; }
-		}
+            get => _discardColor;
+            set => _discardColor = value;
+        }
 
         /// <summary>
         /// The active vertex shader.
@@ -223,14 +223,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The rendering information for debugging and profiling.
         /// The metrics are reset every frame after draw within <see cref="GraphicsDevice.Present"/>. 
         /// </summary>
-        public GraphicsMetrics Metrics { get { return _graphicsMetrics; } set { _graphicsMetrics = value; } }
+        public GraphicsMetrics Metrics { get => _graphicsMetrics; set => _graphicsMetrics = value; }
 
         private GraphicsDebug _graphicsDebug;
 
         /// <summary>
         /// Access debugging APIs for the graphics subsystem.
         /// </summary>
-        public GraphicsDebug GraphicsDebug { get { return _graphicsDebug; } set { _graphicsDebug = value; } }
+        public GraphicsDebug GraphicsDebug { get => _graphicsDebug; set => _graphicsDebug = value; }
 
         internal GraphicsDevice()
 		{
@@ -415,10 +415,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public RasterizerState RasterizerState
         {
-            get
-            {
-                return _rasterizerState;
-            }
+            get => _rasterizerState;
 
             set
             {
@@ -460,7 +457,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public Color BlendFactor
         {
-            get { return _blendFactor; }
+            get => _blendFactor;
             set
             {
                 if (_blendFactor == value)
@@ -476,8 +473,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public BlendState BlendState
         {
-			get { return _blendState; }
-			set
+            get => _blendState;
+            set
             {
                 ArgumentNullException.ThrowIfNull(value);
 
@@ -485,7 +482,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 if (_blendState == value)
                     return;
 
-				_blendState = value;
+                _blendState = value;
 
                 // Static state properties never actually get bound;
                 // instead we use our GraphicsDevice-specific version of them.
@@ -512,7 +509,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 _blendStateDirty = true;
             }
-		}
+        }
 
         /// <summary>
         /// Gets or sets a system-defined instance of a depth-stencil state object.
@@ -520,7 +517,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public DepthStencilState DepthStencilState
         {
-            get { return _depthStencilState; }
+            get => _depthStencilState;
             set
             {
                 ArgumentNullException.ThrowIfNull(value);
@@ -795,10 +792,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Viewport Viewport
         {
-            get
-            {
-                return _viewport;
-            }
+            get => _viewport;
 
             set
             {
@@ -819,10 +813,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Rectangle ScissorRectangle
         {
-            get
-            {
-                return _scissorRectangle;
-            }
+            get => _scissorRectangle;
 
             set
             {
@@ -1072,11 +1063,11 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets or sets index data. The default value is <see langword="null"/>.
         /// </summary>
-        public IndexBuffer Indices { set { SetIndexBuffer(value); } get { return _indexBuffer; } }
+        public IndexBuffer Indices { set => SetIndexBuffer(value); get => _indexBuffer; }
 
         internal Shader VertexShader
         {
-            get { return _vertexShader; }
+            get => _vertexShader;
 
             set
             {
@@ -1091,7 +1082,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal Shader PixelShader
         {
-            get { return _pixelShader; }
+            get => _pixelShader;
 
             set
             {

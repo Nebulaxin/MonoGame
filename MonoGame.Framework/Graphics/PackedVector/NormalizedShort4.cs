@@ -62,15 +62,9 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ulong PackedValue
         {
-            get
-            {
-                return short4Packed;
-            }
-            set
-            {
-                short4Packed = value;
-            }
-		}
+            get => short4Packed;
+            set => short4Packed = value;
+        }
 
         /// <inheritdoc />
         public override bool Equals(object obj)

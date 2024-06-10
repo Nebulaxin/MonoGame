@@ -54,16 +54,10 @@ namespace Microsoft.Xna.Framework.Media
         /// Changing the active song index does not alter the current media state (playing, paused, or stopped).
         /// </remarks>
 		public int ActiveSongIndex
-		{
-		    get
-		    {
-		        return _activeSongIndex;
-		    }
-		    set
-		    {
-		        _activeSongIndex = value;
-		    }
-		}
+        {
+            get => _activeSongIndex;
+            set => _activeSongIndex = value;
+        }
 
         /// <summary>
         /// Gets the count of songs in the MediaQueue.

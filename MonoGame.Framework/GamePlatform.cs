@@ -56,7 +56,7 @@ namespace Microsoft.Xna.Framework
         private bool _isActive;
         public bool IsActive
         {
-            get { return _isActive; }
+            get => _isActive;
             internal set
             {
                 if (_isActive != value)
@@ -70,7 +70,7 @@ namespace Microsoft.Xna.Framework
         private bool _isMouseVisible;
         public bool IsMouseVisible
         {
-            get { return _isMouseVisible; }
+            get => _isMouseVisible;
             set
             {
                 if (_isMouseVisible != value)
@@ -84,7 +84,7 @@ namespace Microsoft.Xna.Framework
         private GameWindow _window;
         public GameWindow Window
         {
-            get { return _window; }
+            get => _window;
 
 
             protected set

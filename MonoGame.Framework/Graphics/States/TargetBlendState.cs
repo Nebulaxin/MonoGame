@@ -58,14 +58,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public BlendFunction AlphaBlendFunction
-	    {
-	        get { return _alphaBlendFunction; }
-	        set
-	        {
-	            _parent.ThrowIfBound();
-	            _alphaBlendFunction = value;
-	        }
-	    }
+        {
+            get => _alphaBlendFunction;
+            set
+            {
+                _parent.ThrowIfBound();
+                _alphaBlendFunction = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the alpha component of the destination pixel.
@@ -80,14 +80,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend AlphaDestinationBlend
-	    {
-	        get { return _alphaDestinationBlend; }
-	        set
-	        {
+        {
+            get => _alphaDestinationBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _alphaDestinationBlend = value;
-	        }
-	    }
+                _alphaDestinationBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the alpha component of the source pixel.
@@ -102,14 +102,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend AlphaSourceBlend
-	    {
-	        get { return _alphaSourceBlend; }
-	        set
-	        {
+        {
+            get => _alphaSourceBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _alphaSourceBlend = value;
-	        }
-	    }
+                _alphaSourceBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend function for the color components (red, green, and blue).
@@ -124,14 +124,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public BlendFunction ColorBlendFunction
-	    {
-	        get { return _colorBlendFunction; }
-	        set
-	        {
+        {
+            get => _colorBlendFunction;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorBlendFunction = value;
-	        }
-	    }
+                _colorBlendFunction = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the color components (red, green, and blue) of the destination pixel.
@@ -146,14 +146,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend ColorDestinationBlend
-	    {
-	        get { return _colorDestinationBlend; }
-	        set
-	        {
+        {
+            get => _colorDestinationBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorDestinationBlend = value;
-	        }
-	    }
+                _colorDestinationBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the color components (red, green, and blue) of the source pixel.
@@ -168,14 +168,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend ColorSourceBlend
-	    {
-	        get { return _colorSourceBlend; }
-	        set
-	        {
+        {
+            get => _colorSourceBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorSourceBlend = value;
-	        }
-	    }
+                _colorSourceBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that determines which color channels to enable for writing to the render target.
@@ -189,14 +189,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public ColorWriteChannels ColorWriteChannels
-	    {
-	        get { return _colorWriteChannels; }
-	        set
-	        {
+        {
+            get => _colorWriteChannels;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorWriteChannels = value;
-	        }
-	    }
+                _colorWriteChannels = value;
+            }
+        }
 
 #if DIRECTX
 
@@ -300,6 +300,6 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 #endif
 
-	}
+    }
 }
 

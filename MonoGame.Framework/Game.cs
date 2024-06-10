@@ -197,7 +197,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public TimeSpan InactiveSleepTime
         {
-            get { return _inactiveSleepTime; }
+            get => _inactiveSleepTime;
             set
             {
                 if (value < TimeSpan.Zero)
@@ -213,13 +213,13 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public TimeSpan MaxElapsedTime
         {
-            get { return _maxElapsedTime; }
+            get => _maxElapsedTime;
             set
             {
                 if (value < TimeSpan.Zero)
                     throw new ArgumentOutOfRangeException(
                         "The time must be positive.");
-                
+
                 if (value < _targetElapsedTime)
                     throw new ArgumentOutOfRangeException(
                         "The time must be at least TargetElapsedTime");
@@ -238,8 +238,8 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool IsMouseVisible
         {
-            get { return Platform.IsMouseVisible; }
-            set { Platform.IsMouseVisible = value; }
+            get => Platform.IsMouseVisible;
+            set => Platform.IsMouseVisible = value;
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentOutOfRangeException">Target elapsed time must be strictly larger than zero.</exception>
         public TimeSpan TargetElapsedTime
         {
-            get { return _targetElapsedTime; }
+            get => _targetElapsedTime;
             set
             {
                 // Give GamePlatform implementations an opportunity to override
@@ -280,8 +280,8 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool IsFixedTimeStep
         {
-            get { return _isFixedTimeStep; }
-            set { _isFixedTimeStep = value; }
+            get => _isFixedTimeStep;
+            set => _isFixedTimeStep = value;
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentNullException">If Content is set to <code>null</code>.</exception>
         public ContentManager Content
         {
-            get { return _content; }
+            get => _content;
             set
             {
                 ArgumentNullException.ThrowIfNull(value);

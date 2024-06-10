@@ -111,14 +111,8 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <returns><see cref="TouchLocation"/></returns>
         public TouchLocation this[int index]
         {
-            get
-            {
-                return Collection[index];
-            }
-            set
-            {
-                throw new NotSupportedException();
-            }
+            get => Collection[index];
+            set => throw new NotSupportedException();
         }
 
         /// <summary>

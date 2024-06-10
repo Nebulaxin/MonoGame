@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         public ConstantBuffer this[int index]
         {
-            get { return _buffers[index]; }
+            get => _buffers[index];
             set
             {
                 if (_buffers[index] == value)

@@ -14,25 +14,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
 		public ulong PackedValue
 		{
-			get
-			{
-				return packedValue;
-			}
-			set
-			{
-				packedValue = value;
-			}
+			get => packedValue;
+			set => packedValue = value;
 		}
 
 		private ulong packedValue;
 
-        /// <summary>
-        /// Initializes a new instance of this structure.
-        /// </summary>
-        /// <param name="x">The initial x-component value for this structure.</param>
-        /// <param name="y">The initial y-component value for this structure.</param>
-        /// <param name="z">The initial z-component value for this structure.</param>
-        /// <param name="w">The initial 2-component value for this structure.</param>
+		/// <summary>
+		/// Initializes a new instance of this structure.
+		/// </summary>
+		/// <param name="x">The initial x-component value for this structure.</param>
+		/// <param name="y">The initial y-component value for this structure.</param>
+		/// <param name="z">The initial z-component value for this structure.</param>
+		/// <param name="w">The initial 2-component value for this structure.</param>
 		public Rgba64(float x, float y, float z, float w)
 		{
 			packedValue = Pack(x, y, z, w);

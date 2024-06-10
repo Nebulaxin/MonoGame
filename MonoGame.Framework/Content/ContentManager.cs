@@ -642,16 +642,10 @@ namespace Microsoft.Xna.Framework.Content
         /// Gets or Sets the root directory that this ContentManager will search for assets in.
         /// </summary>
 		public string RootDirectory
-		{
-			get
-			{
-				return _rootDirectory;
-			}
-			set
-			{
-				_rootDirectory = value;
-			}
-		}
+        {
+            get => _rootDirectory;
+            set => _rootDirectory = value;
+        }
 
         internal string RootDirectoryFullPath => Path.Combine(TitleContainer.Location, RootDirectory);
 

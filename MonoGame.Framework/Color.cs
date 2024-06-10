@@ -321,13 +321,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte) (this._packedValue >> 16);
+                    return (byte)(this._packedValue >> 16);
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0xff00ffff) | ((uint)value << 16);
-            }
+            set => this._packedValue = (this._packedValue & 0xff00ffff) | ((uint)value << 16);
         }
 
         /// <summary>
@@ -343,10 +340,7 @@ namespace Microsoft.Xna.Framework
                     return (byte)(this._packedValue >> 8);
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0xffff00ff) | ((uint)value << 8);
-            }
+            set => this._packedValue = (this._packedValue & 0xffff00ff) | ((uint)value << 8);
         }
 
         /// <summary>
@@ -359,13 +353,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte) this._packedValue;
+                    return (byte)this._packedValue;
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0xffffff00) | value;
-            }
+            set => this._packedValue = (this._packedValue & 0xffffff00) | value;
         }
 
         /// <summary>
@@ -381,13 +372,10 @@ namespace Microsoft.Xna.Framework
                     return (byte)(this._packedValue >> 24);
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0x00ffffff) | ((uint)value << 24);
-            }
+            set => this._packedValue = (this._packedValue & 0x00ffffff) | ((uint)value << 24);
         }
-		
-	/// <summary>
+
+        /// <summary>
         /// Compares whether two <see cref="Color"/> instances are equal.
         /// </summary>
         /// <param name="a"><see cref="Color"/> instance on the left of the equal sign.</param>
@@ -1795,8 +1783,8 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public UInt32 PackedValue
         {
-            get { return _packedValue; }
-            set { _packedValue = value; }
+            get => _packedValue;
+            set => _packedValue = value;
         }
 
 

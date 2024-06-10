@@ -95,11 +95,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the <see cref="Graphics.GraphicsDevice"/> associated with this <see cref="GraphicsResource"/>.
         /// </summary>
 		public GraphicsDevice GraphicsDevice
-		{
-			get
-			{
-				return graphicsDevice;
-			}
+        {
+            get => graphicsDevice;
 
             internal set
             {
@@ -121,7 +118,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 _selfReference = new WeakReference(this);
                 graphicsDevice.AddResourceReference(_selfReference);
             }
-		}
+        }
 
         /// <summary>
         /// Gets a value that indicates whether the object is disposed.

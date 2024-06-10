@@ -62,14 +62,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public uint PackedValue
         {
-            get
-            {
-                return _packed;
-            }
-            set
-            {
-                _packed = value;
-            }
+            get => _packed;
+            set => _packed = value;
         }
 
         /// <inheritdoc />

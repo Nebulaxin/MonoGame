@@ -143,7 +143,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public char? DefaultCharacter
         {
-            get { return _defaultCharacter; }
+            get => _defaultCharacter;
             set
             {
                 // Get the default glyph index here once.

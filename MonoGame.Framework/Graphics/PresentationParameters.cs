@@ -62,8 +62,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public SurfaceFormat BackBufferFormat
         {
-            get { return backBufferFormat; }
-            set { backBufferFormat = value; }
+            get => backBufferFormat;
+            set => backBufferFormat = value;
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public int BackBufferHeight
         {
-            get { return backBufferHeight; }
-            set { backBufferHeight = value; }
+            get => backBufferHeight;
+            set => backBufferHeight = value;
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public int BackBufferWidth
         {
-            get { return backBufferWidth; }
-            set { backBufferWidth = value; }
+            get => backBufferWidth;
+            set => backBufferWidth = value;
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public IntPtr DeviceWindowHandle
         {
-            get { return deviceWindowHandle; }
-            set { deviceWindowHandle = value; }
+            get => deviceWindowHandle;
+            set => deviceWindowHandle = value;
         }
 
 #if WINDOWS_UAP
@@ -107,8 +107,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
 		public DepthFormat DepthStencilFormat
         {
-            get { return depthStencilFormat; }
-            set { depthStencilFormat = value; }
+            get => depthStencilFormat;
+            set => depthStencilFormat = value;
         }
 
         /// <summary>
@@ -116,20 +116,17 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool IsFullScreen
         {
-			get
-            {
-				 return isFullScreen;
-            }
+            get => isFullScreen;
             set
             {
-                isFullScreen = value;				
+                isFullScreen = value;
 #if IOS && !TVOS
 				UIApplication.SharedApplication.StatusBarHidden = isFullScreen;
 #endif
 
-			}
+            }
         }
-		
+
         /// <summary>
         /// If <code>true</code> the <see cref="GraphicsDevice"/> will do a mode switch
         /// when going to full screen mode. If <code>false</code> it will instead do a
@@ -137,8 +134,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool HardwareModeSwitch
         {
-            get { return hardwareModeSwitch; }
-            set { hardwareModeSwitch = value; }
+            get => hardwareModeSwitch;
+            set => hardwareModeSwitch = value;
         }
 
         /// <summary>
@@ -146,10 +143,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public int MultiSampleCount
         {
-            get { return multiSampleCount; }
-            set { multiSampleCount = value; }
+            get => multiSampleCount;
+            set => multiSampleCount = value;
         }
-		
+
         /// <summary>
         /// Get or set the presentation interval.
         /// </summary>

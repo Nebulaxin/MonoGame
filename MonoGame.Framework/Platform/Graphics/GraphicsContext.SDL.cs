@@ -15,14 +15,8 @@ namespace MonoGame.OpenGL
 
         public int SwapInterval
         {
-            get
-            {
-                return Sdl.GL.GetSwapInterval();
-            }
-            set
-            {
-                Sdl.GL.SetSwapInterval(value);
-            }
+            get => Sdl.GL.GetSwapInterval();
+            set => Sdl.GL.SetSwapInterval(value);
         }
 
         public bool IsDisposed => _disposed;

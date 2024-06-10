@@ -26,14 +26,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The default value is <see cref="CullMode.CullCounterClockwiseFace"/>
         /// </summary>
         public CullMode CullMode
-	    {
-	        get { return _cullMode; }
+        {
+            get => _cullMode;
             set
             {
                 ThrowIfBound();
                 _cullMode = value;
             }
-	    }
+        }
 
         /// <summary>
         /// Gets or Sets the depth bias for polygons, which is the amount of bias to apply to the depth of a primitive
@@ -45,28 +45,28 @@ namespace Microsoft.Xna.Framework.Graphics
         /// a polygon with a value of <c>1.0f</c> appears drawn in front of a polygon with a value of <c>0.0f</c>
         /// </remarks>
 	    public float DepthBias
-	    {
-	        get { return _depthBias; }
-	        set
-	        {
+        {
+            get => _depthBias;
+            set
+            {
                 ThrowIfBound();
                 _depthBias = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the fille mode, which defines how a triangle is filled during rendering.
         /// The default is <see cref="FillMode.Solid"/>.
         /// </summary>
 	    public FillMode FillMode
-	    {
-	        get { return _fillMode; }
-	        set
-	        {
+        {
+            get => _fillMode;
+            set
+            {
                 ThrowIfBound();
                 _fillMode = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that indicates whether multisample antialiasing is enabled.
@@ -78,14 +78,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// mutlisample buffer.  This property has no effect when rendering to a buffer that does not support multisampling.
         /// </remarks>
 	    public bool MultiSampleAntiAlias
-	    {
-	        get { return _multiSampleAntiAlias; }
-	        set
-	        {
+        {
+            get => _multiSampleAntiAlias;
+            set
+            {
                 ThrowIfBound();
                 _multiSampleAntiAlias = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that indicates whether scissor testing is enabled.
@@ -95,14 +95,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// contained within a <see cref="GraphicsDevice.ScissorRectangle">GraphicsDevice.ScissorRectangle</see>
         /// </remarks>
 	    public bool ScissorTestEnable
-	    {
-	        get { return _scissorTestEnable; }
-	        set
-	        {
+        {
+            get => _scissorTestEnable;
+            set
+            {
                 ThrowIfBound();
                 _scissorTestEnable = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a bias value that takes into account the slope of a polygon.  This bias value is applied to
@@ -120,21 +120,21 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <code>m = max( abs(delta z / delta x), abs(delta z / delta y) )</code>
         /// </remarks>
 	    public float SlopeScaleDepthBias
-	    {
-	        get { return _slopeScaleDepthBias; }
-	        set
-	        {
+        {
+            get => _slopeScaleDepthBias;
+            set
+            {
                 ThrowIfBound();
                 _slopeScaleDepthBias = value;
-	        }
-	    }
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that indicates whether depth clipping is enabled.
         /// </summary>
         public bool DepthClipEnable
         {
-            get { return _depthClipEnable; }
+            get => _depthClipEnable;
             set
             {
                 ThrowIfBound();

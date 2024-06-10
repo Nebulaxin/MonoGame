@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </summary>
         public TimeSpan BufferDuration
         {
-            get { return _bufferDuration; }
+            get => _bufferDuration;
             set
             {
                 if (value.TotalMilliseconds < 100 || value.TotalMilliseconds > 1000)

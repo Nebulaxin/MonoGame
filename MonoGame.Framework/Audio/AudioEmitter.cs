@@ -30,12 +30,9 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>Defaults to 1.0</para>
         /// <para>A value of 1.0 leaves the Doppler effect unmodified.</para>
         /// </remarks>
-		public float DopplerScale 
+		public float DopplerScale
         {
-            get
-            {
-                return _dopplerScale;
-            }
+            get => _dopplerScale;
 
             set
             {
@@ -44,7 +41,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                 _dopplerScale = value;
             }
-		}
+        }
 
         /// <summary>Gets or sets the emitter's forward vector.</summary>
         /// <remarks>

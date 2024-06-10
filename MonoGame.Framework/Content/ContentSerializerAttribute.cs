@@ -41,10 +41,7 @@ namespace Microsoft.Xna.Framework.Content
 
                 return _collectionItemName;
             }
-            set
-            {
-                _collectionItemName = value;
-            }
+            set => _collectionItemName = value;
         }
 
         /// <summary>

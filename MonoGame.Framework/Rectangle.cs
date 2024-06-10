@@ -87,10 +87,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Point Location
         {
-            get
-            {
-                return new Point(this.X, this.Y);
-            }
+            get => new Point(this.X, this.Y);
             set
             {
                 X = value.X;
@@ -103,10 +100,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Point Size
         {
-            get
-            {
-                return new Point(this.Width, this.Height);
-            }
+            get => new Point(this.Width, this.Height);
             set
             {
                 Width = value.X;

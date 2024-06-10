@@ -47,12 +47,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public SamplerState this [int index]
         {
-			get
-            {
-                return _samplers[index];
-            }
+            get => _samplers[index];
 
-			set
+            set
             {
                 ArgumentNullException.ThrowIfNull(value);
 
@@ -83,7 +80,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 PlatformSetSamplerState(index);
             }
-		}
+        }
 
         internal void Clear()
         {

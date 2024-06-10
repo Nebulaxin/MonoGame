@@ -406,8 +406,8 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>Gets or sets the asset name of the SoundEffect.</summary>
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get => _name;
+            set => _name = value;
         }
 
         #endregion
@@ -422,9 +422,9 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>Each SoundEffectInstance has its own Volume property that is independent to SoundEffect.MasterVolume. During playback SoundEffectInstance.Volume is multiplied by SoundEffect.MasterVolume.</para>
         /// <para>This property is used to adjust the volume on all current and newly created SoundEffectInstances. The volume of an individual SoundEffectInstance can be adjusted on its own.</para>
         /// </remarks>
-        public static float MasterVolume 
-        { 
-            get { return _masterVolume; }
+        public static float MasterVolume
+        {
+            get => _masterVolume;
             set
             {
                 if (value < 0.0f || value > 1.0f)
@@ -432,7 +432,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                 if (_masterVolume == value)
                     return;
-                
+
                 _masterVolume = value;
                 SoundEffectInstancePool.UpdateMasterVolume();
             }
@@ -448,7 +448,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static float DistanceScale
         {
-            get { return _distanceScale; }
+            get => _distanceScale;
             set
             {
                 if (value <= 0f)
@@ -469,7 +469,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static float DopplerScale
         {
-            get { return _dopplerScale; }
+            get => _dopplerScale;
             set
             {
                 // As per documenation it does not look like the value can be less than 0
@@ -490,7 +490,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static float SpeedOfSound
         {
-            get { return speedOfSound; }
+            get => speedOfSound;
             set
             {
                 if (value <= 0.0f)

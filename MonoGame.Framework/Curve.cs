@@ -37,8 +37,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveLoopType PreLoop
         {
-            get { return this._preLoop; }
-            set { this._preLoop = value; }
+            get => this._preLoop;
+            set => this._preLoop = value;
         }
 
         /// <summary>
@@ -47,8 +47,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveLoopType PostLoop
         {
-            get { return this._postLoop; }
-            set { this._postLoop = value; }
+            get => this._postLoop;
+            set => this._postLoop = value;
         }
 
         /// <summary>

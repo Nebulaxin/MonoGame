@@ -17,18 +17,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// List of the meshes for this bone.
         /// </summary>
 		public List<ModelMesh> Meshes {
-			get {
-				return this.meshes;
-			}
-			private set {
-				meshes = value;
-			}
+			get => this.meshes;
+			private set => meshes = value;
 		}
 
-        /// <summary>
-        /// Gets a collection of bones that are children of this bone.
-        /// </summary>
-        public ModelBoneCollection Children { get; private set; }
+		/// <summary>
+		/// Gets a collection of bones that are children of this bone.
+		/// </summary>
+		public ModelBoneCollection Children { get; private set; }
 
         /// <summary>
         /// Gets the index of this bone in the <see cref="Model.Bones">Model.Bones</see> collection.
@@ -46,19 +42,20 @@ namespace Microsoft.Xna.Framework.Graphics
 		public ModelBone Parent { get; set; }
 
 		internal Matrix transform;
-        /// <summary>
-        /// Gets or sets the matrix used to transform this bone relative to its parent bone.
-        /// </summary>
-		public Matrix Transform 
-		{ 
-			get { return this.transform; } 
-			set { this.transform = value; }
+		/// <summary>
+		/// Gets or sets the matrix used to transform this bone relative to its parent bone.
+		/// </summary>
+		public Matrix Transform
+		{
+			get => this.transform;
+			set => this.transform = value;
 		}
-		
+
 		/// <summary>
 		/// Transform of this node from the root of the model not from the parent
 		/// </summary>
-		public Matrix ModelTransform {
+		public Matrix ModelTransform
+		{
 			get;
 			set;
 		}
