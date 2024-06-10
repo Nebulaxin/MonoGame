@@ -82,7 +82,7 @@ struct GLESVersion
 
     public override string ToString()
     {
-        return $"{Major}.{Minor == -1 ? 0 : Minor}";
+        return $"{Major}.{(Minor == -1 ? 0 : Minor)}";
     }
 
     internal static IEnumerable<GLESVersion> GetSupportedGLESVersions()
