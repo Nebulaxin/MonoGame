@@ -14,31 +14,31 @@ namespace MonoGame.Framework.Utilities
         /// </summary>
         public static MonoGamePlatform MonoGamePlatform =>
 #if ANDROID
-                return MonoGamePlatform.Android;
+                MonoGamePlatform.Android;
 #elif DESKTOPGL
                 MonoGamePlatform.DesktopGL;
 #elif IOS && !TVOS
-                return MonoGamePlatform.iOS;
+                MonoGamePlatform.iOS;
 #elif TVOS
-                return MonoGamePlatform.tvOS;
+                MonoGamePlatform.tvOS;
 #elif WEB
-                return MonoGamePlatform.WebGL;
+                MonoGamePlatform.WebGL;
 #elif WINDOWS && DIRECTX
-                return MonoGamePlatform.Windows;
+                MonoGamePlatform.Windows;
 #elif WINDOWS_UAP
-                return MonoGamePlatform.WindowsUniversal;
+                MonoGamePlatform.WindowsUniversal;
 #elif SWITCH
-                return MonoGamePlatform.NintendoSwitch;
+                MonoGamePlatform.NintendoSwitch;
 #elif XB1
-                return MonoGamePlatform.XboxOne;
+                MonoGamePlatform.XboxOne;
 #elif PLAYSTATION4
-                return MonoGamePlatform.PlayStation4;
+                MonoGamePlatform.PlayStation4;
 #elif PLAYSTATION5
-                return MonoGamePlatform.PlayStation5;
+                MonoGamePlatform.PlayStation5;
 #elif STADIA
-                return MonoGamePlatform.Stadia;
+                MonoGamePlatform.Stadia;
 #else
-                return PlatformGetMonoGamePlatform();
+                PlatformGetMonoGamePlatform();
 #endif
 
 
@@ -47,11 +47,11 @@ namespace MonoGame.Framework.Utilities
         /// </summary>
         public static GraphicsBackend GraphicsBackend =>
 #if DIRECTX
-                return GraphicsBackend.DirectX;
+                GraphicsBackend.DirectX;
 #elif OPENGL
                 GraphicsBackend.OpenGL;
 #else
-                return PlatformGetGraphicsBackend();
+                PlatformGetGraphicsBackend();
 #endif
 
     }
