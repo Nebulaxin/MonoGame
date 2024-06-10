@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>The offset in bytes.</value>
         public int Offset
         {
-            get { return _offset; }
+            readonly get { return _offset; }
             set { _offset = value; }
         }
 
@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>The data format.</value>
         public VertexElementFormat VertexElementFormat
         {
-            get { return _format; }
+            readonly get { return _format; }
             set { _format = value; }
         }
 
@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>The HLSL semantic of the element in the vertex shader input.</value>
         public VertexElementUsage VertexElementUsage
         {
-            get { return _usage; }
+            readonly get { return _usage; }
             set { _usage = value; }
         }
 
@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public int UsageIndex
         {
-            get { return _usageIndex; }
+            readonly get { return _usageIndex; }
             set { _usageIndex = value; }
         }
 
@@ -87,7 +87,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// A hash code for this instance, suitable for use in hashing algorithms and data
         /// structures like a hash table.
         /// </returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             // ReSharper disable NonReadonlyMemberInGetHashCode
 
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{Offset:" + _offset + " Format:" + _format + " Usage:" + _usage + " UsageIndex: " + _usageIndex + "}";
         }
@@ -124,7 +124,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <see langword="true"/> if the specified <see cref="object"/> is equal to this instance;
         /// otherwise, <see langword="false"/>.
         /// </returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return obj is VertexElement && Equals((VertexElement)obj);
         }
@@ -138,7 +138,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <see langword="true"/> if the specified <see cref="VertexElement"/> is equal to this
         /// instance; otherwise, <see langword="false"/>.
         /// </returns>
-        public bool Equals(VertexElement other)
+        public readonly bool Equals(VertexElement other)
         {
             return _offset == other._offset
                    && _format == other._format

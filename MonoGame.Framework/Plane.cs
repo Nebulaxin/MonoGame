@@ -138,7 +138,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="value">The <see cref="Vector4"/> to calculate the dot product with.</param>
         /// <returns>The dot product of the specified <see cref="Vector4"/> and this <see cref="Plane"/>.</returns>
-        public float Dot(Vector4 value) => (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
+        public readonly float Dot(Vector4 value) => (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
 
         /// <summary>
         /// Get the dot product of a <see cref="Vector4"/> with this <see cref="Plane"/>.
@@ -147,7 +147,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">
         /// The dot product of the specified <see cref="Vector4"/> and this <see cref="Plane"/>.
         /// </param>
-        public void Dot(ref Vector4 value, out float result)
+        public readonly void Dot(ref Vector4 value, out float result)
         {
             result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + (D * value.W);
         }
@@ -162,7 +162,7 @@ namespace Microsoft.Xna.Framework
         /// The dot product of the specified <see cref="Vector3"/> and the normal of this <see cref="Plane"/>
         /// plus the <see cref="D"/> value of this <see cref="Plane"/>.
         /// </returns>
-        public float DotCoordinate(Vector3 value) => (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
+        public readonly float DotCoordinate(Vector3 value) => (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
 
         /// <summary>
         /// Get the dot product of a <see cref="Vector3"/> with
@@ -174,7 +174,7 @@ namespace Microsoft.Xna.Framework
         /// The dot product of the specified <see cref="Vector3"/> and the normal of this <see cref="Plane"/>
         /// plus the <see cref="D"/> value of this <see cref="Plane"/>.
         /// </param>
-        public void DotCoordinate(ref Vector3 value, out float result)
+        public readonly void DotCoordinate(ref Vector3 value, out float result)
         {
             result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z) + D;
         }
@@ -187,7 +187,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>
         /// The dot product of the specified <see cref="Vector3"/> and the normal of this <see cref="Plane"/>.
         /// </returns>
-        public float DotNormal(Vector3 value) => (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z);
+        public readonly float DotNormal(Vector3 value) => (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z);
 
         /// <summary>
         /// Get the dot product of a <see cref="Vector3"/> with
@@ -197,7 +197,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">
         /// The dot product of the specified <see cref="Vector3"/> and the normal of this <see cref="Plane"/>.
         /// </param>
-        public void DotNormal(ref Vector3 value, out float result)
+        public readonly void DotNormal(ref Vector3 value, out float result)
         {
             result = (Normal.X * value.X) + (Normal.Y * value.Y) + (Normal.Z * value.Z);
         }
@@ -318,7 +318,7 @@ namespace Microsoft.Xna.Framework
         /// <code>true</code> if the specified <see cref="object"/> is equal to this <see cref="Plane"/>,
         /// <code>false</code> if it is not.
         /// </returns>
-        public override bool Equals(object other) => other is Plane plane && Equals(plane);
+        public override readonly bool Equals(object other) => other is Plane plane && Equals(plane);
 
         /// <summary>
         /// Check if this <see cref="Plane"/> is equal to another <see cref="Plane"/>.
@@ -328,13 +328,13 @@ namespace Microsoft.Xna.Framework
         /// <code>true</code> if the specified <see cref="Plane"/> is equal to this one,
         /// <code>false</code> if it is not.
         /// </returns>
-        public bool Equals(Plane other) => (Normal == other.Normal) && (D == other.D);
+        public readonly bool Equals(Plane other) => (Normal == other.Normal) && (D == other.D);
 
         /// <summary>
         /// Get a hash code for this <see cref="Plane"/>.
         /// </summary>
         /// <returns>A hash code for this <see cref="Plane"/>.</returns>
-        public override int GetHashCode() => Normal.GetHashCode() ^ D.GetHashCode();
+        public override readonly int GetHashCode() => Normal.GetHashCode() ^ D.GetHashCode();
 
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>
         /// The type of intersection of this <see cref="Plane"/> with the specified <see cref="BoundingBox"/>.
         /// </returns>
-        public PlaneIntersectionType Intersects(BoundingBox box) => box.Intersects(this);
+        public readonly PlaneIntersectionType Intersects(BoundingBox box) => box.Intersects(this);
 
         /// <summary>
         /// Check if this <see cref="Plane"/> intersects a <see cref="BoundingBox"/>.
@@ -362,7 +362,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>
         /// The type of intersection of this <see cref="Plane"/> with the specified <see cref="BoundingFrustum"/>.
         /// </returns>
-        public PlaneIntersectionType Intersects(BoundingFrustum frustum) => frustum.Intersects(this);
+        public readonly PlaneIntersectionType Intersects(BoundingFrustum frustum) => frustum.Intersects(this);
 
         /// <summary>
         /// Check if this <see cref="Plane"/> intersects a <see cref="BoundingSphere"/>.
@@ -371,7 +371,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>
         /// The type of intersection of this <see cref="Plane"/> with the specified <see cref="BoundingSphere"/>.
         /// </returns>
-        public PlaneIntersectionType Intersects(BoundingSphere sphere) => sphere.Intersects(this);
+        public readonly PlaneIntersectionType Intersects(BoundingSphere sphere) => sphere.Intersects(this);
 
         /// <summary>
         /// Check if this <see cref="Plane"/> intersects a <see cref="BoundingSphere"/>.
@@ -382,7 +382,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void Intersects(ref BoundingSphere sphere, out PlaneIntersectionType result) => sphere.Intersects(ref this, out result);
 
-        internal PlaneIntersectionType Intersects(ref Vector3 point)
+        internal readonly PlaneIntersectionType Intersects(ref Vector3 point)
         {
             DotCoordinate(ref point, out float distance);
 
@@ -395,20 +395,20 @@ namespace Microsoft.Xna.Framework
             return PlaneIntersectionType.Intersecting;
         }
 
-        internal string DebugDisplayString => $"{Normal.DebugDisplayString} {D}";
+        internal readonly string DebugDisplayString => $"{Normal.DebugDisplayString} {D}";
 
         /// <summary>
         /// Get a <see cref="string"/> representation of this <see cref="Plane"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Plane"/>.</returns>
-        public override string ToString() => $"{{{Normal}:{Normal} D:{D}}}";
+        public override readonly string ToString() => $"{{{Normal}:{Normal} D:{D}}}";
 
         /// <summary>
         /// Deconstruction method for <see cref="Plane"/>.
         /// </summary>
         /// <param name="normal"></param>
         /// <param name="d"></param>
-        public void Deconstruct(out Vector3 normal, out float d)
+        public readonly void Deconstruct(out Vector3 normal, out float d)
         {
             normal = Normal;
             d = D;
@@ -417,7 +417,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="System.Numerics.Plane"/>.
         /// </summary>
-        public System.Numerics.Plane ToNumerics() => new System.Numerics.Plane(Normal.X, Normal.Y, Normal.Z, D);
+        public readonly System.Numerics.Plane ToNumerics() => new(Normal.X, Normal.Y, Normal.Z, D);
 
         #endregion
 
@@ -427,7 +427,7 @@ namespace Microsoft.Xna.Framework
         /// Converts a <see cref="System.Numerics.Plane"/> to a <see cref="Plane"/>.
         /// </summary>
         /// <param name="value">The converted value.</param>
-        public static implicit operator Plane(System.Numerics.Plane value) => new Plane(value.Normal, value.D);
+        public static implicit operator Plane(System.Numerics.Plane value) => new(value.Normal, value.D);
 
         #endregion
     }

@@ -66,12 +66,12 @@ namespace Microsoft.Xna.Framework.Audio
             isPublic = (visibilityFlags & 0x2) != 0;
         }
 
-        internal void AddSound(XactSound sound)
+        internal readonly void AddSound(XactSound sound)
         {
             _sounds.Add(sound);
         }
 
-        internal int GetPlayingInstanceCount()
+        internal readonly int GetPlayingInstanceCount()
         {
             var sum = 0;
             for (var i = 0; i < _sounds.Count; i++)
@@ -82,7 +82,7 @@ namespace Microsoft.Xna.Framework.Audio
             return sum;
         }
 
-        internal XactSound GetOldestInstance()
+        internal readonly XactSound GetOldestInstance()
         {
             for (var i = 0; i < _sounds.Count; i++)
             {
@@ -95,12 +95,12 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>
         /// Gets the category's friendly name.
         /// </summary>
-        public string Name { get { return _name; } }
+        public readonly string Name { get { return _name; } }
 
         /// <summary>
         /// Pauses all associated sounds.
         /// </summary>
-        public void Pause()
+        public readonly void Pause()
         {
             foreach (var sound in _sounds)
                 sound.Pause();
@@ -109,7 +109,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>
         /// Resumes all associated paused sounds.
         /// </summary>
-        public void Resume()
+        public readonly void Resume()
         {
             foreach (var sound in _sounds)
                 sound.Resume();
@@ -118,7 +118,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>
         /// Stops all associated sounds.
         /// </summary>
-        public void Stop(AudioStopOptions options)
+        public readonly void Stop(AudioStopOptions options)
         {
             foreach (var sound in _sounds)
                 sound.Stop(options);
@@ -129,7 +129,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </summary>
         /// <param name="volume">The new volume of the category.</param>
         /// <exception cref="ArgumentException">If the volume is less than zero.</exception>
-        public void SetVolume(float volume)
+        public readonly void SetVolume(float volume)
         {
             if (volume < 0)
                 throw new ArgumentException("The volume must be positive.");
@@ -172,7 +172,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </summary>
         /// <param name="other">AudioCategory to compare with this instance.</param>
         /// <returns>true if the objects are equal or false if they aren't</returns>
-        public bool Equals(AudioCategory other)
+        public readonly bool Equals(AudioCategory other)
         {
             return _engine == other._engine && _name.Equals(other._name, StringComparison.Ordinal);
         }
@@ -182,7 +182,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </summary>
         /// <param name="obj">Object to compare with this instance.</param>
         /// <returns>true if the objects are equal or false if they aren't.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is AudioCategory)
             {
@@ -197,7 +197,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// Gets the hash code for this instance.
         /// </summary>
         /// <returns>Hash code for this object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _name.GetHashCode() ^ _engine.GetHashCode();
         }
@@ -206,7 +206,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// Returns the name of this AudioCategory
         /// </summary>
         /// <returns>Friendly name of the AudioCategory</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return _name;
         }

@@ -75,7 +75,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Returns <see langword="true"/> if a touch device supports pressure.
         /// </summary>
-        public bool HasPressure
+        public readonly bool HasPressure
         {
             get
             {
@@ -86,7 +86,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Returns true if a device is available for use.
         /// </summary>
-        public bool IsConnected
+        public readonly bool IsConnected
         {
             get
             {
@@ -97,7 +97,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Returns the maximum number of touch locations tracked by the touch panel device.
         /// </summary>
-        public int MaximumTouchCount
+        public readonly int MaximumTouchCount
         {
             get
             {

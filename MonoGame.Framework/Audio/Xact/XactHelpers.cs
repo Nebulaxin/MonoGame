@@ -8,7 +8,7 @@ namespace Microsoft.Xna.Framework.Audio
 {
     static class XactHelpers
     {
-        static internal readonly Random Random = new Random();
+        static internal readonly Random Random = new();
 
         public static float ParseDecibels(byte decibles)
         {

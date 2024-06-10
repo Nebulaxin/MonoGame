@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public uint PackedValue
         {
-            get
+            readonly get
             {
                 return short2Packed;
             }
@@ -72,25 +72,25 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-		public override bool Equals(object obj)
+		public override readonly bool Equals(object obj)
         {
             return (obj is NormalizedShort2) && Equals((NormalizedShort2)obj);
         }
 
         /// <inheritdoc />
-        public bool Equals(NormalizedShort2 other)
+        public readonly bool Equals(NormalizedShort2 other)
         {
             return short2Packed.Equals(other.short2Packed);
         }
 
         /// <inheritdoc />
-		public override int GetHashCode()
+		public override readonly int GetHashCode()
         {
             return short2Packed.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return short2Packed.ToString("X");
         }
@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// Expands the packed representation to a <see cref="Vector2"/>.
         /// </summary>
         /// <returns>The expanded value.</returns>
-		public Vector2 ToVector2()
+		public readonly Vector2 ToVector2()
         {
             const float maxVal = 0x7FFF;
 
@@ -128,7 +128,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-		public Vector4 ToVector4()
+		public readonly Vector4 ToVector4()
         {
             const float maxVal = 0x7FFF;
 

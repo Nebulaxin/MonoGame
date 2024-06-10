@@ -48,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 return b;
             }
 
-            static public readonly CharComparer Default = new CharComparer();
+            static public readonly CharComparer Default = new();
         }
 
         /// <summary>
@@ -335,7 +335,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             public readonly int Length;
-            public char this[int index]
+            public readonly char this[int index]
             {
                 get
                 {
@@ -384,12 +384,12 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Returns an empty glyph.
             /// </summary>
-            public static readonly Glyph Empty = new Glyph();
+            public static readonly Glyph Empty = new();
 
             /// <summary>
             /// Returns a string representation of this <see cref="Glyph"/>.
             /// </summary>
-			public override string ToString()
+			public override readonly string ToString()
             {
                 return "CharacterIndex=" + Character + ", Glyph=" + BoundsInTexture + ", Cropping=" + Cropping + ", Kerning=" + LeftSideBearing + "," + Width + "," + RightSideBearing;
             }

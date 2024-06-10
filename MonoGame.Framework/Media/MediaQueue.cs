@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework.Media
     {
         List<Song> songs = [];
         private int _activeSongIndex = -1;
-        private Random random = new Random();
+        private Random random = new();
 
         /// <summary>
         /// Creates a new instance of <see cref="MediaQueue"/>.

@@ -25,7 +25,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Gets the type of the gesture.
         /// </summary>
-        public GestureType GestureType
+        public readonly GestureType GestureType
         {
             get
             {
@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Gets the starting time for this multi-touch gesture sample.
         /// </summary>
-        public TimeSpan Timestamp
+        public readonly TimeSpan Timestamp
         {
             get
             {
@@ -47,7 +47,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Gets the position of the first touch-point in the gesture sample.
         /// </summary>
-        public Vector2 Position
+        public readonly Vector2 Position
         {
             get
             {
@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Gets the position of the second touch-point in the gesture sample.
         /// </summary>
-        public Vector2 Position2
+        public readonly Vector2 Position2
         {
             get
             {
@@ -69,7 +69,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Gets the delta information for the first touch-point in the gesture sample.
         /// </summary>
-        public Vector2 Delta
+        public readonly Vector2 Delta
         {
             get
             {
@@ -80,7 +80,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Gets the delta information for the second touch-point in the gesture sample.
         /// </summary>
-        public Vector2 Delta2
+        public readonly Vector2 Delta2
         {
             get
             {

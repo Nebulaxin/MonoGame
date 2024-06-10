@@ -21,17 +21,17 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector3 zero = new Vector3(0f, 0f, 0f);
-        private static readonly Vector3 one = new Vector3(1f, 1f, 1f);
-        private static readonly Vector3 unitX = new Vector3(1f, 0f, 0f);
-        private static readonly Vector3 unitY = new Vector3(0f, 1f, 0f);
-        private static readonly Vector3 unitZ = new Vector3(0f, 0f, 1f);
-        private static readonly Vector3 up = new Vector3(0f, 1f, 0f);
-        private static readonly Vector3 down = new Vector3(0f, -1f, 0f);
-        private static readonly Vector3 right = new Vector3(1f, 0f, 0f);
-        private static readonly Vector3 left = new Vector3(-1f, 0f, 0f);
-        private static readonly Vector3 forward = new Vector3(0f, 0f, -1f);
-        private static readonly Vector3 backward = new Vector3(0f, 0f, 1f);
+        private static readonly Vector3 zero = new(0f, 0f, 0f);
+        private static readonly Vector3 one = new(1f, 1f, 1f);
+        private static readonly Vector3 unitX = new(1f, 0f, 0f);
+        private static readonly Vector3 unitY = new(0f, 1f, 0f);
+        private static readonly Vector3 unitZ = new(0f, 0f, 1f);
+        private static readonly Vector3 up = new(0f, 1f, 0f);
+        private static readonly Vector3 down = new(0f, -1f, 0f);
+        private static readonly Vector3 right = new(1f, 0f, 0f);
+        private static readonly Vector3 left = new(-1f, 0f, 0f);
+        private static readonly Vector3 forward = new(0f, 0f, -1f);
+        private static readonly Vector3 backward = new(0f, 0f, 1f);
 
         #endregion
 
@@ -151,7 +151,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -527,7 +527,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (!(obj is Vector3))
                 return false;
@@ -543,7 +543,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Vector3"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Vector3 other)
+        public readonly bool Equals(Vector3 other)
         {
             return X == other.X &&
                     Y == other.Y &&
@@ -589,7 +589,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Vector3"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Vector3"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -636,7 +636,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the length of this <see cref="Vector3"/>.
         /// </summary>
         /// <returns>The length of this <see cref="Vector3"/>.</returns>
-        public float Length()
+        public readonly float Length()
         {
             return MathF.Sqrt((X * X) + (Y * Y) + (Z * Z));
         }
@@ -645,7 +645,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the squared length of this <see cref="Vector3"/>.
         /// </summary>
         /// <returns>The squared length of this <see cref="Vector3"/>.</returns>
-        public float LengthSquared()
+        public readonly float LengthSquared()
         {
             return (X * X) + (Y * Y) + (Z * Z);
         }
@@ -1019,9 +1019,9 @@ namespace Microsoft.Xna.Framework
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Z:[<see cref="Z"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Vector3"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
-            StringBuilder sb = new StringBuilder(32);
+            StringBuilder sb = new(32);
             sb.Append("{X:");
             sb.Append(X);
             sb.Append(" Y:");
@@ -1315,7 +1315,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="z"></param>
-        public void Deconstruct(out float x, out float y, out float z)
+        public readonly void Deconstruct(out float x, out float y, out float z)
         {
             x = X;
             y = Y;
@@ -1325,7 +1325,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="System.Numerics.Vector3"/>.
         /// </summary>
-        public System.Numerics.Vector3 ToNumerics()
+        public readonly System.Numerics.Vector3 ToNumerics()
         {
             return new System.Numerics.Vector3(X, Y, Z);
         }

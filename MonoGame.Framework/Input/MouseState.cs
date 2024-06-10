@@ -124,7 +124,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="obj">The MouseState to compare.</param>
         /// <returns></returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is MouseState)
                 return this == (MouseState)obj;
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets the hash code for MouseState instance.
         /// </summary>
         /// <returns>Hash code of the object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -151,7 +151,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Returns a string describing the mouse state.
         /// </summary>
-        public override string ToString()
+        public override readonly string ToString()
         {
             string buttons;
             if (_buttons == 0)
@@ -196,7 +196,7 @@ namespace Microsoft.Xna.Framework.Input
                 }
             }
 
-            return  "[MouseState X=" + _x +
+            return "[MouseState X=" + _x +
                     ", Y=" + _y +
                     ", Buttons=" + buttons +
                     ", Wheel=" + _scrollWheelValue +
@@ -209,7 +209,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int X
         {
-            get
+            readonly get
             {
                 return _x;
             }
@@ -224,7 +224,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int Y
         {
-            get
+            readonly get
             {
                 return _y;
             }
@@ -237,7 +237,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets cursor position.
         /// </summary>
-        public Point Position
+        public readonly Point Position
         {
             get { return new Point(_x, _y); }
         }
@@ -247,7 +247,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState LeftButton
         {
-            get
+            readonly get
             {
                 return ((_buttons & LeftButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             }
@@ -269,7 +269,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState MiddleButton
         {
-            get
+            readonly get
             {
                 return ((_buttons & MiddleButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             }
@@ -291,7 +291,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState RightButton
         {
-            get
+            readonly get
             {
                 return ((_buttons & RightButtonFlag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             }
@@ -313,7 +313,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int ScrollWheelValue
         {
-            get
+            readonly get
             {
                 return _scrollWheelValue;
             }
@@ -325,7 +325,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public int HorizontalScrollWheelValue
         {
-            get
+            readonly get
             {
                 return _horizontalScrollWheelValue;
             }
@@ -337,7 +337,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState XButton1
         {
-            get
+            readonly get
             {
                 return ((_buttons & XButton1Flag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             }
@@ -359,7 +359,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         public ButtonState XButton2
         {
-            get
+            readonly get
             {
                 return ((_buttons & XButton2Flag) > 0) ? ButtonState.Pressed : ButtonState.Released;
             }

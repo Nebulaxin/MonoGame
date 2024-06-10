@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// The default initialized gamepad state.
         /// </summary>
-        public static readonly GamePadState Default = new GamePadState();
+        public static readonly GamePadState Default = new();
 
         /// <summary>
         /// Gets a value indicating if the controller is connected.
@@ -110,7 +110,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets the button mask along with 'virtual buttons' like LeftThumbstickLeft.
         /// </summary>
-        private Buttons GetVirtualButtons()
+        private readonly Buttons GetVirtualButtons()
         {
             var result = Buttons._buttons;
 
@@ -133,7 +133,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns><c>true</c>, if button was pressed, <c>false</c> otherwise.</returns>
         /// <param name="button">Buttons to query. Specify a single button, or combine multiple buttons using a bitwise OR operation.</param>
-        public bool IsButtonDown(Buttons button)
+        public readonly bool IsButtonDown(Buttons button)
         {
             if (button == Microsoft.Xna.Framework.Input.Buttons.None) return false;
             return (GetVirtualButtons() & button) == button;
@@ -144,7 +144,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns><c>true</c>, if button was released (not pressed), <c>false</c> otherwise.</returns>
         /// <param name="button">Buttons to query. Specify a single button, or combine multiple buttons using a bitwise OR operation.</param>
-        public bool IsButtonUp(Buttons button)
+        public readonly bool IsButtonUp(Buttons button)
         {
             return (GetVirtualButtons() & button) != button;
         }
@@ -184,7 +184,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <param name="obj">The <see cref="object"/> to compare with the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadState"/>.</param>
         /// <returns><c>true</c> if the specified <see cref="object"/> is equal to the current
         /// <see cref="T:Microsoft.Xna.Framework.Input.GamePadState"/>; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is GamePadState) && (this == (GamePadState)obj);
         }
@@ -194,7 +194,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -211,7 +211,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadState"/>.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadState"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             if (!IsConnected)
                 return "[GamePadState: IsConnected = 0]";

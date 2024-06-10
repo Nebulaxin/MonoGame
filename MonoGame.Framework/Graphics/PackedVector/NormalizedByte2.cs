@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ushort PackedValue
         {
-            get
+            readonly get
             {
                 return _packed;
             }
@@ -71,34 +71,34 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is NormalizedByte2) &&
                     ((NormalizedByte2)obj)._packed == _packed;
         }
 
         /// <inheritdoc />
-        public bool Equals(NormalizedByte2 other)
+        public readonly bool Equals(NormalizedByte2 other)
         {
             return _packed == other._packed;
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _packed.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return _packed.ToString("X");
         }
 
         private static ushort Pack(float x, float y)
         {
-            var byte2 = (((ushort) MathF.Round(MathHelper.Clamp(x, -1.0f, 1.0f) * 127.0f)) & 0xFF) << 0;
-            var byte1 = (((ushort) MathF.Round(MathHelper.Clamp(y, -1.0f, 1.0f) * 127.0f)) & 0xFF) << 8;
+            var byte2 = (((ushort)MathF.Round(MathHelper.Clamp(x, -1.0f, 1.0f) * 127.0f)) & 0xFF) << 0;
+            var byte1 = (((ushort)MathF.Round(MathHelper.Clamp(y, -1.0f, 1.0f) * 127.0f)) & 0xFF) << 8;
 
             return (ushort)(byte2 | byte1);
         }
@@ -109,7 +109,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(ToVector2(), 0.0f, 1.0f);
         }
@@ -118,11 +118,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// Expands the packed representation to a <see cref="Vector2"/>.
         /// </summary>
         /// <returns>The expanded value.</returns>
-        public Vector2 ToVector2()
+        public readonly Vector2 ToVector2()
         {
             return new Vector2(
-                ((sbyte) ((_packed >> 0) & 0xFF)) / 127.0f,
-                ((sbyte) ((_packed >> 8) & 0xFF)) / 127.0f);
+                ((sbyte)((_packed >> 0) & 0xFF)) / 127.0f,
+                ((sbyte)((_packed >> 8) & 0xFF)) / 127.0f);
         }
     }
 }

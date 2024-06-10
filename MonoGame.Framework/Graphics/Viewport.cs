@@ -28,7 +28,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int Height
         {
-            get
+            readonly get
             {
                 return height;
             }
@@ -44,7 +44,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public float MaxDepth
         {
-            get
+            readonly get
             {
                 return maxDepth;
             }
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public float MinDepth
         {
-            get
+            readonly get
             {
                 return minDepth;
             }
@@ -76,7 +76,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int Width
         {
-            get
+            readonly get
             {
                 return width;
             }
@@ -92,7 +92,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int Y
         {
-            get
+            readonly get
             {
                 return y;
 
@@ -109,7 +109,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int X
         {
-            get { return x; }
+            readonly get { return x; }
             set { x = value; }
         }
 
@@ -118,7 +118,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the aspect ratio of this <see cref="Viewport"/>, which is width / height. 
         /// </summary>
-        public float AspectRatio
+        public readonly float AspectRatio
         {
             get
             {
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Rectangle Bounds
         {
-            get
+            readonly get
             {
                 return new Rectangle(x, y, width, height);
             }
@@ -152,7 +152,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Returns the subset of the viewport that is guaranteed to be visible on a lower quality display.
         /// </summary>
-		public Rectangle TitleSafeArea
+		public readonly Rectangle TitleSafeArea
         {
             get { return GraphicsDevice.GetTitleSafeArea(x, y, width, height); }
         }
@@ -212,7 +212,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="view">The view <see cref="Matrix"/>.</param>
         /// <param name="world">The world <see cref="Matrix"/>.</param>
         /// <returns></returns>
-        public Vector3 Project(Vector3 source, Matrix projection, Matrix view, Matrix world)
+        public readonly Vector3 Project(Vector3 source, Matrix projection, Matrix view, Matrix world)
         {
             Matrix matrix = Matrix.Multiply(Matrix.Multiply(world, view), projection);
             Vector3 vector = Vector3.Transform(source, matrix);
@@ -241,7 +241,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="view">The view <see cref="Matrix"/>.</param>
         /// <param name="world">The world <see cref="Matrix"/>.</param>
         /// <returns></returns>
-        public Vector3 Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world)
+        public readonly Vector3 Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world)
         {
             Matrix matrix = Matrix.Invert(Matrix.Multiply(Matrix.Multiply(world, view), projection));
             source.X = ((source.X - x) / ((float)width) * 2f) - 1f;
@@ -270,7 +270,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Width:[<see cref="Width"/>] Height:[<see cref="Height"/>] MinDepth:[<see cref="MinDepth"/>] MaxDepth:[<see cref="MaxDepth"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Viewport"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{X:" + x + " Y:" + y + " Width:" + width + " Height:" + height + " MinDepth:" + minDepth + " MaxDepth:" + maxDepth + "}";
         }

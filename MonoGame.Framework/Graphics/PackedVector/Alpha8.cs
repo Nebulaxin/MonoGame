@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public byte PackedValue
         {
-            get
+            readonly get
             {
                 return packedValue;
             }
@@ -39,7 +39,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// Expands the packed representation to a <see cref="float">System.Single</see>
         /// </summary>
         /// <returns>The expanded value.</returns>
-        public float ToAlpha()
+        public readonly float ToAlpha()
         {
             return (float)(packedValue / 255.0f);
         }
@@ -51,7 +51,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(
                 0.0f,
@@ -62,25 +62,25 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is Alpha8) && Equals((Alpha8)obj);
         }
 
         /// <inheritdoc />
-        public bool Equals(Alpha8 other)
+        public readonly bool Equals(Alpha8 other)
         {
             return packedValue == other.packedValue;
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return (packedValue / 255.0f).ToString();
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return packedValue.GetHashCode();
         }

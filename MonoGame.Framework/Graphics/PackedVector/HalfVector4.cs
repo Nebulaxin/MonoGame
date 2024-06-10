@@ -53,7 +53,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(
                 HalfTypeHelper.Convert((ushort)packedValue),
@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ulong PackedValue
         {
-            get
+            readonly get
             {
                 return packedValue;
             }
@@ -76,25 +76,25 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return ToVector4().ToString();
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return packedValue.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is HalfVector4) && Equals((HalfVector4)obj);
         }
 
         /// <inheritdoc />
-        public bool Equals(HalfVector4 other)
+        public readonly bool Equals(HalfVector4 other)
         {
             return packedValue.Equals(other.packedValue);
         }

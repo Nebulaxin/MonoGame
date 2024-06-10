@@ -28,7 +28,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating the position of the left stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the left stick (thumbstick).</value>
-        public Vector2 Left
+        public readonly Vector2 Left
         {
             get { return _left; }
         }
@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating the position of the right stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the right stick (thumbstick).</value>
-        public Vector2 Right
+        public readonly Vector2 Right
         {
             get { return _right; }
         }
@@ -51,7 +51,7 @@ namespace Microsoft.Xna.Framework.Input
         public GamePadThumbSticks(Vector2 leftPosition, Vector2 rightPosition)
             : this(leftPosition, rightPosition, GamePadDeadZone.None, GamePadDeadZone.None)
         {
-            
+
         }
 
         internal GamePadThumbSticks(Vector2 leftPosition, Vector2 rightPosition, GamePadDeadZone leftDeadZoneMode, GamePadDeadZone rightDeadZoneMode) : this()
@@ -116,12 +116,12 @@ namespace Microsoft.Xna.Framework.Input
             return thumbstickPosition;
         }
 
-        private Vector2 ExcludeIndependentAxesDeadZone(Vector2 value, float deadZone)
+        private readonly Vector2 ExcludeIndependentAxesDeadZone(Vector2 value, float deadZone)
         {
             return new Vector2(ExcludeAxisDeadZone(value.X, deadZone), ExcludeAxisDeadZone(value.Y, deadZone));
         }
 
-        private float ExcludeAxisDeadZone(float value, float deadZone)
+        private readonly float ExcludeAxisDeadZone(float value, float deadZone)
         {
             if (value < -deadZone)
                 value += deadZone;
@@ -132,7 +132,7 @@ namespace Microsoft.Xna.Framework.Input
             return value / (1f - deadZone);
         }
 
-        private Vector2 ExcludeCircularDeadZone(Vector2 value, float deadZone)
+        private readonly Vector2 ExcludeCircularDeadZone(Vector2 value, float deadZone)
         {
             var originalLength = value.Length();
             if (originalLength <= deadZone)
@@ -168,7 +168,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="obj">An object to compare to this instance.</param>
         /// <returns>true if <paramref name="obj"/> is a <see cref="GamePadThumbSticks"/> and has the same value as this instance; otherwise, false.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is GamePadThumbSticks) && (this == (GamePadThumbSticks)obj);
         }
@@ -178,7 +178,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -190,7 +190,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadThumbSticks"/>.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadThumbSticks"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "[GamePadThumbSticks: Left=" + Left + ", Right=" + Right + "]";
         }

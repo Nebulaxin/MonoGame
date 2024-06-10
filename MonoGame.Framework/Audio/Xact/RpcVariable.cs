@@ -4,7 +4,7 @@
 
 namespace Microsoft.Xna.Framework.Audio
 {
-    struct RpcVariable 
+    struct RpcVariable
     {
         public string Name;
         public float Value;
@@ -13,22 +13,22 @@ namespace Microsoft.Xna.Framework.Audio
         public float MaxValue;
         public float MinValue;
 
-        public bool IsPublic
+        public readonly bool IsPublic
         {
             get { return (Flags & 0x1) != 0; }
         }
 
-        public bool IsReadOnly
+        public readonly bool IsReadOnly
         {
             get { return (Flags & 0x2) != 0; }
         }
 
-        public bool IsGlobal
+        public readonly bool IsGlobal
         {
             get { return (Flags & 0x4) == 0; }
         }
 
-        public bool IsReserved
+        public readonly bool IsReserved
         {
             get { return (Flags & 0x8) != 0; }
         }

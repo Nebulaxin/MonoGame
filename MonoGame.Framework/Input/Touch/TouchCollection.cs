@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
     {
         private readonly TouchLocation[] _collection;
 
-        private TouchLocation[] Collection
+        private readonly TouchLocation[] Collection
         {
             get { return _collection ?? EmptyLocationArray; }
         }
@@ -25,10 +25,10 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// States if a touch screen is available.
         /// </summary>
-        public bool IsConnected { get { return TouchPanel.GetCapabilities().IsConnected; } }
+        public readonly bool IsConnected { get { return TouchPanel.GetCapabilities().IsConnected; } }
 
         private static readonly TouchLocation[] EmptyLocationArray = [];
-        internal static readonly TouchCollection Empty = new TouchCollection(EmptyLocationArray);
+        internal static readonly TouchCollection Empty = new(EmptyLocationArray);
 
         #endregion
 
@@ -49,7 +49,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <param name="id"></param>
         /// <param name="touchLocation"></param>
         /// <returns></returns>
-        public bool FindById(int id, out TouchLocation touchLocation)
+        public readonly bool FindById(int id, out TouchLocation touchLocation)
         {
             for (var i = 0; i < Collection.Length; i++)
             {
@@ -70,7 +70,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// States if touch collection is read only.
         /// </summary>
-        public bool IsReadOnly
+        public readonly bool IsReadOnly
         {
             get { return true; }
         }
@@ -80,7 +80,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         /// <param name="item"><see cref="TouchLocation"/> to query.</param>
         /// <returns></returns>
-        public int IndexOf(TouchLocation item)
+        public readonly int IndexOf(TouchLocation item)
         {
             for (var i = 0; i < Collection.Length; i++)
             {
@@ -117,7 +117,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <returns><see cref="TouchLocation"/></returns>
         public TouchLocation this[int index]
         {
-            get
+            readonly get
             {
                 return Collection[index];
             }
@@ -149,7 +149,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         /// <param name="item">The <see cref="TouchLocation"/> item to query for.</param>
         /// <returns>Returns true if queried item is found, false otherwise.</returns>
-        public bool Contains(TouchLocation item)
+        public readonly bool Contains(TouchLocation item)
         {
             for (var i = 0; i < Collection.Length; i++)
             {
@@ -165,7 +165,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         /// <param name="array">The array to copy <see cref="TouchLocation"/> items.</param>
         /// <param name="arrayIndex">The starting index of the copy operation.</param>
-        public void CopyTo(TouchLocation[] array, int arrayIndex)
+        public readonly void CopyTo(TouchLocation[] array, int arrayIndex)
         {
             Collection.CopyTo(array, arrayIndex);
         }
@@ -173,7 +173,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Returns the number of <see cref="TouchLocation"/> items that exist in the collection.
         /// </summary>
-        public int Count
+        public readonly int Count
         {
             get
             {
@@ -195,7 +195,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// Returns an enumerator for the <see cref="TouchCollection"/>.
         /// </summary>
         /// <returns>Enumerable list of <see cref="TouchLocation"/> objects.</returns>
-        public Enumerator GetEnumerator()
+        public readonly Enumerator GetEnumerator()
         {
             return new Enumerator(this);
         }
@@ -204,7 +204,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// Returns an enumerator for the <see cref="TouchCollection"/>.
         /// </summary>
         /// <returns>Enumerable list of <see cref="TouchLocation"/> objects.</returns>
-        IEnumerator<TouchLocation> IEnumerable<TouchLocation>.GetEnumerator()
+        readonly IEnumerator<TouchLocation> IEnumerable<TouchLocation>.GetEnumerator()
         {
             return new Enumerator(this);
         }
@@ -213,7 +213,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// Returns an enumerator for the <see cref="TouchCollection"/>.
         /// </summary>
         /// <returns>Enumerable list of objects.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
+        readonly IEnumerator IEnumerable.GetEnumerator()
         {
             return new Enumerator(this);
         }
@@ -237,7 +237,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             /// <summary>
             /// Gets the current element in the TouchCollection.
             /// </summary>
-            public TouchLocation Current { get { return _collection[_position]; } }
+            public readonly TouchLocation Current { get { return _collection[_position]; } }
 
             /// <summary>
             /// Advances the enumerator to the next element of the TouchCollection.
@@ -253,7 +253,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             /// <summary>
             /// Immediately releases the unmanaged resources used by this object.
             /// </summary>
-            public void Dispose()
+            public readonly void Dispose()
             {
             }
 
@@ -261,7 +261,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
+            readonly object IEnumerator.Current
             {
                 get { return _collection[_position]; }
             }

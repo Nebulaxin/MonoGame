@@ -71,7 +71,7 @@ namespace Microsoft.Xna.Framework
         /// <code>true</code> if the specified <see cref="Ray"/> is equal to this <see cref="Ray"/>,
         /// <code>false</code> if it is not.
         /// </returns>
-        public bool Equals(Ray other)
+        public readonly bool Equals(Ray other)
         {
             return Position.Equals(other.Position) && Direction.Equals(other.Direction);
         }
@@ -80,7 +80,7 @@ namespace Microsoft.Xna.Framework
         /// Get a hash code for this <see cref="Ray"/>.
         /// </summary>
         /// <returns>A hash code for this <see cref="Ray"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return Position.GetHashCode() ^ Direction.GetHashCode();
         }
@@ -94,7 +94,7 @@ namespace Microsoft.Xna.Framework
         /// The distance along the ray of the intersection or <code>null</code> if this
         /// <see cref="Ray"/> does not intersect the <see cref="BoundingBox"/>.
         /// </returns>
-        public float? Intersects(BoundingBox box)
+        public readonly float? Intersects(BoundingBox box)
         {
             const float Epsilon = 1e-6f;
 
@@ -185,7 +185,7 @@ namespace Microsoft.Xna.Framework
         /// The distance along the ray of the intersection or <code>null</code> if this
         /// <see cref="Ray"/> does not intersect the <see cref="BoundingBox"/>.
         /// </param>
-        public void Intersects(ref BoundingBox box, out float? result)
+        public readonly void Intersects(ref BoundingBox box, out float? result)
         {
             result = Intersects(box);
         }
@@ -224,7 +224,7 @@ namespace Microsoft.Xna.Framework
         /// The distance along the ray of the intersection or <code>null</code> if this
         /// <see cref="Ray"/> does not intersect the <see cref="Plane"/>.
         /// </returns>
-        public float? Intersects(Plane plane)
+        public readonly float? Intersects(Plane plane)
         {
             Intersects(ref plane, out float? result);
             return result;
@@ -238,7 +238,7 @@ namespace Microsoft.Xna.Framework
         /// The distance along the ray of the intersection or <code>null</code> if this
         /// <see cref="Ray"/> does not intersect the <see cref="Plane"/>.
         /// </param>
-        public void Intersects(ref Plane plane, out float? result)
+        public readonly void Intersects(ref Plane plane, out float? result)
         {
             var den = Vector3.Dot(Direction, plane.Normal);
             if (Math.Abs(den) < 0.00001f)
@@ -326,7 +326,7 @@ namespace Microsoft.Xna.Framework
             return a.Equals(b);
         }
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -341,7 +341,7 @@ namespace Microsoft.Xna.Framework
         /// Get a <see cref="string"/> representation of this <see cref="Ray"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Ray"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{{Position:" + Position.ToString() + " Direction:" + Direction.ToString() + "}}";
         }
@@ -351,7 +351,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="position">Receives the start position of the ray.</param>
         /// <param name="direction">Receives the direction of the ray.</param>
-        public void Deconstruct(out Vector3 position, out Vector3 direction)
+        public readonly void Deconstruct(out Vector3 position, out Vector3 direction)
         {
             position = Position;
             direction = Direction;

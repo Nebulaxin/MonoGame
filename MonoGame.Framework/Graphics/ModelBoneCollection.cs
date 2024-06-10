@@ -91,7 +91,7 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Gets the current element in the ModelBoneCollection.
             /// </summary>
-            public ModelBone Current { get { return _collection[_position]; } }
+            public readonly ModelBone Current { get { return _collection[_position]; } }
 
             /// <summary>
             /// Advances the enumerator to the next element of the ModelBoneCollection.
@@ -107,7 +107,7 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Immediately releases the unmanaged resources used by this object.
             /// </summary>
-            public void Dispose()
+            public readonly void Dispose()
             {
             }
 
@@ -115,7 +115,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
+            readonly object IEnumerator.Current
             {
                 get { return _collection[_position]; }
             }

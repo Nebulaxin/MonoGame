@@ -45,7 +45,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ushort PackedValue
         {
-            get
+            readonly get
             {
                 return _packedValue;
             }
@@ -59,13 +59,10 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// Expands the packed representation of this structure to a <see cref="Vector3"/>.
         /// </summary>
         /// <returns>The expanded value.</returns>
-        public Vector3 ToVector3()
-        {
-            return new Vector3((float)(((_packedValue >> 11) & 0x1F) * (1.0f / 31.0f)),
+        public readonly Vector3 ToVector3() => new((float)(((_packedValue >> 11) & 0x1F) * (1.0f / 31.0f)),
                 (float)(((_packedValue >> 5) & 0x3F) * (1.0f / 63.0f)),
                 (float)((_packedValue & 0x1F) * (1.0f / 31.0f))
                 );
-        }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
@@ -76,13 +73,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(ToVector3(), 1.0f);
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj != null && (obj is Bgr565))
                 return this == (Bgr565)obj;
@@ -90,19 +87,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public bool Equals(Bgr565 other)
+        public readonly bool Equals(Bgr565 other)
         {
             return _packedValue == other._packedValue;
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return ToVector3().ToString();
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _packedValue.GetHashCode();
         }

@@ -31,13 +31,13 @@ namespace Microsoft.Xna.Framework.Graphics
             Position = position;
         }
 
-        VertexDeclaration IVertexType.VertexDeclaration
+        readonly VertexDeclaration IVertexType.VertexDeclaration
         {
             get { return VertexDeclaration; }
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return Position.GetHashCode();
         }
@@ -46,7 +46,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Retrieves a string representation of this object.
         /// </summary>
         /// <returns>String representation of this object.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{{Position:" + Position + "}}";
         }
@@ -84,7 +84,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns>
         /// <see langword="true"/> if the object is equal to the current vertex; <see langword="false"/> otherwise.
         /// </returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj == null)
             {
@@ -100,7 +100,7 @@ namespace Microsoft.Xna.Framework.Graphics
         static VertexPosition()
         {
             VertexElement[] elements = [new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0)];
-            VertexDeclaration declaration = new VertexDeclaration(elements);
+            VertexDeclaration declaration = new(elements);
             VertexDeclaration = declaration;
         }
     }

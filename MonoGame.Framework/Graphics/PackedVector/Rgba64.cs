@@ -14,7 +14,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		/// <inheritdoc />
 		public ulong PackedValue
 		{
-			get
+			readonly get
 			{
 				return packedValue;
 			}
@@ -50,7 +50,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
 		/// <inheritdoc />
-		public Vector4 ToVector4()
+		public readonly Vector4 ToVector4()
 		{
 			return new Vector4(
 				(float)(((packedValue) & 0xFFFF) / 65535.0f),
@@ -67,25 +67,25 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
 		/// <inheritdoc />
-		public override bool Equals(object obj)
+		public override readonly bool Equals(object obj)
 		{
 			return (obj is Rgba64) && Equals((Rgba64)obj);
 		}
 
 		/// <inheritdoc />
-		public bool Equals(Rgba64 other)
+		public readonly bool Equals(Rgba64 other)
 		{
 			return packedValue == other.packedValue;
 		}
 
 		/// <inheritdoc />
-		public override string ToString()
+		public override readonly string ToString()
 		{
 			return ToVector4().ToString();
 		}
 
 		/// <inheritdoc />
-		public override int GetHashCode()
+		public override readonly int GetHashCode()
 		{
 			return packedValue.GetHashCode();
 		}

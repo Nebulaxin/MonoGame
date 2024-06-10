@@ -51,7 +51,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// Expands the packed representation to a <see cref="Vector2"/>.
         /// </summary>
         /// <returns>The expanded value.</returns>
-        public Vector2 ToVector2()
+        public readonly Vector2 ToVector2()
         {
             Vector2 vector;
             vector.X = HalfTypeHelper.Convert((ushort)packedValue);
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             Vector2 vector = ToVector2();
             return new Vector4(vector.X, vector.Y, 0f, 1f);
@@ -69,7 +69,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public uint PackedValue
         {
-            get
+            readonly get
             {
                 return packedValue;
             }
@@ -80,25 +80,25 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return ToVector2().ToString();
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return packedValue.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is HalfVector2) && Equals((HalfVector2)obj);
         }
 
         /// <inheritdoc />
-        public bool Equals(HalfVector2 other)
+        public readonly bool Equals(HalfVector2 other)
         {
             return packedValue.Equals(other.packedValue);
         }

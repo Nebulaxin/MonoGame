@@ -146,7 +146,6 @@ namespace Microsoft.Xna.Framework.Graphics
 		/// if the parameter value has been changed.
         /// </summary>
         internal ulong StateKey { get; private set; }
-
         /// <summary>
         /// Property referenced by the DebuggerDisplayAttribute.
         /// </summary>
@@ -156,9 +155,9 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 var semanticStr = string.Empty;
                 if (!string.IsNullOrEmpty(Semantic))
-                    semanticStr = string.Concat(" <", Semantic, ">");
+                    semanticStr = $" <{Semantic}>";
 
-                return string.Concat("[", ParameterClass, " ", ParameterType, "]", semanticStr, " ", Name, " : ", GetDataValueString());
+                return $"[{ParameterClass} {ParameterType}]{semanticStr} {Name} : {GetDataValueString()}";
             }
         }
 

@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Point zeroPoint = new Point();
+        private static readonly Point zeroPoint = new();
 
         #endregion
 
@@ -52,7 +52,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -167,7 +167,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is Point) && Equals((Point)obj);
         }
@@ -177,7 +177,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Point"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Point other)
+        public readonly bool Equals(Point other)
         {
             return (X == other.X) && (Y == other.Y);
         }
@@ -186,7 +186,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Point"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Point"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -203,7 +203,7 @@ namespace Microsoft.Xna.Framework
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>]}
         /// </summary>
         /// <returns><see cref="string"/> representation of this <see cref="Point"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{X:" + X + " Y:" + Y + "}";
         }
@@ -213,7 +213,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <returns>A <see cref="Vector2"/> representation for this object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public Vector2 ToVector2()
+        public readonly Vector2 ToVector2()
         {
             return new Vector2(X, Y);
         }
@@ -223,7 +223,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public void Deconstruct(out int x, out int y)
+        public readonly void Deconstruct(out int x, out int y)
         {
             x = X;
             y = Y;

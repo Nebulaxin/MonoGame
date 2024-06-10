@@ -34,17 +34,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    "Center( ", Center.DebugDisplayString, " )  \r\n",
-                    "Radius( ", Radius.ToString(), " )"
-                    );
-            }
-        }
-
+        internal readonly string DebugDisplayString => $"Center({Center.DebugDisplayString}); Radius({Radius})";
         #endregion
 
         #region Constructors
@@ -252,7 +242,7 @@ namespace Microsoft.Xna.Framework
         public static void CreateFromBoundingBox(ref BoundingBox box, out BoundingSphere result)
         {
             // Find the center of the box.
-            Vector3 center = new Vector3((box.Min.X + box.Max.X) / 2.0f,
+            Vector3 center = new((box.Min.X + box.Max.X) / 2.0f,
                                          (box.Min.Y + box.Max.Y) / 2.0f,
                                          (box.Min.Z + box.Max.Z) / 2.0f);
 
@@ -409,7 +399,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="BoundingSphere"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(BoundingSphere other)
+        public readonly bool Equals(BoundingSphere other)
         {
             return Center == other.Center && Radius == other.Radius;
         }
@@ -419,7 +409,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is BoundingSphere)
                 return Equals((BoundingSphere)obj);
@@ -431,7 +421,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="BoundingSphere"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="BoundingSphere"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return Center.GetHashCode() + Radius.GetHashCode();
         }
@@ -443,7 +433,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="box">The box for testing.</param>
         /// <returns><c>true</c> if <see cref="BoundingBox"/> intersects with this sphere; <c>false</c> otherwise.</returns>
-        public bool Intersects(BoundingBox box)
+        public readonly bool Intersects(BoundingBox box)
         {
             return box.Intersects(this);
         }
@@ -532,7 +522,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="ray">The ray for testing.</param>
         /// <returns>Distance of ray intersection or <c>null</c> if there is no intersection.</returns>
-        public float? Intersects(Ray ray)
+        public readonly float? Intersects(Ray ray)
         {
             return ray.Intersects(this);
         }
@@ -554,7 +544,7 @@ namespace Microsoft.Xna.Framework
         /// {Center:[<see cref="Center"/>] Radius:[<see cref="Radius"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="BoundingSphere"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{Center:" + Center + " Radius:" + Radius + "}";
         }
@@ -566,9 +556,9 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
         /// <returns>Transformed <see cref="BoundingSphere"/>.</returns>
-        public BoundingSphere Transform(Matrix matrix)
+        public readonly BoundingSphere Transform(Matrix matrix)
         {
-            BoundingSphere sphere = new BoundingSphere();
+            BoundingSphere sphere = new();
             sphere.Center = Vector3.Transform(Center, matrix);
             sphere.Radius = Radius * MathF.Sqrt(Math.Max((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12) + (matrix.M13 * matrix.M13), Math.Max((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22) + (matrix.M23 * matrix.M23), (matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32) + (matrix.M33 * matrix.M33))));
             return sphere;
@@ -579,7 +569,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="matrix">The transformation <see cref="Matrix"/>.</param>
         /// <param name="result">Transformed <see cref="BoundingSphere"/> as an output parameter.</param>
-        public void Transform(ref Matrix matrix, out BoundingSphere result)
+        public readonly void Transform(ref Matrix matrix, out BoundingSphere result)
         {
             result.Center = Vector3.Transform(Center, matrix);
             result.Radius = Radius * MathF.Sqrt(Math.Max((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12) + (matrix.M13 * matrix.M13), Math.Max((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22) + (matrix.M23 * matrix.M23), (matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32) + (matrix.M33 * matrix.M33))));
@@ -592,7 +582,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="center"></param>
         /// <param name="radius"></param>
-        public void Deconstruct(out Vector3 center, out float radius)
+        public readonly void Deconstruct(out Vector3 center, out float radius)
         {
             center = Center;
             radius = Radius;

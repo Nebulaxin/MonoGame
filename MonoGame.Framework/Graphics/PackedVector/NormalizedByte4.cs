@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public uint PackedValue
         {
-            get
+            readonly get
             {
                 return _packed;
             }
@@ -73,36 +73,36 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
-            return  (obj is NormalizedByte4) &&
+            return (obj is NormalizedByte4) &&
                     ((NormalizedByte4)obj)._packed == _packed;
         }
 
         /// <inheritdoc />
-        public bool Equals(NormalizedByte4 other)
+        public readonly bool Equals(NormalizedByte4 other)
         {
             return _packed == other._packed;
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _packed.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return _packed.ToString("X");
         }
 
         private static uint Pack(float x, float y, float z, float w)
         {
-            var byte4 = (((uint) MathF.Round(MathHelper.Clamp(x, -1.0f, 1.0f) * 127.0f)) & 0xff) << 0;
-            var byte3 = (((uint) MathF.Round(MathHelper.Clamp(y, -1.0f, 1.0f) * 127.0f)) & 0xff) << 8;
-            var byte2 = (((uint) MathF.Round(MathHelper.Clamp(z, -1.0f, 1.0f) * 127.0f)) & 0xff) << 16;
-            var byte1 = (((uint) MathF.Round(MathHelper.Clamp(w, -1.0f, 1.0f) * 127.0f)) & 0xff) << 24;
+            var byte4 = (((uint)MathF.Round(MathHelper.Clamp(x, -1.0f, 1.0f) * 127.0f)) & 0xff) << 0;
+            var byte3 = (((uint)MathF.Round(MathHelper.Clamp(y, -1.0f, 1.0f) * 127.0f)) & 0xff) << 8;
+            var byte2 = (((uint)MathF.Round(MathHelper.Clamp(z, -1.0f, 1.0f) * 127.0f)) & 0xff) << 16;
+            var byte1 = (((uint)MathF.Round(MathHelper.Clamp(w, -1.0f, 1.0f) * 127.0f)) & 0xff) << 24;
 
             return byte4 | byte3 | byte2 | byte1;
         }
@@ -113,13 +113,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(
-                ((sbyte) ((_packed >> 0) & 0xFF)) / 127.0f,
-                ((sbyte) ((_packed >> 8) & 0xFF)) / 127.0f,
-                ((sbyte) ((_packed >> 16) & 0xFF)) / 127.0f,
-                ((sbyte) ((_packed >> 24) & 0xFF)) / 127.0f);
+                ((sbyte)((_packed >> 0) & 0xFF)) / 127.0f,
+                ((sbyte)((_packed >> 8) & 0xFF)) / 127.0f,
+                ((sbyte)((_packed >> 16) & 0xFF)) / 127.0f,
+                ((sbyte)((_packed >> 24) & 0xFF)) / 127.0f);
         }
     }
 }

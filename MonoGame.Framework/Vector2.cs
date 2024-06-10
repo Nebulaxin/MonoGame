@@ -21,10 +21,10 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector2 zeroVector = new Vector2(0f, 0f);
-        private static readonly Vector2 unitVector = new Vector2(1f, 1f);
-        private static readonly Vector2 unitXVector = new Vector2(1f, 0f);
-        private static readonly Vector2 unitYVector = new Vector2(0f, 1f);
+        private static readonly Vector2 zeroVector = new(0f, 0f);
+        private static readonly Vector2 unitVector = new(1f, 1f);
+        private static readonly Vector2 unitXVector = new(1f, 0f);
+        private static readonly Vector2 unitYVector = new(0f, 1f);
 
         #endregion
 
@@ -82,7 +82,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -538,7 +538,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Vector2)
             {
@@ -553,7 +553,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Vector2"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Vector2 other)
+        public readonly bool Equals(Vector2 other)
         {
             return (X == other.X) && (Y == other.Y);
         }
@@ -594,7 +594,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Vector2"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Vector2"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -635,7 +635,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the length of this <see cref="Vector2"/>.
         /// </summary>
         /// <returns>The length of this <see cref="Vector2"/>.</returns>
-        public float Length()
+        public readonly float Length()
         {
             return MathF.Sqrt((X * X) + (Y * Y));
         }
@@ -644,7 +644,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the squared length of this <see cref="Vector2"/>.
         /// </summary>
         /// <returns>The squared length of this <see cref="Vector2"/>.</returns>
-        public float LengthSquared()
+        public readonly float LengthSquared()
         {
             return (X * X) + (Y * Y);
         }
@@ -982,7 +982,7 @@ namespace Microsoft.Xna.Framework
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Vector2"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{X:" + X + " Y:" + Y + "}";
         }
@@ -991,7 +991,7 @@ namespace Microsoft.Xna.Framework
         /// Gets a <see cref="Point"/> representation for this object.
         /// </summary>
         /// <returns>A <see cref="Point"/> representation for this object.</returns>
-        public Point ToPoint()
+        public readonly Point ToPoint()
         {
             return new Point((int)X, (int)Y);
         }
@@ -1323,7 +1323,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public void Deconstruct(out float x, out float y)
+        public readonly void Deconstruct(out float x, out float y)
         {
             x = X;
             y = Y;
@@ -1332,7 +1332,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="System.Numerics.Vector2"/>.
         /// </summary>
-        public System.Numerics.Vector2 ToNumerics()
+        public readonly System.Numerics.Vector2 ToNumerics()
         {
             return new System.Numerics.Vector2(X, Y);
         }

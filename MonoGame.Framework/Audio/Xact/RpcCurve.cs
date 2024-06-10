@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework.Audio
         public RpcParameter Parameter;
         public RpcPoint[] Points;
 
-        public float Evaluate(float position)
+        public readonly float Evaluate(float position)
         {
             // TODO: We need to implement the different RpcPointTypes.
 
@@ -37,10 +37,10 @@ namespace Microsoft.Xna.Framework.Audio
             {
                 default:
                 case RpcPointType.Linear:
-                {
-                    var t = (position - first.Position) / (second.Position - first.Position);
-                    return first.Value + ((second.Value - first.Value) * t);
-                }
+                    {
+                        var t = (position - first.Position) / (second.Position - first.Position);
+                        return first.Value + ((second.Value - first.Value) * t);
+                    }
             }
         }
     }

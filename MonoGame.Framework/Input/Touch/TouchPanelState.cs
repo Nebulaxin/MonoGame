@@ -55,9 +55,9 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         private readonly Dictionary<int, int> _touchIds = [];
 
-        internal readonly Queue<GestureSample> GestureList = new Queue<GestureSample>();
+        internal readonly Queue<GestureSample> GestureList = new();
 
-        private TouchPanelCapabilities Capabilities = new TouchPanelCapabilities();
+        private TouchPanelCapabilities Capabilities = new();
 
 
         /// <summary>

@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// A default <see cref="JoystickState"/>.
         /// </summary>
-        private static JoystickState _defaultJoystickState = new JoystickState
+        private static JoystickState _defaultJoystickState = new()
         {
             IsConnected = false,
             Axes = [],

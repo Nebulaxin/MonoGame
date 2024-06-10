@@ -21,7 +21,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the the render target texture
         /// </summary>
-		public Texture RenderTarget
+		public readonly Texture RenderTarget
         {
             get { return _renderTarget; }
         }
@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         ///
         /// </summary>
-        public int ArraySlice
+        public readonly int ArraySlice
         {
             get { return _arraySlice; }
         }
@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the depth format specified for the render target
         /// </summary>
-        internal DepthFormat DepthFormat
+        internal readonly DepthFormat DepthFormat
         {
             get { return _depthFormat; }
         }

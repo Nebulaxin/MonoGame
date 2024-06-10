@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework.Graphics
         // Despite XNA4 using Purple here, we use black (in Release) to avoid
         // performance warnings on Intel/Mesa
 #if DEBUG
-        private static Color _discardColor = new Color(68, 34, 136, 255);
+        private static Color _discardColor = new(68, 34, 136, 255);
 #else
         private static Color _discardColor = new Color(0, 0, 0, 255);
 #endif
@@ -141,8 +141,8 @@ namespace Microsoft.Xna.Framework.Graphics
             get { return _pixelShaderDirty; }
         }
 
-        private readonly ConstantBufferCollection _vertexConstantBuffers = new ConstantBufferCollection(ShaderStage.Vertex, 16);
-        private readonly ConstantBufferCollection _pixelConstantBuffers = new ConstantBufferCollection(ShaderStage.Pixel, 16);
+        private readonly ConstantBufferCollection _vertexConstantBuffers = new(ShaderStage.Vertex, 16);
+        private readonly ConstantBufferCollection _pixelConstantBuffers = new(ShaderStage.Pixel, 16);
 
         /// <summary>
         /// The cache of effects from unique byte streams.
@@ -150,7 +150,7 @@ namespace Microsoft.Xna.Framework.Graphics
         internal Dictionary<int, Effect> EffectCache;
 
         // Resources may be added to and removed from the list from many threads.
-        private readonly object _resourcesLock = new object();
+        private readonly object _resourcesLock = new();
 
         // Use WeakReference for the global resources list as we do not know when a resource
         // may be disposed and collected. We do not want to prevent a resource from being

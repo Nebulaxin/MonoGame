@@ -242,7 +242,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <param name="obj">The <see cref="object"/> to compare with the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadCapabilities"/>.</param>
         /// <returns><c>true</c> if the specified <see cref="object"/> is equal to the current
         /// <see cref="T:Microsoft.Xna.Framework.Input.GamePadCapabilities"/>; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is GamePadCapabilities) && (this == (GamePadCapabilities)obj);
         }
@@ -252,7 +252,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return Identifier.GetHashCode();
         }
@@ -261,7 +261,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadCapabilities"/>.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadCapabilities"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "[GamePadCapabilities: IsConnected=" + IsConnected +
                 ", DisplayName=" + DisplayName +

@@ -35,7 +35,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			Color = color;
 		}
 
-		VertexDeclaration IVertexType.VertexDeclaration
+		readonly VertexDeclaration IVertexType.VertexDeclaration
 		{
 			get
 			{
@@ -44,7 +44,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		}
 
 		/// <inheritdoc/>
-		public override int GetHashCode()
+		public override readonly int GetHashCode()
 		{
 			unchecked
 			{
@@ -53,7 +53,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		}
 
 		/// <inheritdoc cref="VertexPosition.ToString()"/>
-		public override string ToString()
+		public override readonly string ToString()
 		{
 			return "{{Position:" + Position + " Color:" + Color + "}}";
 		}
@@ -85,7 +85,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		}
 
 		/// <inheritdoc cref="VertexPosition.Equals(object)"/>
-		public override bool Equals(object obj)
+		public override readonly bool Equals(object obj)
 		{
 			if (obj == null)
 			{
@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		static VertexPositionColor()
 		{
 			VertexElement[] elements = [new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0)];
-			VertexDeclaration declaration = new VertexDeclaration(elements);
+			VertexDeclaration declaration = new(elements);
 			VertexDeclaration = declaration;
 		}
 	}

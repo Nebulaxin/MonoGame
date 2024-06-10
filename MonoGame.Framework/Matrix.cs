@@ -197,7 +197,7 @@ namespace Microsoft.Xna.Framework
         /// </exception>
         public float this[int index]
         {
-            get
+            readonly get
             {
                 switch (index)
                 {
@@ -256,7 +256,7 @@ namespace Microsoft.Xna.Framework
         /// </exception>
         public float this[int row, int column]
         {
-            get
+            readonly get
             {
                 return this[(row * 4) + column];
             }
@@ -270,7 +270,7 @@ namespace Microsoft.Xna.Framework
         #endregion
 
         #region Private Members
-        private static Matrix identity = new Matrix(1f, 0f, 0f, 0f,
+        private static Matrix identity = new(1f, 0f, 0f, 0f,
                                                     0f, 1f, 0f, 0f,
                                                     0f, 0f, 1f, 0f,
                                                     0f, 0f, 0f, 1f);
@@ -283,7 +283,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Backward
         {
-            get
+            readonly get
             {
                 return new Vector3(M31, M32, M33);
             }
@@ -300,7 +300,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Down
         {
-            get
+            readonly get
             {
                 return new Vector3(-M21, -M22, -M23);
             }
@@ -317,7 +317,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Forward
         {
-            get
+            readonly get
             {
                 return new Vector3(-M31, -M32, -M33);
             }
@@ -342,7 +342,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Left
         {
-            get
+            readonly get
             {
                 return new Vector3(-M11, -M12, -M13);
             }
@@ -359,7 +359,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Right
         {
-            get
+            readonly get
             {
                 return new Vector3(M11, M12, M13);
             }
@@ -376,7 +376,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Translation
         {
-            get
+            readonly get
             {
                 return new Vector3(M41, M42, M43);
             }
@@ -393,7 +393,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Up
         {
-            get
+            readonly get
             {
                 return new Vector3(M21, M22, M23);
             }
@@ -1443,7 +1443,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="rotation">Rotation quaternion as an output parameter.</param>
         /// <param name="translation">Translation vector as an output parameter.</param>
         /// <returns><c>true</c> if matrix can be decomposed; <c>false</c> otherwise.</returns>
-        public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
+        public readonly bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
         {
             translation.X = M41;
             translation.Y = M42;
@@ -1463,7 +1463,7 @@ namespace Microsoft.Xna.Framework
                 return false;
             }
 
-            Matrix m1 = new Matrix(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
+            Matrix m1 = new(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
                                    M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
                                    M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
                                    0, 0, 0, 1);
@@ -1478,7 +1478,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Determinant of this <see cref="Matrix"/></returns>
         /// <remarks>See more about determinant here - http://en.wikipedia.org/wiki/Determinant.
         /// </remarks>
-        public float Determinant()
+        public readonly float Determinant()
         {
             float num22 = M11;
             float num21 = M12;
@@ -1618,7 +1618,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Matrix"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Matrix other)
+        public readonly bool Equals(Matrix other)
         {
             return (M11 == other.M11) && (M22 == other.M22) && (M33 == other.M33) && (M44 == other.M44) && (M12 == other.M12) && (M13 == other.M13) && (M14 == other.M14) && (M21 == other.M21) && (M23 == other.M23) && (M24 == other.M24) && (M31 == other.M31) && (M32 == other.M32) && (M34 == other.M34) && (M41 == other.M41) && (M42 == other.M42) && (M43 == other.M43);
         }
@@ -1628,7 +1628,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             bool flag = false;
             if (obj is Matrix)
@@ -1642,7 +1642,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Matrix"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Matrix"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return M11.GetHashCode() + M12.GetHashCode() + M13.GetHashCode() + M14.GetHashCode() + M21.GetHashCode() + M22.GetHashCode() + M23.GetHashCode() + M24.GetHashCode() + M31.GetHashCode() + M32.GetHashCode() + M33.GetHashCode() + M34.GetHashCode() + M41.GetHashCode() + M42.GetHashCode() + M43.GetHashCode() + M44.GetHashCode();
         }
@@ -2357,7 +2357,7 @@ namespace Microsoft.Xna.Framework
             result.M44 = matrix1.M44 - matrix2.M44;
         }
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -2382,7 +2382,7 @@ namespace Microsoft.Xna.Framework
         /// {M41:[<see cref="M41"/>] M42:[<see cref="M42"/>] M43:[<see cref="M43"/>] M44:[<see cref="M44"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Matrix"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{M11:" + M11 + " M12:" + M12 + " M13:" + M13 + " M14:" + M14 + "}"
                 + " {M21:" + M21 + " M22:" + M22 + " M23:" + M23 + " M24:" + M24 + "}"
@@ -2436,7 +2436,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="System.Numerics.Matrix4x4"/>.
         /// </summary>
-        public System.Numerics.Matrix4x4 ToNumerics()
+        public readonly System.Numerics.Matrix4x4 ToNumerics()
         {
             return new System.Numerics.Matrix4x4(
                 M11, M12, M13, M14,

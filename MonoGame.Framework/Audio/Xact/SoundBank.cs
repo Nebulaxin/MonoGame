@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                         var oldPosition = stream.Position;
                         stream.Seek(soundOffset, SeekOrigin.Begin);
-                        XactSound sound = new XactSound(audioEngine, this, reader);
+                        XactSound sound = new(audioEngine, this, reader);
                         stream.Seek(oldPosition, SeekOrigin.Begin);
 
                         _sounds.Add(cueNames[i], [sound]);
@@ -123,7 +123,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                             var oldPosition = stream.Position;
                             stream.Seek(soundOffset, SeekOrigin.Begin);
-                            XactSound sound = new XactSound(audioEngine, this, reader);
+                            XactSound sound = new(audioEngine, this, reader);
                             stream.Seek(oldPosition, SeekOrigin.Begin);
 
                             _sounds.Add(cueNames[numSimpleCues + i], [sound]);

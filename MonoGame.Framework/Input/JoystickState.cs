@@ -69,7 +69,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <param name="obj">The <see cref="object"/> to compare with the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.</param>
         /// <returns><c>true</c> if the specified <see cref="object"/> is equal to the current
         /// <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is JoystickState) && (this == (JoystickState)obj);
         }
@@ -79,7 +79,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             var hash = 0;
 
@@ -105,7 +105,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.JoystickState"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             var ret = new StringBuilder(54 - 2 + Axes.Length * 7 + Buttons.Length + Hats.Length * 5);
             ret.Append("[JoystickState: IsConnected=" + (IsConnected ? 1 : 0));

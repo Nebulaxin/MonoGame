@@ -47,7 +47,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ushort PackedValue
         {
-            get
+            readonly get
             {
                 return _packedValue;
             }
@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             const float maxVal = 1 / 15.0f;
 
@@ -75,7 +75,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj != null && (obj is Bgra4444))
                 return this == (Bgra4444)obj;
@@ -83,19 +83,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public bool Equals(Bgra4444 other)
+        public readonly bool Equals(Bgra4444 other)
         {
             return _packedValue == other._packedValue;
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return ToVector4().ToString();
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _packedValue.GetHashCode();
         }

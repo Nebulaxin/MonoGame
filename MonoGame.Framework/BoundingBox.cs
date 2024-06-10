@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework
         ///   A value indicating if this <see cref="BoundingBox"/> contains,
         ///   intersects with or is disjoint with <paramref name="box"/>.
         /// </returns>
-        public ContainmentType Contains(BoundingBox box)
+        public readonly ContainmentType Contains(BoundingBox box)
         {
             //test if all corner is in the same side of a face by just checking min and max
             if (box.Max.X < Min.X
@@ -96,7 +96,7 @@ namespace Microsoft.Xna.Framework
         ///   A value indicating if this <see cref="BoundingBox"/> contains,
         ///   intersects with or is disjoint with <paramref name="box"/>.
         /// </param>
-        public void Contains(ref BoundingBox box, out ContainmentType result)
+        public readonly void Contains(ref BoundingBox box, out ContainmentType result)
         {
             result = Contains(box);
         }
@@ -109,7 +109,7 @@ namespace Microsoft.Xna.Framework
         ///   A value indicating if this <see cref="BoundingBox"/> contains,
         ///   intersects with or is disjoint with <paramref name="frustum"/>.
         /// </returns>
-        public ContainmentType Contains(BoundingFrustum frustum)
+        public readonly ContainmentType Contains(BoundingFrustum frustum)
         {
             //TODO: bad done here need a fix. 
             //Because question is not frustum contain box but reverse and this is not the same
@@ -156,7 +156,7 @@ namespace Microsoft.Xna.Framework
         ///   A value indicating if this <see cref="BoundingBox"/> contains,
         ///   intersects with or is disjoint with <paramref name="sphere"/>.
         /// </returns>
-        public ContainmentType Contains(BoundingSphere sphere)
+        public readonly ContainmentType Contains(BoundingSphere sphere)
         {
             if (sphere.Center.X - Min.X >= sphere.Radius
                 && sphere.Center.Y - Min.Y >= sphere.Radius
@@ -248,7 +248,7 @@ namespace Microsoft.Xna.Framework
         ///   A value indicating if this <see cref="BoundingBox"/> contains,
         ///   intersects with or is disjoint with <paramref name="sphere"/>.
         /// </param>
-        public void Contains(ref BoundingSphere sphere, out ContainmentType result)
+        public readonly void Contains(ref BoundingSphere sphere, out ContainmentType result)
         {
             result = Contains(sphere);
         }
@@ -261,7 +261,7 @@ namespace Microsoft.Xna.Framework
         ///   <see cref="ContainmentType.Contains"/> if this <see cref="BoundingBox"/> contains
         ///   <paramref name="point"/> or <see cref="ContainmentType.Disjoint"/> if it does not.
         /// </returns>
-        public ContainmentType Contains(Vector3 point)
+        public readonly ContainmentType Contains(Vector3 point)
         {
             Contains(ref point, out ContainmentType result);
             return result;
@@ -275,7 +275,7 @@ namespace Microsoft.Xna.Framework
         ///   <see cref="ContainmentType.Contains"/> if this <see cref="BoundingBox"/> contains
         ///   <paramref name="point"/> or <see cref="ContainmentType.Disjoint"/> if it does not.
         /// </param>
-        public void Contains(ref Vector3 point, out ContainmentType result)
+        public readonly void Contains(ref Vector3 point, out ContainmentType result)
         {
             //first we get if point is out of box
             if (point.X < Min.X
@@ -293,8 +293,8 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-        private static readonly Vector3 MaxVector3 = new Vector3(float.MaxValue);
-        private static readonly Vector3 MinVector3 = new Vector3(float.MinValue);
+        private static readonly Vector3 MaxVector3 = new(float.MaxValue);
+        private static readonly Vector3 MinVector3 = new(float.MinValue);
 
 
         /// <summary>
@@ -457,7 +457,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if <paramref name="other"/> is equal to this <see cref="BoundingBox"/>,
         ///   <code>false</code> if it is not.
         /// </returns>
-        public bool Equals(BoundingBox other)
+        public readonly bool Equals(BoundingBox other)
         {
             return (Min == other.Min) && (Max == other.Max);
         }
@@ -470,13 +470,13 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if <paramref name="obj"/> is equal to this <see cref="BoundingBox"/>,
         ///   <code>false</code> if it is not.
         /// </returns>
-        public override bool Equals(object obj) => obj is BoundingBox box && Equals(box);
+        public override readonly bool Equals(object obj) => obj is BoundingBox box && Equals(box);
 
         /// <summary>
         ///   Get an array of <see cref="Vector3"/> containing the corners of this <see cref="BoundingBox"/>.
         /// </summary>
         /// <returns>An array of <see cref="Vector3"/> containing the corners of this <see cref="BoundingBox"/>.</returns>
-        public Vector3[] GetCorners()
+        public readonly Vector3[] GetCorners()
         {
             return [
                 new Vector3(Min.X, Max.Y, Max.Z),
@@ -499,7 +499,7 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentOutOfRangeException">
         ///   If <paramref name="corners"/> has a length of less than 8.
         /// </exception>
-        public void GetCorners(Vector3[] corners)
+        public readonly void GetCorners(Vector3[] corners)
         {
             ArgumentNullException.ThrowIfNull(corners);
             if (corners.Length < 8)
@@ -536,7 +536,7 @@ namespace Microsoft.Xna.Framework
         ///   Get the hash code for this <see cref="BoundingBox"/>.
         /// </summary>
         /// <returns>A hash code for this <see cref="BoundingBox"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return Min.GetHashCode() + Max.GetHashCode();
         }
@@ -549,7 +549,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="box"/>,
         ///   <code>false</code> if it does not.
         /// </returns>
-        public bool Intersects(BoundingBox box)
+        public readonly bool Intersects(BoundingBox box)
         {
             Intersects(ref box, out bool result);
             return result;
@@ -563,7 +563,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="box"/>,
         ///   <code>false</code> if it does not.
         /// </param>
-        public void Intersects(ref BoundingBox box, out bool result)
+        public readonly void Intersects(ref BoundingBox box, out bool result)
         {
             if ((Max.X >= box.Min.X) && (Min.X <= box.Max.X))
             {
@@ -589,7 +589,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="frustum"/>,
         ///   <code>false</code> if it does not.
         /// </returns>
-        public bool Intersects(BoundingFrustum frustum)
+        public readonly bool Intersects(BoundingFrustum frustum)
         {
             return frustum.Intersects(this);
         }
@@ -602,7 +602,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="sphere"/>,
         ///   <code>false</code> if it does not.
         /// </returns>
-        public bool Intersects(BoundingSphere sphere)
+        public readonly bool Intersects(BoundingSphere sphere)
         {
             Intersects(ref sphere, out bool result);
             return result;
@@ -616,7 +616,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="sphere"/>,
         ///   <code>false</code> if it does not.
         /// </param>
-        public void Intersects(ref BoundingSphere sphere, out bool result)
+        public readonly void Intersects(ref BoundingSphere sphere, out bool result)
         {
             var squareDistance = 0.0f;
             var point = sphere.Center;
@@ -637,7 +637,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="plane"/>,
         ///   <code>false</code> if it does not.
         /// </returns>
-        public PlaneIntersectionType Intersects(Plane plane)
+        public readonly PlaneIntersectionType Intersects(Plane plane)
         {
             Intersects(ref plane, out PlaneIntersectionType result);
             return result;
@@ -651,7 +651,7 @@ namespace Microsoft.Xna.Framework
         ///   <code>true</code> if this <see cref="BoundingBox"/> intersects <paramref name="plane"/>,
         ///   <code>false</code> if it does not.
         /// </param>
-        public void Intersects(ref Plane plane, out PlaneIntersectionType result)
+        public readonly void Intersects(ref Plane plane, out PlaneIntersectionType result)
         {
             // See https://cgvr.informatik.uni-bremen.de/teaching/cg_literatur/lighthouse3d_view_frustum_culling/index.html
 
@@ -718,7 +718,7 @@ namespace Microsoft.Xna.Framework
         ///   The distance along the <see cref="Ray"/> to the intersection point or
         ///   <code>null</code> if the <see cref="Ray"/> does not intesect this <see cref="BoundingBox"/>.
         /// </returns>
-        public float? Intersects(Ray ray)
+        public readonly float? Intersects(Ray ray)
         {
             return ray.Intersects(this);
         }
@@ -731,7 +731,7 @@ namespace Microsoft.Xna.Framework
         ///   The distance along the <see cref="Ray"/> to the intersection point or
         ///   <code>null</code> if the <see cref="Ray"/> does not intesect this <see cref="BoundingBox"/>.
         /// </param>
-        public void Intersects(ref Ray ray, out float? result)
+        public readonly void Intersects(ref Ray ray, out float? result)
         {
             result = Intersects(ray);
         }
@@ -764,20 +764,20 @@ namespace Microsoft.Xna.Framework
             return !a.Equals(b);
         }
 
-        internal string DebugDisplayString => $"Min({Min.DebugDisplayString}); Max({Max.DebugDisplayString})";
+        internal readonly string DebugDisplayString => $"Min({Min.DebugDisplayString}); Max({Max.DebugDisplayString})";
 
         /// <summary>
         /// Get a <see cref="string"/> representation of this <see cref="BoundingBox"/>.
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="BoundingBox"/>.</returns>
-        public override string ToString() => $"{{Min:{Min} Max:{Max}}}";
+        public override readonly string ToString() => $"{{Min:{Min} Max:{Max}}}";
 
         /// <summary>
         /// Deconstruction method for <see cref="BoundingBox"/>.
         /// </summary>
         /// <param name="min"></param>
         /// <param name="max"></param>
-        public void Deconstruct(out Vector3 min, out Vector3 max)
+        public readonly void Deconstruct(out Vector3 min, out Vector3 max)
         {
             min = Min;
             max = Max;

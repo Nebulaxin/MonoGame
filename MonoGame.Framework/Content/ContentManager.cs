@@ -30,14 +30,14 @@ namespace Microsoft.Xna.Framework.Content
 
         private string _rootDirectory = string.Empty;
         private IServiceProvider serviceProvider;
-        private Dictionary<string, object> loadedAssets = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        private Dictionary<string, object> loadedAssets = new(StringComparer.OrdinalIgnoreCase);
         private List<IDisposable> disposableAssets = [];
         private bool disposed;
 
-        private static object ContentManagerLock = new object();
+        private static object ContentManagerLock = new();
         private static List<WeakReference> ContentManagers = [];
 
-        internal static readonly ByteBufferPool ScratchBufferPool = new ByteBufferPool(1024 * 1024, Environment.ProcessorCount);
+        internal static readonly ByteBufferPool ScratchBufferPool = new(1024 * 1024, Environment.ProcessorCount);
 
         private static readonly List<char> targetPlatformIdentifiers =
         [

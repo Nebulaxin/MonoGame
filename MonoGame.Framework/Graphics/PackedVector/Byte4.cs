@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public uint PackedValue
         {
-            get
+            readonly get
             {
                 return packedValue;
             }
@@ -73,7 +73,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Byte4)
                 return this == (Byte4)obj;
@@ -81,19 +81,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public bool Equals(Byte4 other)
+        public readonly bool Equals(Byte4 other)
         {
             return this == other;
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return packedValue.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return packedValue.ToString("x8");
         }
@@ -104,10 +104,10 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
             const float min = 0.0f;
 
             // clamp the value between min and max values
-            var byte4 = (uint) MathF.Round(MathHelper.Clamp(vector.X, min, max)) & 0xFF;
-            var byte3 = ((uint) MathF.Round(MathHelper.Clamp(vector.Y, min, max)) & 0xFF) << 0x8;
-            var byte2 = ((uint) MathF.Round(MathHelper.Clamp(vector.Z, min, max)) & 0xFF) << 0x10;
-            var byte1 = ((uint) MathF.Round(MathHelper.Clamp(vector.W, min, max)) & 0xFF) << 0x18;
+            var byte4 = (uint)MathF.Round(MathHelper.Clamp(vector.X, min, max)) & 0xFF;
+            var byte3 = ((uint)MathF.Round(MathHelper.Clamp(vector.Y, min, max)) & 0xFF) << 0x8;
+            var byte2 = ((uint)MathF.Round(MathHelper.Clamp(vector.Z, min, max)) & 0xFF) << 0x10;
+            var byte1 = ((uint)MathF.Round(MathHelper.Clamp(vector.W, min, max)) & 0xFF) << 0x18;
 
             return byte4 | byte3 | byte2 | byte1;
         }
@@ -119,7 +119,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(
                 (float)(packedValue & 0xFF),

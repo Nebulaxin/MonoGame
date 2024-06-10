@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework.Input
         private uint _keys0, _keys1, _keys2, _keys3, _keys4, _keys5, _keys6, _keys7;
         private byte _modifiers;
 
-        bool InternalGetKey(Keys key)
+        readonly bool InternalGetKey(Keys key)
         {
             uint mask = (uint)1 << (((int)key) & 0x1f);
 
@@ -157,7 +157,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets the current state of the Caps Lock key.
         /// </summary>
-        public bool CapsLock
+        public readonly bool CapsLock
         {
             get
             {
@@ -168,7 +168,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets the current state of the Num Lock key.
         /// </summary>
-        public bool NumLock
+        public readonly bool NumLock
         {
             get
             {
@@ -181,7 +181,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="key">The key to query.</param>
         /// <returns>The state of the key.</returns>
-        public KeyState this[Keys key]
+        public readonly KeyState this[Keys key]
         {
             get { return InternalGetKey(key) ? KeyState.Down : KeyState.Up; }
         }
@@ -191,7 +191,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="key">The key to query.</param>
         /// <returns>true if the key is pressed; false otherwise.</returns>
-        public bool IsKeyDown(Keys key)
+        public readonly bool IsKeyDown(Keys key)
         {
             return InternalGetKey(key);
         }
@@ -201,7 +201,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="key">The key to query.</param>
         /// <returns>true if the key is not pressed; false otherwise.</returns>
-        public bool IsKeyUp(Keys key)
+        public readonly bool IsKeyUp(Keys key)
         {
             return !InternalGetKey(key);
         }
@@ -215,7 +215,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns the number of pressed keys in this <see cref="KeyboardState"/>.
         /// </summary>
         /// <returns>An integer representing the number of keys currently pressed in this <see cref="KeyboardState"/>.</returns>
-        public int GetPressedKeyCount()
+        public readonly int GetPressedKeyCount()
         {
             uint count = CountBits(_keys0) + CountBits(_keys1) + CountBits(_keys2) + CountBits(_keys3)
                     + CountBits(_keys4) + CountBits(_keys5) + CountBits(_keys6) + CountBits(_keys7);
@@ -244,7 +244,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns an array of values holding keys that are currently being pressed.
         /// </summary>
         /// <returns>The keys that are currently being pressed.</returns>
-        public Keys[] GetPressedKeys()
+        public readonly Keys[] GetPressedKeys()
         {
             uint count = CountBits(_keys0) + CountBits(_keys1) + CountBits(_keys2) + CountBits(_keys3)
                     + CountBits(_keys4) + CountBits(_keys5) + CountBits(_keys6) + CountBits(_keys7);
@@ -270,7 +270,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="keys">The keys array to fill.
         /// This array is not cleared, and it must be equal to or larger than the number of keys pressed.</param>
-        public void GetPressedKeys(Keys[] keys)
+        public readonly void GetPressedKeys(Keys[] keys)
         {
             System.ArgumentNullException.ThrowIfNull(keys);
 
@@ -302,7 +302,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets the hash code for <see cref="KeyboardState"/> instance.
         /// </summary>
         /// <returns>Hash code of the object.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return (int)(_keys0 ^ _keys1 ^ _keys2 ^ _keys3 ^ _keys4 ^ _keys5 ^ _keys6 ^ _keys7);
         }
@@ -341,7 +341,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="obj">The <see cref="KeyboardState"/> to compare.</param>
         /// <returns>true if the provided <see cref="KeyboardState"/> instance is same with current; false otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return obj is KeyboardState && this == (KeyboardState)obj;
         }

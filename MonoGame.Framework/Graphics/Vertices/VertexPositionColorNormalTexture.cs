@@ -35,7 +35,7 @@ namespace Microsoft.Xna.Framework.Graphics
             TextureCoordinate = textureCoordinate;
         }
 
-        VertexDeclaration IVertexType.VertexDeclaration
+        readonly VertexDeclaration IVertexType.VertexDeclaration
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -57,7 +57,7 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <inheritdoc cref="VertexPosition.ToString()"/>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{{Position:" + Position + " Color:" + Color + " Normal:" + Normal + " TextureCoordinate:" + TextureCoordinate + "}}";
         }
@@ -89,7 +89,7 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <inheritdoc cref="VertexPosition.Equals(object)"/>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj == null)
                 return false;
@@ -104,10 +104,10 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             var elements = new VertexElement[]
             {
-                new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-                new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(16, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
-                new VertexElement(28, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
+                new(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+                new(12, VertexElementFormat.Color, VertexElementUsage.Color, 0),
+                new(16, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
+                new(28, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
             };
             VertexDeclaration = new VertexDeclaration(elements);
         }

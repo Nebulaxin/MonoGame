@@ -20,12 +20,12 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector4 zero = new Vector4();
-        private static readonly Vector4 one = new Vector4(1f, 1f, 1f, 1f);
-        private static readonly Vector4 unitX = new Vector4(1f, 0f, 0f, 0f);
-        private static readonly Vector4 unitY = new Vector4(0f, 1f, 0f, 0f);
-        private static readonly Vector4 unitZ = new Vector4(0f, 0f, 1f, 0f);
-        private static readonly Vector4 unitW = new Vector4(0f, 0f, 0f, 1f);
+        private static readonly Vector4 zero = new();
+        private static readonly Vector4 one = new(1f, 1f, 1f, 1f);
+        private static readonly Vector4 unitX = new(1f, 0f, 0f, 0f);
+        private static readonly Vector4 unitY = new(0f, 1f, 0f, 0f);
+        private static readonly Vector4 unitZ = new(0f, 0f, 1f, 0f);
+        private static readonly Vector4 unitW = new(0f, 0f, 0f, 1f);
 
         #endregion
 
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -493,7 +493,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is Vector4) ? this == (Vector4)obj : false;
         }
@@ -503,7 +503,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Vector4"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Vector4 other)
+        public readonly bool Equals(Vector4 other)
         {
             return W == other.W
                 && X == other.X
@@ -553,7 +553,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Vector4"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Vector4"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -603,7 +603,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the length of this <see cref="Vector4"/>.
         /// </summary>
         /// <returns>The length of this <see cref="Vector4"/>.</returns>
-        public float Length()
+        public readonly float Length()
         {
             return MathF.Sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W));
         }
@@ -612,7 +612,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the squared length of this <see cref="Vector4"/>.
         /// </summary>
         /// <returns>The squared length of this <see cref="Vector4"/>.</returns>
-        public float LengthSquared()
+        public readonly float LengthSquared()
         {
             return (X * X) + (Y * Y) + (Z * Z) + (W * W);
         }
@@ -1228,7 +1228,7 @@ namespace Microsoft.Xna.Framework
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Z:[<see cref="Z"/>] W:[<see cref="W"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Vector4"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
         }
@@ -1240,7 +1240,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <param name="w"></param>
-        public void Deconstruct(out float x, out float y, out float z, out float w)
+        public readonly void Deconstruct(out float x, out float y, out float z, out float w)
         {
             x = X;
             y = Y;
@@ -1251,7 +1251,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="System.Numerics.Vector4"/>.
         /// </summary>
-        public System.Numerics.Vector4 ToNumerics()
+        public readonly System.Numerics.Vector4 ToNumerics()
         {
             return new System.Numerics.Vector4(X, Y, Z, W);
         }

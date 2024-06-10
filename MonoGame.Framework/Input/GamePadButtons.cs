@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the button A is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the button A is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState A
+        public readonly ButtonState A
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the button B is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the button B is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState B
+        public readonly ButtonState B
         {
             get
             {
@@ -39,7 +39,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the button Back is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the button Back is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState Back
+        public readonly ButtonState Back
         {
             get
             {
@@ -51,7 +51,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the button X is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the button X is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState X
+        public readonly ButtonState X
         {
             get
             {
@@ -63,7 +63,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the button Y is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the button Y is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState Y
+        public readonly ButtonState Y
         {
             get
             {
@@ -75,7 +75,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the button Start is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the button Start is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState Start
+        public readonly ButtonState Start
         {
             get
             {
@@ -87,7 +87,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the left shoulder button is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the left shoulder button is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState LeftShoulder
+        public readonly ButtonState LeftShoulder
         {
             get
             {
@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the left stick button is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the left stick button is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState LeftStick
+        public readonly ButtonState LeftStick
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the right shoulder button is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the right shoulder button is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState RightShoulder
+        public readonly ButtonState RightShoulder
         {
             get
             {
@@ -123,7 +123,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the right stick button is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the right stick button is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState RightStick
+        public readonly ButtonState RightStick
         {
             get
             {
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating if the guide button is pressed.
         /// </summary>
         /// <value><see cref="ButtonState.Pressed"/> if the guide button is pressed; otherwise, <see cref="ButtonState.Released"/>.</value>
-        public ButtonState BigButton
+        public readonly ButtonState BigButton
         {
             get
             {
@@ -186,7 +186,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="obj">An object to compare to this instance.</param>
         /// <returns>true if <paramref name="obj"/> is a <see cref="GamePadButtons"/> and has the same value as this instance; otherwise, false.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is GamePadButtons) && (this == (GamePadButtons)obj);
         }
@@ -196,7 +196,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode ()
+        public override readonly int GetHashCode()
         {
             return (int)_buttons;
         }
@@ -205,7 +205,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadButtons"/>.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadButtons"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "[GamePadButtons:" +
                 " A=" + (int)A +

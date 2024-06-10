@@ -91,7 +91,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="obj">An object to compare to this instance.</param>
         /// <returns>true if <paramref name="obj"/> is a <see cref="GamePadDPad"/> and has the same value as this instance; otherwise, false.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is GamePadDPad) && (this == (GamePadDPad)obj);
         }
@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return
                 (Down == ButtonState.Pressed ? 1 : 0) +
@@ -115,7 +115,7 @@ namespace Microsoft.Xna.Framework.Input
         /// in a format of 0000 where each number represents a boolean value of each respecting object property: Left, Up, Right, Down.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadDPad"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "" + (int)Left + (int)Up + (int)Right + (int)Down;
         }

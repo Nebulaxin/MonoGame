@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <param name="obj">An object to compare to this instance.</param>
         /// <returns>true if <paramref name="obj"/> is a <see cref="GamePadTriggers"/> and has the same value as this instance; otherwise, false.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             return (obj is GamePadTriggers) && (this == (GamePadTriggers)obj);
         }
@@ -69,7 +69,7 @@ namespace Microsoft.Xna.Framework.Input
         /// </summary>
         /// <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
         /// hash table.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             unchecked
             {
@@ -81,7 +81,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Returns a <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadTriggers"/>.
         /// </summary>
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadTriggers"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "[GamePadTriggers: Left=" + Left + ", Right=" + Right + "]";
         }

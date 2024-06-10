@@ -21,42 +21,42 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Number of times Clear was called.
         /// </summary>
-        public long ClearCount { get { return _clearCount; } }
+        public readonly long ClearCount { get { return _clearCount; } }
 
         /// <summary>
         /// Number of times Draw was called.
         /// </summary>
-        public long DrawCount { get { return _drawCount; } }
+        public readonly long DrawCount { get { return _drawCount; } }
 
         /// <summary>
         /// Number of times the pixel shader was changed on the GPU.
         /// </summary>
-        public long PixelShaderCount { get { return _pixelShaderCount; } }
+        public readonly long PixelShaderCount { get { return _pixelShaderCount; } }
 
         /// <summary>
         /// Number of rendered primitives.
         /// </summary>
-        public long PrimitiveCount { get { return _primitiveCount; } }
+        public readonly long PrimitiveCount { get { return _primitiveCount; } }
 
         /// <summary>
         /// Number of sprites and text characters rendered via <see cref="SpriteBatch"/>.
         /// </summary>
-        public long SpriteCount { get { return _spriteCount; } }
+        public readonly long SpriteCount { get { return _spriteCount; } }
 
         /// <summary>
         /// Number of times a target was changed on the GPU.
         /// </summary>
-        public long TargetCount {get { return _targetCount; } }
+        public readonly long TargetCount { get { return _targetCount; } }
 
         /// <summary>
         /// Number of times a texture was changed on the GPU.
         /// </summary>
-        public long TextureCount { get { return _textureCount; } }
+        public readonly long TextureCount { get { return _textureCount; } }
 
         /// <summary>
         /// Number of times the vertex shader was changed on the GPU.
         /// </summary>
-        public long VertexShaderCount { get { return _vertexShaderCount; } }
+        public readonly long VertexShaderCount { get { return _vertexShaderCount; } }
 
         /// <summary>
         /// Returns the difference between two sets of metrics.
@@ -89,7 +89,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             return new GraphicsMetrics()
             {
-                _clearCount =  value1._clearCount + value2._clearCount,
+                _clearCount = value1._clearCount + value2._clearCount,
                 _drawCount = value1._drawCount + value2._drawCount,
                 _pixelShaderCount = value1._pixelShaderCount + value2._pixelShaderCount,
                 _primitiveCount = value1._primitiveCount + value2._primitiveCount,

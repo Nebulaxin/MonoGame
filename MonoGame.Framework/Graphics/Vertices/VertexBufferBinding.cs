@@ -19,7 +19,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the vertex buffer.
         /// </summary>
         /// <value>The vertex buffer.</value>
-        public VertexBuffer VertexBuffer
+        public readonly VertexBuffer VertexBuffer
         {
             get { return _vertexBuffer; }
         }
@@ -28,7 +28,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the index of the first vertex in the vertex buffer to use.
         /// </summary>
         /// <value>The index of the first vertex in the vertex buffer to use.</value>
-        public int VertexOffset
+        public readonly int VertexOffset
         {
             get { return _vertexOffset; }
         }
@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// buffer by one element. This value must be 0 for an element that contains per-vertex
         /// data and greater than 0 for per-instance data.
         /// </value>
-        public int InstanceFrequency
+        public readonly int InstanceFrequency
         {
             get { return _instanceFrequency; }
         }

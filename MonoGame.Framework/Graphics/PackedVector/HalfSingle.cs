@@ -25,7 +25,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ushort PackedValue
         {
-            get
+            readonly get
             {
                 return packedValue;
             }
@@ -39,7 +39,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// Expands the packed representation to a <see cref="float">System.Single</see>
         /// </summary>
         /// <returns>The expanded value.</returns>
-        public float ToSingle()
+        public readonly float ToSingle()
         {
             return HalfTypeHelper.Convert(packedValue);
         }
@@ -51,13 +51,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(ToSingle(), 0f, 0f, 1f);
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj != null && obj.GetType() == GetType())
             {
@@ -68,19 +68,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public bool Equals(HalfSingle other)
+        public readonly bool Equals(HalfSingle other)
         {
             return packedValue == other.packedValue;
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return ToSingle().ToString();
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return packedValue.GetHashCode();
         }

@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		/// <inheritdoc />
 		public uint PackedValue
 		{
-			get
+			readonly get
 			{
 				return _short2Packed;
 			}
@@ -72,7 +72,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
 		/// <inheritdoc />
-		public override bool Equals(object obj)
+		public override readonly bool Equals(object obj)
 		{
 			if (obj is Short2)
 				return this == (Short2)obj;
@@ -80,19 +80,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
 		/// <inheritdoc />
-		public bool Equals(Short2 other)
+		public readonly bool Equals(Short2 other)
 		{
 			return this == other;
 		}
 
 		/// <inheritdoc />
-		public override int GetHashCode()
+		public override readonly int GetHashCode()
 		{
 			return _short2Packed.GetHashCode();
 		}
 
 		/// <inheritdoc />
-		public override string ToString()
+		public override readonly string ToString()
 		{
 			return _short2Packed.ToString("x8");
 		}
@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		/// Expands the packed representation to a <see cref="Vector2"/>.
 		/// </summary>
 		/// <returns>The expanded value.</returns>
-		public Vector2 ToVector2()
+		public readonly Vector2 ToVector2()
 		{
 			var v2 = new Vector2();
 			v2.X = (short)(_short2Packed & 0xFFFF);
@@ -128,7 +128,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
 		/// <inheritdoc />
-		public Vector4 ToVector4()
+		public readonly Vector4 ToVector4()
 		{
 			var v4 = new Vector4(0, 0, 0, 1);
 			v4.X = (short)(_short2Packed & 0xFFFF);

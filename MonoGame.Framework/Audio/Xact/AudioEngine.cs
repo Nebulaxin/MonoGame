@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         internal readonly RpcCurve[] RpcCurves;
 
-        internal readonly object UpdateLock = new object();
+        internal readonly object UpdateLock = new();
 
         internal RpcVariable[] CreateCueVariables()
         {

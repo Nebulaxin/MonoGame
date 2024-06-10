@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public ulong PackedValue
         {
-            get
+            readonly get
             {
                 return packedValue;
             }
@@ -73,7 +73,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Short4)
                 return this == (Short4)obj;
@@ -81,19 +81,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public bool Equals(Short4 other)
+        public readonly bool Equals(Short4 other)
         {
             return this == other;
         }
 
         /// <inheritdoc />
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return packedValue.GetHashCode();
         }
 
         /// <inheritdoc />
-        public override string ToString()
+        public override readonly string ToString()
         {
             return packedValue.ToString("x16");
         }
@@ -120,7 +120,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(
                 (short)(packedValue & 0xFFFF),

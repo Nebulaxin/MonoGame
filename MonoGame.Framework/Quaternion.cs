@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Quaternion _identity = new Quaternion(0, 0, 0, 1);
+        private static readonly Quaternion _identity = new(0, 0, 0, 1);
 
         #endregion
 
@@ -107,7 +107,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
+        internal readonly string DebugDisplayString
         {
             get
             {
@@ -559,7 +559,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public override bool Equals(object obj)
+        public override readonly bool Equals(object obj)
         {
             if (obj is Quaternion)
                 return Equals((Quaternion)obj);
@@ -571,7 +571,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Quaternion"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Quaternion other)
+        public readonly bool Equals(Quaternion other)
         {
             return X == other.X &&
                    Y == other.Y &&
@@ -585,7 +585,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Quaternion"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Quaternion"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return X.GetHashCode() + Y.GetHashCode() + Z.GetHashCode() + W.GetHashCode();
         }
@@ -630,7 +630,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the magnitude of the quaternion components.
         /// </summary>
         /// <returns>The magnitude of the quaternion components.</returns>
-        public float Length()
+        public readonly float Length()
         {
             return MathF.Sqrt((X * X) + (Y * Y) + (Z * Z) + (W * W));
         }
@@ -639,7 +639,7 @@ namespace Microsoft.Xna.Framework
         /// Returns the squared magnitude of the quaternion components.
         /// </summary>
         /// <returns>The squared magnitude of the quaternion components.</returns>
-        public float LengthSquared()
+        public readonly float LengthSquared()
         {
             return (X * X) + (Y * Y) + (Z * Z) + (W * W);
         }
@@ -657,7 +657,7 @@ namespace Microsoft.Xna.Framework
         {
             float num = amount;
             float num2 = 1f - num;
-            Quaternion quaternion = new Quaternion();
+            Quaternion quaternion = new();
             float num5 = (quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y) + (quaternion1.Z * quaternion2.Z) + (quaternion1.W * quaternion2.W);
             if (num5 >= 0f)
             {
@@ -999,7 +999,7 @@ namespace Microsoft.Xna.Framework
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Z:[<see cref="Z"/>] W:[<see cref="W"/>]}
         /// </summary>
         /// <returns>A <see cref="string"/> representation of this <see cref="Quaternion"/>.</returns>
-        public override string ToString()
+        public override readonly string ToString()
         {
             return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
         }
@@ -1008,7 +1008,7 @@ namespace Microsoft.Xna.Framework
         /// Gets a <see cref="Vector4"/> representation for this object.
         /// </summary>
         /// <returns>A <see cref="Vector4"/> representation for this object.</returns>
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(X, Y, Z, W);
         }
@@ -1020,7 +1020,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="y">The y coordinate in 3d-space.</param>
         /// <param name="z">The z coordinate in 3d-space.</param>
         /// <param name="w">The rotation component.</param>
-        public void Deconstruct(out float x, out float y, out float z, out float w)
+        public readonly void Deconstruct(out float x, out float y, out float z, out float w)
         {
             x = X;
             y = Y;
@@ -1031,7 +1031,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="System.Numerics.Quaternion"/>.
         /// </summary>
-        public System.Numerics.Quaternion ToNumerics()
+        public readonly System.Numerics.Quaternion ToNumerics()
         {
             return new System.Numerics.Quaternion(X, Y, Z, W);
         }

@@ -7,7 +7,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public class EffectParameterCollection : IEnumerable<EffectParameter>
     {
-        internal static readonly EffectParameterCollection Empty = new EffectParameterCollection([]);
+        internal static readonly EffectParameterCollection Empty = new([]);
 
         private readonly EffectParameter[] _parameters;
         private readonly Dictionary<string, int> _indexLookup;

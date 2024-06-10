@@ -108,18 +108,18 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             /// <inheritdoc/>
-            public EffectPass Current
+            public readonly EffectPass Current
             {
                 get { return _current; }
             }
 
             /// <inheritdoc cref="IDisposable.Dispose()"/>
-            public void Dispose()
+            public readonly void Dispose()
             {
 
             }
 
-            object System.Collections.IEnumerator.Current
+            readonly object System.Collections.IEnumerator.Current
             {
                 get
                 {

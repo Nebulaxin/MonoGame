@@ -317,7 +317,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public byte B
         {
-            get
+            readonly get
             {
                 unchecked
                 {
@@ -336,7 +336,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public byte G
         {
-            get
+            readonly get
             {
                 unchecked
                 {
@@ -355,7 +355,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public byte R
         {
-            get
+            readonly get
             {
                 unchecked
                 {
@@ -374,7 +374,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public byte A
         {
-            get
+            readonly get
             {
                 unchecked
                 {
@@ -413,7 +413,7 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Color"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Color"/>.</returns>
-        public override int GetHashCode()
+        public override readonly int GetHashCode()
         {
             return _packedValue.GetHashCode();
         }
@@ -1776,7 +1776,7 @@ namespace Microsoft.Xna.Framework
         /// Gets a <see cref="Vector3"/> representation for this object.
         /// </summary>
         /// <returns>A <see cref="Vector3"/> representation for this object.</returns>
-        public Vector3 ToVector3()
+        public readonly Vector3 ToVector3()
         {
             return new Vector3(R / 255.0f, G / 255.0f, B / 255.0f);
         }
@@ -1785,7 +1785,7 @@ namespace Microsoft.Xna.Framework
         /// Gets a <see cref="Vector4"/> representation for this object.
         /// </summary>
         /// <returns>A <see cref="Vector4"/> representation for this object.</returns>
-        public Vector4 ToVector4()
+        public readonly Vector4 ToVector4()
         {
             return new Vector4(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
         }
@@ -1795,23 +1795,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public uint PackedValue
         {
-            get { return _packedValue; }
+            readonly get { return _packedValue; }
             set { _packedValue = value; }
         }
 
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    R.ToString(), "  ",
-                    G.ToString(), "  ",
-                    B.ToString(), "  ",
-                    A.ToString()
-                );
-            }
-        }
+        internal readonly string DebugDisplayString => $"{R} {G} {B} {A}";
 
 
         /// <summary>
@@ -1819,20 +1808,7 @@ namespace Microsoft.Xna.Framework
         /// {R:[red] G:[green] B:[blue] A:[alpha]}
         /// </summary>
         /// <returns><see cref="string"/> representation of this <see cref="Color"/>.</returns>
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder(25);
-            sb.Append("{R:");
-            sb.Append(R);
-            sb.Append(" G:");
-            sb.Append(G);
-            sb.Append(" B:");
-            sb.Append(B);
-            sb.Append(" A:");
-            sb.Append(A);
-            sb.Append("}");
-            return sb.ToString();
-        }
+        public override readonly string ToString() => $"{{R:{R} G:{G} B:{B} A:{A}}}";
 
         /// <summary>
         /// Translate a non-premultipled alpha <see cref="Color"/> to a <see cref="Color"/> that contains premultiplied alpha.
@@ -1864,7 +1840,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         /// <param name="other">The <see cref="Color"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-        public bool Equals(Color other)
+        public readonly bool Equals(Color other)
         {
             return PackedValue == other.PackedValue;
         }
@@ -1877,7 +1853,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="r">Red component value from 0 to 255.</param>
         /// <param name="g">Green component value from 0 to 255.</param>
         /// <param name="b">Blue component value from 0 to 255.</param>
-        public void Deconstruct(out byte r, out byte g, out byte b)
+        public readonly void Deconstruct(out byte r, out byte g, out byte b)
         {
             r = R;
             g = G;
@@ -1890,7 +1866,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="r">Red component value from 0.0f to 1.0f.</param>
         /// <param name="g">Green component value from 0.0f to 1.0f.</param>
         /// <param name="b">Blue component value from 0.0f to 1.0f.</param>
-        public void Deconstruct(out float r, out float g, out float b)
+        public readonly void Deconstruct(out float r, out float g, out float b)
         {
             r = R / 255f;
             g = G / 255f;
@@ -1904,7 +1880,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="g">Green component value from 0 to 255.</param>
         /// <param name="b">Blue component value from 0 to 255.</param>
         /// <param name="a">Alpha component value from 0 to 255.</param>
-        public void Deconstruct(out byte r, out byte g, out byte b, out byte a)
+        public readonly void Deconstruct(out byte r, out byte g, out byte b, out byte a)
         {
             r = R;
             g = G;
@@ -1919,7 +1895,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="g">Green component value from 0.0f to 1.0f.</param>
         /// <param name="b">Blue component value from 0.0f to 1.0f.</param>
         /// <param name="a">Alpha component value from 0.0f to 1.0f.</param>
-        public void Deconstruct(out float r, out float g, out float b, out float a)
+        public readonly void Deconstruct(out float r, out float g, out float b, out float a)
         {
             r = R / 255f;
             g = G / 255f;
