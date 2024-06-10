@@ -38,5 +38,3 @@ public interface IPackedVector<TPacked> : IPackedVector
 
 
 
-
-

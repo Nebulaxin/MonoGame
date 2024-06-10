@@ -231,5 +231,3 @@ public struct Point : IEquatable<Point>
     #endregion
 }
 
-
-

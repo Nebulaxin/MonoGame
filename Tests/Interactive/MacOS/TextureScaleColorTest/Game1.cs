@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-
-
 namespace MonoTest
 {
 	public class Game1 : Microsoft.Xna.Framework.Game
@@ -24,7 +22,7 @@ namespace MonoTest
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-			graphics.PreferredBackBufferWidth =  640;;
+			graphics.PreferredBackBufferWidth = 640; ;
 			graphics.PreferredBackBufferHeight = 480;
 			graphics.IsFullScreen = false;
 		}
@@ -48,8 +46,8 @@ namespace MonoTest
 
 			BlankTexture = Content.Load<Texture2D>("Blank");
 
-//			BlankTexture = new Texture2D(GraphicsDevice,1,1);
-//			BlankTexture.SetData(new Color[] {Color.White});
+			//			BlankTexture = new Texture2D(GraphicsDevice,1,1);
+			//			BlankTexture.SetData(new Color[] {Color.White});
 		}
 
 
@@ -65,15 +63,15 @@ namespace MonoTest
 			base.Draw(gameTime);
 			spriteBatch.Begin();
 			spriteBatch.Draw(BlankTexture,
-				new Vector2(100,100),
+				new Vector2(100, 100),
 				null,
 				Color.Green,
 				0,
 				Vector2.Zero,
-				new Vector2(400,240),
+				new Vector2(400, 240),
 				SpriteEffects.None,
 				0);
-            spriteBatch.DrawString(FontCalibri14, "There should be no transparency\nnear the corners?\n\nThis box should be solid green.", new Vector2(150,150), Color.Silver, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+			spriteBatch.DrawString(FontCalibri14, "There should be no transparency\nnear the corners?\n\nThis box should be solid green.", new Vector2(150, 150), Color.Silver, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
 			spriteBatch.End();
 		}
 	}

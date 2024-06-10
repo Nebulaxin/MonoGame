@@ -5,8 +5,8 @@ using NUnit.Framework;
 
 namespace MonoGame.Tests.Framework
 {
-// TODO: Mac implements its own GameWindow class that cannot 
-// be overloaded in MockWindow...  if you hate this hack, go fix it.
+    // TODO: Mac implements its own GameWindow class that cannot 
+    // be overloaded in MockWindow...  if you hate this hack, go fix it.
 #if !MONOMAC
 
     /// <summary>
@@ -26,8 +26,6 @@ namespace MonoGame.Tests.Framework
         {
             return TimeSpan.FromSeconds(frameNo / 60D);
         }
-
-
 
         [SetUp]
         public void SetUp()
@@ -286,7 +284,7 @@ namespace MonoGame.Tests.Framework
                 gt = GameTimeForFrame(frame);
                 TouchPanelState.CurrentTimestamp = gt;
             } while (gt < (TouchPanelState.TimeRequiredForHold + alreadyPassedTime));
-            
+
             //The last Update should have generated a hold
             Assert.True(_tps.IsGestureAvailable);
             gesture = _tps.ReadGesture();
@@ -320,7 +318,7 @@ namespace MonoGame.Tests.Framework
             {
                 Assert.False(_tps.IsGestureAvailable);
 
-                diff ++;
+                diff++;
                 frame++;
 
                 _tps.AddEvent(1, TouchLocationState.Moved, startPos + diff * diffVec);
@@ -601,14 +599,14 @@ namespace MonoGame.Tests.Framework
         public void EnableTapWhileDragging()
         {
             //Based on https://github.com/mono/MonoGame/pull/1543#issuecomment-15004057
-            
+
             var pos = new Vector2(10, 10);
 
             _tps.AddEvent(1, TouchLocationState.Pressed, pos);
             TouchPanelState.CurrentTimestamp = GameTimeForFrame(1);
 
             //Drag it a bit
-                        _tps.AddEvent(1, TouchLocationState.Moved, pos + new Vector2(40, 0));
+            _tps.AddEvent(1, TouchLocationState.Moved, pos + new Vector2(40, 0));
             TouchPanelState.CurrentTimestamp = GameTimeForFrame(1);
 
             _tps.EnabledGestures = GestureType.Tap;
@@ -724,7 +722,7 @@ namespace MonoGame.Tests.Framework
 
             Assert.AreEqual(GestureType.Flick, gesture.GestureType);
             Assert.AreEqual(Vector2.Zero, gesture.Position);
-            
+
             //And then the DragComplete
             Assert.True(_tps.IsGestureAvailable);
             gesture = _tps.ReadGesture();

@@ -20,5 +20,3 @@ public sealed class ContentSerializerIgnoreAttribute : Attribute
 {
 }
 
-
-

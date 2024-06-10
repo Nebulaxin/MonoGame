@@ -27,8 +27,6 @@ abstract class ElementSerializer<T> : ContentTypeSerializer<T>
 
     protected internal abstract void Serialize(T value, List<string> results);
 
-
-
     protected internal void Deserialize(IntermediateReader input, List<T> results)
     {
         var elements = PackedElementsHelper.ReadElements(input);

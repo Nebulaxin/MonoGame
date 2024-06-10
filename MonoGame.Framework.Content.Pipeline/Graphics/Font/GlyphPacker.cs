@@ -146,5 +146,3 @@ internal static class GlyphPacker
     }
 }
 
-
-

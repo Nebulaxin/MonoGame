@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-
-
 namespace SoundTest
 {
 	public class Game1 : Microsoft.Xna.Framework.Game
@@ -20,19 +18,19 @@ namespace SoundTest
 		Texture2D tExplosion;
 		SoundEffect sExplosion;
 		Random rnd = new Random();
-		
+
 		class explosion
 		{
 			public Vector2 Position;
 			public float Size;
-			
+
 			public explosion(Vector2 pos)
 			{
 				Position = pos;
 				Size = 1f;
 			}
 		}
-		
+
 		List<explosion> Explosions = new List<explosion>();
 		TimeSpan timer = TimeSpan.Zero;
 		int Interval = 1000; //Milliseconds. The duration of the sound is about 1.5 sec.
@@ -41,7 +39,7 @@ namespace SoundTest
 		{
 			graphics = new GraphicsDeviceManager(this);
 			Content.RootDirectory = "Content";
-			graphics.PreferredBackBufferWidth =  1024;;
+			graphics.PreferredBackBufferWidth = 1024; ;
 			graphics.PreferredBackBufferHeight = 768;
 			graphics.IsFullScreen = false;
 		}
@@ -72,7 +70,7 @@ namespace SoundTest
 		{
 			base.Update(gameTime);
 			//update explosions
-			for (int i = 0; i<Explosions.Count;i++)
+			for (int i = 0; i < Explosions.Count; i++)
 			{
 				Explosions[i].Size -= 0.01f;
 				if (Explosions[i].Size < 0.1f)
@@ -81,15 +79,15 @@ namespace SoundTest
 					i--;
 				}
 			}
-			
+
 			//Check for next explosion
 			timer += gameTime.ElapsedGameTime;
 			if (timer.TotalMilliseconds > Interval)
 			{
 				timer = TimeSpan.Zero;
-				float x = rnd.Next(24,1000);
-				Explosions.Add(new explosion(new Vector2(x, rnd.Next(50,700))));
-				sExplosion.Play(1f, 1f, (x / 512f) -1);
+				float x = rnd.Next(24, 1000);
+				Explosions.Add(new explosion(new Vector2(x, rnd.Next(50, 700))));
+				sExplosion.Play(1f, 1f, (x / 512f) - 1);
 			}
 			//Check for exit
 			KeyboardState state = new KeyboardState();
@@ -106,7 +104,7 @@ namespace SoundTest
 			spriteBatch.Begin();
 			//Draw explosions
 			foreach (explosion e in Explosions)
-				spriteBatch.Draw(tExplosion, e.Position, null, Color.White, 0, Vector2.Zero,e.Size, SpriteEffects.None, 1);
+				spriteBatch.Draw(tExplosion, e.Position, null, Color.White, 0, Vector2.Zero, e.Size, SpriteEffects.None, 1);
 			spriteBatch.End();
 		}
 	}

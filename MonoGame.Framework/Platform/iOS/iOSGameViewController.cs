@@ -114,8 +114,6 @@ class iOSGameViewController :
     #endregion
 
 
-
-
     #region iOS 8 or newer
 
     public override void ViewWillTransitionToSize(CGSize toSize, IUIViewControllerTransitionCoordinator coordinator)
