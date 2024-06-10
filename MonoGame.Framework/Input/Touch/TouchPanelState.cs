@@ -170,8 +170,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         internal void AddHighResolutionTouchEvent(int id, TouchLocationState state, Vector2 position)
         {
             //Try to find the touch id.
-            int touchId;
-            if (!_touchIds.TryGetValue(id, out touchId))
+            if (!_touchIds.TryGetValue(id, out int touchId))
             {
                 return;
             }
@@ -213,8 +212,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             }
 
             // Try to find the touch id.
-            int touchId;
-            if (!_touchIds.TryGetValue(id, out touchId))
+            if (!_touchIds.TryGetValue(id, out int touchId))
             {
                 // If we got here that means either the device is sending
                 // us bad, out of order, or old touch events.  In any case
@@ -260,7 +258,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             var windowSize = new Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height);
 
             // Recalculate the touch scale.
-            _touchScale = new Vector2(  _displaySize.X / windowSize.X,
+            _touchScale = new Vector2(_displaySize.X / windowSize.X,
                                         _displaySize.Y / windowSize.Y);
         }
 
@@ -679,8 +677,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
             // Make sure this is a move event and that we have
             // a previous touch location.
-            TouchLocation prevTouch;
-            if (touch.State != TouchLocationState.Moved || !touch.TryGetPreviousLocation(out prevTouch))
+            if (touch.State != TouchLocationState.Moved || !touch.TryGetPreviousLocation(out TouchLocation prevTouch))
                 return;
 
             var delta = touch.Position - prevTouch.Position;
@@ -734,13 +731,11 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
         private void ProcessPinch(TouchLocation[] touches)
         {
-            TouchLocation prevPos0;
-            TouchLocation prevPos1;
 
-            if (!touches[0].TryGetPreviousLocation(out prevPos0))
+            if (!touches[0].TryGetPreviousLocation(out TouchLocation prevPos0))
                 prevPos0 = touches[0];
 
-            if (!touches[1].TryGetPreviousLocation(out prevPos1))
+            if (!touches[1].TryGetPreviousLocation(out TouchLocation prevPos1))
                 prevPos1 = touches[1];
 
             var delta0 = touches[0].Position - prevPos0.Position;

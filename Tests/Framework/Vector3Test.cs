@@ -64,23 +64,22 @@ namespace MonoGame.Tests.Framework
             var v2 = new Vector3(1, 2, 3);
             var q1 = new Quaternion(2, 3, 4, 5);
 
-            Vector3 result1;
-            Vector3 result2;
 
             Assert.That(expectedResult1, Is.EqualTo(Vector3.Transform(v1, m1)).Using(Vector3Comparer.Epsilon));
             Assert.That(expectedResult2, Is.EqualTo(Vector3.Transform(v2, q1)).Using(Vector3Comparer.Epsilon));
 
             // OUTPUT OVERLOADS TEST
 
-            Vector3.Transform(ref v1, ref m1, out result1);
-            Vector3.Transform(ref v2, ref q1, out result2);
+            Vector3.Transform(ref v1, ref m1, out Vector3 result1);
+            Vector3.Transform(ref v2, ref q1, out Vector3 result2);
 
             Assert.That(expectedResult1, Is.EqualTo(result1).Using(Vector3Comparer.Epsilon));
             Assert.That(expectedResult2, Is.EqualTo(result2).Using(Vector3Comparer.Epsilon));
         }
 
         [Test]
-        public void HashCode() {
+        public void HashCode()
+        {
             // Checking for overflows in hash calculation.
             var max = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
             var min = new Vector3(float.MinValue, float.MinValue, float.MinValue);
@@ -119,9 +118,8 @@ namespace MonoGame.Tests.Framework
         {
             Vector3 vector3 = new Vector3(float.MinValue, float.MaxValue, float.MinValue);
 
-            float x, y, z;
 
-            vector3.Deconstruct(out x, out y, out z);
+            vector3.Deconstruct(out float x, out float y, out float z);
 
             Assert.AreEqual(x, vector3.X);
             Assert.AreEqual(y, vector3.Y);
@@ -138,8 +136,7 @@ namespace MonoGame.Tests.Framework
             Vector3 ceilMember = vector3;
             ceilMember.Ceiling();
 
-            Vector3 ceilResult;
-            Vector3.Ceiling(ref vector3, out ceilResult);
+            Vector3.Ceiling(ref vector3, out Vector3 ceilResult);
 
             Assert.AreEqual(new Vector3(1.0f, 1.0f, 1.0f), ceilMember);
             Assert.AreEqual(new Vector3(1.0f, 1.0f, 1.0f), Vector3.Ceiling(vector3));
@@ -150,8 +147,7 @@ namespace MonoGame.Tests.Framework
             Vector3 floorMember = vector3;
             floorMember.Floor();
 
-            Vector3 floorResult;
-            Vector3.Floor(ref vector3, out floorResult);
+            Vector3.Floor(ref vector3, out Vector3 floorResult);
 
             Assert.AreEqual(new Vector3(0.0f, 0.0f, 1.0f), floorMember);
             Assert.AreEqual(new Vector3(0.0f, 0.0f, 1.0f), Vector3.Floor(vector3));
@@ -162,8 +158,7 @@ namespace MonoGame.Tests.Framework
             Vector3 roundMember = vector3;
             roundMember.Round();
 
-            Vector3 roundResult;
-            Vector3.Round(ref vector3, out roundResult);
+            Vector3.Round(ref vector3, out Vector3 roundResult);
 
             Assert.AreEqual(new Vector3(0.0f, 1.0f, 1.0f), roundMember);
             Assert.AreEqual(new Vector3(0.0f, 1.0f, 1.0f), Vector3.Round(vector3));

@@ -49,7 +49,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// This property will always return <b>false</b>.  It is included for XNA compatibility.
         /// </remarks>
         [Obsolete("This is provided for XNA compatibility only and will always return false")]
-		public bool IsContentLost { get { return false; } }
+        public bool IsContentLost { get { return false; } }
 
         /// <summary>
         /// Occurs when a graphics device lost event is triggered.
@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// This event is never called.  It is included for XNA compatibility.
         /// </remarks>
         [Obsolete("This is provided for XNA compatibility is never called by MonoGame")]
-		public event EventHandler<EventArgs> ContentLost;
+        public event EventHandler<EventArgs> ContentLost;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RenderTargetCube"/> class.
@@ -96,14 +96,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary />
         protected static SurfaceFormat QuerySelectedFormat(GraphicsDevice graphicsDevice, SurfaceFormat preferredFormat)
         {
-			SurfaceFormat selectedFormat = preferredFormat;
-			DepthFormat selectedDepthFormat;
-			int selectedMultiSampleCount;
+            SurfaceFormat selectedFormat = preferredFormat;
 
             if (graphicsDevice != null)
             {
                 graphicsDevice.Adapter.QueryRenderTargetFormat(graphicsDevice.GraphicsProfile, preferredFormat, DepthFormat.None, 0,
-                    out selectedFormat, out selectedDepthFormat, out selectedMultiSampleCount);
+                    out selectedFormat, out DepthFormat selectedDepthFormat, out int selectedMultiSampleCount);
             }
 
             return selectedFormat;

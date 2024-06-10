@@ -10,7 +10,7 @@ namespace MonoGame.Tests.Framework
         {
             // Our test box.
             BoundingBox box;
-            box.Min = new Vector3(-10,-20,-30);
+            box.Min = new Vector3(-10, -20, -30);
             box.Max = new Vector3(10, 20, 30);
             var center = (box.Max + box.Min) * 0.5f;
 
@@ -53,9 +53,8 @@ namespace MonoGame.Tests.Framework
         {
             Ray ray = new Ray(Vector3.Backward, Vector3.Right);
 
-            Vector3 position, direction;
 
-            ray.Deconstruct(out position, out direction);
+            ray.Deconstruct(out Vector3 position, out Vector3 direction);
 
             Assert.AreEqual(position, ray.Position);
             Assert.AreEqual(direction, ray.Direction);

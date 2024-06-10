@@ -13,8 +13,7 @@ namespace MonoGame.Tests.Framework
             var expectedResult = new Vector2(5.1944f, 6.1944f);
             var v1 = new Vector2(1, 2); var v2 = new Vector2(3, 4); var v3 = new Vector2(5, 6); var v4 = new Vector2(7, 8); var value = 1.0972f;
 
-            Vector2 result;
-            Vector2.CatmullRom(ref v1, ref v2, ref v3, ref v4, value, out result);
+            Vector2.CatmullRom(ref v1, ref v2, ref v3, ref v4, value, out Vector2 result);
 
             Assert.That(expectedResult, Is.EqualTo(Vector2.CatmullRom(v1, v2, v3, v4, value)).Using(Vector2Comparer.Epsilon));
             Assert.That(expectedResult, Is.EqualTo(result).Using(Vector2Comparer.Epsilon));
@@ -63,11 +62,10 @@ namespace MonoGame.Tests.Framework
             Assert.AreEqual(vector * vector2, Vector2.Multiply(vector, vector2));
             Assert.AreEqual(Vector2.Multiply(vector, vector2), vector * vector2);
 
-            Vector2 refVec;
 
             // Overloads comparsion
             var vector3 = Vector2.Multiply(vector, vector2);
-            Vector2.Multiply(ref vector, ref vector2, out refVec);
+            Vector2.Multiply(ref vector, ref vector2, out Vector2 refVec);
             Assert.AreEqual(vector3, refVec);
 
             vector3 = Vector2.Multiply(vector, 2);
@@ -87,11 +85,9 @@ namespace MonoGame.Tests.Framework
             Assert.That(t1, Is.EqualTo(Vector2.Hermite(v1, v2, v3, v4, 0.25f)).Using(Vector2Comparer.Epsilon));
             Assert.That(t2, Is.EqualTo(Vector2.Hermite(v5, v6, v7, v8, 0.45f)).Using(Vector2Comparer.Epsilon));
 
-            Vector2 result1;
-            Vector2 result2;
 
-            Vector2.Hermite(ref v1, ref v2, ref v3, ref v4, 0.25f, out result1);
-            Vector2.Hermite(ref v5, ref v6, ref v7, ref v8, 0.45f, out result2);
+            Vector2.Hermite(ref v1, ref v2, ref v3, ref v4, 0.25f, out Vector2 result1);
+            Vector2.Hermite(ref v5, ref v6, ref v7, ref v8, 0.45f, out Vector2 result2);
 
             Assert.That(t1, Is.EqualTo(result1).Using(Vector2Comparer.Epsilon));
             Assert.That(t2, Is.EqualTo(result2).Using(Vector2Comparer.Epsilon));
@@ -118,11 +114,9 @@ namespace MonoGame.Tests.Framework
 
             // OUTPUT OVERLOADS TEST
 
-            Vector2 result1;
-            Vector2 result2;
 
-            Vector2.Transform(ref v1, ref m1, out result1);
-            Vector2.Transform(ref v2, ref q2, out result2);
+            Vector2.Transform(ref v1, ref m1, out Vector2 result1);
+            Vector2.Transform(ref v2, ref q2, out Vector2 result2);
 
             Assert.That(expectedResult1, Is.EqualTo(result1).Using(Vector2Comparer.Epsilon));
             Assert.That(expectedResult2, Is.EqualTo(result2).Using(Vector2Comparer.Epsilon));
@@ -254,8 +248,7 @@ namespace MonoGame.Tests.Framework
 
             Assert.That(expectedResult1, Is.EqualTo(Vector2.TransformNormal(normal, matrix)).Using(Vector2Comparer.Epsilon));
 
-            Vector2 result;
-            Vector2.TransformNormal(ref normal, ref matrix, out result);
+            Vector2.TransformNormal(ref normal, ref matrix, out Vector2 result);
 
             Assert.That(expectedResult2, Is.EqualTo(result).Using(Vector2Comparer.Epsilon));
 
@@ -432,9 +425,8 @@ namespace MonoGame.Tests.Framework
         {
             Vector2 vector2 = new Vector2(float.MinValue, float.MaxValue);
 
-            float x, y;
 
-            vector2.Deconstruct(out x, out y);
+            vector2.Deconstruct(out float x, out float y);
 
             Assert.AreEqual(x, vector2.X);
             Assert.AreEqual(y, vector2.Y);
@@ -450,8 +442,7 @@ namespace MonoGame.Tests.Framework
             Vector2 ceilMember = vector2;
             ceilMember.Ceiling();
 
-            Vector2 ceilResult;
-            Vector2.Ceiling(ref vector2, out ceilResult);
+            Vector2.Ceiling(ref vector2, out Vector2 ceilResult);
 
             Assert.AreEqual(new Vector2(1.0f, 1.0f), ceilMember);
             Assert.AreEqual(new Vector2(1.0f, 1.0f), Vector2.Ceiling(vector2));
@@ -462,8 +453,7 @@ namespace MonoGame.Tests.Framework
             Vector2 floorMember = vector2;
             floorMember.Floor();
 
-            Vector2 floorResult;
-            Vector2.Floor(ref vector2, out floorResult);
+            Vector2.Floor(ref vector2, out Vector2 floorResult);
 
             Assert.AreEqual(new Vector2(0.0f, 0.0f), floorMember);
             Assert.AreEqual(new Vector2(0.0f, 0.0f), Vector2.Floor(vector2));
@@ -474,8 +464,7 @@ namespace MonoGame.Tests.Framework
             Vector2 roundMember = vector2;
             roundMember.Round();
 
-            Vector2 roundResult;
-            Vector2.Round(ref vector2, out roundResult);
+            Vector2.Round(ref vector2, out Vector2 roundResult);
 
             Assert.AreEqual(new Vector2(0.0f, 1.0f), roundMember);
             Assert.AreEqual(new Vector2(0.0f, 1.0f), Vector2.Round(vector2));

@@ -14,8 +14,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal VertexDeclarationAttributeInfo GetAttributeInfo(Shader shader, int programHash)
         {
-            VertexDeclarationAttributeInfo attrInfo;
-            if (_shaderAttributeInfo.TryGetValue(programHash, out attrInfo))
+            if (_shaderAttributeInfo.TryGetValue(programHash, out VertexDeclarationAttributeInfo attrInfo))
                 return attrInfo;
 
             // Get the vertex attribute info and cache it
@@ -44,8 +43,8 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
 
-		internal void Apply(Shader shader, IntPtr offset, int programHash)
-		{
+        internal void Apply(Shader shader, IntPtr offset, int programHash)
+        {
             var attrInfo = GetAttributeInfo(shader, programHash);
 
             // Apply the vertex attribute info
@@ -64,8 +63,8 @@ namespace Microsoft.Xna.Framework.Graphics
                 GraphicsExtensions.CheckGLError();
             }
             GraphicsDevice.SetVertexAttributeArray(attrInfo.EnabledAttributes);
-		    GraphicsDevice._attribsDirty = true;
-		}
+            GraphicsDevice._attribsDirty = true;
+        }
 
         /// <summary>
         /// Vertex attribute information for a particular shader/vertex declaration combination.

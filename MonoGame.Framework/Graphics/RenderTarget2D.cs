@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework.Graphics
     ///     </para>
     /// </remarks>
 	public partial class RenderTarget2D : Texture2D, IRenderTarget
-	{
+    {
         /// <summary>
         /// Gets the depth format used by this <b>RenderTarget2D</b>
         /// </summary>
@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// This property will always return <b>false</b>.  It is included for XNA compatibility.
         /// </remarks>
         [Obsolete("This is provided for XNA compatibility only and will always return false")]
-		public bool IsContentLost { get { return false; } }
+        public bool IsContentLost { get { return false; } }
 
         /// <summary>
         /// Occurs when a graphics device lost event is triggered.
@@ -50,7 +50,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// This event is never called.  It is included for XNA compatibility.
         /// </remarks>
         [Obsolete("This is provided for XNA compatibility is never called by MonoGame")]
-		public event EventHandler<EventArgs> ContentLost;
+        public event EventHandler<EventArgs> ContentLost;
 
         private bool SuppressEventHandlerWarningsUntilEventsAreProperlyImplemented()
         {
@@ -81,26 +81,24 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <paramref name="arraySize"/> is greater than 0 and the graphics device does not support texture arrays.
         /// </exception>
 	    public RenderTarget2D(GraphicsDevice graphicsDevice, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, bool shared, int arraySize)
-	        : base(graphicsDevice, width, height, mipMap, QuerySelectedFormat(graphicsDevice, preferredFormat), SurfaceType.RenderTarget, shared, arraySize)
-	    {
+            : base(graphicsDevice, width, height, mipMap, QuerySelectedFormat(graphicsDevice, preferredFormat), SurfaceType.RenderTarget, shared, arraySize)
+        {
             DepthStencilFormat = preferredDepthFormat;
             MultiSampleCount = graphicsDevice.GetClampedMultisampleCount(preferredMultiSampleCount);
             RenderTargetUsage = usage;
 
             PlatformConstruct(graphicsDevice, width, height, mipMap, preferredDepthFormat, preferredMultiSampleCount, usage, shared);
-	    }
+        }
 
         /// <summary />
         protected static SurfaceFormat QuerySelectedFormat(GraphicsDevice graphicsDevice, SurfaceFormat preferredFormat)
         {
-			SurfaceFormat selectedFormat = preferredFormat;
-			DepthFormat selectedDepthFormat;
-			int selectedMultiSampleCount;
+            SurfaceFormat selectedFormat = preferredFormat;
 
             if (graphicsDevice != null)
             {
                 graphicsDevice.Adapter.QueryRenderTargetFormat(graphicsDevice.GraphicsProfile, preferredFormat, DepthFormat.None, 0,
-                    out selectedFormat, out selectedDepthFormat, out selectedMultiSampleCount);
+                    out selectedFormat, out DepthFormat selectedDepthFormat, out int selectedMultiSampleCount);
             }
 
             return selectedFormat;
@@ -125,8 +123,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentOutOfRangeException">
         /// The <paramref name="width"/> and/or <paramref name="height"/> parameters less than or equal to zero.
         /// </exception>
-        public RenderTarget2D (GraphicsDevice graphicsDevice, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, bool shared)
-			: this(graphicsDevice, width, height, mipMap, preferredFormat, preferredDepthFormat, preferredMultiSampleCount, usage, shared, 1)
+        public RenderTarget2D(GraphicsDevice graphicsDevice, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, bool shared)
+            : this(graphicsDevice, width, height, mipMap, preferredFormat, preferredDepthFormat, preferredMultiSampleCount, usage, shared, 1)
         {
 
         }
@@ -146,9 +144,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentOutOfRangeException">
         /// The <paramref name="width"/> and/or <paramref name="height"/> parameters less than or equal to zero.
         /// </exception>
-		public RenderTarget2D (GraphicsDevice graphicsDevice, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
-			:this (graphicsDevice, width, height, mipMap, preferredFormat, preferredDepthFormat, preferredMultiSampleCount, usage, false)
-        {}
+		public RenderTarget2D(GraphicsDevice graphicsDevice, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
+            : this(graphicsDevice, width, height, mipMap, preferredFormat, preferredDepthFormat, preferredMultiSampleCount, usage, false)
+        { }
 
         /// <summary>
         /// Creates a new <b>RenderTarget2D</b> instance with the specified parameters.
@@ -164,8 +162,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The <paramref name="width"/> and/or <paramref name="height"/> parameters less than or equal to zero.
         /// </exception>
 		public RenderTarget2D(GraphicsDevice graphicsDevice, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat)
-			:this (graphicsDevice, width, height, mipMap, preferredFormat, preferredDepthFormat, 0, RenderTargetUsage.DiscardContents)
-		{}
+            : this(graphicsDevice, width, height, mipMap, preferredFormat, preferredDepthFormat, 0, RenderTargetUsage.DiscardContents)
+        { }
 
         /// <summary>
         /// Creates a new <b>RenderTarget2D</b> instance with the specified parameters.
@@ -178,8 +176,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The <paramref name="width"/> and/or <paramref name="height"/> parameters less than or equal to zero.
         /// </exception>
 		public RenderTarget2D(GraphicsDevice graphicsDevice, int width, int height)
-			: this(graphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents)
-		{}
+            : this(graphicsDevice, width, height, false, SurfaceFormat.Color, DepthFormat.None, 0, RenderTargetUsage.DiscardContents)
+        { }
 
         /// <summary>
         /// Allows child class to specify the surface type, eg: a swap chain.
@@ -198,7 +196,7 @@ namespace Microsoft.Xna.Framework.Graphics
             DepthStencilFormat = depthFormat;
             MultiSampleCount = graphicsDevice.GetClampedMultisampleCount(preferredMultiSampleCount);
             RenderTargetUsage = usage;
-		}
+        }
 
         /// <inheritdoc />
         protected internal override void GraphicsDeviceResetting()
@@ -206,5 +204,5 @@ namespace Microsoft.Xna.Framework.Graphics
             PlatformGraphicsDeviceResetting();
             base.GraphicsDeviceResetting();
         }
-	}
+    }
 }

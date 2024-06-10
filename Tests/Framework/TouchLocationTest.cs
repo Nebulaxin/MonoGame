@@ -22,8 +22,7 @@ namespace MonoGame.Tests.Framework
 
             touch.AgeState();
 
-            TouchLocation previous;
-            Assert.True(touch.TryGetPreviousLocation(out previous));
+            Assert.True(touch.TryGetPreviousLocation(out TouchLocation previous));
 
             Assert.AreEqual(TouchLocationState.Pressed, previous.State);
             Assert.AreEqual(touch.Id, previous.Id);

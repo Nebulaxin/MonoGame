@@ -31,8 +31,7 @@ namespace MonoGame.Tests.Framework
             var originalMatrix = matrix;
 
             // Test transform.
-            Plane result;
-            Plane.Transform(ref plane, ref matrix, out result);
+            Plane.Transform(ref plane, ref matrix, out Plane result);
 
             var expectedResult = new Plane(new Vector3(0.7273929f, -0.3636965f, 0.5819144f), 1.818482f);
             Assert.That(result, Is.EqualTo(expectedResult).Using(PlaneComparer.Epsilon));
@@ -67,8 +66,7 @@ namespace MonoGame.Tests.Framework
             var originalQuaternion = quaternion;
 
             // Test transform.
-            Plane result;
-            Plane.Transform(ref plane, ref quaternion, out result);
+            Plane.Transform(ref plane, ref quaternion, out Plane result);
 
             var expectedResult = new Plane(new Vector3(0.7273929f, -0.3636965f, 0.5819144f), 1.818482f);
             Assert.That(result, Is.EqualTo(expectedResult).Using(PlaneComparer.Epsilon));
@@ -83,10 +81,8 @@ namespace MonoGame.Tests.Framework
         {
             Plane plane = new Plane(new Vector3(255, 255, 255), float.MaxValue);
 
-            Vector3 normal;
-            float d;
 
-            plane.Deconstruct(out normal, out d);
+            plane.Deconstruct(out Vector3 normal, out float d);
 
             Assert.AreEqual(normal, plane.Normal);
             Assert.AreEqual(d, plane.D);

@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Microsoft.Xna.Framework
 {
-	internal class PlaneHelper
+    internal class PlaneHelper
     {
         /// <summary>
         /// Returns a value indicating what side (positive/negative) of a plane a point is
@@ -34,7 +34,7 @@ namespace Microsoft.Xna.Framework
                                     / Math.Sqrt(plane.Normal.X * plane.Normal.X + plane.Normal.Y * plane.Normal.Y + plane.Normal.Z * plane.Normal.Z));
         }
     }
-	
+
     /// <summary>
     /// A plane in 3d space, represented by its normal away from the origin and its distance from the origin, D.
     /// </summary>
@@ -219,8 +219,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The transformed plane.</returns>
         public static Plane Transform(Plane plane, Matrix matrix)
         {
-            Plane result;
-            Transform(ref plane, ref matrix, out result);
+            Transform(ref plane, ref matrix, out Plane result);
             return result;
         }
 
@@ -235,14 +234,12 @@ namespace Microsoft.Xna.Framework
             // See "Transforming Normals" in http://www.glprogramming.com/red/appendixf.html
             // for an explanation of how this works.
 
-            Matrix transformedMatrix;
-            Matrix.Invert(ref matrix, out transformedMatrix);
+            Matrix.Invert(ref matrix, out Matrix transformedMatrix);
             Matrix.Transpose(ref transformedMatrix, out transformedMatrix);
 
             var vector = new Vector4(plane.Normal, plane.D);
 
-            Vector4 transformedVector;
-            Vector4.Transform(ref vector, ref transformedMatrix, out transformedVector);
+            Vector4.Transform(ref vector, ref transformedMatrix, out Vector4 transformedVector);
 
             result = new Plane(transformedVector);
         }
@@ -255,8 +252,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The transformed plane.</returns>
         public static Plane Transform(Plane plane, Quaternion rotation)
         {
-            Plane result;
-            Transform(ref plane, ref rotation, out result);
+            Transform(ref plane, ref rotation, out Plane result);
             return result;
         }
 
@@ -278,7 +274,7 @@ namespace Microsoft.Xna.Framework
         public void Normalize()
         {
             float length = Normal.Length();
-            float factor =  1f / length;            
+            float factor = 1f / length;
             Vector3.Multiply(ref Normal, factor, out Normal);
             D = D * factor;
         }
@@ -290,9 +286,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>A normalized version of the specified <see cref="Plane"/>.</returns>
         public static Plane Normalize(Plane value)
         {
-			Plane ret;
-			Normalize(ref value, out ret);
-			return ret;
+            Normalize(ref value, out Plane ret);
+            return ret;
         }
 
         /// <summary>
@@ -303,7 +298,7 @@ namespace Microsoft.Xna.Framework
         public static void Normalize(ref Plane value, out Plane result)
         {
             float length = value.Normal.Length();
-            float factor =  1f / length;            
+            float factor = 1f / length;
             Vector3.Multiply(ref value.Normal, factor, out result.Normal);
             result.D = value.D * factor;
         }
@@ -387,7 +382,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void Intersects(ref BoundingBox box, out PlaneIntersectionType result)
         {
-            box.Intersects (ref this, out result);
+            box.Intersects(ref this, out result);
         }
 
         /// <summary>
@@ -428,8 +423,7 @@ namespace Microsoft.Xna.Framework
 
         internal PlaneIntersectionType Intersects(ref Vector3 point)
         {
-            float distance;
-            DotCoordinate(ref point, out distance);
+            DotCoordinate(ref point, out float distance);
 
             if (distance > 0)
                 return PlaneIntersectionType.Front;

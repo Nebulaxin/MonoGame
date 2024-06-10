@@ -10,9 +10,8 @@ namespace MonoGame.Tests.Framework
         {
             Point point = new Point(int.MinValue, int.MaxValue);
 
-            int x, y;
 
-            point.Deconstruct(out x, out y);
+            point.Deconstruct(out int x, out int y);
 
             Assert.AreEqual(x, point.X);
             Assert.AreEqual(y, point.Y);

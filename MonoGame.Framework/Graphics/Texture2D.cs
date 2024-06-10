@@ -42,8 +42,8 @@ namespace Microsoft.Xna.Framework.Graphics
             SwapChainRenderTarget,
         }
 
-		internal int width;
-		internal int height;
+        internal int width;
+        internal int height;
         internal int ArraySize;
 
         internal float TexelWidth { get; private set; }
@@ -56,7 +56,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             get
             {
-				return new Rectangle(0, 0, this.width, this.height);
+                return new Rectangle(0, 0, this.width, this.height);
             }
         }
 
@@ -216,7 +216,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// texture arrays.
         /// </exception>
         protected Texture2D(GraphicsDevice graphicsDevice, int width, int height, bool mipmap, SurfaceFormat format, SurfaceType type, bool shared, int arraySize)
-		{
+        {
             if (graphicsDevice == null)
                 throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             if (width <= 0)
@@ -237,8 +237,8 @@ namespace Microsoft.Xna.Framework.Graphics
             this.ArraySize = arraySize;
 
             // Texture will be assigned by the swap chain.
-		    if (type == SurfaceType.SwapChainRenderTarget)
-		        return;
+            if (type == SurfaceType.SwapChainRenderTarget)
+                return;
 
             PlatformConstruct(width, height, mipmap, format, type, shared);
         }
@@ -329,8 +329,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(int level, int arraySlice, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(level, arraySlice, checkedRect, data, startIndex, elementCount);
         }
 
@@ -385,8 +384,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, 0, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, 0, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             if (rect.HasValue)
                 PlatformSetData(level, 0, checkedRect, data, startIndex, elementCount);
             else
@@ -425,8 +423,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void SetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(0, 0, null, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(0, 0, null, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(0, data, startIndex, elementCount);
         }
 
@@ -453,9 +450,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void SetData<T>(T[] data) where T : struct
-		{
-            Rectangle checkedRect;
-            ValidateParams(0, 0, null, data, 0, data.Length, out checkedRect);
+        {
+            ValidateParams(0, 0, null, data, 0, data.Length, out Rectangle checkedRect);
             PlatformSetData(0, data, 0, data.Length);
         }
 
@@ -523,8 +519,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(int level, int arraySlice, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformGetData(level, arraySlice, checkedRect, data, startIndex, elementCount);
         }
 
@@ -613,9 +608,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
-		{
-			this.GetData(0, null, data, startIndex, elementCount);
-		}
+        {
+            this.GetData(0, null, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies texture data into an array
@@ -639,12 +634,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
-        public void GetData<T> (T[] data) where T : struct
-		{
-		    if (data == null)
+        public void GetData<T>(T[] data) where T : struct
+        {
+            if (data == null)
                 throw new ArgumentNullException(nameof(data));
             this.GetData(0, null, data, 0, data.Length);
-		}
+        }
 
         /// <summary>
         /// Creates a <see cref="Texture2D"/> from a file, supported formats bmp, gif, jpg, png, tif and dds (only for simple textures).
@@ -696,7 +691,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// the images should be identical.
         /// </remarks>
         public static Texture2D FromStream(GraphicsDevice graphicsDevice, Stream stream, Action<byte[]> colorProcessor)
-		{
+        {
             if (graphicsDevice == null)
                 throw new ArgumentNullException(nameof(graphicsDevice));
             if (stream == null)
@@ -706,7 +701,7 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 return PlatformFromStream(graphicsDevice, stream, colorProcessor);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new InvalidOperationException("This image format is not supported", e);
             }
@@ -800,8 +795,7 @@ namespace Microsoft.Xna.Framework.Graphics
             int dataByteSize;
             if (Format.IsCompressedFormat())
             {
-                int blockWidth, blockHeight;
-                Format.GetBlockSize(out blockWidth, out blockHeight);
+                Format.GetBlockSize(out int blockWidth, out int blockHeight);
                 int blockWidthMinusOne = blockWidth - 1;
                 int blockHeightMinusOne = blockHeight - 1;
                 // round x and y down to next multiple of block size; width and height up to next multiple of block size

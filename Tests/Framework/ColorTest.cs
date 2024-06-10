@@ -198,9 +198,8 @@ namespace MonoGame.Tests.Framework
         public void DeconstructBytes()
         {
             Color color = new Color(255, 255, 255);
-            byte r, g, b;
 
-            color.Deconstruct(out r, out g, out b);
+            color.Deconstruct(out byte r, out byte g, out byte b);
 
             Assert.AreEqual(r, color.R);
             Assert.AreEqual(g, color.G);
@@ -208,9 +207,8 @@ namespace MonoGame.Tests.Framework
 
             Color color2 = new Color(255, 255, 255, 255);
 
-            byte r2, g2, b2, a2;
 
-            color2.Deconstruct(out r2, out g2, out b2, out a2);
+            color2.Deconstruct(out byte r2, out byte g2, out byte b2, out byte a2);
 
             Assert.AreEqual(r2, color2.R);
             Assert.AreEqual(g2, color2.G);
@@ -222,9 +220,8 @@ namespace MonoGame.Tests.Framework
         public void DeconstructFloats()
         {
             Color color = new Color(255, 255, 255);
-            float r, g, b;
 
-            color.Deconstruct(out r, out g, out b);
+            color.Deconstruct(out float r, out float g, out float b);
 
             Assert.AreEqual(r, color.R / 255f);
             Assert.AreEqual(g, color.G / 255f);
@@ -232,9 +229,8 @@ namespace MonoGame.Tests.Framework
 
             Color color2 = new Color(255, 255, 255, 255);
 
-            float r2, g2, b2, a2;
 
-            color2.Deconstruct(out r2, out g2, out b2, out a2);
+            color2.Deconstruct(out float r2, out float g2, out float b2, out float a2);
 
             Assert.AreEqual(r2, color2.R / 255f);
             Assert.AreEqual(g2, color2.G / 255f);

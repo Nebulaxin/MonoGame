@@ -125,17 +125,16 @@ namespace Microsoft.Xna.Framework.Graphics
 
             // First look for it in the cache.
             //
-            Effect cloneSource;
-            if (!graphicsDevice.EffectCache.TryGetValue(effectKey, out cloneSource))
+            if (!graphicsDevice.EffectCache.TryGetValue(effectKey, out Effect cloneSource))
             {
                 using (var stream = new MemoryStream(effectCode, index + headerSize, count - headerSize, false))
-            	using (var reader = new BinaryReader(stream))
-            {
-                // Create one.
-                cloneSource = new Effect(graphicsDevice);
+                using (var reader = new BinaryReader(stream))
+                {
+                    // Create one.
+                    cloneSource = new Effect(graphicsDevice);
                     cloneSource.ReadEffect(reader);
 
-                // Check file tail to ensure we parsed the content correctly.
+                    // Check file tail to ensure we parsed the content correctly.
                     var tail = reader.ReadInt32();
                     if (tail != MGFXHeader.MGFXSignature) throw new ArgumentException("The MGFX effect code was not parsed correctly.", nameof(effectCode));
 

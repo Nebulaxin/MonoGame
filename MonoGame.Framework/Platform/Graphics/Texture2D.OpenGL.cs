@@ -57,8 +57,7 @@ namespace Microsoft.Xna.Framework.Graphics
                         else
                         {
                             int blockSize = format.GetSize();
-                            int blockWidth, blockHeight;
-                            format.GetBlockSize(out blockWidth, out blockHeight);
+                            format.GetBlockSize(out int blockWidth, out int blockHeight);
                             int wBlocks = (w + (blockWidth - 1)) / blockWidth;
                             int hBlocks = (h + (blockHeight - 1)) / blockHeight;
                             imageSize = wBlocks * hBlocks * blockSize;
@@ -86,8 +85,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private void PlatformSetDataBody<T>(int level, T[] data, int startIndex, int elementCount)
             where T : struct
         {
-            int w, h;
-            GetSizeForLevel(Width, Height, level, out w, out h);
+            GetSizeForLevel(Width, Height, level, out int w, out int h);
 
             var elementSizeInByte = ReflectionHelpers.SizeOf<T>.Get();
             var dataHandle = GCHandle.Alloc(data, GCHandleType.Pinned);

@@ -7,37 +7,37 @@ using MonoGame.OpenAL;
 
 namespace Microsoft.Xna.Framework.Audio
 {
-	internal class OALSoundBuffer : IDisposable
-	{
-		int openALDataBuffer;
-		ALFormat openALFormat;
-		int dataSize;
+    internal class OALSoundBuffer : IDisposable
+    {
+        int openALDataBuffer;
+        ALFormat openALFormat;
+        int dataSize;
         bool _isDisposed;
 
-		public OALSoundBuffer()
-		{
+        public OALSoundBuffer()
+        {
             AL.GenBuffer(out openALDataBuffer);
             ALHelper.CheckError("Failed to generate OpenAL data buffer.");
-		}
+        }
 
         ~OALSoundBuffer()
         {
             Dispose(false);
         }
 
-		public int OpenALDataBuffer
+        public int OpenALDataBuffer
         {
-			get
+            get
             {
-				return openALDataBuffer;
-			}
-		}
+                return openALDataBuffer;
+            }
+        }
 
-		public double Duration
+        public double Duration
         {
-			get;
-			set;
-		}
+            get;
+            set;
+        }
 
         public void BindDataBuffer(byte[] dataBuffer, ALFormat format, int size, int sampleRate, int sampleAlignment = 0)
         {
@@ -48,7 +48,6 @@ namespace Microsoft.Xna.Framework.Audio
 
             openALFormat = format;
             dataSize = size;
-            int unpackedSize = 0;
 
             if (sampleAlignment > 0)
             {
@@ -59,22 +58,21 @@ namespace Microsoft.Xna.Framework.Audio
             AL.BufferData(openALDataBuffer, openALFormat, dataBuffer, size, sampleRate);
             ALHelper.CheckError("Failed to fill buffer.");
 
-            int bits, channels;
             Duration = -1;
-            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Bits, out bits);
+            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Bits, out int bits);
             ALHelper.CheckError("Failed to get buffer bits");
-            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Channels, out channels);
+            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Channels, out int channels);
             ALHelper.CheckError("Failed to get buffer channels");
-            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Size, out unpackedSize);
+            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Size, out int unpackedSize);
             ALHelper.CheckError("Failed to get buffer size");
             Duration = (float)(unpackedSize / ((bits / 8) * channels)) / (float)sampleRate;
         }
 
-		public void Dispose()
-		{
+        public void Dispose()
+        {
             Dispose(true);
             GC.SuppressFinalize(this);
-		}
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -95,5 +93,5 @@ namespace Microsoft.Xna.Framework.Audio
                 _isDisposed = true;
             }
         }
-	}
+    }
 }

@@ -126,12 +126,12 @@ namespace MonoGame.Tests.Graphics
                 throw new Exception("PrepareFrameCapture should only be called once.");
             _framePrepared = true;
             _totalFramesExpected = expected;
-			_captureRenderTarget = new RenderTarget2D(
-				gd, gd.Viewport.Width, gd.Viewport.Height,
-				false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
+            _captureRenderTarget = new RenderTarget2D(
+                gd, gd.Viewport.Width, gd.Viewport.Height,
+                false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
             _submittedFrames = new List<FramePixelData>();
 
-			gd.SetRenderTarget(_captureRenderTarget);
+            gd.SetRenderTarget(_captureRenderTarget);
             gd.Clear(ClearColor);
         }
 
@@ -150,7 +150,8 @@ namespace MonoGame.Tests.Graphics
             gd.SetRenderTarget(_captureRenderTarget);
         }
 
-        protected void CheckFrames() {
+        protected void CheckFrames()
+        {
             if (!_framePrepared)
                 throw new Exception("PrepareFrameCapture must be called before rendering to be able to check frames.");
 
@@ -158,13 +159,13 @@ namespace MonoGame.Tests.Graphics
             if (!_frameSubmitted)
                 SubmitFrame();
 
-			var folderName = TestContext.CurrentContext.GetTestFolderName();
+            var folderName = TestContext.CurrentContext.GetTestFolderName();
             var referenceImageDirectory = Paths.ReferenceImage(folderName);
             var outputDirectory = Paths.CapturedFrame(folderName);
             var fileName = TestContext.CurrentContext.GetTestFrameFileNameFormat(_totalFramesExpected);
             var capturedImagePath = Path.Combine(outputDirectory, fileName);
             var referenceImagePath = Path.Combine(referenceImageDirectory, fileName);
-            
+
             var allResults = new List<FrameComparisonResult>();
             var failedResults = new List<FrameComparisonResult>();
             var noReference = new List<string>();
@@ -199,7 +200,7 @@ namespace MonoGame.Tests.Graphics
                 var writeDiff = WriteDiffs == WriteSettings.Always ||
                                (WriteDiffs == WriteSettings.WhenFailed && failed);
 
-                var result = new FrameComparisonResult(frameSimilarity, frame, refFrame, 
+                var result = new FrameComparisonResult(frameSimilarity, frame, refFrame,
                     capturedPath, referencePath, failed, writeCapture, writeDiff);
 
                 allResults.Add(result);
@@ -235,16 +236,16 @@ namespace MonoGame.Tests.Graphics
             // now do the actual assertions
             if (ExactNumberSubmits && _totalFramesExpected != allResults.Count)
             {
-				Assert.Fail (
-					"Expected {0} frame comparison result(s), but found {1}",
-					_totalFramesExpected, allResults.Count);
+                Assert.Fail(
+                    "Expected {0} frame comparison result(s), but found {1}",
+                    _totalFramesExpected, allResults.Count);
             }
 
             if (failedResults.Count > 0)
             {
                 Assert.Fail(
-					"{0} of {1} frames failed the similarity test.",
-					failedResults.Count, allResults.Count);
+                    "{0} of {1} frames failed the similarity test.",
+                    failedResults.Count, allResults.Count);
             }
 
             if (noReference.Count > 0)
@@ -259,18 +260,18 @@ namespace MonoGame.Tests.Graphics
         #region ComparisonResults
 
         private void WriteComparisonResultReport(IEnumerable<FrameComparisonResult> results, List<string> noReference)
-		{
-			Console.WriteLine ("Required similarity: {0:0.####}", Similarity);
-		    foreach (var result in results)
-		    {
-		        var captureString = result.SaveImage ? ", Capture: " + result.CapturedImagePath : "";
-		        var referenceString = ", Reference: " + result.ReferenceImagePath;
+        {
+            Console.WriteLine("Required similarity: {0:0.####}", Similarity);
+            foreach (var result in results)
+            {
+                var captureString = result.SaveImage ? ", Capture: " + result.CapturedImagePath : "";
+                var referenceString = ", Reference: " + result.ReferenceImagePath;
                 var diffString = result.SaveDiff ? ", Diff: " + result.DiffPath : "";
-		        Console.WriteLine(
-		            "Similarity: {0:0.####}{1}{2}{3}",
-		            result.Similarity, captureString, referenceString, diffString);
-		    }
-		}
+                Console.WriteLine(
+                    "Similarity: {0:0.####}{1}{2}{3}",
+                    result.Similarity, captureString, referenceString, diffString);
+            }
+        }
 
         protected class FrameComparisonResult
         {
@@ -304,10 +305,10 @@ namespace MonoGame.Tests.Graphics
 
         private string GetDiffPath(string name)
         {
-			var folderName = TestContext.CurrentContext.GetTestFolderName();
+            var folderName = TestContext.CurrentContext.GetTestFolderName();
             var directory = Paths.CapturedFrameDiff(folderName);
             var diffFileName = string.Format("diff-{0}", name);
-            return Path.Combine (directory, diffFileName);
+            return Path.Combine(directory, diffFileName);
         }
 
         private void WriteDiff(FramePixelData capture, FramePixelData reference, string outputPath)
@@ -316,70 +317,73 @@ namespace MonoGame.Tests.Graphics
             Normalize(diff);
             diff.Save(outputPath, "Diff");
         }
-        
-        private static FramePixelData CreateDiff (FramePixelData a, FramePixelData b)
-		{
-			int minWidth, maxWidth, minHeight, maxHeight;
 
-			MathUtility.MinMax (a.Width, b.Width, out minWidth, out maxWidth);
-			MathUtility.MinMax (a.Height, b.Height, out minHeight, out maxHeight);
+        private static FramePixelData CreateDiff(FramePixelData a, FramePixelData b)
+        {
 
-			var diff = new FramePixelData (maxWidth, maxHeight);
+            MathUtility.MinMax(a.Width, b.Width, out int minWidth, out int maxWidth);
+            MathUtility.MinMax(a.Height, b.Height, out int minHeight, out int maxHeight);
 
-			for (var y = 0; y < minHeight; ++y) {
+            var diff = new FramePixelData(maxWidth, maxHeight);
 
-				var indexA = y * a.Width;
-				var indexB = y * b.Width;
-				var indexDiff = y * diff.Width;
+            for (var y = 0; y < minHeight; ++y)
+            {
 
-				for (var x = 0; x < minWidth; ++x) {
-					// Ignore alpha.  If alpha diffs are
-					// needed, a special strategy will have
-					// to be devised, since XOR'ing two
-					// opaque pixels will cause a totally
-					// transparent pixel and hide any other
-					// difference.
-					diff.Data [indexDiff] = new Color (
-						(byte) (a.Data [indexA].R ^ b.Data [indexB].R),
-						(byte) (a.Data [indexA].G ^ b.Data [indexB].G),
-						(byte) (a.Data [indexA].B ^ b.Data [indexB].B));
+                var indexA = y * a.Width;
+                var indexB = y * b.Width;
+                var indexDiff = y * diff.Width;
 
-					indexA++;
-					indexB++;
-					indexDiff++;
-				}
-			}
+                for (var x = 0; x < minWidth; ++x)
+                {
+                    // Ignore alpha.  If alpha diffs are
+                    // needed, a special strategy will have
+                    // to be devised, since XOR'ing two
+                    // opaque pixels will cause a totally
+                    // transparent pixel and hide any other
+                    // difference.
+                    diff.Data[indexDiff] = new Color(
+                        (byte)(a.Data[indexA].R ^ b.Data[indexB].R),
+                        (byte)(a.Data[indexA].G ^ b.Data[indexB].G),
+                        (byte)(a.Data[indexA].B ^ b.Data[indexB].B));
 
-			return diff;
-		}
+                    indexA++;
+                    indexB++;
+                    indexDiff++;
+                }
+            }
 
-		private static void Normalize (FramePixelData frame)
-		{
-			var max = new Color(0, 0, 0, 0);
-			foreach (var pixel in frame.Data) {
-				max.B = Math.Max (pixel.B, max.B);
-				max.G = Math.Max (pixel.G, max.G);
-				max.R = Math.Max (pixel.R, max.R);
-				max.A = Math.Max (pixel.A, max.A);
-			}
+            return diff;
+        }
 
-			if (max.B == 0) max.B = 255;
-			if (max.G == 0) max.G = 255;
-			if (max.R == 0) max.R = 255;
-			if (max.A == 0) max.A = 255;
+        private static void Normalize(FramePixelData frame)
+        {
+            var max = new Color(0, 0, 0, 0);
+            foreach (var pixel in frame.Data)
+            {
+                max.B = Math.Max(pixel.B, max.B);
+                max.G = Math.Max(pixel.G, max.G);
+                max.R = Math.Max(pixel.R, max.R);
+                max.A = Math.Max(pixel.A, max.A);
+            }
 
-			for (var i = 0; i < frame.Data.Length; ++i) {
-				var pixel = frame.Data[i];
+            if (max.B == 0) max.B = 255;
+            if (max.G == 0) max.G = 255;
+            if (max.R == 0) max.R = 255;
+            if (max.A == 0) max.A = 255;
+
+            for (var i = 0; i < frame.Data.Length; ++i)
+            {
+                var pixel = frame.Data[i];
 
 
-				pixel.B = (byte)(pixel.B * 255 / max.B);
-				pixel.G = (byte)(pixel.G * 255 / max.G);
-				pixel.R = (byte)(pixel.R * 255 / max.R);
-				pixel.A = (byte)(pixel.A * 255 / max.A);
+                pixel.B = (byte)(pixel.B * 255 / max.B);
+                pixel.G = (byte)(pixel.G * 255 / max.G);
+                pixel.R = (byte)(pixel.R * 255 / max.R);
+                pixel.A = (byte)(pixel.A * 255 / max.A);
 
-				frame.Data[i] = pixel;
-			}
-		}
+                frame.Data[i] = pixel;
+            }
+        }
 
         #endregion
 

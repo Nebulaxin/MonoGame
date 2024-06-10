@@ -24,8 +24,8 @@ namespace Microsoft.Xna.Framework.Graphics
     ///     </para>
     /// </remarks>
 	public partial class TextureCube : Texture
-	{
-		internal int size;
+    {
+        internal int size;
 
         /// <summary>
         /// Gets the width and height of the cube map face in pixels.
@@ -49,9 +49,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException"> The <paramref name="graphicsDevice"/> parameter is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">The <paramref name="size"/> parameter is less than or equal to zero.</exception>
 
-		public TextureCube (GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format)
+        public TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format)
             : this(graphicsDevice, size, mipMap, format, false)
-		{
+        {
         }
 
         internal TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format, bool renderTarget)
@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new ArgumentOutOfRangeException(nameof(size), "Cube size must be greater than zero");
 
             this.GraphicsDevice = graphicsDevice;
-			this.size = size;
+            this.size = size;
             this._format = format;
             this._levelCount = mipMap ? CalculateMipLevels(size) : 1;
 
@@ -129,9 +129,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 	    public void GetData<T>(CubeMapFace cubeMapFace, T[] data, int startIndex, int elementCount) where T : struct
-	    {
-	        GetData(cubeMapFace, 0, null, data, startIndex, elementCount);
-	    }
+        {
+            GetData(cubeMapFace, 0, null, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies the texture cube data into an array.
@@ -179,11 +179,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 	    public void GetData<T>(CubeMapFace cubeMapFace, int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
-	    {
-            Rectangle checkedRect;
-            ValidateParams(level, rect, data, startIndex, elementCount, out checkedRect);
-	        PlatformGetData(cubeMapFace, level, checkedRect, data, startIndex, elementCount);
-	    }
+        {
+            ValidateParams(level, rect, data, startIndex, elementCount, out Rectangle checkedRect);
+            PlatformGetData(cubeMapFace, level, checkedRect, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -207,12 +206,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
-		public void SetData<T> (CubeMapFace face, T[] data) where T : struct
-		{
+		public void SetData<T>(CubeMapFace face, T[] data) where T : struct
+        {
             if (data == null)
                 throw new ArgumentNullException(nameof(data));
             SetData(face, 0, null, data, 0, data.Length);
-		}
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -245,9 +244,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(CubeMapFace face, T[] data, int startIndex, int elementCount) where T : struct
-		{
+        {
             SetData(face, 0, null, data, startIndex, elementCount);
-		}
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -296,10 +295,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(CubeMapFace face, int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(face, level, checkedRect, data, startIndex, elementCount);
-		}
+        }
 
         private void ValidateParams<T>(int level, Rectangle? rect, T[] data, int startIndex,
             int elementCount, out Rectangle checkedRect) where T : struct
@@ -348,6 +346,6 @@ namespace Microsoft.Xna.Framework.Graphics
                                             "elementCount * sizeof(T) is {0}, but data size is {1}.",
                                             elementCount * tSize, dataByteSize), nameof(elementCount));
         }
-	}
+    }
 }
 

@@ -17,8 +17,7 @@ namespace MonoGame.Tests.Framework
 
             Assert.AreEqual(-1, collection.IndexOf(new TouchLocation()));
 
-            TouchLocation touchLocation;
-            Assert.False(collection.FindById(1, out touchLocation));
+            Assert.False(collection.FindById(1, out TouchLocation touchLocation));
         }
     }
 }

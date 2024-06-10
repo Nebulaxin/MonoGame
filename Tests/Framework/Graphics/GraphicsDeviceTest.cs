@@ -157,29 +157,29 @@ namespace MonoGame.Tests.Graphics
             Assert.Throws<ArgumentException>(() => gd.Reset(new PresentationParameters()));
         }
 
-		[Test]
-		public void Clear()
-		{
-			var colors = new Color [] {
-				Color.Red,
-				Color.Orange,
-				Color.Yellow,
-				Color.Green,
-				Color.Blue,
-				Color.Indigo,
-				Color.Violet
-			};
+        [Test]
+        public void Clear()
+        {
+            var colors = new Color[] {
+                Color.Red,
+                Color.Orange,
+                Color.Yellow,
+                Color.Green,
+                Color.Blue,
+                Color.Indigo,
+                Color.Violet
+            };
 
             PrepareFrameCapture(colors.Length);
 
-		    foreach (var color in colors)
-		    {
-		        gd.Clear(color);
+            foreach (var color in colors)
+            {
+                gd.Clear(color);
                 SubmitFrame();
-		    }
+            }
 
             CheckFrames();
-		}
+        }
 
         [Test]
         public void DrawPrimitivesParameterValidation()
@@ -222,7 +222,7 @@ namespace MonoGame.Tests.Graphics
                 gd, VertexPositionColorTexture.VertexDeclaration,
                 3, BufferUsage.None);
             var indexBuffer = new IndexBuffer(
-                gd, IndexElementSize.SixteenBits, 
+                gd, IndexElementSize.SixteenBits,
                 3, BufferUsage.None);
 
             // No vertex shader or pixel shader.
@@ -282,7 +282,7 @@ namespace MonoGame.Tests.Graphics
                 gd, VertexPositionColorTexture.VertexDeclaration,
                 3, BufferUsage.None);
             var indexBuffer = new IndexBuffer(
-                gd, IndexElementSize.SixteenBits, 
+                gd, IndexElementSize.SixteenBits,
                 3, BufferUsage.None);
 
             // No vertex shader or pixel shader.
@@ -578,7 +578,7 @@ namespace MonoGame.Tests.Graphics
             Assert.DoesNotThrow(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexDataNonEmpty, 0, 3, indexDataNonEmpty.Select(x => (int) x).ToArray(), 0, 1, VertexPositionColor.VertexDeclaration));
 #else
             Assert.Throws<ArgumentOutOfRangeException>(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexDataNonEmpty, 0, 3, indexDataNonEmpty, 0, 1, VertexPositionColor.VertexDeclaration));
-            Assert.Throws<ArgumentOutOfRangeException>(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexDataNonEmpty, 0, 3, indexDataNonEmpty.Select(x => (int) x).ToArray(), 0, 1, VertexPositionColor.VertexDeclaration));
+            Assert.Throws<ArgumentOutOfRangeException>(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexDataNonEmpty, 0, 3, indexDataNonEmpty.Select(x => (int)x).ToArray(), 0, 1, VertexPositionColor.VertexDeclaration));
 #endif
             effect.Dispose();
         }
@@ -588,7 +588,7 @@ namespace MonoGame.Tests.Graphics
             assertMethod(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexData, vertexOffset, numVertices, indexData, indexOffset, primitiveCount));
             assertMethod(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexData, vertexOffset, numVertices, indexData, indexOffset, primitiveCount, VertexPositionColorTexture.VertexDeclaration));
 
-            var intIndexData = (indexData == null) ? null : indexData.Select(x => (int) x).ToArray();
+            var intIndexData = (indexData == null) ? null : indexData.Select(x => (int)x).ToArray();
             assertMethod(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexData, vertexOffset, numVertices, intIndexData, indexOffset, primitiveCount));
             assertMethod(() => gd.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, vertexData, vertexOffset, numVertices, intIndexData, indexOffset, primitiveCount, VertexPositionColorTexture.VertexDeclaration));
         }
@@ -660,7 +660,7 @@ namespace MonoGame.Tests.Graphics
             var heightMapData = new float[heightMapSize * heightMapSize];
             for (var y = 0; y < heightMapSize; y++)
                 for (var x = 0; x < heightMapSize; x++)
-                    heightMapData[(y * heightMapSize) + x] = (float) Math.Sin(x / 2.0f) + (float) Math.Sin(y / 3.0f);
+                    heightMapData[(y * heightMapSize) + x] = (float)Math.Sin(x / 2.0f) + (float)Math.Sin(y / 3.0f);
             heightMapTexture.SetData(heightMapData);
 
             var viewMatrix = Matrix.CreateLookAt(new Vector3(32, 10, 60), new Vector3(32, 0, 30), Vector3.Up);
@@ -670,7 +670,7 @@ namespace MonoGame.Tests.Graphics
             var effect = AssetTestUtility.LoadEffect(content, "VertexTextureEffect");
             effect.Parameters["WorldViewProj"].SetValue(viewMatrix * projectionMatrix);
             effect.Parameters["HeightMapTexture"].SetValue(heightMapTexture);
-            effect.Parameters["HeightMapSize"].SetValue((float) heightMapSize);
+            effect.Parameters["HeightMapSize"].SetValue((float)heightMapSize);
 
             effect.CurrentTechnique.Passes[0].Apply();
 
@@ -690,15 +690,15 @@ namespace MonoGame.Tests.Graphics
             for (short y = 0; y < heightMapSize - 1; y++)
                 for (short x = 0; x < heightMapSize - 1; x++)
                 {
-                    var baseIndex = (short) ((y * heightMapSize) + x);
+                    var baseIndex = (short)((y * heightMapSize) + x);
 
                     indexData[indexIndex++] = baseIndex;
-                    indexData[indexIndex++] = (short) (baseIndex + heightMapSize);
-                    indexData[indexIndex++] = (short) (baseIndex + 1);
+                    indexData[indexIndex++] = (short)(baseIndex + heightMapSize);
+                    indexData[indexIndex++] = (short)(baseIndex + 1);
 
-                    indexData[indexIndex++] = (short) (baseIndex + 1);
-                    indexData[indexIndex++] = (short) (baseIndex + heightMapSize);
-                    indexData[indexIndex++] = (short) (baseIndex + heightMapSize + 1);
+                    indexData[indexIndex++] = (short)(baseIndex + 1);
+                    indexData[indexIndex++] = (short)(baseIndex + heightMapSize);
+                    indexData[indexIndex++] = (short)(baseIndex + heightMapSize + 1);
                 }
             indexBuffer.SetData(indexData);
             gd.Indices = indexBuffer;
@@ -765,8 +765,7 @@ namespace MonoGame.Tests.Graphics
             gd.SetVertexBuffer(vb1);
             gd.DrawPrimitives(PrimitiveType.TriangleList, 0, 2);
 
-            int vbo;
-            GL.GetInteger(GetPName.ArrayBufferBinding, out vbo);
+            GL.GetInteger(GetPName.ArrayBufferBinding, out int vbo);
             Assert.AreEqual(vb1.vbo, vbo);
 
             gd.SetVertexBuffer(vb2);

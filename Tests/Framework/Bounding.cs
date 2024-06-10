@@ -39,7 +39,7 @@ namespace MonoGame.Tests.Framework
         [Test]
         public void BoundingSphereTests()
         {
-            var zeroPoint = BoundingSphere.CreateFromPoints( new[] {Vector3.Zero} );
+            var zeroPoint = BoundingSphere.CreateFromPoints(new[] { Vector3.Zero });
             Assert.AreEqual(new BoundingSphere(), zeroPoint);
 
             var onePoint = BoundingSphere.CreateFromPoints(new[] { Vector3.One });
@@ -68,7 +68,7 @@ namespace MonoGame.Tests.Framework
                 Assert.That(eightPoint.Contains(eightPointTestInput[i]) != ContainmentType.Disjoint);
             }
 
-            Assert.Throws<ArgumentException>(() => BoundingSphere.CreateFromPoints(new Vector3[] {}));
+            Assert.Throws<ArgumentException>(() => BoundingSphere.CreateFromPoints(new Vector3[] { }));
         }
 
         [Test]
@@ -172,9 +172,8 @@ namespace MonoGame.Tests.Framework
         {
             BoundingBox boundingBox = new BoundingBox(new Vector3(255, 255, 255), new Vector3(0, 0, 0));
 
-            Vector3 min, max;
 
-            boundingBox.Deconstruct(out min, out max);
+            boundingBox.Deconstruct(out Vector3 min, out Vector3 max);
 
             Assert.AreEqual(min, boundingBox.Min);
             Assert.AreEqual(max, boundingBox.Max);
@@ -185,10 +184,8 @@ namespace MonoGame.Tests.Framework
         {
             BoundingSphere boundingSphere = new BoundingSphere(new Vector3(255, 255, 255), float.MaxValue);
 
-            Vector3 center;
-            float radius;
 
-            boundingSphere.Deconstruct(out center, out radius);
+            boundingSphere.Deconstruct(out Vector3 center, out float radius);
 
             Assert.AreEqual(center, boundingSphere.Center);
             Assert.AreEqual(radius, boundingSphere.Radius);
