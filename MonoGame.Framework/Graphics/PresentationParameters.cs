@@ -162,10 +162,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Get or set the display orientation.
         /// </summary>
 		public DisplayOrientation DisplayOrientation
-        {
-            get;
-            set;
-        }
+        { get; set; }
 
         /// <summary>
         /// Get or set the RenderTargetUsage for the back buffer.

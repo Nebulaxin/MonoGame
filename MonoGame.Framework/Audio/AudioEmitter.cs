@@ -53,17 +53,11 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>The Forward and Up values must be orthonormal.</para>
         /// </remarks>
 		public Vector3 Forward
-        {
-            get;
-            set;
-        }
+        { get; set; }
 
         /// <summary>Gets or sets the position of this emitter.</summary>
         public Vector3 Position
-        {
-            get;
-            set;
-        }
+        { get; set; }
 
         /// <summary>Gets or sets the emitter's Up vector.</summary>
         /// <remarks>
@@ -71,10 +65,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>The Up and Forward vectors must be orthonormal.</para>
         /// </remarks>
 		public Vector3 Up
-        {
-            get;
-            set;
-        }
+        { get; set; }
 
         /// <summary>Gets or sets the emitter's velocity vector.</summary>
         /// <remarks>
@@ -82,10 +73,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>This value is only used when calculating Doppler values.</para>
         /// </remarks>
 		public Vector3 Velocity
-        {
-            get;
-            set;
-        }
+        { get; set; }
 
     }
 }

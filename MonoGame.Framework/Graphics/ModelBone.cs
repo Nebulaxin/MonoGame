@@ -62,10 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		/// Transform of this node from the root of the model not from the parent
 		/// </summary>
 		public Matrix ModelTransform
-		{
-			get;
-			set;
-		}
+		{ get; set; }
 
 		/// <summary>
 		/// Creates a new collection of <see cref="ModelBone"/> to denote the child bones in this model.

@@ -16,7 +16,7 @@ public sealed class BuildConsoleCheckTask : FrostingTask<BuildContext>
         <TargetFramework>net452</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>5</LangVersion>
-        <WarningLevel>1</WarningLevel>
+        <!--<WarningLevel>1</WarningLevel>-->
       </PropertyGroup>
     </Project>
     """;

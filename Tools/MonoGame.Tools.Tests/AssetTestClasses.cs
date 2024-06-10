@@ -20,10 +20,7 @@ public class TheBasics
     internal int InternalField;
 
     public string GetSetProperty
-    {
-        get;
-        set;
-    }
+    { get; set; }
 
     public string GetOnlyProperty
     {
@@ -231,7 +228,7 @@ public class PrimitiveTypes
     public ulong ULong;
     public float Float;
     public double Double;
-    public char? NullChar;                        
+    public char? NullChar;
     public char? NotNullChar;
 }
 #endregion
@@ -430,7 +427,7 @@ class GetterOnlyProperties
         IntStringDictionaryWithPrivateSetter = new Dictionary<int, string>();
         _intStringDictionary = new Dictionary<int, string>();
         _customClass = new AnotherClass();
-        _customClassArray = new [] { new AnotherClass { A = 42 } };
+        _customClassArray = new[] { new AnotherClass { A = 42 } };
         _customStruct = new AnotherStruct();
     }
 }
@@ -531,7 +528,7 @@ public class Colors
 
 class StructArrayNoElements
 {
-    public Vector2[] Vector2ArrayNoElements = new Vector2[] {};
+    public Vector2[] Vector2ArrayNoElements = new Vector2[] { };
 }
 
 namespace MonoGame.Tests.ContentPipeline
