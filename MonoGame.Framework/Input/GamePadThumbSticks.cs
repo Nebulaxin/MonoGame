@@ -84,7 +84,7 @@ public struct GamePadThumbSticks
             _virtualButtons |= Buttons.RightThumbstickUp;
     }
 
-    private Vector2 ApplyDeadZone(GamePadDeadZone deadZoneMode, float deadZone, Vector2 thumbstickPosition)
+    private readonly Vector2 ApplyDeadZone(GamePadDeadZone deadZoneMode, float deadZone, Vector2 thumbstickPosition)
     {
         // XNA applies dead zones before rounding/clamping values. The public ctor does not allow this because the dead zone must be known before
 

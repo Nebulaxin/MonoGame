@@ -259,7 +259,7 @@ public struct TouchLocation : IEquatable<TouchLocation>
     }
 
     /// <inheritdoc/>
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
         if (obj is TouchLocation)
             return Equals((TouchLocation)obj);

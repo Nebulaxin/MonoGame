@@ -421,7 +421,7 @@ public struct Color : IEquatable<Color>
     /// </summary>
     /// <param name="obj">The <see cref="Color"/> to compare.</param>
     /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
         return (obj is Color) && Equals((Color)obj);
     }

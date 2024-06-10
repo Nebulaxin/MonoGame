@@ -870,469 +870,467 @@ public class MonoGameAndroidGameView : SurfaceView, ISurfaceHolderCallback, View
             };
         }
 
-        public override string ToString()
+        public override readonly string ToString() => $"Red:{Red} Green:{Green} Blue:{Blue} Alpha:{Alpha} Depth:{Depth} Stencil:{Stencil} SampleBuffers:{SampleBuffers} Samples:{Samples}";
+
+
+        protected void CreateGLContext()
         {
-            return $"Red:{Red,Green, Blue, Alpha, Depth, Stencil, SampleBuffers} Green:{Samples}";
-        }
-    }
+            lostglContext = false;
 
-    protected void CreateGLContext()
-    {
-        lostglContext = false;
+            egl = EGLContext.EGL.JavaCast<IEGL10>();
 
-        egl = EGLContext.EGL.JavaCast<IEGL10>();
+            eglDisplay = egl.EglGetDisplay(EGL10.EglDefaultDisplay);
+            if (eglDisplay == EGL10.EglNoDisplay)
+                throw new Exception("Could not get EGL display" + GetErrorAsString());
 
-        eglDisplay = egl.EglGetDisplay(EGL10.EglDefaultDisplay);
-        if (eglDisplay == EGL10.EglNoDisplay)
-            throw new Exception("Could not get EGL display" + GetErrorAsString());
+            int[] version = new int[2];
+            if (!egl.EglInitialize(eglDisplay, version))
+                throw new Exception("Could not initialize EGL display" + GetErrorAsString());
 
-        int[] version = new int[2];
-        if (!egl.EglInitialize(eglDisplay, version))
-            throw new Exception("Could not initialize EGL display" + GetErrorAsString());
-
-        int depth = 0;
-        int stencil = 0;
-        int sampleBuffers = 0;
-        int samples = 0;
-        switch (_game.graphicsDeviceManager.PreferredDepthStencilFormat)
-        {
-            case DepthFormat.Depth16:
-                depth = 16;
-                break;
-            case DepthFormat.Depth24:
-                depth = 24;
-                break;
-            case DepthFormat.Depth24Stencil8:
-                depth = 24;
-                stencil = 8;
-                break;
-            case DepthFormat.None:
-                break;
-        }
-
-        if (_game.graphicsDeviceManager.PreferMultiSampling)
-        {
-            sampleBuffers = 1;
-            samples = 4;
-        }
-
-        List<SurfaceConfig> configs = new List<SurfaceConfig>();
-        if (depth > 0)
-        {
-            configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, Depth = depth, Stencil = stencil, SampleBuffers = sampleBuffers, Samples = samples });
-            configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, Depth = depth, Stencil = stencil });
-            configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5, Depth = depth, Stencil = stencil });
-            configs.Add(new SurfaceConfig() { Depth = depth, Stencil = stencil });
-            if (depth > 16)
+            int depth = 0;
+            int stencil = 0;
+            int sampleBuffers = 0;
+            int samples = 0;
+            switch (_game.graphicsDeviceManager.PreferredDepthStencilFormat)
             {
-                configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, Depth = 16 });
-                configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5, Depth = 16 });
-                configs.Add(new SurfaceConfig() { Depth = 16 });
+                case DepthFormat.Depth16:
+                    depth = 16;
+                    break;
+                case DepthFormat.Depth24:
+                    depth = 24;
+                    break;
+                case DepthFormat.Depth24Stencil8:
+                    depth = 24;
+                    stencil = 8;
+                    break;
+                case DepthFormat.None:
+                    break;
             }
-            configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8 });
-            configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5 });
-        }
-        else
-        {
-            configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, SampleBuffers = sampleBuffers, Samples = samples });
-            configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8 });
-            configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5 });
-        }
-        configs.Add(new SurfaceConfig() { Red = 4, Green = 4, Blue = 4 });
-        int[] numConfigs = new int[1];
-        EGLConfig[] results = new EGLConfig[1];
 
-        if (!egl.EglGetConfigs(eglDisplay, null, 0, numConfigs))
-        {
-            throw new Exception("Could not get config count. " + GetErrorAsString());
-        }
-
-        EGLConfig[] cfgs = new EGLConfig[numConfigs[0]];
-        egl.EglGetConfigs(eglDisplay, cfgs, numConfigs[0], numConfigs);
-        Log.Verbose("AndroidGameView", "Device Supports");
-        foreach (var c in cfgs)
-        {
-            Log.Verbose("AndroidGameView", $" {SurfaceConfig.FromEGLConfig(c, egl, eglDisplay))}";
-        }
-
-        bool found = false;
-        numConfigs[0] = 0;
-        foreach (var config in configs)
-        {
-            Log.Verbose("AndroidGameView", $"Checking Config : {config)}";
-            found = egl.EglChooseConfig(eglDisplay, config.ToConfigAttribs(), results, 1, numConfigs);
-            Log.Verbose("AndroidGameView", "EglChooseConfig returned {0} and {1}", found, numConfigs[0]);
-            if (!found || numConfigs[0] <= 0)
+            if (_game.graphicsDeviceManager.PreferMultiSampling)
             {
-                Log.Verbose("AndroidGameView", "Config not supported");
-                continue;
+                sampleBuffers = 1;
+                samples = 4;
             }
-            Log.Verbose("AndroidGameView", $"Selected Config : {config)}";
-            break;
-        }
 
-        if (!found || numConfigs[0] <= 0)
-            throw new Exception("No valid EGL configs found" + GetErrorAsString());
-        var createdVersion = new MonoGame.OpenGL.GLESVersion();
-        foreach (var v in MonoGame.OpenGL.GLESVersion.GetSupportedGLESVersions())
-        {
-            Log.Verbose("AndroidGameView", "Creating GLES {0} Context", v);
-            eglContext = egl.EglCreateContext(eglDisplay, results[0], EGL10.EglNoContext, v.GetAttributes());
-            if (eglContext == null || eglContext == EGL10.EglNoContext)
+            List<SurfaceConfig> configs = new List<SurfaceConfig>();
+            if (depth > 0)
             {
-                Log.Verbose("AndroidGameView", $"GLES {v} Not Supported. {GetErrorAsString())}";
-                eglContext = EGL10.EglNoContext;
-                continue;
-            }
-            createdVersion = v;
-            break;
-        }
-        if (eglContext == null || eglContext == EGL10.EglNoContext)
-        {
-            eglContext = null;
-            throw new Exception("Could not create EGL context" + GetErrorAsString());
-        }
-        Log.Verbose("AndroidGameView", "Created GLES {0} Context", createdVersion);
-        eglConfig = results[0];
-        glContextAvailable = true;
-    }
-
-    private string GetErrorAsString()
-    {
-        switch (egl.EglGetError())
-        {
-            case EGL10.EglSuccess:
-                return "Success";
-
-            case EGL10.EglNotInitialized:
-                return "Not Initialized";
-
-            case EGL10.EglBadAccess:
-                return "Bad Access";
-            case EGL10.EglBadAlloc:
-                return "Bad Allocation";
-            case EGL10.EglBadAttribute:
-                return "Bad Attribute";
-            case EGL10.EglBadConfig:
-                return "Bad Config";
-            case EGL10.EglBadContext:
-                return "Bad Context";
-            case EGL10.EglBadCurrentSurface:
-                return "Bad Current Surface";
-            case EGL10.EglBadDisplay:
-                return "Bad Display";
-            case EGL10.EglBadMatch:
-                return "Bad Match";
-            case EGL10.EglBadNativePixmap:
-                return "Bad Native Pixmap";
-            case EGL10.EglBadNativeWindow:
-                return "Bad Native Window";
-            case EGL10.EglBadParameter:
-                return "Bad Parameter";
-            case EGL10.EglBadSurface:
-                return "Bad Surface";
-
-            default:
-                return "Unknown Error";
-        }
-    }
-
-    protected void CreateGLSurface()
-    {
-        if (!glSurfaceAvailable)
-        {
-            try
-            {
-                // If there is an existing surface, destroy the old one
-                DestroyGLSurface();
-
-                eglSurface = egl.EglCreateWindowSurface(eglDisplay, eglConfig, (Java.Lang.Object)this.Holder, null);
-                if (eglSurface == null || eglSurface == EGL10.EglNoSurface)
-                    throw new Exception("Could not create EGL window surface" + GetErrorAsString());
-
-                if (!egl.EglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext))
-                    throw new Exception("Could not make EGL current" + GetErrorAsString());
-
-                glSurfaceAvailable = true;
-
-                // Must set viewport after creation, the viewport has correct values in it already as we call it, but
-                // the surface is created after the correct viewport is already applied so we must do it again.
-                if (_game.GraphicsDevice != null)
-                    _game.graphicsDeviceManager.ResetClientBounds();
-
-                if (MonoGame.OpenGL.GL.GetError == null)
-                    MonoGame.OpenGL.GL.LoadEntryPoints();
-            }
-            catch (Exception ex)
-            {
-                Log.Error("AndroidGameView", ex.ToString());
-                glSurfaceAvailable = false;
-            }
-        }
-    }
-
-    protected EGLSurface CreatePBufferSurface(EGLConfig config, int[] attribList)
-    {
-        IEGL10 egl = EGLContext.EGL.JavaCast<IEGL10>();
-        EGLSurface result = egl.EglCreatePbufferSurface(eglDisplay, config, attribList);
-        if (result == null || result == EGL10.EglNoSurface)
-            throw new Exception("EglCreatePBufferSurface");
-        return result;
-    }
-
-    protected void ContextSetInternal()
-    {
-        if (lostglContext)
-        {
-            if (_game.GraphicsDevice != null)
-            {
-                _game.GraphicsDevice.Initialize();
-
-                IsResuming = true;
-                if (_gameWindow.Resumer != null)
+                configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, Depth = depth, Stencil = stencil, SampleBuffers = sampleBuffers, Samples = samples });
+                configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, Depth = depth, Stencil = stencil });
+                configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5, Depth = depth, Stencil = stencil });
+                configs.Add(new SurfaceConfig() { Depth = depth, Stencil = stencil });
+                if (depth > 16)
                 {
-                    _gameWindow.Resumer.LoadContent();
+                    configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, Depth = 16 });
+                    configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5, Depth = 16 });
+                    configs.Add(new SurfaceConfig() { Depth = 16 });
                 }
-
-                // Reload textures on a different thread so the resumer can be drawn
-                System.Threading.Thread bgThread = new System.Threading.Thread(
-                    o =>
-                    {
-                        Android.Util.Log.Debug("MonoGame", "Begin reloading graphics content");
-                        Microsoft.Xna.Framework.Content.ContentManager.ReloadGraphicsContent();
-                        Android.Util.Log.Debug("MonoGame", "End reloading graphics content");
-
-                        // DeviceReset events
-                        _game.graphicsDeviceManager.OnDeviceReset(EventArgs.Empty);
-                        _game.GraphicsDevice.OnDeviceReset();
-
-                        IsResuming = false;
-                    });
-
-                bgThread.Start();
+                configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8 });
+                configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5 });
             }
-        }
-        OnContextSet(EventArgs.Empty);
-    }
-
-    protected void ContextLostInternal()
-    {
-        OnContextLost(EventArgs.Empty);
-        _game.graphicsDeviceManager.OnDeviceResetting(EventArgs.Empty);
-        if (_game.GraphicsDevice != null)
-            _game.GraphicsDevice.OnDeviceResetting();
-    }
-
-    protected virtual void OnContextLost(EventArgs eventArgs)
-    {
-
-    }
-
-    protected virtual void OnContextSet(EventArgs eventArgs)
-    {
-
-    }
-
-    protected virtual void OnUnload(EventArgs eventArgs)
-    {
-
-    }
-
-    protected virtual void OnLoad(EventArgs eventArgs)
-    {
-
-    }
-
-    protected virtual void OnStopped(EventArgs eventArgs)
-    {
-
-    }
-
-    #region Key and Motion
-
-    public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
-    {
-        bool handled = false;
-        if (GamePad.OnKeyDown(keyCode, e))
-            return true;
-
-        handled = Keyboard.KeyDown(keyCode);
-
-        // we need to handle the Back key here because it doesn't work any other way
-        if (keyCode == Keycode.Back)
-        {
-            GamePad.Back = true;
-            handled = true;
-        }
-
-        if (keyCode == Keycode.VolumeUp)
-        {
-            AudioManager audioManager = (AudioManager)Context.GetSystemService(Context.AudioService);
-            audioManager.AdjustStreamVolume(Stream.Music, Adjust.Raise, VolumeNotificationFlags.ShowUi);
-            return true;
-        }
-
-        if (keyCode == Keycode.VolumeDown)
-        {
-            AudioManager audioManager = (AudioManager)Context.GetSystemService(Context.AudioService);
-            audioManager.AdjustStreamVolume(Stream.Music, Adjust.Lower, VolumeNotificationFlags.ShowUi);
-            return true;
-        }
-
-        return handled;
-    }
-
-    public override bool OnKeyUp(Keycode keyCode, KeyEvent e)
-    {
-        if (keyCode == Keycode.Back)
-            GamePad.Back = false;
-        if (GamePad.OnKeyUp(keyCode, e))
-            return true;
-        return Keyboard.KeyUp(keyCode);
-    }
-
-    public override bool OnGenericMotionEvent(MotionEvent e)
-    {
-        if (GamePad.OnGenericMotionEvent(e))
-            return true;
-
-        return base.OnGenericMotionEvent(e);
-    }
-
-    #endregion
-
-    #region Properties
-
-    private IEGL10 egl;
-    private EGLDisplay eglDisplay;
-    private EGLConfig eglConfig;
-    private EGLContext eglContext;
-    private EGLSurface eglSurface;
-
-    /// <summary>The visibility of the window. Always returns true.</summary>
-    /// <value></value>
-    /// <exception cref="T:System.ObjectDisposed">The instance has been disposed</exception>
-    public virtual bool Visible
-    {
-        get
-        {
-            EnsureUndisposed();
-            return true;
-        }
-        set
-        {
-            EnsureUndisposed();
-        }
-    }
-
-    /// <summary>The size of the current view.</summary>
-    /// <value>A <see cref="T:System.Drawing.Size" /> which is the size of the current view.</value>
-    /// <exception cref="T:System.ObjectDisposed">The instance has been disposed</exception>
-    public virtual System.Drawing.Size Size
-    {
-        get
-        {
-            EnsureUndisposed();
-            return size;
-        }
-        set
-        {
-            EnsureUndisposed();
-            if (size != value)
+            else
             {
-                size = value;
-                OnResize(EventArgs.Empty);
+                configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8, SampleBuffers = sampleBuffers, Samples = samples });
+                configs.Add(new SurfaceConfig() { Red = 8, Green = 8, Blue = 8, Alpha = 8 });
+                configs.Add(new SurfaceConfig() { Red = 5, Green = 6, Blue = 5 });
             }
-        }
-    }
+            configs.Add(new SurfaceConfig() { Red = 4, Green = 4, Blue = 4 });
+            int[] numConfigs = new int[1];
+            EGLConfig[] results = new EGLConfig[1];
 
-    private void OnResize(EventArgs eventArgs)
-    {
-
-    }
-
-    #endregion
-
-    public event FrameEvent RenderFrame;
-    public event FrameEvent UpdateFrame;
-
-    public delegate void FrameEvent(object sender, FrameEventArgs e);
-
-    public class FrameEventArgs : EventArgs
-    {
-        double elapsed;
-
-        /// <summary>
-        /// Constructs a new FrameEventArgs instance.
-        /// </summary>
-        public FrameEventArgs()
-        {
-        }
-
-        /// <summary>
-        /// Constructs a new FrameEventArgs instance.
-        /// </summary>
-        /// <param name="elapsed">The amount of time that has elapsed since the previous event, in seconds.</param>
-        public FrameEventArgs(double elapsed)
-        {
-            Time = elapsed;
-        }
-
-        /// <summary>
-        /// Gets a <see cref="System.Double"/> that indicates how many seconds of time elapsed since the previous event.
-        /// </summary>
-        public double Time
-        {
-            get { return elapsed; }
-            internal set
+            if (!egl.EglGetConfigs(eglDisplay, null, 0, numConfigs))
             {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException();
-                elapsed = value;
+                throw new Exception("Could not get config count. " + GetErrorAsString());
             }
-        }
-    }
 
-    public BackgroundContext CreateBackgroundContext()
-    {
-        return new BackgroundContext(this);
-    }
-
-    public class BackgroundContext
-    {
-
-        EGLContext eglContext;
-        MonoGameAndroidGameView view;
-        EGLSurface surface;
-
-        public BackgroundContext(MonoGameAndroidGameView view)
-        {
-            this.view = view;
-            foreach (var v in MonoGame.OpenGL.GLESVersion.GetSupportedGLESVersions())
+            EGLConfig[] cfgs = new EGLConfig[numConfigs[0]];
+            egl.EglGetConfigs(eglDisplay, cfgs, numConfigs[0], numConfigs);
+            Log.Verbose("AndroidGameView", "Device Supports");
+            foreach (var c in cfgs)
             {
-                eglContext = view.egl.EglCreateContext(view.eglDisplay, view.eglConfig, EGL10.EglNoContext, v.GetAttributes());
-                if (eglContext == null || eglContext == EGL10.EglNoContext)
+                Log.Verbose("AndroidGameView", $" {SurfaceConfig.FromEGLConfig(c, egl, eglDisplay)}");
+            }
+
+            bool found = false;
+            numConfigs[0] = 0;
+            foreach (var config in configs)
+            {
+                Log.Verbose("AndroidGameView", $"Checking Config : {config}");
+                found = egl.EglChooseConfig(eglDisplay, config.ToConfigAttribs(), results, 1, numConfigs);
+                Log.Verbose("AndroidGameView", "EglChooseConfig returned {0} and {1}", found, numConfigs[0]);
+                if (!found || numConfigs[0] <= 0)
                 {
+                    Log.Verbose("AndroidGameView", "Config not supported");
                     continue;
                 }
+                Log.Verbose("AndroidGameView", $"Selected Config : {config}");
+                break;
+            }
+
+            if (!found || numConfigs[0] <= 0)
+                throw new Exception("No valid EGL configs found" + GetErrorAsString());
+            var createdVersion = new MonoGame.OpenGL.GLESVersion();
+            foreach (var v in MonoGame.OpenGL.GLESVersion.GetSupportedGLESVersions())
+            {
+                Log.Verbose("AndroidGameView", "Creating GLES {0} Context", v);
+                eglContext = egl.EglCreateContext(eglDisplay, results[0], EGL10.EglNoContext, v.GetAttributes());
+                if (eglContext == null || eglContext == EGL10.EglNoContext)
+                {
+                    Log.Verbose("AndroidGameView", $"GLES {v} Not Supported. {GetErrorAsString()}");
+                    eglContext = EGL10.EglNoContext;
+                    continue;
+                }
+                createdVersion = v;
                 break;
             }
             if (eglContext == null || eglContext == EGL10.EglNoContext)
             {
                 eglContext = null;
-                throw new Exception("Could not create EGL context" + view.GetErrorAsString());
+                throw new Exception("Could not create EGL context" + GetErrorAsString());
             }
-            int[] pbufferAttribList = new int[] { EGL10.EglWidth, 64, EGL10.EglHeight, 64, EGL10.EglNone };
-            surface = view.CreatePBufferSurface(view.eglConfig, pbufferAttribList);
-            if (surface == EGL10.EglNoSurface)
-                throw new Exception("Could not create Pbuffer Surface" + view.GetErrorAsString());
+            Log.Verbose("AndroidGameView", "Created GLES {0} Context", createdVersion);
+            eglConfig = results[0];
+            glContextAvailable = true;
         }
 
-        public void MakeCurrent()
+        private string GetErrorAsString()
         {
-            view.ClearCurrent();
-            view.egl.EglMakeCurrent(view.eglDisplay, surface, surface, eglContext);
+            switch (egl.EglGetError())
+            {
+                case EGL10.EglSuccess:
+                    return "Success";
+
+                case EGL10.EglNotInitialized:
+                    return "Not Initialized";
+
+                case EGL10.EglBadAccess:
+                    return "Bad Access";
+                case EGL10.EglBadAlloc:
+                    return "Bad Allocation";
+                case EGL10.EglBadAttribute:
+                    return "Bad Attribute";
+                case EGL10.EglBadConfig:
+                    return "Bad Config";
+                case EGL10.EglBadContext:
+                    return "Bad Context";
+                case EGL10.EglBadCurrentSurface:
+                    return "Bad Current Surface";
+                case EGL10.EglBadDisplay:
+                    return "Bad Display";
+                case EGL10.EglBadMatch:
+                    return "Bad Match";
+                case EGL10.EglBadNativePixmap:
+                    return "Bad Native Pixmap";
+                case EGL10.EglBadNativeWindow:
+                    return "Bad Native Window";
+                case EGL10.EglBadParameter:
+                    return "Bad Parameter";
+                case EGL10.EglBadSurface:
+                    return "Bad Surface";
+
+                default:
+                    return "Unknown Error";
+            }
+        }
+
+        protected void CreateGLSurface()
+        {
+            if (!glSurfaceAvailable)
+            {
+                try
+                {
+                    // If there is an existing surface, destroy the old one
+                    DestroyGLSurface();
+
+                    eglSurface = egl.EglCreateWindowSurface(eglDisplay, eglConfig, (Java.Lang.Object)this.Holder, null);
+                    if (eglSurface == null || eglSurface == EGL10.EglNoSurface)
+                        throw new Exception("Could not create EGL window surface" + GetErrorAsString());
+
+                    if (!egl.EglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext))
+                        throw new Exception("Could not make EGL current" + GetErrorAsString());
+
+                    glSurfaceAvailable = true;
+
+                    // Must set viewport after creation, the viewport has correct values in it already as we call it, but
+                    // the surface is created after the correct viewport is already applied so we must do it again.
+                    if (_game.GraphicsDevice != null)
+                        _game.graphicsDeviceManager.ResetClientBounds();
+
+                    if (MonoGame.OpenGL.GL.GetError == null)
+                        MonoGame.OpenGL.GL.LoadEntryPoints();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("AndroidGameView", ex.ToString());
+                    glSurfaceAvailable = false;
+                }
+            }
+        }
+
+        protected EGLSurface CreatePBufferSurface(EGLConfig config, int[] attribList)
+        {
+            IEGL10 egl = EGLContext.EGL.JavaCast<IEGL10>();
+            EGLSurface result = egl.EglCreatePbufferSurface(eglDisplay, config, attribList);
+            if (result == null || result == EGL10.EglNoSurface)
+                throw new Exception("EglCreatePBufferSurface");
+            return result;
+        }
+
+        protected void ContextSetInternal()
+        {
+            if (lostglContext)
+            {
+                if (_game.GraphicsDevice != null)
+                {
+                    _game.GraphicsDevice.Initialize();
+
+                    IsResuming = true;
+                    if (_gameWindow.Resumer != null)
+                    {
+                        _gameWindow.Resumer.LoadContent();
+                    }
+
+                    // Reload textures on a different thread so the resumer can be drawn
+                    System.Threading.Thread bgThread = new System.Threading.Thread(
+                        o =>
+                        {
+                            Android.Util.Log.Debug("MonoGame", "Begin reloading graphics content");
+                            Microsoft.Xna.Framework.Content.ContentManager.ReloadGraphicsContent();
+                            Android.Util.Log.Debug("MonoGame", "End reloading graphics content");
+
+                            // DeviceReset events
+                            _game.graphicsDeviceManager.OnDeviceReset(EventArgs.Empty);
+                            _game.GraphicsDevice.OnDeviceReset();
+
+                            IsResuming = false;
+                        });
+
+                    bgThread.Start();
+                }
+            }
+            OnContextSet(EventArgs.Empty);
+        }
+
+        protected void ContextLostInternal()
+        {
+            OnContextLost(EventArgs.Empty);
+            _game.graphicsDeviceManager.OnDeviceResetting(EventArgs.Empty);
+            if (_game.GraphicsDevice != null)
+                _game.GraphicsDevice.OnDeviceResetting();
+        }
+
+        protected virtual readonly void OnContextLost(EventArgs eventArgs)
+        {
+
+        }
+
+        protected virtual readonly void OnContextSet(EventArgs eventArgs)
+        {
+
+        }
+
+        protected virtual readonly void OnUnload(EventArgs eventArgs)
+        {
+
+        }
+
+        protected virtual readonly void OnLoad(EventArgs eventArgs)
+        {
+
+        }
+
+        protected virtual readonly void OnStopped(EventArgs eventArgs)
+        {
+
+        }
+
+        #region Key and Motion
+
+        public override bool OnKeyDown(Keycode keyCode, KeyEvent e)
+        {
+            bool handled = false;
+            if (GamePad.OnKeyDown(keyCode, e))
+                return true;
+
+            handled = Keyboard.KeyDown(keyCode);
+
+            // we need to handle the Back key here because it doesn't work any other way
+            if (keyCode == Keycode.Back)
+            {
+                GamePad.Back = true;
+                handled = true;
+            }
+
+            if (keyCode == Keycode.VolumeUp)
+            {
+                AudioManager audioManager = (AudioManager)Context.GetSystemService(Context.AudioService);
+                audioManager.AdjustStreamVolume(Stream.Music, Adjust.Raise, VolumeNotificationFlags.ShowUi);
+                return true;
+            }
+
+            if (keyCode == Keycode.VolumeDown)
+            {
+                AudioManager audioManager = (AudioManager)Context.GetSystemService(Context.AudioService);
+                audioManager.AdjustStreamVolume(Stream.Music, Adjust.Lower, VolumeNotificationFlags.ShowUi);
+                return true;
+            }
+
+            return handled;
+        }
+
+        public override bool OnKeyUp(Keycode keyCode, KeyEvent e)
+        {
+            if (keyCode == Keycode.Back)
+                GamePad.Back = false;
+            if (GamePad.OnKeyUp(keyCode, e))
+                return true;
+            return Keyboard.KeyUp(keyCode);
+        }
+
+        public override bool OnGenericMotionEvent(MotionEvent e)
+        {
+            if (GamePad.OnGenericMotionEvent(e))
+                return true;
+
+            return base.OnGenericMotionEvent(e);
+        }
+
+        #endregion
+
+        #region Properties
+
+        private IEGL10 egl;
+        private EGLDisplay eglDisplay;
+        private EGLConfig eglConfig;
+        private EGLContext eglContext;
+        private EGLSurface eglSurface;
+
+        /// <summary>The visibility of the window. Always returns true.</summary>
+        /// <value></value>
+        /// <exception cref="T:System.ObjectDisposed">The instance has been disposed</exception>
+        public virtual readonly bool Visible
+        {
+            get
+            {
+                EnsureUndisposed();
+                return true;
+            }
+
+            set
+            {
+                EnsureUndisposed();
+            }
+        }
+
+        /// <summary>The size of the current view.</summary>
+        /// <value>A <see cref="T:System.Drawing.Size" /> which is the size of the current view.</value>
+        /// <exception cref="T:System.ObjectDisposed">The instance has been disposed</exception>
+        public virtual System.Drawing.Size Size
+        {
+            readonly get
+            {
+                EnsureUndisposed();
+                return size;
+            }
+            set
+            {
+                EnsureUndisposed();
+                if (size != value)
+                {
+                    size = value;
+                    OnResize(EventArgs.Empty);
+                }
+            }
+        }
+
+        private readonly void OnResize(EventArgs eventArgs)
+        {
+
+        }
+
+        #endregion
+
+        public event FrameEvent RenderFrame;
+        public event FrameEvent UpdateFrame;
+
+        public delegate void FrameEvent(object sender, FrameEventArgs e);
+
+        public class FrameEventArgs : EventArgs
+        {
+            double elapsed;
+
+            /// <summary>
+            /// Constructs a new FrameEventArgs instance.
+            /// </summary>
+            public FrameEventArgs()
+            {
+            }
+
+            /// <summary>
+            /// Constructs a new FrameEventArgs instance.
+            /// </summary>
+            /// <param name="elapsed">The amount of time that has elapsed since the previous event, in seconds.</param>
+            public FrameEventArgs(double elapsed)
+            {
+                Time = elapsed;
+            }
+
+            /// <summary>
+            /// Gets a <see cref="System.Double"/> that indicates how many seconds of time elapsed since the previous event.
+            /// </summary>
+            public double Time
+            {
+                get { return elapsed; }
+                internal set
+                {
+                    if (value < 0)
+                        throw new ArgumentOutOfRangeException();
+                    elapsed = value;
+                }
+            }
+        }
+
+        public BackgroundContext CreateBackgroundContext()
+        {
+            return new BackgroundContext(this);
+        }
+
+        public class BackgroundContext
+        {
+
+            EGLContext eglContext;
+            MonoGameAndroidGameView view;
+            EGLSurface surface;
+
+            public BackgroundContext(MonoGameAndroidGameView view)
+            {
+                this.view = view;
+                foreach (var v in MonoGame.OpenGL.GLESVersion.GetSupportedGLESVersions())
+                {
+                    eglContext = view.egl.EglCreateContext(view.eglDisplay, view.eglConfig, EGL10.EglNoContext, v.GetAttributes());
+                    if (eglContext == null || eglContext == EGL10.EglNoContext)
+                    {
+                        continue;
+                    }
+                    break;
+                }
+                if (eglContext == null || eglContext == EGL10.EglNoContext)
+                {
+                    eglContext = null;
+                    throw new Exception("Could not create EGL context" + view.GetErrorAsString());
+                }
+                int[] pbufferAttribList = new int[] { EGL10.EglWidth, 64, EGL10.EglHeight, 64, EGL10.EglNone };
+                surface = view.CreatePBufferSurface(view.eglConfig, pbufferAttribList);
+                if (surface == EGL10.EglNoSurface)
+                    throw new Exception("Could not create Pbuffer Surface" + view.GetErrorAsString());
+            }
+
+            public void MakeCurrent()
+            {
+                view.ClearCurrent();
+                view.egl.EglMakeCurrent(view.eglDisplay, surface, surface, eglContext);
+            }
         }
     }
 }
-

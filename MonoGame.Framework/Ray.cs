@@ -57,7 +57,7 @@ public struct Ray : IEquatable<Ray>
     /// <code>true</code> if the specified <see cref="object"/> is equal to this <see cref="Ray"/>,
     /// <code>false</code> if it is not.
     /// </returns>
-    public override bool Equals(object obj)
+    public override readonly bool Equals(object obj)
     {
         return (obj is Ray) && Equals((Ray)obj);
     }
