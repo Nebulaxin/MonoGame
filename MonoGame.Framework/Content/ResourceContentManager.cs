@@ -24,10 +24,7 @@ namespace Microsoft.Xna.Framework.Content
         public ResourceContentManager(IServiceProvider servicesProvider, ResourceManager resource)
             : base(servicesProvider)
         {
-            if (resource == null)
-            {
-                throw new ArgumentNullException("resource");
-            }
+            ArgumentNullException.ThrowIfNull(resource);
             this.resource = resource;
         }
 
@@ -40,9 +37,9 @@ namespace Microsoft.Xna.Framework.Content
         /// Error loading <paramref name="assetName"/>.
         /// The resource was not a binary resource, or the resource was not found.
         /// </exception>
-        protected override System.IO.Stream OpenStream(string assetName)
+        protected override Stream OpenStream(string assetName)
         {
-            object obj = this.resource.GetObject(assetName);
+            object obj = resource.GetObject(assetName);
             if (obj == null)
             {
                 throw new ContentLoadException("Resource not found");

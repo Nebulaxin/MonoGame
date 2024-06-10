@@ -82,19 +82,19 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="InvalidOperationException">The resource could not be created</exception>
 		protected IndexBuffer(GraphicsDevice graphicsDevice, IndexElementSize indexElementSize, int indexCount, BufferUsage usage, bool dynamic)
         {
-			if (graphicsDevice == null)
+            if (graphicsDevice == null)
             {
-                throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
-			this.GraphicsDevice = graphicsDevice;
-			this.IndexElementSize = indexElementSize;
-            this.IndexCount = indexCount;
-            this.BufferUsage = usage;
+            GraphicsDevice = graphicsDevice;
+            IndexElementSize = indexElementSize;
+            IndexCount = indexCount;
+            BufferUsage = usage;
 
             _isDynamic = dynamic;
 
             PlatformConstruct(indexElementSize, indexCount);
-		}
+        }
 
         /// <summary>
         /// Creates a new instance of <b>IndexBuffer</b> with the specified parameters.
@@ -128,9 +128,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </list>
         /// </exception>
 		public IndexBuffer(GraphicsDevice graphicsDevice, IndexElementSize indexElementSize, int indexCount, BufferUsage bufferUsage) :
-			this(graphicsDevice, indexElementSize, indexCount, bufferUsage, false)
-		{
-		}
+            this(graphicsDevice, indexElementSize, indexCount, bufferUsage, false)
+        {
+        }
 
         /// <summary>
         /// Creates a new instance of <b>IndexBuffer</b> with the specified parameters.
@@ -146,9 +146,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="InvalidOperationException">The resource could not be created</exception>
 		public IndexBuffer(GraphicsDevice graphicsDevice, Type indexType, int indexCount, BufferUsage usage) :
-			this(graphicsDevice, SizeForType(graphicsDevice, indexType), indexCount, usage, false)
-		{
-		}
+            this(graphicsDevice, SizeForType(graphicsDevice, indexType), indexCount, usage, false)
+        {
+        }
 
         /// <summary>
         /// Gets the relevant IndexElementSize enum value for the given type.
@@ -167,7 +167,7 @@ namespace Microsoft.Xna.Framework.Graphics
                         throw new NotSupportedException("The profile does not support an elementSize of IndexElementSize.ThirtyTwoBits; use IndexElementSize.SixteenBits or a type that has a size of two bytes.");
                     return IndexElementSize.ThirtyTwoBits;
                 default:
-                    throw new ArgumentOutOfRangeException("type","Index buffers can only be created for types that are sixteen or thirty two bits in length");
+                    throw new ArgumentOutOfRangeException(nameof(type), "Index buffers can only be created for types that are sixteen or thirty two bits in length");
             }
         }
 
@@ -194,14 +194,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void GetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
             if (data.Length < (startIndex + elementCount))
                 throw new InvalidOperationException("The array specified in the data parameter is not the correct size for the amount of data requested.");
             if (BufferUsage == BufferUsage.WriteOnly)
                 throw new NotSupportedException("This IndexBuffer was created with a usage type of BufferUsage.WriteOnly. Calling GetData on a resource that was created with BufferUsage.WriteOnly is not supported.");
 
-            PlatformGetData<T>(offsetInBytes, data, startIndex, elementCount);
+            PlatformGetData(offsetInBytes, data, startIndex, elementCount);
         }
 
         /// <summary>
@@ -218,7 +217,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            this.GetData<T>(0, data, startIndex, elementCount);
+            GetData(0, data, startIndex, elementCount);
         }
 
         /// <summary>
@@ -233,7 +232,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void GetData<T>(T[] data) where T : struct
         {
-            this.GetData<T>(0, data, 0, data.Length);
+            GetData(0, data, 0, data.Length);
         }
 
         /// <summary>
@@ -246,7 +245,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="elementCount"></param>
         public void SetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount) where T : struct
         {
-            SetDataInternal<T>(offsetInBytes, data, startIndex, elementCount, SetDataOptions.None);
+            SetDataInternal(offsetInBytes, data, startIndex, elementCount, SetDataOptions.None);
         }
 
         /// <summary>
@@ -260,8 +259,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="InvalidOperationException"><paramref name="data"/> is not the correct size for the amount of data requested.</exception>
 		public void SetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            SetDataInternal<T>(0, data, startIndex, elementCount, SetDataOptions.None);
-		}
+            SetDataInternal(0, data, startIndex, elementCount, SetDataOptions.None);
+        }
 
         /// <summary>
         /// Copies array data to the index buffer.
@@ -272,7 +271,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="InvalidOperationException"><paramref name="data"/> is not the correct size for the amount of data requested.</exception>
         public void SetData<T>(T[] data) where T : struct
         {
-            SetDataInternal<T>(0, data, 0, data.Length, SetDataOptions.None);
+            SetDataInternal(0, data, 0, data.Length, SetDataOptions.None);
         }
 
         /// <summary>
@@ -288,12 +287,11 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="InvalidOperationException"><paramref name="data"/> is not the correct size for the amount of data requested.</exception>
         protected void SetDataInternal<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
             if (data.Length < (startIndex + elementCount))
                 throw new InvalidOperationException("The array specified in the data parameter is not the correct size for the amount of data requested.");
 
-            PlatformSetData<T>(offsetInBytes, data, startIndex, elementCount, options);
+            PlatformSetData(offsetInBytes, data, startIndex, elementCount, options);
         }
-	}
+    }
 }

@@ -49,10 +49,10 @@ namespace Microsoft.Xna.Framework.Design
         /// <inheritdoc />
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
-            
+
             if (sourceType == typeof(string))
                 return true;
-            
+
             return base.CanConvertFrom(context, sourceType);
         }
 
@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework.Design
                 var vecx = (float)Convert.ToByte(value.ToString().Substring(6, 2), 16);
                 var vecy = (float)Convert.ToByte(value.ToString().Substring(4, 2), 16);
                 var vecz = (float)Convert.ToByte(value.ToString().Substring(2, 2), 16);
-                var vecw = (float)Convert.ToByte(value.ToString().Substring(0, 2), 16);
+                var vecw = (float)Convert.ToByte(value.ToString()[..2], 16);
 
                 return new Byte4(vecx, vecy, vecz, vecw);
             }

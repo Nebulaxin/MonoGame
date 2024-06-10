@@ -5,7 +5,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// <summary>
     /// Describes a custom vertex format structure that contains position and one set of texture coordinates.
     /// </summary>
-    [StructLayout(LayoutKind.Sequential, Pack=1)]
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct VertexPositionTexture : IVertexType
     {
         /// <inheritdoc cref="VertexPosition.Position"/>
@@ -24,8 +24,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="textureCoordinate">Texture coordinate of the vertex.</param>
         public VertexPositionTexture(Vector3 position, Vector2 textureCoordinate)
         {
-            this.Position = position;
-            this.TextureCoordinate = textureCoordinate;
+            Position = position;
+            TextureCoordinate = textureCoordinate;
         }
 
         VertexDeclaration IVertexType.VertexDeclaration
@@ -48,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + this.Position + " TextureCoordinate:" + this.TextureCoordinate + "}}";
+            return "{{Position:" + Position + " TextureCoordinate:" + TextureCoordinate + "}}";
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </returns>
         public static bool operator ==(VertexPositionTexture left, VertexPositionTexture right)
         {
-            return ((left.Position == right.Position) && (left.TextureCoordinate == right.TextureCoordinate));
+            return (left.Position == right.Position) && (left.TextureCoordinate == right.TextureCoordinate);
         }
 
         /// <summary>
@@ -88,12 +88,12 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 return false;
             }
-            return (this == ((VertexPositionTexture)obj));
+            return this == ((VertexPositionTexture)obj);
         }
 
         static VertexPositionTexture()
         {
-            VertexElement[] elements = new VertexElement[] { new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0) };
+            VertexElement[] elements = [new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)];
             VertexDeclaration declaration = new VertexDeclaration(elements);
             VertexDeclaration = declaration;
         }

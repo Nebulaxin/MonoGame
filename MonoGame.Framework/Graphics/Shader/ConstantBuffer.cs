@@ -84,15 +84,17 @@ namespace Microsoft.Xna.Framework.Graphics
 
 
             // Take care of the single copy case!
-            else if (rows == 1 || (rows == 4 && columns == 4)) {
-                Buffer.BlockCopy(data as Array, 0, _buffer, offset, rows*columns*elementSize);
-            } else
+            else if (rows == 1 || (rows == 4 && columns == 4))
+            {
+                Buffer.BlockCopy(data as Array, 0, _buffer, offset, rows * columns * elementSize);
+            }
+            else
             {
                 var source = data as Array;
 
-                var stride = (columns*elementSize);
+                var stride = columns * elementSize;
                 for (var y = 0; y < rows; y++)
-                    Buffer.BlockCopy(source, stride*y, _buffer, offset + (rowSize*y), columns*elementSize);
+                    Buffer.BlockCopy(source, stride * y, _buffer, offset + (rowSize * y), columns * elementSize);
             }
         }
 
@@ -106,7 +108,7 @@ namespace Microsoft.Xna.Framework.Graphics
             var elements = param.Elements;
             if (elements.Count > 0)
             {
-                for (var i=0; i < elements.Count; i++)
+                for (var i = 0; i < elements.Count; i++)
                 {
                     var rowsUsedSubParam = SetParameter(offset, elements[i]);
                     offset += rowsUsedSubParam * rowSize;
@@ -156,7 +158,7 @@ namespace Microsoft.Xna.Framework.Graphics
             // over and we need to reset.
             if (_stateKey > EffectParameter.NextStateKey)
                 _stateKey = 0;
-            
+
             for (var p = 0; p < _parameters.Length; p++)
             {
                 var index = _parameters[p];

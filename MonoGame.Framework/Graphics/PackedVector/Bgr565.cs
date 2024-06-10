@@ -9,15 +9,15 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// <summary>
     /// Packed vector type containing unsigned normalized values ranging from 0 to 1. The x and z components use 5 bits, and the y component uses 6 bits.
     /// </summary>
-    public struct Bgr565 : IPackedVector<UInt16>, IEquatable<Bgr565>, IPackedVector
+    public struct Bgr565 : IPackedVector<ushort>, IEquatable<Bgr565>, IPackedVector
     {
-        UInt16 _packedValue;
+        ushort _packedValue;
 
-        private static UInt16 Pack(float x, float y, float z)
+        private static ushort Pack(float x, float y, float z)
         {
-            return (UInt16) ((((int) MathF.Round(MathHelper.Clamp(x, 0, 1) * 31.0f) & 0x1F) << 11) |
-                (((int) MathF.Round(MathHelper.Clamp(y, 0, 1) * 63.0f) & 0x3F) << 5) |
-                ((int) MathF.Round(MathHelper.Clamp(z, 0, 1) * 31.0f) & 0x1F));
+            return (ushort)((((int)MathF.Round(MathHelper.Clamp(x, 0, 1) * 31.0f) & 0x1F) << 11) |
+                (((int)MathF.Round(MathHelper.Clamp(y, 0, 1) * 63.0f) & 0x3F) << 5) |
+                ((int)MathF.Round(MathHelper.Clamp(z, 0, 1) * 31.0f) & 0x1F));
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public UInt16 PackedValue
+        public ushort PackedValue
         {
             get
             {
@@ -70,7 +70,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            _packedValue = (UInt16)((((int)(vector.X * 31.0f) & 0x1F) << 11) |
+            _packedValue = (ushort)((((int)(vector.X * 31.0f) & 0x1F) << 11) |
                 (((int)(vector.Y * 63.0f) & 0x3F) << 5) |
                 ((int)(vector.Z * 31.0f) & 0x1F));
         }

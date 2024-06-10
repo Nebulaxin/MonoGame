@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Content
         private ContentTypeReader _baseTypeReader;
 
 
-        public ReflectiveReader() 
+        public ReflectiveReader()
             : base(typeof(T))
         {
         }
@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework.Content
 
             var baseType = ReflectionHelpers.GetBaseType(TargetType);
             if (baseType != null && baseType != typeof(object))
-				_baseTypeReader = manager.GetTypeReader(baseType);
+                _baseTypeReader = manager.GetTypeReader(baseType);
 
             _constructor = TargetType.GetDefaultConstructor();
 
@@ -53,7 +53,7 @@ namespace Microsoft.Xna.Framework.Content
                 if (read != null)
                     _readers.Add(read);
             }
-            
+
             // Gather the fields.
             foreach (var field in fields)
             {
@@ -81,7 +81,7 @@ namespace Microsoft.Xna.Framework.Content
             }
 
             // Are we explicitly asked to ignore this item?
-            if (ReflectionHelpers.GetCustomAttribute<ContentSerializerIgnoreAttribute>(member) != null) 
+            if (ReflectionHelpers.GetCustomAttribute<ContentSerializerIgnoreAttribute>(member) != null)
                 return null;
 
             var contentSerializerAttribute = ReflectionHelpers.GetCustomAttribute<ContentSerializerAttribute>(member);
@@ -146,10 +146,10 @@ namespace Microsoft.Xna.Framework.Content
             // We need to have a reader at this point.
             var reader = manager.GetTypeReader(elementType);
             if (reader == null)
-                if (elementType == typeof(System.Array))
+                if (elementType == typeof(Array))
                     reader = new ArrayReader<Array>();
                 else
-                    throw new ContentLoadException(string.Format("Content reader could not be found for {0} type.", elementType.FullName));
+                    throw new ContentLoadException($"Content reader could not be found for {elementType.FullName} type.");
 
             // We use the construct delegate to pick the correct existing 
             // object to be the target of deserialization.
@@ -164,17 +164,16 @@ namespace Microsoft.Xna.Framework.Content
                 setter(parent, obj2);
             };
         }
-      
+
         protected internal override object Read(ContentReader input, object existingInstance)
         {
             T obj;
             if (existingInstance != null)
                 obj = (T)existingInstance;
             else
-                obj = (_constructor == null ? (T)Activator.CreateInstance(typeof(T)) : (T)_constructor.Invoke(null));
-		
-			if(_baseTypeReader != null)
-				_baseTypeReader.Read(input, obj);
+                obj = _constructor == null ? (T)Activator.CreateInstance(typeof(T)) : (T)_constructor.Invoke(null);
+
+            _baseTypeReader?.Read(input, obj);
 
             // Box the type.
             var boxed = (object)obj;

@@ -9,16 +9,16 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// <summary>
     /// Packed vector type containing unsigned normalized values, ranging from 0 to 1, using 4 bits each for x, y, z, and w.
     /// </summary>
-    public struct Bgra4444 : IPackedVector<UInt16>, IEquatable<Bgra4444>
+    public struct Bgra4444 : IPackedVector<ushort>, IEquatable<Bgra4444>
     {
-        UInt16 _packedValue;
+        ushort _packedValue;
 
-        private static UInt16 Pack(float x, float y, float z, float w)
+        private static ushort Pack(float x, float y, float z, float w)
         {
-            return (UInt16) ((((int) MathF.Round(MathHelper.Clamp(w, 0, 1) * 15.0f) & 0x0F) << 12) |
-                (((int) MathF.Round(MathHelper.Clamp(x, 0, 1) * 15.0f) & 0x0F) << 8) |
-                (((int) MathF.Round(MathHelper.Clamp(y, 0, 1) * 15.0f) & 0x0F) << 4) |
-                ((int) MathF.Round(MathHelper.Clamp(z, 0, 1) * 15.0f) & 0x0F));
+            return (ushort)((((int)MathF.Round(MathHelper.Clamp(w, 0, 1) * 15.0f) & 0x0F) << 12) |
+                (((int)MathF.Round(MathHelper.Clamp(x, 0, 1) * 15.0f) & 0x0F) << 8) |
+                (((int)MathF.Round(MathHelper.Clamp(y, 0, 1) * 15.0f) & 0x0F) << 4) |
+                ((int)MathF.Round(MathHelper.Clamp(z, 0, 1) * 15.0f) & 0x0F));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public UInt16 PackedValue
+        public ushort PackedValue
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         {
             const float maxVal = 1 / 15.0f;
 
-            return new Vector4( ((_packedValue >> 8) & 0x0F) * maxVal,
+            return new Vector4(((_packedValue >> 8) & 0x0F) * maxVal,
                                 ((_packedValue >> 4) & 0x0F) * maxVal,
                                 (_packedValue & 0x0F) * maxVal,
                                 ((_packedValue >> 12) & 0x0F) * maxVal);

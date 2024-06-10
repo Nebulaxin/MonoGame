@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework
     /// Describes a 2D-vector.
     /// </summary>
 #if XNADESIGNPROVIDED
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector2TypeConverter))]
+    [System.ComponentModel.TypeConverter(typeof(Design.Vector2TypeConverter))]
 #endif
     [DataContract]
     [DebuggerDisplay("{DebugDisplayString,nq}")]
@@ -87,8 +87,8 @@ namespace Microsoft.Xna.Framework
             get
             {
                 return string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString()
                 );
             }
         }
@@ -104,8 +104,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="y">The y coordinate in 2d-space.</param>
         public Vector2(float x, float y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
@@ -114,8 +114,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x and y coordinates in 2d-space.</param>
         public Vector2(float value)
         {
-            this.X = value;
-            this.Y = value;
+            X = value;
+            Y = value;
         }
 
         #endregion
@@ -534,9 +534,9 @@ namespace Microsoft.Xna.Framework
         }
 
         /// <summary>
-        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// Compares whether current instance is equal to specified <see cref="object"/>.
         /// </summary>
-        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
@@ -679,7 +679,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Creates a new <see cref="Vector2"/> that contains linear interpolation of the specified vectors.
         /// Uses <see cref="MathHelper.LerpPrecise"/> on MathHelper for the interpolation.
-        /// Less efficient but more precise compared to <see cref="Vector2.Lerp(Vector2, Vector2, float)"/>.
+        /// Less efficient but more precise compared to <see cref="Lerp(Vector2, Vector2, float)"/>.
         /// See remarks section of <see cref="MathHelper.LerpPrecise"/> on MathHelper for more info.
         /// </summary>
         /// <param name="value1">The first vector.</param>
@@ -696,7 +696,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Creates a new <see cref="Vector2"/> that contains linear interpolation of the specified vectors.
         /// Uses <see cref="MathHelper.LerpPrecise"/> on MathHelper for the interpolation.
-        /// Less efficient but more precise compared to <see cref="Vector2.Lerp(ref Vector2, ref Vector2, float, out Vector2)"/>.
+        /// Less efficient but more precise compared to <see cref="Lerp(ref Vector2, ref Vector2, float, out Vector2)"/>.
         /// See remarks section of <see cref="MathHelper.LerpPrecise"/> on MathHelper for more info.
         /// </summary>
         /// <param name="value1">The first vector.</param>
@@ -704,7 +704,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="amount">Weighting value(between 0.0 and 1.0).</param>
         /// <param name="result">The result of linear interpolation of the specified vectors as an output parameter.</param>
         public static void LerpPrecise(ref Vector2 value1, ref Vector2 value2, float amount, out Vector2 result)
-        { 
+        {
             result.X = MathHelper.LerpPrecise(value1.X, value2.X, amount);
             result.Y = MathHelper.LerpPrecise(value1.Y, value2.Y, amount);
         }
@@ -978,10 +978,10 @@ namespace Microsoft.Xna.Framework
         }
 
         /// <summary>
-        /// Returns a <see cref="String"/> representation of this <see cref="Vector2"/> in the format:
+        /// Returns a <see cref="string"/> representation of this <see cref="Vector2"/> in the format:
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>]}
         /// </summary>
-        /// <returns>A <see cref="String"/> representation of this <see cref="Vector2"/>.</returns>
+        /// <returns>A <see cref="string"/> representation of this <see cref="Vector2"/>.</returns>
         public override string ToString()
         {
             return "{X:" + X + " Y:" + Y + "}";
@@ -993,7 +993,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="Point"/> representation for this object.</returns>
         public Point ToPoint()
         {
-            return new Point((int) X,(int) Y);
+            return new Point((int)X, (int)Y);
         }
 
         /// <summary>
@@ -1044,8 +1044,8 @@ namespace Microsoft.Xna.Framework
             var rot1 = new Vector3(rotation.X + rotation.X, rotation.Y + rotation.Y, rotation.Z + rotation.Z);
             var rot2 = new Vector3(rotation.X, rotation.X, rotation.W);
             var rot3 = new Vector3(1, rotation.Y, rotation.Z);
-            var rot4 = rot1*rot2;
-            var rot5 = rot1*rot3;
+            var rot4 = rot1 * rot2;
+            var rot5 = rot1 * rot3;
 
             var v = new Vector2();
             v.X = (float)((double)value.X * (1.0 - (double)rot5.Y - (double)rot5.Z) + (double)value.Y * ((double)rot4.Y - (double)rot4.Z));
@@ -1071,10 +1071,8 @@ namespace Microsoft.Xna.Framework
             int destinationIndex,
             int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1109,10 +1107,8 @@ namespace Microsoft.Xna.Framework
             int length
         )
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1123,8 +1119,7 @@ namespace Microsoft.Xna.Framework
                 var position = sourceArray[sourceIndex + x];
                 var destination = destinationArray[destinationIndex + x];
 
-                Vector2 v;
-                Transform(ref position,ref rotation,out v); 
+                Transform(ref position, ref rotation, out Vector2 v);
 
                 destination.X = v.X;
                 destination.Y = v.Y;
@@ -1171,7 +1166,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed normal.</returns>
         public static Vector2 TransformNormal(Vector2 normal, Matrix matrix)
         {
-            return new Vector2((normal.X * matrix.M11) + (normal.Y * matrix.M21),(normal.X * matrix.M12) + (normal.Y * matrix.M22));
+            return new Vector2((normal.X * matrix.M11) + (normal.Y * matrix.M21), (normal.X * matrix.M12) + (normal.Y * matrix.M22));
         }
 
         /// <summary>
@@ -1187,7 +1182,7 @@ namespace Microsoft.Xna.Framework
             result.X = x;
             result.Y = y;
         }
-        
+
         /// <summary>
         /// Apply transformation on normals within array of <see cref="Vector2"/> by the specified <see cref="Matrix"/> and places the results in an another array.
         /// </summary>
@@ -1207,10 +1202,8 @@ namespace Microsoft.Xna.Framework
             int length
         )
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1238,10 +1231,8 @@ namespace Microsoft.Xna.Framework
             Vector2[] destinationArray
             )
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1343,7 +1334,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector2 ToNumerics()
         {
-            return new System.Numerics.Vector2(this.X, this.Y);
+            return new System.Numerics.Vector2(X, Y);
         }
 
         #endregion

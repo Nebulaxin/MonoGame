@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal GraphicsResource()
         {
-            
+
         }
 
         /// <summary/>
@@ -76,8 +76,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     EventHelpers.Raise(this, Disposing, EventArgs.Empty);
 
                 // Remove from the global list of graphics resources
-                if (graphicsDevice != null)
-                    graphicsDevice.RemoveResourceReference(_selfReference);
+                graphicsDevice?.RemoveResourceReference(_selfReference);
 
                 _selfReference = null;
                 graphicsDevice = null;
@@ -95,11 +94,11 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the <see cref="Graphics.GraphicsDevice"/> associated with this <see cref="GraphicsResource"/>.
         /// </summary>
 		public GraphicsDevice GraphicsDevice
-		{
-			get
-			{
-				return graphicsDevice;
-			}
+        {
+            get
+            {
+                return graphicsDevice;
+            }
 
             internal set
             {
@@ -121,18 +120,18 @@ namespace Microsoft.Xna.Framework.Graphics
                 _selfReference = new WeakReference(this);
                 graphicsDevice.AddResourceReference(_selfReference);
             }
-		}
+        }
 
         /// <summary>
         /// Gets a value that indicates whether the object is disposed.
         /// </summary>
 		public bool IsDisposed
-		{
-			get
-			{
-				return disposed;
-			}
-		}
+        {
+            get
+            {
+                return disposed;
+            }
+        }
 
         /// <summary>
         /// Gets the name of the resource.
@@ -142,7 +141,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the resource tags for this resource.
         /// </summary>
-		public Object Tag { get; set; }
+		public object Tag { get; set; }
 
         /// <summary>
         /// Gets a string representation of the current instance.
@@ -151,6 +150,6 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             return string.IsNullOrEmpty(Name) ? base.ToString() : Name;
         }
-	}
+    }
 }
 

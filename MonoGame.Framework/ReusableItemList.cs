@@ -9,7 +9,7 @@ namespace Microsoft.Xna.Framework
 {
     internal class ReusableItemList<T> : ICollection<T>, IEnumerator<T>
     {
-        private readonly List<T> _list = new List<T>();
+        private readonly List<T> _list = [];
         private int _listTop = 0;
         private int _iteratorIndex;
 
@@ -19,7 +19,7 @@ namespace Microsoft.Xna.Framework
         {
             if (_list.Count > _listTop)
             {
-                _list[_listTop] = item;                
+                _list[_listTop] = item;
             }
             else
             {
@@ -28,43 +28,43 @@ namespace Microsoft.Xna.Framework
 
             _listTop++;
         }
-		
-		public void Sort(IComparer<T> comparison)
-		{
-			_list.Sort(comparison);
-		}
-			
-		
-		public T GetNewItem()
-		{
-			if (_listTop < _list.Count)
-			{
-				return _list[_listTop++];
-			}
-			else
-			{
-				// Damm...Mono fails in this!
-				//return (T) Activator.CreateInstance(typeof(T));
-				return default(T);
-			}
-		}
 
-		public T this[int index]
-		{
-			get
-			{
-				if (index >= _listTop) 
-					throw new IndexOutOfRangeException();
-				return _list[index];
-			}
-			set
-			{
-				if (index >= _listTop) 
-					throw new IndexOutOfRangeException();
-				_list[index] = value;
-			}
-		}
-		
+        public void Sort(IComparer<T> comparison)
+        {
+            _list.Sort(comparison);
+        }
+
+
+        public T GetNewItem()
+        {
+            if (_listTop < _list.Count)
+            {
+                return _list[_listTop++];
+            }
+            else
+            {
+                // Damm...Mono fails in this!
+                //return (T) Activator.CreateInstance(typeof(T));
+                return default(T);
+            }
+        }
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index >= _listTop)
+                    throw new IndexOutOfRangeException();
+                return _list[index];
+            }
+            set
+            {
+                if (index >= _listTop)
+                    throw new IndexOutOfRangeException();
+                _list[index] = value;
+            }
+        }
+
         public void Clear()
         {
             _listTop = 0;
@@ -83,12 +83,12 @@ namespace Microsoft.Xna.Framework
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            _list.CopyTo(array,arrayIndex);
+            _list.CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get 
+            get
             {
                 return _listTop;
             }
@@ -162,7 +162,7 @@ namespace Microsoft.Xna.Framework
         public bool MoveNext()
         {
             _iteratorIndex++;
-            return (_iteratorIndex < _listTop);
+            return _iteratorIndex < _listTop;
         }
 
         #endregion

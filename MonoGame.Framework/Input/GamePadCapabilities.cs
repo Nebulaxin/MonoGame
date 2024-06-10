@@ -182,54 +182,54 @@ namespace Microsoft.Xna.Framework.Input
         public GamePadType GamePadType { get; internal set; }
 
         /// <summary>
-        /// Determines whether a specified instance of <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/>
-        /// is equal to another specified <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/>.
+        /// Determines whether a specified instance of <see cref="GamePadCapabilities"/>
+        /// is equal to another specified <see cref="GamePadCapabilities"/>.
         /// </summary>
-        /// <param name="left">The first <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/> to compare.</param>
-        /// <param name="right">The second <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/> to compare.</param>
+        /// <param name="left">The first <see cref="GamePadCapabilities"/> to compare.</param>
+        /// <param name="right">The second <see cref="GamePadCapabilities"/> to compare.</param>
         /// <returns><c>true</c> if <c>left</c> and <c>right</c> are equal; otherwise, <c>false</c>.</returns>
         public static bool operator ==(GamePadCapabilities left, GamePadCapabilities right)
         {
             var eq = true;
 
-            eq &= (left.DisplayName == right.DisplayName);
-            eq &= (left.Identifier == right.Identifier);
-            eq &= (left.IsConnected == right.IsConnected);
-            eq &= (left.HasAButton == right.HasAButton);
-            eq &= (left.HasBackButton == right.HasBackButton);
-            eq &= (left.HasBButton == right.HasBButton);
-            eq &= (left.HasDPadDownButton == right.HasDPadDownButton);
-            eq &= (left.HasDPadLeftButton == right.HasDPadLeftButton);
-            eq &= (left.HasDPadRightButton == right.HasDPadRightButton);
-            eq &= (left.HasDPadUpButton == right.HasDPadUpButton);
-            eq &= (left.HasLeftShoulderButton == right.HasLeftShoulderButton);
-            eq &= (left.HasLeftStickButton == right.HasLeftStickButton);
-            eq &= (left.HasRightShoulderButton == right.HasRightShoulderButton);
-            eq &= (left.HasRightStickButton == right.HasRightStickButton);
-            eq &= (left.HasStartButton == right.HasStartButton);
-            eq &= (left.HasXButton == right.HasXButton);
-            eq &= (left.HasYButton == right.HasYButton);
-            eq &= (left.HasBigButton == right.HasBigButton);
-            eq &= (left.HasLeftXThumbStick == right.HasLeftXThumbStick);
-            eq &= (left.HasLeftYThumbStick == right.HasLeftYThumbStick);
-            eq &= (left.HasRightXThumbStick == right.HasRightXThumbStick);
-            eq &= (left.HasRightYThumbStick == right.HasRightYThumbStick);
-            eq &= (left.HasLeftTrigger == right.HasLeftTrigger);
-            eq &= (left.HasRightTrigger == right.HasRightTrigger);
-            eq &= (left.HasLeftVibrationMotor == right.HasLeftVibrationMotor);
-            eq &= (left.HasRightVibrationMotor == right.HasRightVibrationMotor);
-            eq &= (left.HasVoiceSupport == right.HasVoiceSupport);
-            eq &= (left.GamePadType == right.GamePadType);
+            eq &= left.DisplayName == right.DisplayName;
+            eq &= left.Identifier == right.Identifier;
+            eq &= left.IsConnected == right.IsConnected;
+            eq &= left.HasAButton == right.HasAButton;
+            eq &= left.HasBackButton == right.HasBackButton;
+            eq &= left.HasBButton == right.HasBButton;
+            eq &= left.HasDPadDownButton == right.HasDPadDownButton;
+            eq &= left.HasDPadLeftButton == right.HasDPadLeftButton;
+            eq &= left.HasDPadRightButton == right.HasDPadRightButton;
+            eq &= left.HasDPadUpButton == right.HasDPadUpButton;
+            eq &= left.HasLeftShoulderButton == right.HasLeftShoulderButton;
+            eq &= left.HasLeftStickButton == right.HasLeftStickButton;
+            eq &= left.HasRightShoulderButton == right.HasRightShoulderButton;
+            eq &= left.HasRightStickButton == right.HasRightStickButton;
+            eq &= left.HasStartButton == right.HasStartButton;
+            eq &= left.HasXButton == right.HasXButton;
+            eq &= left.HasYButton == right.HasYButton;
+            eq &= left.HasBigButton == right.HasBigButton;
+            eq &= left.HasLeftXThumbStick == right.HasLeftXThumbStick;
+            eq &= left.HasLeftYThumbStick == right.HasLeftYThumbStick;
+            eq &= left.HasRightXThumbStick == right.HasRightXThumbStick;
+            eq &= left.HasRightYThumbStick == right.HasRightYThumbStick;
+            eq &= left.HasLeftTrigger == right.HasLeftTrigger;
+            eq &= left.HasRightTrigger == right.HasRightTrigger;
+            eq &= left.HasLeftVibrationMotor == right.HasLeftVibrationMotor;
+            eq &= left.HasRightVibrationMotor == right.HasRightVibrationMotor;
+            eq &= left.HasVoiceSupport == right.HasVoiceSupport;
+            eq &= left.GamePadType == right.GamePadType;
 
             return eq;
         }
 
         /// <summary>
-        /// Determines whether a specified instance of <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/>
-        /// is not equal to another specified <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/>.
+        /// Determines whether a specified instance of <see cref="GamePadCapabilities"/>
+        /// is not equal to another specified <see cref="GamePadCapabilities"/>.
         /// </summary>
-        /// <param name="left">The first <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/> to compare.</param>
-        /// <param name="right">The second <see cref="Microsoft.Xna.Framework.Input.GamePadCapabilities"/> to compare.</param>
+        /// <param name="left">The first <see cref="GamePadCapabilities"/> to compare.</param>
+        /// <param name="right">The second <see cref="GamePadCapabilities"/> to compare.</param>
         /// <returns><c>true</c> if <c>left</c> and <c>right</c> are not equal; otherwise, <c>false</c>.</returns>
         public static bool operator !=(GamePadCapabilities left, GamePadCapabilities right)
         {

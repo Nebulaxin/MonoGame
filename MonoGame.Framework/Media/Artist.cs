@@ -51,7 +51,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                return this.artist;
+                return artist;
             }
         }
 
@@ -85,7 +85,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.artist.ToString();
+            return artist.ToString();
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.artist.GetHashCode();
+            return artist.GetHashCode();
         }
     }
 }

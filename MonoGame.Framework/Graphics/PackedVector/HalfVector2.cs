@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="y">The initial y-component value for this structure.</param>
         public HalfVector2(float x, float y)
         {
-            this.packedValue = PackHelper(x, y);
+            packedValue = PackHelper(x, y);
         }
 
         /// <summary>
@@ -31,20 +31,20 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public HalfVector2(Vector2 vector)
         {
-            this.packedValue = PackHelper(vector.X, vector.Y);
+            packedValue = PackHelper(vector.X, vector.Y);
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            this.packedValue = PackHelper(vector.X, vector.Y);
+            packedValue = PackHelper(vector.X, vector.Y);
         }
 
         private static uint PackHelper(float vectorX, float vectorY)
         {
             uint num2 = HalfTypeHelper.Convert(vectorX);
             uint num = (uint)(HalfTypeHelper.Convert(vectorY) << 0x10);
-            return (num2 | num);
+            return num2 | num;
         }
 
         /// <summary>
@@ -54,15 +54,15 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         public Vector2 ToVector2()
         {
             Vector2 vector;
-            vector.X = HalfTypeHelper.Convert((ushort)this.packedValue);
-            vector.Y = HalfTypeHelper.Convert((ushort)(this.packedValue >> 0x10));
+            vector.X = HalfTypeHelper.Convert((ushort)packedValue);
+            vector.Y = HalfTypeHelper.Convert((ushort)(packedValue >> 0x10));
             return vector;
         }
 
         /// <inheritdoc />
         public Vector4 ToVector4()
         {
-            Vector2 vector = this.ToVector2();
+            Vector2 vector = ToVector2();
             return new Vector4(vector.X, vector.Y, 0f, 1f);
         }
 
@@ -71,36 +71,36 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         {
             get
             {
-                return this.packedValue;
+                return packedValue;
             }
             set
             {
-                this.packedValue = value;
+                packedValue = value;
             }
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return this.ToVector2().ToString();
+            return ToVector2().ToString();
         }
 
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.packedValue.GetHashCode();
+            return packedValue.GetHashCode();
         }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            return ((obj is HalfVector2) && this.Equals((HalfVector2)obj));
+            return (obj is HalfVector2) && Equals((HalfVector2)obj);
         }
 
         /// <inheritdoc />
         public bool Equals(HalfVector2 other)
         {
-            return this.packedValue.Equals(other.packedValue);
+            return packedValue.Equals(other.packedValue);
         }
 
         /// <summary>

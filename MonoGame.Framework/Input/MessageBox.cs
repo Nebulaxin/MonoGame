@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <param name="description">Description of the message box.</param>
         /// <param name="buttons">Captions of the message box buttons. Up to three supported.</param>
         /// <returns>Index of button selected by the player. Null if back was used.</returns>
-        /// <exception cref="System.Exception">Thrown when the message box is already visible</exception>
+        /// <exception cref="Exception">Thrown when the message box is already visible</exception>
         /// <example>
         /// <code>
         /// var color = await MessageBox.Show("Color", "What's your favorite color?", new[] { "Red", "Green", "Blue" });
@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Input
 
             var buttonsList = buttons.ToList();
             if (buttonsList.Count > 3 || buttonsList.Count == 0)
-                throw new ArgumentException("Invalid number of buttons: one to three required", "buttons");
+                throw new ArgumentException("Invalid number of buttons: one to three required", nameof(buttons));
 
             var result = await PlatformShow(title, description, buttonsList);
 
@@ -50,7 +50,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Hides the message box interface and returns the parameter as the result of <see cref="Show"/>
         /// </summary>
         /// <param name="result">Result to return</param>
-        /// <exception cref="System.Exception">Thrown when the message box is not visible</exception>
+        /// <exception cref="Exception">Thrown when the message box is not visible</exception>
         /// <example>
         /// <code>
         /// var colorTask = MessageBox.Show("Color", "What's your favorite color?", new[] { "Red", "Green", "Blue" });

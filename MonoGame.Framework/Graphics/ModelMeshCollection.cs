@@ -28,8 +28,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             get
             {
-                ModelMesh ret;
-                if (!TryGetValue(meshName, out ret))
+                if (!TryGetValue(meshName, out ModelMesh ret))
                     throw new KeyNotFoundException();
                 return ret;
             }
@@ -44,7 +43,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public bool TryGetValue(string meshName, out ModelMesh value)
         {
             if (string.IsNullOrEmpty(meshName))
-                throw new ArgumentNullException("meshName");
+                throw new ArgumentNullException(nameof(meshName));
 
             foreach (var mesh in this)
             {
@@ -60,7 +59,7 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <summary>
-        /// Returns a <see cref="ModelMeshCollection.Enumerator">ModelMeshCollection.Enumerator</see>
+        /// Returns a <see cref="Enumerator">ModelMeshCollection.Enumerator</see>
         /// that can iterate through a collection.
         /// </summary>
         public new Enumerator GetEnumerator()
@@ -94,7 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics
             public bool MoveNext()
             {
                 _position++;
-                return (_position < _collection.Count);
+                return _position < _collection.Count;
             }
 
             #region IDisposable

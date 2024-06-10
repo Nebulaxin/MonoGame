@@ -761,13 +761,13 @@ namespace Microsoft.Xna.Framework.Graphics
 				break;
             case InvalidFormat: 
             default:
-                    throw new NotSupportedException(string.Format("The requested SurfaceFormat `{0}` is not supported.", format));
+                    throw new NotSupportedException($"The requested SurfaceFormat `{format}` is not supported.");
 			}
 		}
 
 #endif // OPENGL
 
-                    public static int GetSyncInterval(this PresentInterval interval)
+        public static int GetSyncInterval(this PresentInterval interval)
         {
             switch (interval)
             {
@@ -990,7 +990,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
         }
 #endif
-            }
+    }
 
     internal class MonoGameGLException : Exception
     {

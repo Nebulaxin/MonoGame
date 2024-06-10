@@ -33,8 +33,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             get
             {
-                ModelBone ret;
-                if (!TryGetValue(boneName, out ret))
+                if (!TryGetValue(boneName, out ModelBone ret))
                     throw new KeyNotFoundException();
                 return ret;
             }
@@ -49,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public bool TryGetValue(string boneName, out ModelBone value)
         {
             if (string.IsNullOrEmpty(boneName))
-                throw new ArgumentNullException("boneName");
+                throw new ArgumentNullException(nameof(boneName));
 
             foreach (ModelBone bone in this)
             {
@@ -65,7 +64,7 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <summary>
-        /// Returns a <see cref="ModelBoneCollection.Enumerator">ModelBoneCollection.Enumerator</see>
+        /// Returns a <see cref="Enumerator">ModelBoneCollection.Enumerator</see>
         /// that can iterate through a collection.
         /// </summary>
         /// <returns></returns>
@@ -100,7 +99,7 @@ namespace Microsoft.Xna.Framework.Graphics
             public bool MoveNext()
             {
                 _position++;
-                return (_position < _collection.Count);
+                return _position < _collection.Count;
             }
 
             #region IDisposable

@@ -8,9 +8,9 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public class EffectPassCollection : IEnumerable<EffectPass>
     {
-		private readonly EffectPass[] _passes;
+        private readonly EffectPass[] _passes;
 
-        internal EffectPassCollection(EffectPass [] passes)
+        internal EffectPassCollection(EffectPass[] passes)
         {
             _passes = passes;
         }
@@ -38,16 +38,16 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="name">The name of the pass to retrieve.</param>
         public EffectPass this[string name]
         {
-            get 
+            get
             {
                 // TODO: Add a name to pass lookup table.
-				foreach (var pass in _passes) 
+                foreach (var pass in _passes)
                 {
-					if (pass.Name == name)
-						return pass;
-				}
-				return null;
-		    }
+                    if (pass.Name == name)
+                        return pass;
+                }
+                return null;
+            }
         }
 
         /// <summary>
@@ -59,14 +59,14 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         /// <summary>
-        /// Returns a <see cref="EffectPassCollection.Enumerator">EffectPassCollection.Enumerator</see>
+        /// Returns a <see cref="Enumerator">EffectPassCollection.Enumerator</see>
         /// that can iterate through a collection.
         /// </summary>
         public Enumerator GetEnumerator()
         {
             return new Enumerator(_passes);
         }
-            
+
         IEnumerator<EffectPass> IEnumerable<EffectPass>.GetEnumerator()
         {
             return ((IEnumerable<EffectPass>)_passes).GetEnumerator();

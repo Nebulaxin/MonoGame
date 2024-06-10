@@ -57,8 +57,8 @@ namespace Microsoft.Xna.Framework
             get
             {
                 return string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString()
                 );
             }
         }
@@ -74,8 +74,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="y">The y coordinate in 2d-space.</param>
         public Point(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x and y coordinates in 2d-space.</param>
         public Point(int value)
         {
-            this.X = value;
-            this.Y = value;
+            X = value;
+            Y = value;
         }
 
         #endregion
@@ -163,9 +163,9 @@ namespace Microsoft.Xna.Framework
         #region Public methods
 
         /// <summary>
-        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// Compares whether current instance is equal to specified <see cref="object"/>.
         /// </summary>
-        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
@@ -179,7 +179,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Point other)
         {
-            return ((X == other.X) && (Y == other.Y));
+            return (X == other.X) && (Y == other.Y);
         }
 
         /// <summary>
@@ -199,10 +199,10 @@ namespace Microsoft.Xna.Framework
         }
 
         /// <summary>
-        /// Returns a <see cref="String"/> representation of this <see cref="Point"/> in the format:
+        /// Returns a <see cref="string"/> representation of this <see cref="Point"/> in the format:
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>]}
         /// </summary>
-        /// <returns><see cref="String"/> representation of this <see cref="Point"/>.</returns>
+        /// <returns><see cref="string"/> representation of this <see cref="Point"/>.</returns>
         public override string ToString()
         {
             return "{X:" + X + " Y:" + Y + "}";

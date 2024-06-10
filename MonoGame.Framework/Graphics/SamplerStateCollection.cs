@@ -10,7 +10,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Represents a collection of <see cref="SamplerState"/> objects,
     /// </summary>
     public sealed partial class SamplerStateCollection
-	{
+    {
         private readonly GraphicsDevice _graphicsDevice;
 
         private readonly SamplerState _samplerStateAnisotropicClamp;
@@ -24,9 +24,9 @@ namespace Microsoft.Xna.Framework.Graphics
         private readonly SamplerState[] _actualSamplers;
         private readonly bool _applyToVertexStage;
 
-		internal SamplerStateCollection(GraphicsDevice device, int maxSamplers, bool applyToVertexStage)
-		{
-		    _graphicsDevice = device;
+        internal SamplerStateCollection(GraphicsDevice device, int maxSamplers, bool applyToVertexStage)
+        {
+            _graphicsDevice = device;
 
             _samplerStateAnisotropicClamp = SamplerState.AnisotropicClamp.Clone();
             _samplerStateAnisotropicWrap = SamplerState.AnisotropicWrap.Clone();
@@ -39,23 +39,22 @@ namespace Microsoft.Xna.Framework.Graphics
             _actualSamplers = new SamplerState[maxSamplers];
             _applyToVertexStage = applyToVertexStage;
 
-		    Clear();
+            Clear();
         }
 
         /// <summary>
         /// Gets or sets the <see cref="SamplerState"/> at the specified index in the collection.
         /// </summary>
-        public SamplerState this [int index]
+        public SamplerState this[int index]
         {
-			get
+            get
             {
                 return _samplers[index];
             }
 
-			set
+            set
             {
-                if (value == null)
-                    throw new ArgumentNullException("value");
+                ArgumentNullException.ThrowIfNull(value);
 
                 if (_samplers[index] == value)
                     return;
@@ -84,7 +83,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 PlatformSetSamplerState(index);
             }
-		}
+        }
 
         internal void Clear()
         {
@@ -106,5 +105,5 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             PlatformDirty();
         }
-	}
+    }
 }

@@ -34,9 +34,7 @@ namespace Microsoft.Xna.Framework.Audio
 
             string errorFmt = "OpenAL Error: {0}";
 
-            throw new NoMicrophoneConnectedException(String.Format("{0} - {1}",
-                            operation,
-                            string.Format(errorFmt, error)));
+            throw new NoMicrophoneConnectedException($"{operation} - {string.Format(errorFmt, error)}");
         }
 
         internal static void PopulateCaptureDevices()

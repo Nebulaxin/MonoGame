@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework.Input
         private const byte NumLockModifier = 2;
 
         // Used for the common situation where GetPressedKeys will return an empty array
-        private static Keys[] empty = new Keys[0];
+        private static Keys[] empty = [];
 
         #region Key Data
 
@@ -272,14 +272,13 @@ namespace Microsoft.Xna.Framework.Input
         /// This array is not cleared, and it must be equal to or larger than the number of keys pressed.</param>
         public void GetPressedKeys(Keys[] keys)
         {
-            if (keys == null)
-                throw new System.ArgumentNullException("keys");
+            System.ArgumentNullException.ThrowIfNull(keys);
 
             uint count = CountBits(_keys0) + CountBits(_keys1) + CountBits(_keys2) + CountBits(_keys3)
                     + CountBits(_keys4) + CountBits(_keys5) + CountBits(_keys6) + CountBits(_keys7);
             if (count > keys.Length)
             {
-                throw new System.ArgumentOutOfRangeException("keys",
+                throw new System.ArgumentOutOfRangeException(nameof(keys),
                     "The supplied array cannot fit the number of pressed keys. Call GetPressedKeyCount() to get the number of pressed keys.");
             }
 

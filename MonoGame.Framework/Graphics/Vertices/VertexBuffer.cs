@@ -37,15 +37,15 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="dynamic">Whether this buffer is dynmic.</param>
         /// <exception cref="ArgumentNullException"><paramref name="graphicsDevice"/> is <see langword="null"/></exception>
 		protected VertexBuffer(GraphicsDevice graphicsDevice, VertexDeclaration vertexDeclaration, int vertexCount, BufferUsage bufferUsage, bool dynamic)
-		{
-		    if (graphicsDevice == null)
-		    {
-		        throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
-		    }
-		    this.GraphicsDevice = graphicsDevice;
-            this.VertexDeclaration = vertexDeclaration;
-            this.VertexCount = vertexCount;
-            this.BufferUsage = bufferUsage;
+        {
+            if (graphicsDevice == null)
+            {
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
+            }
+            GraphicsDevice = graphicsDevice;
+            VertexDeclaration = vertexDeclaration;
+            VertexCount = vertexCount;
+            BufferUsage = bufferUsage;
 
             // Make sure the graphics device is assigned in the vertex declaration.
             if (vertexDeclaration.GraphicsDevice != graphicsDevice)
@@ -54,11 +54,11 @@ namespace Microsoft.Xna.Framework.Graphics
             _isDynamic = dynamic;
 
             PlatformConstruct();
-		}
+        }
 
         /// <inheritdoc cref="VertexBuffer(GraphicsDevice, VertexDeclaration, int, BufferUsage, bool)"/>
         public VertexBuffer(GraphicsDevice graphicsDevice, VertexDeclaration vertexDeclaration, int vertexCount, BufferUsage bufferUsage) :
-			this(graphicsDevice, vertexDeclaration, vertexCount, bufferUsage, false)
+            this(graphicsDevice, vertexDeclaration, vertexCount, bufferUsage, false)
         {
         }
 
@@ -68,8 +68,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="vertexCount"/>
         /// <param name="bufferUsage"/>
         public VertexBuffer(GraphicsDevice graphicsDevice, Type type, int vertexCount, BufferUsage bufferUsage) :
-			this(graphicsDevice, VertexDeclaration.FromType(type), vertexCount, bufferUsage, false)
-		{
+            this(graphicsDevice, VertexDeclaration.FromType(type), vertexCount, bufferUsage, false)
+        {
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// For vertexStride we pass the size of a <see cref="VertexPositionTexture"/>.
         /// </p>
         /// </remarks>
-        public void GetData<T> (int offsetInBytes, T[] data, int startIndex, int elementCount, int vertexStride = 0) where T : struct
+        public void GetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, int vertexStride = 0) where T : struct
         {
             var elementSizeInBytes = ReflectionHelpers.SizeOf<T>.Get();
             if (vertexStride == 0)
@@ -112,31 +112,30 @@ namespace Microsoft.Xna.Framework.Graphics
 
             var vertexByteSize = VertexCount * VertexDeclaration.VertexStride;
             if (vertexStride > vertexByteSize)
-                throw new ArgumentOutOfRangeException("vertexStride", "Vertex stride can not be larger than the vertex buffer size.");
+                throw new ArgumentOutOfRangeException(nameof(vertexStride), "Vertex stride can not be larger than the vertex buffer size.");
 
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
             if (data.Length < (startIndex + elementCount))
-                throw new ArgumentOutOfRangeException("elementCount", "This parameter must be a valid index within the array.");
+                throw new ArgumentOutOfRangeException(nameof(elementCount), "This parameter must be a valid index within the array.");
             if (BufferUsage == BufferUsage.WriteOnly)
                 throw new NotSupportedException("Calling GetData on a resource that was created with BufferUsage.WriteOnly is not supported.");
-			if (elementCount > 1 && elementCount * vertexStride > vertexByteSize)
+            if (elementCount > 1 && elementCount * vertexStride > vertexByteSize)
                 throw new InvalidOperationException("The array is not the correct size for the amount of data requested.");
 
-            PlatformGetData<T>(offsetInBytes, data, startIndex, elementCount, vertexStride);
+            PlatformGetData(offsetInBytes, data, startIndex, elementCount, vertexStride);
         }
 
         /// <inheritdoc cref="GetData{T}(int, T[], int, int, int)"/>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            this.GetData<T>(0, data, startIndex, elementCount, 0);
+            GetData(0, data, startIndex, elementCount, 0);
         }
 
         /// <inheritdoc cref="GetData{T}(int, T[], int, int, int)"/>
         public void GetData<T>(T[] data) where T : struct
         {
             var elementSizeInByte = ReflectionHelpers.SizeOf<T>.Get();
-            this.GetData<T>(0, data, 0, data.Length, elementSizeInByte);
+            GetData(0, data, 0, data.Length, elementSizeInByte);
         }
 
         /// <summary>
@@ -184,7 +183,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public void SetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, int vertexStride) where T : struct
         {
-            SetDataInternal<T>(offsetInBytes, data, startIndex, elementCount, vertexStride, SetDataOptions.None);
+            SetDataInternal(offsetInBytes, data, startIndex, elementCount, vertexStride, SetDataOptions.None);
         }
 
         /// <summary>
@@ -203,8 +202,8 @@ namespace Microsoft.Xna.Framework.Graphics
 		public void SetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
             var elementSizeInBytes = ReflectionHelpers.SizeOf<T>.Get();
-            SetDataInternal<T>(0, data, startIndex, elementCount, elementSizeInBytes, SetDataOptions.None);
-		}
+            SetDataInternal(0, data, startIndex, elementCount, elementSizeInBytes, SetDataOptions.None);
+        }
 
         /// <summary>
         /// Sets the vertex buffer data. This is the same as calling <see cref="SetData{T}(int, T[], int, int, int)"/> 
@@ -216,14 +215,13 @@ namespace Microsoft.Xna.Framework.Graphics
         public void SetData<T>(T[] data) where T : struct
         {
             var elementSizeInBytes = ReflectionHelpers.SizeOf<T>.Get();
-            SetDataInternal<T>(0, data, 0, data.Length, elementSizeInBytes, SetDataOptions.None);
+            SetDataInternal(0, data, 0, data.Length, elementSizeInBytes, SetDataOptions.None);
         }
 
         /// <summary/>
         protected void SetDataInternal<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, int vertexStride, SetDataOptions options) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
 
             var elementSizeInBytes = ReflectionHelpers.SizeOf<T>.Get();
             var bufferSize = VertexCount * VertexDeclaration.VertexStride;
@@ -233,16 +231,16 @@ namespace Microsoft.Xna.Framework.Graphics
 
             var vertexByteSize = VertexCount * VertexDeclaration.VertexStride;
             if (vertexStride > vertexByteSize)
-                throw new ArgumentOutOfRangeException("vertexStride", "Vertex stride can not be larger than the vertex buffer size.");
+                throw new ArgumentOutOfRangeException(nameof(vertexStride), "Vertex stride can not be larger than the vertex buffer size.");
 
             if (startIndex + elementCount > data.Length || elementCount <= 0)
-                throw new ArgumentOutOfRangeException("data","The array specified in the data parameter is not the correct size for the amount of data requested.");
+                throw new ArgumentOutOfRangeException(nameof(data), "The array specified in the data parameter is not the correct size for the amount of data requested.");
             if (elementCount > 1 && (elementCount * vertexStride > bufferSize))
                 throw new InvalidOperationException("The vertex stride is larger than the vertex buffer.");
             if (vertexStride < elementSizeInBytes)
-                throw new ArgumentOutOfRangeException("The vertex stride must be greater than or equal to the size of the specified data (" + elementSizeInBytes + ").");            
+                throw new ArgumentOutOfRangeException("The vertex stride must be greater than or equal to the size of the specified data (" + elementSizeInBytes + ").");
 
-            PlatformSetData<T>(offsetInBytes, data, startIndex, elementCount, vertexStride, options, bufferSize, elementSizeInBytes);
+            PlatformSetData(offsetInBytes, data, startIndex, elementCount, vertexStride, options, bufferSize, elementSizeInBytes);
         }
     }
 }

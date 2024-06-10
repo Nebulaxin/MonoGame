@@ -9,9 +9,9 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// <summary>
     /// Packed vector type containing a single 16-bit floating point
     /// </summary>
-    public struct HalfSingle : IPackedVector<UInt16>, IEquatable<HalfSingle>, IPackedVector
+    public struct HalfSingle : IPackedVector<ushort>, IEquatable<HalfSingle>, IPackedVector
     {
-        UInt16 packedValue;
+        ushort packedValue;
 
         /// <summary>
         /// Initializes a new instance of this structure.
@@ -27,39 +27,39 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         {
             get
             {
-                return this.packedValue;
+                return packedValue;
             }
             set
             {
-                this.packedValue = value;
+                packedValue = value;
             }
         }
 
         /// <summary>
-        /// Expands the packed representation to a <see cref="Single">System.Single</see>
+        /// Expands the packed representation to a <see cref="float">System.Single</see>
         /// </summary>
         /// <returns>The expanded value.</returns>
         public float ToSingle()
         {
-            return HalfTypeHelper.Convert(this.packedValue);
+            return HalfTypeHelper.Convert(packedValue);
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            this.packedValue = HalfTypeHelper.Convert(vector.X);
+            packedValue = HalfTypeHelper.Convert(vector.X);
         }
 
         /// <inheritdoc />
         public Vector4 ToVector4()
         {
-            return new Vector4(this.ToSingle(), 0f, 0f, 1f);
+            return new Vector4(ToSingle(), 0f, 0f, 1f);
         }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (obj != null && obj.GetType() == this.GetType())
+            if (obj != null && obj.GetType() == GetType())
             {
                 return this == (HalfSingle)obj;
             }
@@ -70,19 +70,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(HalfSingle other)
         {
-            return this.packedValue == other.packedValue;
+            return packedValue == other.packedValue;
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return this.ToSingle().ToString();
+            return ToSingle().ToString();
         }
 
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.packedValue.GetHashCode();
+            return packedValue.GetHashCode();
         }
 
         /// <summary>

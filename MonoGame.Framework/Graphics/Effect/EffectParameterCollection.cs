@@ -7,7 +7,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public class EffectParameterCollection : IEnumerable<EffectParameter>
     {
-        internal static readonly EffectParameterCollection Empty = new EffectParameterCollection(new EffectParameter[0]);
+        internal static readonly EffectParameterCollection Empty = new EffectParameterCollection([]);
 
         private readonly EffectParameter[] _parameters;
         private readonly Dictionary<string, int> _indexLookup;
@@ -19,7 +19,7 @@ namespace Microsoft.Xna.Framework.Graphics
             for (int i = 0; i < _parameters.Length; i++)
             {
                 string name = _parameters[i].Name;
-                if(!string.IsNullOrWhiteSpace(name))
+                if (!string.IsNullOrWhiteSpace(name))
                     _indexLookup.Add(name, i);
             }
         }
@@ -54,9 +54,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Retrieves the <see cref="EffectParameter"/> at the specified index in the collection.
         /// </summary>
         public EffectParameter this[int index]
-		{
-			get { return _parameters[index]; }
-		}
+        {
+            get { return _parameters[index]; }
+        }
 
         /// <summary>
         /// Retrieves a <see cref="EffectParameter"/> from the collection, given the name of the parameter.
@@ -66,11 +66,10 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             get
             {
-                int index;
-                if (_indexLookup.TryGetValue(name, out index))
+                if (_indexLookup.TryGetValue(name, out int index))
                     return _parameters[index];
                 return null;
-			}
+            }
         }
 
         /// <inheritdoc/>

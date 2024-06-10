@@ -676,7 +676,7 @@ namespace Microsoft.Xna.Framework
                     throw ex;
                 else
                 {
-                    Game.Activity.RunOnUiThread (() =>
+                    Game.Activity.RunOnUiThread(() =>
                     {
                         throw ex;
                     });
@@ -849,14 +849,14 @@ namespace Microsoft.Xna.Framework
                 return attribs.ToArray();
             }
 
-            static int GetAttribute(EGLConfig config, IEGL10 egl, EGLDisplay eglDisplay,int attribute)
+            static int GetAttribute(EGLConfig config, IEGL10 egl, EGLDisplay eglDisplay, int attribute)
             {
                 int[] data = new int[1];
                 egl.EglGetConfigAttrib(eglDisplay, config, attribute, data);
                 return data[0];
             }
 
-            public static SurfaceConfig FromEGLConfig (EGLConfig config, IEGL10 egl, EGLDisplay eglDisplay)
+            public static SurfaceConfig FromEGLConfig(EGLConfig config, IEGL10 egl, EGLDisplay eglDisplay)
             {
                 return new SurfaceConfig()
                 {
@@ -873,7 +873,7 @@ namespace Microsoft.Xna.Framework
 
             public override string ToString()
             {
-                return string.Format("Red:{0} Green:{1} Blue:{2} Alpha:{3} Depth:{4} Stencil:{5} SampleBuffers:{6} Samples:{7}", Red, Green, Blue, Alpha, Depth, Stencil, SampleBuffers, Samples);
+                return $"Red:{Red,Green, Blue, Alpha, Depth, Stencil, SampleBuffers} Green:{Samples}";
             }
         }
 
@@ -943,22 +943,24 @@ namespace Microsoft.Xna.Framework
             int[] numConfigs = new int[1];
             EGLConfig[] results = new EGLConfig[1];
 
-            if (!egl.EglGetConfigs(eglDisplay, null, 0, numConfigs)) {
+            if (!egl.EglGetConfigs(eglDisplay, null, 0, numConfigs))
+            {
                 throw new Exception("Could not get config count. " + GetErrorAsString());
             }
 
             EGLConfig[] cfgs = new EGLConfig[numConfigs[0]];
             egl.EglGetConfigs(eglDisplay, cfgs, numConfigs[0], numConfigs);
             Log.Verbose("AndroidGameView", "Device Supports");
-            foreach (var c in cfgs) {
-                Log.Verbose("AndroidGameView", string.Format(" {0}", SurfaceConfig.FromEGLConfig(c, egl, eglDisplay)));
+            foreach (var c in cfgs)
+            {
+                Log.Verbose("AndroidGameView", $" {SurfaceConfig.FromEGLConfig(c, egl, eglDisplay))}";
             }
 
             bool found = false;
             numConfigs[0] = 0;
             foreach (var config in configs)
             {
-                Log.Verbose("AndroidGameView", string.Format("Checking Config : {0}", config));
+                Log.Verbose("AndroidGameView", $"Checking Config : {config)}";
                 found = egl.EglChooseConfig(eglDisplay, config.ToConfigAttribs(), results, 1, numConfigs);
                 Log.Verbose("AndroidGameView", "EglChooseConfig returned {0} and {1}", found, numConfigs[0]);
                 if (!found || numConfigs[0] <= 0)
@@ -966,19 +968,20 @@ namespace Microsoft.Xna.Framework
                     Log.Verbose("AndroidGameView", "Config not supported");
                     continue;
                 }
-                Log.Verbose("AndroidGameView", string.Format("Selected Config : {0}", config));
+                Log.Verbose("AndroidGameView", $"Selected Config : {config)}";
                 break;
             }
 
             if (!found || numConfigs[0] <= 0)
                 throw new Exception("No valid EGL configs found" + GetErrorAsString());
             var createdVersion = new MonoGame.OpenGL.GLESVersion();
-            foreach (var v in MonoGame.OpenGL.GLESVersion.GetSupportedGLESVersions ()) {
+            foreach (var v in MonoGame.OpenGL.GLESVersion.GetSupportedGLESVersions())
+            {
                 Log.Verbose("AndroidGameView", "Creating GLES {0} Context", v);
                 eglContext = egl.EglCreateContext(eglDisplay, results[0], EGL10.EglNoContext, v.GetAttributes());
                 if (eglContext == null || eglContext == EGL10.EglNoContext)
                 {
-                    Log.Verbose("AndroidGameView", string.Format("GLES {0} Not Supported. {1}", v, GetErrorAsString()));
+                    Log.Verbose("AndroidGameView", $"GLES {v} Not Supported. {GetErrorAsString())}";
                     eglContext = EGL10.EglNoContext;
                     continue;
                 }

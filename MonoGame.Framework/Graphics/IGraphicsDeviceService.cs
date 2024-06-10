@@ -11,10 +11,10 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public interface IGraphicsDeviceService
     {
-		/// <summary>
-		/// The provided <see cref="Graphics.GraphicsDevice"/>.
-		/// </summary>
-		GraphicsDevice GraphicsDevice { get; }
+        /// <summary>
+        /// The provided <see cref="Graphics.GraphicsDevice"/>.
+        /// </summary>
+        GraphicsDevice GraphicsDevice { get; }
 
         /// <summary>
         /// Raised when a new <see cref="Graphics.GraphicsDevice"/> has been created.
@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Raised when the <see cref="GraphicsDevice"/> has reset.
         /// </summary>
-        /// <seealso cref="Microsoft.Xna.Framework.Graphics.GraphicsDevice.Reset"/>
+        /// <seealso cref="Graphics.GraphicsDevice.Reset"/>
         event EventHandler<EventArgs> DeviceReset;
 
         /// <summary>

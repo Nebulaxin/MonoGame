@@ -35,8 +35,7 @@ namespace Microsoft.Xna.Framework
             get { return _keys[index]; }
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException();
+                ArgumentNullException.ThrowIfNull(value);
 
                 if (index >= _keys.Count)
                     throw new IndexOutOfRangeException();
@@ -78,7 +77,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public CurveKeyCollection()
         {
-            _keys = new List<CurveKey>();
+            _keys = [];
         }
 
         #endregion
@@ -97,25 +96,24 @@ namespace Microsoft.Xna.Framework
         /// <remarks>The new key would be added respectively to a position of that key and the position of other keys.</remarks>
         public void Add(CurveKey item)
         {
-            if (item == null)
-                throw new ArgumentNullException("item");
+            ArgumentNullException.ThrowIfNull(item);
 
             if (_keys.Count == 0)
             {
-                this._keys.Add(item);
+                _keys.Add(item);
                 return;
             }
 
-            for (int i = 0; i < this._keys.Count; i++)
+            for (int i = 0; i < _keys.Count; i++)
             {
-                if (item.Position < this._keys[i].Position)
+                if (item.Position < _keys[i].Position)
                 {
-                    this._keys.Insert(i, item);
+                    _keys.Insert(i, item);
                     return;
                 }
             }
 
-            this._keys.Add(item);
+            _keys.Add(item);
         }
 
         /// <summary>
@@ -132,9 +130,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this collection.</returns>
         public CurveKeyCollection Clone()
         {
-            CurveKeyCollection ckc = new CurveKeyCollection();
-            foreach (CurveKey key in this._keys)
-                ckc.Add(key);
+            CurveKeyCollection ckc = [.. _keys];
             return ckc;
         }
 
@@ -203,7 +199,7 @@ namespace Microsoft.Xna.Framework
         {
             _keys.RemoveAt(index);
         }
-        
+
         /// <summary>
         /// Removes specific element.
         /// </summary>

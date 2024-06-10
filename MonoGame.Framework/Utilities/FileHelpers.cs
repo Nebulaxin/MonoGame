@@ -11,7 +11,7 @@ namespace MonoGame.Framework.Utilities
 {
     internal static class FileHelpers
     {
-        private static readonly char[] UrlSafeChars = new[] { '.', '_', '-', ';', '/', '?', '\\', ':' };
+        private static readonly char[] UrlSafeChars = ['.', '_', '-', ';', '/', '?', '\\', ':'];
 
         public static readonly char ForwardSlash = '/';
         public static readonly string ForwardSlashString = new string(ForwardSlash, 1);
@@ -61,7 +61,7 @@ namespace MonoGame.Framework.Utilities
             var localPath = dst.LocalPath;
 
             if (!hasForwardSlash && localPath.StartsWith("/"))
-                localPath = localPath.Substring(1);
+                localPath = localPath[1..];
 
             // Convert the directory separator characters to the 
             // correct platform specific separator.

@@ -35,14 +35,14 @@ namespace Microsoft.Xna.Framework.Audio
 
         struct WaveBankData
         {
-            public int    Flags;                                // Bank flags
-            public int    EntryCount;                           // Number of entries in the bank
+            public int Flags;                                // Bank flags
+            public int EntryCount;                           // Number of entries in the bank
             public string BankName;                             // Bank friendly name
-            public int    EntryMetaDataElementSize;             // Size of each entry meta-data element, in bytes
-            public int    EntryNameElementSize;                 // Size of each entry name element, in bytes
-            public int    Alignment;                            // Entry alignment, in bytes
-            public int    CompactFormat;                        // Format data for compact bank
-            public int    BuildTime;                            // Build timestamp
+            public int EntryMetaDataElementSize;             // Size of each entry meta-data element, in bytes
+            public int EntryNameElementSize;                 // Size of each entry name element, in bytes
+            public int Alignment;                            // Entry alignment, in bytes
+            public int CompactFormat;                        // Format data for compact bank
+            public int BuildTime;                            // Build timestamp
         }
 
         struct StreamInfo
@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework.Audio
         private const int Flag_SyncDisabled = 0x00040000; // Bank is disabled for audition sync
         private const int Flag_SeekTables = 0x00080000; // Bank includes seek tables.
         private const int Flag_Mask = 0x000F0000;
-        
+
         /// <summary>
         /// </summary>
         public bool IsInUse { get; private set; }
@@ -78,8 +78,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         private WaveBank(AudioEngine audioEngine, string waveBankFilename, bool streaming, int offset, int packetsize)
         {
-            if (audioEngine == null)
-                throw new ArgumentNullException("audioEngine");
+            ArgumentNullException.ThrowIfNull(audioEngine);
             if (string.IsNullOrEmpty(waveBankFilename))
                 throw new ArgumentNullException("nonStreamingWaveBankFilename");
 
@@ -87,9 +86,9 @@ namespace Microsoft.Xna.Framework.Audio
             if (streaming)
             {
                 if (offset != 0)
-                    throw new ArgumentException("We only support a zero offset in streaming banks.", "offset");
+                    throw new ArgumentException("We only support a zero offset in streaming banks.", nameof(offset));
                 if (packetsize < 2)
-                    throw new ArgumentException("The packet size must be greater than 2.", "packetsize");
+                    throw new ArgumentException("The packet size must be greater than 2.", nameof(packetsize));
 
                 _streaming = true;
                 _offset = offset;
@@ -99,7 +98,7 @@ namespace Microsoft.Xna.Framework.Audio
             //XWB PARSING
             //Adapted from MonoXNA
             //Originally adaped from Luigi Auriemma's unxwb
-            
+
             WaveBankHeader wavebankheader;
             WaveBankData wavebankdata;
 
@@ -140,11 +139,11 @@ namespace Microsoft.Xna.Framework.Audio
 
             if ((wavebankheader.Version == 2) || (wavebankheader.Version == 3))
             {
-                wavebankdata.BankName = System.Text.Encoding.UTF8.GetString(reader.ReadBytes(16),0,16).Replace("\0", "");
+                wavebankdata.BankName = System.Text.Encoding.UTF8.GetString(reader.ReadBytes(16), 0, 16).Replace("\0", "");
             }
             else
             {
-                wavebankdata.BankName = System.Text.Encoding.UTF8.GetString(reader.ReadBytes(64),0,64).Replace("\0", "");
+                wavebankdata.BankName = System.Text.Encoding.UTF8.GetString(reader.ReadBytes(64), 0, 64).Replace("\0", "");
             }
 
             _bankName = wavebankdata.BankName;
@@ -174,10 +173,10 @@ namespace Microsoft.Xna.Framework.Audio
                     wavebank_offset +
                     (wavebankdata.EntryCount * wavebankdata.EntryMetaDataElementSize);
             }
-            
+
             int segidx_entry_name = 2;
             if (wavebankheader.Version >= 42) segidx_entry_name = 3;
-            
+
             if ((wavebankheader.Segments[segidx_entry_name].Offset != 0) &&
                 (wavebankheader.Segments[segidx_entry_name].Length != 0))
             {
@@ -200,7 +199,7 @@ namespace Microsoft.Xna.Framework.Audio
                 {
                     var len = reader.ReadInt32();
                     _streams[i].Format = wavebankdata.CompactFormat;
-                    _streams[i].FileOffset = (len & ((1 << 21) - 1))*wavebankdata.Alignment;
+                    _streams[i].FileOffset = (len & ((1 << 21) - 1)) * wavebankdata.Alignment;
                 }
 
                 // Now figure out the sound data lengths.
@@ -262,23 +261,21 @@ namespace Microsoft.Xna.Framework.Audio
                 for (var i = 0; i < _streams.Length; i++)
                 {
                     var info = _streams[i];
-                    
+
                     // Read the data.
                     reader.BaseStream.Seek(info.FileOffset + _playRegionOffset, SeekOrigin.Begin);
                     var audiodata = reader.ReadBytes(info.FileLength);
 
                     // Decode the format information.
-                    MiniFormatTag codec;
-                    int channels, rate, alignment;
-                    DecodeFormat(info.Format, out codec, out channels, out rate, out alignment);
+                    DecodeFormat(info.Format, out MiniFormatTag codec, out int channels, out int rate, out int alignment);
 
                     // Call the special constuctor on SoundEffect to sort it out.
-                    _sounds[i] = new SoundEffect(codec, audiodata, channels, rate, alignment, info.LoopStart, info.LoopLength);                
+                    _sounds[i] = new SoundEffect(codec, audiodata, channels, rate, alignment, info.LoopStart, info.LoopLength);
                 }
 
                 _streams = null;
             }
-            
+
             audioEngine.Wavebanks[_bankName] = this;
 
             IsPrepared = true;
@@ -341,7 +338,7 @@ namespace Microsoft.Xna.Framework.Audio
                 rate = (format >> (2 + 3)) & ((1 << 18) - 1);
                 alignment = (format >> (2 + 3 + 18)) & ((1 << 8) - 1);
                 //bits = (info.Format >> (2 + 3 + 18 + 8)) & ((1 << 1) - 1);
-            }            
+            }
         }
 
         /// <param name="audioEngine">Instance of the AudioEngine to associate this wave bank with.</param>

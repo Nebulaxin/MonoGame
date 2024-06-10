@@ -5,10 +5,10 @@
 using System;
 
 namespace Microsoft.Xna.Framework
-{   
+{
     /// <summary>
-    /// An object that can be attached to a <see cref="Microsoft.Xna.Framework.Game"/> and have its <see cref="Update"/>
-    /// method called when <see cref="Microsoft.Xna.Framework.Game.Update"/> is called.
+    /// An object that can be attached to a <see cref="Framework.Game"/> and have its <see cref="Update"/>
+    /// method called when <see cref="Game.Update"/> is called.
     /// </summary>
     public class GameComponent : IGameComponent, IUpdateable, IDisposable
     {
@@ -67,7 +67,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="game">The game that this component will belong to.</param>
         public GameComponent(Game game)
         {
-            this.Game = game;
+            Game = game;
         }
 
         /// <summary/>
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework
         /// Shuts down the component.
         /// </summary>
         protected virtual void Dispose(bool disposing) { }
-        
+
         /// <summary>
         /// Shuts down the component.
         /// </summary>

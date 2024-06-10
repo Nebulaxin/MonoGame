@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
     /// Provides state information for a touch screen enabled device.
     /// </summary>
     public struct TouchCollection : IList<TouchLocation>
-	{
+    {
         private readonly TouchLocation[] _collection;
 
         private TouchLocation[] Collection
@@ -27,10 +27,10 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         public bool IsConnected { get { return TouchPanel.GetCapabilities().IsConnected; } }
 
-        private static readonly TouchLocation[] EmptyLocationArray = new TouchLocation[0];
+        private static readonly TouchLocation[] EmptyLocationArray = [];
         internal static readonly TouchCollection Empty = new TouchCollection(EmptyLocationArray);
 
-		#endregion
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TouchCollection"/> with a pre-determined set of touch locations.
@@ -38,8 +38,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <param name="touches">Array of <see cref="TouchLocation"/> items to initialize with.</param>
         public TouchCollection(TouchLocation[] touches)
         {
-            if (touches == null)
-                throw new ArgumentNullException("touches");
+            ArgumentNullException.ThrowIfNull(touches);
 
             _collection = touches;
         }
@@ -51,7 +50,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <param name="touchLocation"></param>
         /// <returns></returns>
         public bool FindById(int id, out TouchLocation touchLocation)
-		{
+        {
             for (var i = 0; i < Collection.Length; i++)
             {
                 var location = Collection[i];
@@ -64,7 +63,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
             touchLocation = default(TouchLocation);
             return false;
-		}
+        }
 
         #region IList<TouchLocation>
 
@@ -246,7 +245,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             public bool MoveNext()
             {
                 _position++;
-                return (_position < _collection.Count);
+                return _position < _collection.Count;
             }
 
             #region IDisposable

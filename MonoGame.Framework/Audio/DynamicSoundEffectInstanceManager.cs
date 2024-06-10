@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         static DynamicSoundEffectInstanceManager()
         {
-            _playingInstances = new List<WeakReference>();
+            _playingInstances = [];
         }
 
         public static void AddInstance(DynamicSoundEffectInstance instance)

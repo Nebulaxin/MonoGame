@@ -18,7 +18,7 @@ namespace MonoGame.Framework.Utilities
         {
             _minBufferSize = minBufferSize;
             _maxBuffers = maxBuffers;
-            _freeBuffers = new List<byte[]>();
+            _freeBuffers = [];
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace MonoGame.Framework.Utilities
 
             while (l <= r)
             {
-                var m = (l + r)/2;
+                var m = (l + r) / 2;
                 var buffer = _freeBuffers[m];
                 if (buffer.Length < size)
                 {

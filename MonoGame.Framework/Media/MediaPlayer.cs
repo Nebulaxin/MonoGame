@@ -12,15 +12,15 @@ namespace Microsoft.Xna.Framework.Media
     /// </summary>
     public static partial class MediaPlayer
     {
-		// Need to hold onto this to keep track of how many songs
-		// have played when in shuffle mode
-		private static int _numSongsInQueuePlayed = 0;
-		private static MediaState _state = MediaState.Stopped;
-		private static float _volume = 1.0f;
-		private static bool _isMuted;
+        // Need to hold onto this to keep track of how many songs
+        // have played when in shuffle mode
+        private static int _numSongsInQueuePlayed = 0;
+        private static MediaState _state = MediaState.Stopped;
+        private static float _volume = 1.0f;
+        private static bool _isMuted;
         private static bool _isRepeating;
         private static bool _isShuffled;
-		private static readonly MediaQueue _queue = new MediaQueue();
+        private static readonly MediaQueue _queue = new MediaQueue();
 
         /// <summary>
         /// Raised when the active song changes due to active playback or due to explicit calls to the
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Media
         /// When set to <see langword="true"/>, the playback queue will begin
         /// playing again after all songs in the queue have been played.
         /// </remarks>
-        public static bool IsRepeating 
+        public static bool IsRepeating
         {
             get { return PlatformGetIsRepeating(); }
             set { PlatformSetIsRepeating(value); }
@@ -187,14 +187,14 @@ namespace Microsoft.Xna.Framework.Media
         public static void Play(Song song, TimeSpan? startPosition)
         {
             if (song == null)
-                throw new ArgumentNullException("song", "This method does not accept null for this parameter.");
+                throw new ArgumentNullException(nameof(song), "This method does not accept null for this parameter.");
 
             var previousSong = _queue.Count > 0 ? _queue[0] : null;
             _queue.Clear();
             _numSongsInQueuePlayed = 0;
             _queue.Add(song);
             _queue.ActiveSongIndex = 0;
-            
+
             PlaySong(song, startPosition);
 
             if (previousSong != song)
@@ -206,20 +206,20 @@ namespace Microsoft.Xna.Framework.Media
         /// Playback starts immediately at the beginning of the song, specified by song collection index.
         /// </summary>
         public static void Play(SongCollection collection, int index = 0)
-		{
+        {
             if (collection == null)
-                throw new ArgumentNullException("collection", "This method does not accept null for this parameter.");
+                throw new ArgumentNullException(nameof(collection), "This method does not accept null for this parameter.");
 
             _queue.Clear();
             _numSongsInQueuePlayed = 0;
 
-			foreach(var song in collection)
-				_queue.Add(song);
-			
-			_queue.ActiveSongIndex = index;
-			
-			PlaySong(_queue.ActiveSong, null);
-		}
+            foreach (var song in collection)
+                _queue.Add(song);
+
+            _queue.ActiveSongIndex = index;
+
+            PlaySong(_queue.ActiveSong, null);
+        }
 
         private static void PlaySong(Song song, TimeSpan? startPosition)
         {
@@ -231,23 +231,23 @@ namespace Microsoft.Xna.Framework.Media
         }
 
         internal static void OnSongFinishedPlaying(object sender, EventArgs args)
-		{
-			// TODO: Check args to see if song sucessfully played
-			_numSongsInQueuePlayed++;
-			
-			if (_numSongsInQueuePlayed >= _queue.Count)
-			{
-				_numSongsInQueuePlayed = 0;
-				if (!IsRepeating)
-				{
-					Stop();
-					EventHelpers.Raise(null, ActiveSongChanged, EventArgs.Empty);
-					return;
-				}
-			}
+        {
+            // TODO: Check args to see if song sucessfully played
+            _numSongsInQueuePlayed++;
 
-			MoveNext();
-		}
+            if (_numSongsInQueuePlayed >= _queue.Count)
+            {
+                _numSongsInQueuePlayed = 0;
+                if (!IsRepeating)
+                {
+                    Stop();
+                    EventHelpers.Raise(null, ActiveSongChanged, EventArgs.Empty);
+                    return;
+                }
+            }
+
+            MoveNext();
+        }
 
         /// <summary>
         /// Resumes a paused song.
@@ -258,7 +258,7 @@ namespace Microsoft.Xna.Framework.Media
                 return;
 
             PlatformResume();
-			State = MediaState.Playing;
+            State = MediaState.Playing;
         }
 
         /// <summary>
@@ -270,8 +270,8 @@ namespace Microsoft.Xna.Framework.Media
                 return;
 
             PlatformStop();
-			State = MediaState.Stopped;
-		}
+            State = MediaState.Stopped;
+        }
 
         /// <summary>
         /// Stops currently playing song, moves to the next song in the queue of playing songs and plays it.
@@ -282,9 +282,9 @@ namespace Microsoft.Xna.Framework.Media
         /// </para>
         /// </remarks>
 		public static void MoveNext()
-		{
-			NextSong(1);
-		}
+        {
+            NextSong(1);
+        }
 
         /// <summary>
         /// Stops currently playing song, moves to the previous song in the queue of playing songs and plays it.
@@ -295,18 +295,18 @@ namespace Microsoft.Xna.Framework.Media
         /// </para>
         /// </remarks>
         public static void MovePrevious()
-		{
-			NextSong(-1);
-		}
-		
-		private static void NextSong(int direction)
-		{
+        {
+            NextSong(-1);
+        }
+
+        private static void NextSong(int direction)
+        {
             Stop();
 
             if (IsRepeating && _queue.ActiveSongIndex >= _queue.Count - 1)
             {
                 _queue.ActiveSongIndex = 0;
-                
+
                 // Setting direction to 0 will force the first song
                 // in the queue to be played.
                 // if we're on "shuffle", then it'll pick a random one
@@ -314,12 +314,12 @@ namespace Microsoft.Xna.Framework.Media
                 direction = 0;
             }
 
-			var nextSong = _queue.GetNextSong(direction, IsShuffled);
+            var nextSong = _queue.GetNextSong(direction, IsShuffled);
 
             if (nextSong != null)
                 PlaySong(nextSong, null);
 
             EventHelpers.Raise(null, ActiveSongChanged, EventArgs.Empty);
-		}
+        }
     }
 }

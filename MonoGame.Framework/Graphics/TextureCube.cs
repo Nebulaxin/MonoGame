@@ -24,8 +24,8 @@ namespace Microsoft.Xna.Framework.Graphics
     ///     </para>
     /// </remarks>
 	public partial class TextureCube : Texture
-	{
-		internal int size;
+    {
+        internal int size;
 
         /// <summary>
         /// Gets the width and height of the cube map face in pixels.
@@ -49,22 +49,22 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException"> The <paramref name="graphicsDevice"/> parameter is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">The <paramref name="size"/> parameter is less than or equal to zero.</exception>
 
-		public TextureCube (GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format)
+        public TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format)
             : this(graphicsDevice, size, mipMap, format, false)
-		{
+        {
         }
 
         internal TextureCube(GraphicsDevice graphicsDevice, int size, bool mipMap, SurfaceFormat format, bool renderTarget)
         {
             if (graphicsDevice == null)
-                throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             if (size <= 0)
-                throw new ArgumentOutOfRangeException("size","Cube size must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(size), "Cube size must be greater than zero");
 
-            this.GraphicsDevice = graphicsDevice;
-			this.size = size;
-            this._format = format;
-            this._levelCount = mipMap ? CalculateMipLevels(size) : 1;
+            GraphicsDevice = graphicsDevice;
+            this.size = size;
+            _format = format;
+            _levelCount = mipMap ? CalculateMipLevels(size) : 1;
 
             PlatformConstruct(graphicsDevice, size, mipMap, format, renderTarget);
         }
@@ -93,8 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(CubeMapFace cubeMapFace, T[] data) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
             GetData(cubeMapFace, 0, null, data, 0, data.Length);
         }
 
@@ -129,9 +128,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 	    public void GetData<T>(CubeMapFace cubeMapFace, T[] data, int startIndex, int elementCount) where T : struct
-	    {
-	        GetData(cubeMapFace, 0, null, data, startIndex, elementCount);
-	    }
+        {
+            GetData(cubeMapFace, 0, null, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies the texture cube data into an array.
@@ -179,11 +178,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 	    public void GetData<T>(CubeMapFace cubeMapFace, int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
-	    {
-            Rectangle checkedRect;
-            ValidateParams(level, rect, data, startIndex, elementCount, out checkedRect);
-	        PlatformGetData(cubeMapFace, level, checkedRect, data, startIndex, elementCount);
-	    }
+        {
+            ValidateParams(level, rect, data, startIndex, elementCount, out Rectangle checkedRect);
+            PlatformGetData(cubeMapFace, level, checkedRect, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -207,12 +205,11 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
-		public void SetData<T> (CubeMapFace face, T[] data) where T : struct
-		{
-            if (data == null)
-                throw new ArgumentNullException("data");
+		public void SetData<T>(CubeMapFace face, T[] data) where T : struct
+        {
+            ArgumentNullException.ThrowIfNull(data);
             SetData(face, 0, null, data, 0, data.Length);
-		}
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -245,9 +242,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(CubeMapFace face, T[] data, int startIndex, int elementCount) where T : struct
-		{
+        {
             SetData(face, 0, null, data, startIndex, elementCount);
-		}
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -296,10 +293,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(CubeMapFace face, int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(face, level, checkedRect, data, startIndex, elementCount);
-		}
+        }
 
         private void ValidateParams<T>(int level, Rectangle? rect, T[] data, int startIndex,
             int elementCount, out Rectangle checkedRect) where T : struct
@@ -309,15 +305,14 @@ namespace Microsoft.Xna.Framework.Graphics
             if (level < 0 || level >= LevelCount)
                 throw new ArgumentException("level must be smaller than the number of levels in this texture.");
             if (!textureBounds.Contains(checkedRect) || checkedRect.Width <= 0 || checkedRect.Height <= 0)
-                throw new ArgumentException("Rectangle must be inside the texture bounds", "rect");
-            if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentException("Rectangle must be inside the texture bounds", nameof(rect));
+            ArgumentNullException.ThrowIfNull(data);
             var tSize = ReflectionHelpers.SizeOf<T>.Get();
             var fSize = Format.GetSize();
             if (tSize > fSize || fSize % tSize != 0)
                 throw new ArgumentException("Type T is of an invalid size for the format of this texture.", "T");
             if (startIndex < 0 || startIndex >= data.Length)
-                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", "startIndex");
+                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", nameof(startIndex));
             if (data.Length < startIndex + elementCount)
                 throw new ArgumentException("The data array is too small.");
 
@@ -344,10 +339,10 @@ namespace Microsoft.Xna.Framework.Graphics
                 dataByteSize = checkedRect.Width * checkedRect.Height * fSize;
             }
             if (elementCount * tSize != dataByteSize)
-                throw new ArgumentException(string.Format("elementCount is not the right size, " +
-                                            "elementCount * sizeof(T) is {0}, but data size is {1}.",
-                                            elementCount * tSize, dataByteSize), "elementCount");
+                throw new ArgumentException(
+                    $"elementCount is not the right size, elementCount * sizeof(T) is {elementCount * tSize}, but data size is {dataByteSize}.",
+                    nameof(elementCount));
         }
-	}
+    }
 }
 

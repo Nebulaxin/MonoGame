@@ -24,10 +24,9 @@ namespace Microsoft.Xna.Framework
 
         #region Construction/Destruction
 
-		protected GamePlatform(Game game)
+        protected GamePlatform(Game game)
         {
-            if (game == null)
-                throw new ArgumentNullException("game");
+            ArgumentNullException.ThrowIfNull(game);
             Game = game;
         }
 
@@ -207,7 +206,7 @@ namespace Microsoft.Xna.Framework
         /// <param name='willBeFullScreen'>
         /// Specifies whether the device will be in full-screen mode upon completion of the change.
         /// </param>
-        public abstract void BeginScreenDeviceChange (
+        public abstract void BeginScreenDeviceChange(
                  bool willBeFullScreen
         );
 
@@ -223,7 +222,7 @@ namespace Microsoft.Xna.Framework
         /// <param name='clientHeight'>
         /// The new height of the game's client window.
         /// </param>
-        public abstract void EndScreenDeviceChange (
+        public abstract void EndScreenDeviceChange(
                  string screenDeviceName,
                  int clientWidth,
                  int clientHeight
@@ -233,18 +232,18 @@ namespace Microsoft.Xna.Framework
         /// Gives derived classes an opportunity to take action after
         /// Game.TargetElapsedTime has been set.
         /// </summary>
-        public virtual void TargetElapsedTimeChanged() {}
+        public virtual void TargetElapsedTimeChanged() { }
 
         /// <summary>
         /// MSDN: Use this method if your game is recovering from a slow-running state, and ElapsedGameTime is too large to be useful.
         /// Frame timing is generally handled by the Game class, but some platforms still handle it elsewhere. Once all platforms
         /// rely on the Game class's functionality, this method and any overrides should be removed.
         /// </summary>
-        public virtual void ResetElapsedTime() {}
+        public virtual void ResetElapsedTime() { }
 
         public virtual void Present() { }
 
-        protected virtual void OnIsMouseVisibleChanged() {}
+        protected virtual void OnIsMouseVisibleChanged() { }
 
         /// <summary>
         /// Called by the GraphicsDeviceManager to notify the platform
@@ -279,16 +278,16 @@ namespace Microsoft.Xna.Framework
                 disposed = true;
             }
         }
-		
-		/// <summary>
-		/// Log the specified Message.
-		/// </summary>
-		/// <param name='Message'>
-		/// 
-		/// </param>
-		[System.Diagnostics.Conditional("DEBUG")]
-		public virtual void Log(string Message) {}		
-			
+
+        /// <summary>
+        /// Log the specified Message.
+        /// </summary>
+        /// <param name='Message'>
+        /// 
+        /// </param>
+        [System.Diagnostics.Conditional("DEBUG")]
+        public virtual void Log(string Message) { }
+
 
         #endregion
     }

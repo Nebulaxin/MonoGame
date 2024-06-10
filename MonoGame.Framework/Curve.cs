@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public bool IsConstant
         {
-            get { return this._keys.Count <= 1; }
+            get { return _keys.Count <= 1; }
         }
 
         /// <summary>
@@ -40,8 +40,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveLoopType PreLoop
         {
-            get { return this._preLoop; }
-            set { this._preLoop = value; }
+            get { return _preLoop; }
+            set { _preLoop = value; }
         }
 
         /// <summary>
@@ -50,8 +50,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveLoopType PostLoop
         {
-            get { return this._postLoop; }
-            set { this._postLoop = value; }
+            get { return _postLoop; }
+            set { _postLoop = value; }
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveKeyCollection Keys
         {
-            get { return this._keys; }
+            get { return _keys; }
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Curve()
         {
-            this._keys = new CurveKeyCollection();
+            _keys = [];
         }
 
         #endregion
@@ -87,9 +87,9 @@ namespace Microsoft.Xna.Framework
         {
             Curve curve = new Curve();
 
-            curve._keys = this._keys.Clone();
-            curve._preLoop = this._preLoop;
-            curve._postLoop = this._postLoop;
+            curve._keys = _keys.Clone();
+            curve._preLoop = _preLoop;
+            curve._postLoop = _postLoop;
 
             return curve;
         }
@@ -103,20 +103,20 @@ namespace Microsoft.Xna.Framework
         {
             if (_keys.Count == 0)
             {
-            	return 0f;
+                return 0f;
             }
-						
+
             if (_keys.Count == 1)
             {
-            	return _keys[0].Value;
+                return _keys[0].Value;
             }
-			
+
             CurveKey first = _keys[0];
             CurveKey last = _keys[_keys.Count - 1];
 
             if (position < first.Position)
             {
-                switch (this.PreLoop)
+                switch (PreLoop)
                 {
                     case CurveLoopType.Constant:
                         //constant
@@ -136,7 +136,7 @@ namespace Microsoft.Xna.Framework
                         //make the curve continue (with no step) so must up the curve each cycle of delta(value)
                         cycle = GetNumberOfCycle(position);
                         virtualPos = position - (cycle * (last.Position - first.Position));
-                        return (GetCurvePosition(virtualPos) + cycle * (last.Value - first.Value));
+                        return GetCurvePosition(virtualPos) + cycle * (last.Value - first.Value);
 
                     case CurveLoopType.Oscillate:
                         //go back on curve from end and target start 
@@ -152,7 +152,7 @@ namespace Microsoft.Xna.Framework
             else if (position > last.Position)
             {
                 int cycle;
-                switch (this.PostLoop)
+                switch (PostLoop)
                 {
                     case CurveLoopType.Constant:
                         //constant
@@ -172,7 +172,7 @@ namespace Microsoft.Xna.Framework
                         //make the curve continue (with no step) so must up the curve each cycle of delta(value)
                         cycle = GetNumberOfCycle(position);
                         virtualPos = position - (cycle * (last.Position - first.Position));
-                        return (GetCurvePosition(virtualPos) + cycle * (last.Value - first.Value));
+                        return GetCurvePosition(virtualPos) + cycle * (last.Value - first.Value);
 
                     case CurveLoopType.Oscillate:
                         //go back on curve from end and target start 
@@ -195,23 +195,23 @@ namespace Microsoft.Xna.Framework
         /// Computes tangents for all keys in the collection.
         /// </summary>
         /// <param name="tangentType">The tangent type for both in and out.</param>
-		public void ComputeTangents (CurveTangent tangentType)
-		{
-		    ComputeTangents(tangentType, tangentType);
-		}
-		
+		public void ComputeTangents(CurveTangent tangentType)
+        {
+            ComputeTangents(tangentType, tangentType);
+        }
+
         /// <summary>
         /// Computes tangents for all keys in the collection.
         /// </summary>
         /// <param name="tangentInType">The tangent in-type. <see cref="CurveKey.TangentIn"/> for more details.</param>
         /// <param name="tangentOutType">The tangent out-type. <see cref="CurveKey.TangentOut"/> for more details.</param>
-		public void ComputeTangents(CurveTangent tangentInType, CurveTangent tangentOutType)
-		{
+        public void ComputeTangents(CurveTangent tangentInType, CurveTangent tangentOutType)
+        {
             for (var i = 0; i < Keys.Count; ++i)
             {
                 ComputeTangent(i, tangentInType, tangentOutType);
             }
-		}
+        }
 
         /// <summary>
         /// Computes tangent for the specific key in the collection.
@@ -241,13 +241,13 @@ namespace Microsoft.Xna.Framework
             float v0, v, v1;
             v0 = v = v1 = key.Value;
 
-            if ( keyIndex > 0 )
+            if (keyIndex > 0)
             {
                 p0 = _keys[keyIndex - 1].Position;
                 v0 = _keys[keyIndex - 1].Value;
             }
 
-            if (keyIndex < _keys.Count-1)
+            if (keyIndex < _keys.Count - 1)
             {
                 p1 = _keys[keyIndex + 1].Position;
                 v1 = _keys[keyIndex + 1].Value;
@@ -288,7 +288,7 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-	    #endregion
+        #endregion
 
         #region Private Methods
 
@@ -303,7 +303,7 @@ namespace Microsoft.Xna.Framework
         private float GetCurvePosition(float position)
         {
             //only for position in curve
-            int nextIndex = this._keys.IndexAtPosition(position);
+            int nextIndex = _keys.IndexAtPosition(position);
             if (nextIndex < 0)
                 nextIndex = ~nextIndex;
             nextIndex = Math.Max(nextIndex, 1);

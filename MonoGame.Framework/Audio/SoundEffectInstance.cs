@@ -24,7 +24,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>Enables or Disables whether the SoundEffectInstance should repeat after playback.</summary>
         /// <remarks>This value has no effect on an already playing sound.</remarks>
         public virtual bool IsLooped
-        { 
+        {
             get { return PlatformGetIsLooped(); }
             set { PlatformSetIsLooped(value); }
         }
@@ -33,7 +33,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <value>Pan value ranging from -1.0 (left speaker) to 0.0 (centered), 1.0 (right speaker). Values outside of this range will throw an exception.</value>
         public float Pan
         {
-            get { return _pan; } 
+            get { return _pan; }
             set
             {
                 if (value < -1.0f || value > 1.0f)
@@ -94,7 +94,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             _pan = 0.0f;
             _volume = 1.0f;
-            _pitch = 0.0f;            
+            _pitch = 0.0f;
         }
 
         internal SoundEffectInstance(byte[] buffer, int sampleRate, int channels)
@@ -105,7 +105,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         /// <summary>
         /// Releases unmanaged resources and performs other cleanup operations before the
-        /// <see cref="Microsoft.Xna.Framework.Audio.SoundEffectInstance"/> is reclaimed by garbage collection.
+        /// <see cref="SoundEffectInstance"/> is reclaimed by garbage collection.
         /// </summary>
         ~SoundEffectInstance()
         {
@@ -126,7 +126,7 @@ namespace Microsoft.Xna.Framework.Audio
         public void Apply3D(AudioListener[] listeners, AudioEmitter emitter)
         {
             foreach (var l in listeners)
-				PlatformApply3D(l, emitter);
+                PlatformApply3D(l, emitter);
         }
 
         /// <summary>Pauses playback of a SoundEffectInstance.</summary>
@@ -159,7 +159,7 @@ namespace Microsoft.Xna.Framework.Audio
                 if (!SoundEffectInstancePool.SoundsAvailable)
                     throw new InstancePlayLimitException();
             }
-            
+
             // For non-XAct sounds we need to be sure the latest
             // master volume level is applied before playback.
             if (!_isXAct)
@@ -190,7 +190,7 @@ namespace Microsoft.Xna.Framework.Audio
             PlatformStop(immediate);
         }
 
-        /// <summary>Releases the resources held by this <see cref="Microsoft.Xna.Framework.Audio.SoundEffectInstance"/>.</summary>
+        /// <summary>Releases the resources held by this <see cref="SoundEffectInstance"/>.</summary>
         public void Dispose()
         {
             Dispose(true);
@@ -198,7 +198,7 @@ namespace Microsoft.Xna.Framework.Audio
         }
 
         /// <summary>
-        /// Releases the resources held by this <see cref="Microsoft.Xna.Framework.Audio.SoundEffectInstance"/>.
+        /// Releases the resources held by this <see cref="SoundEffectInstance"/>.
         /// </summary>
         /// <param name="disposing">If set to <c>true</c>, Dispose was called explicitly.</param>
         /// <remarks>If the disposing parameter is true, the Dispose method was called explicitly. This

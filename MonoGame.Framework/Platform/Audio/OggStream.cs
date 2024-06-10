@@ -381,7 +381,7 @@ namespace Microsoft.Xna.Framework.Audio
             }
             AL.BufferData(bufferId, stream.Reader.Channels == 1 ? ALFormat.Mono16 : ALFormat.Stereo16, castBuffer,
                 readSamples * sizeof(short), stream.Reader.SampleRate);
-            ALHelper.CheckError("Failed to fill buffer, readSamples = {0}, SampleRate = {1}, buffer.Length = {2}.", readSamples, stream.Reader.SampleRate, castBuffer.Length);
+            ALHelper.CheckError($"Failed to fill buffer, readSamples = {readSamples}, SampleRate = {stream.Reader.SampleRate}, buffer.Length = {castBuffer.Length}.");
 
 
             return readSamples != BufferSize;
@@ -401,7 +401,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             while (!cancelled)
             {
-                Thread.Sleep((int) (1000 / ((UpdateRate <= 0) ? 1 : UpdateRate)));
+                Thread.Sleep((int)(1000 / ((UpdateRate <= 0) ? 1 : UpdateRate)));
                 if (cancelled) break;
 
                 threadLocalStreams.Clear();

@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework
         public GraphicsDeviceManager(Game game)
         {
             if (game == null)
-                throw new ArgumentNullException("game", "Game cannot be null.");
+                throw new ArgumentNullException(nameof(game), "Game cannot be null.");
 
             _game = game;
 
@@ -131,11 +131,11 @@ namespace Microsoft.Xna.Framework
             if (_graphicsDevice != null)
                 return;
 
-            _graphicsDevice = new GraphicsDevice(gdi.Adapter, gdi.GraphicsProfile, this.PreferHalfPixelOffset, gdi.PresentationParameters);
+            _graphicsDevice = new GraphicsDevice(gdi.Adapter, gdi.GraphicsProfile, PreferHalfPixelOffset, gdi.PresentationParameters);
             _shouldApplyChanges = false;
 
             // hook up reset events
-            GraphicsDevice.DeviceReset     += (sender, args) => OnDeviceReset(args);
+            GraphicsDevice.DeviceReset += (sender, args) => OnDeviceReset(args);
             GraphicsDevice.DeviceResetting += (sender, args) => OnDeviceResetting(args);
 
             // update the touchpanel display size when the graphicsdevice is reset
@@ -467,7 +467,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool HardwareModeSwitch
         {
-            get { return _hardwareModeSwitch;}
+            get { return _hardwareModeSwitch; }
             set
             {
                 _shouldApplyChanges = true;
@@ -494,7 +494,7 @@ namespace Microsoft.Xna.Framework
             get { return _preferHalfPixelOffset; }
             set
             {
-                if (this.GraphicsDevice != null)
+                if (GraphicsDevice != null)
                     throw new InvalidOperationException("Setting PreferHalfPixelOffset is not allowed after the creation of GraphicsDevice.");
                 _preferHalfPixelOffset = value;
             }

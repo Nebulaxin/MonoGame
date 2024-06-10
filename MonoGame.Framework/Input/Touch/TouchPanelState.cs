@@ -21,12 +21,12 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// The current touch state.
         /// </summary>
-        private readonly List<TouchLocation> _touchState = new List<TouchLocation>();
+        private readonly List<TouchLocation> _touchState = [];
 
         /// <summary>
         /// The current gesture state.
         /// </summary>
-        private readonly List<TouchLocation> _gestureState = new List<TouchLocation>();
+        private readonly List<TouchLocation> _gestureState = [];
 
         /// <summary>
         /// The positional scale to apply to touch input.
@@ -53,7 +53,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// The mapping between platform specific touch ids
         /// and the touch ids we assign to touch locations.
         /// </summary>
-        private readonly Dictionary<int, int> _touchIds = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> _touchIds = [];
 
         internal readonly Queue<GestureSample> GestureList = new Queue<GestureSample>();
 
@@ -170,8 +170,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         internal void AddHighResolutionTouchEvent(int id, TouchLocationState state, Vector2 position)
         {
             //Try to find the touch id.
-            int touchId;
-            if (!_touchIds.TryGetValue(id, out touchId))
+            if (!_touchIds.TryGetValue(id, out int touchId))
             {
                 return;
             }
@@ -213,8 +212,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             }
 
             // Try to find the touch id.
-            int touchId;
-            if (!_touchIds.TryGetValue(id, out touchId))
+            if (!_touchIds.TryGetValue(id, out int touchId))
             {
                 // If we got here that means either the device is sending
                 // us bad, out of order, or old touch events.  In any case
@@ -260,7 +258,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
             var windowSize = new Vector2(Window.ClientBounds.Width, Window.ClientBounds.Height);
 
             // Recalculate the touch scale.
-            _touchScale = new Vector2(  _displaySize.X / windowSize.X,
+            _touchScale = new Vector2(_displaySize.X / windowSize.X,
                                         _displaySize.Y / windowSize.Y);
         }
 
@@ -679,8 +677,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
             // Make sure this is a move event and that we have
             // a previous touch location.
-            TouchLocation prevTouch;
-            if (touch.State != TouchLocationState.Moved || !touch.TryGetPreviousLocation(out prevTouch))
+            if (touch.State != TouchLocationState.Moved || !touch.TryGetPreviousLocation(out TouchLocation prevTouch))
                 return;
 
             var delta = touch.Position - prevTouch.Position;
@@ -734,13 +731,11 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
         private void ProcessPinch(TouchLocation[] touches)
         {
-            TouchLocation prevPos0;
-            TouchLocation prevPos1;
 
-            if (!touches[0].TryGetPreviousLocation(out prevPos0))
+            if (!touches[0].TryGetPreviousLocation(out TouchLocation prevPos0))
                 prevPos0 = touches[0];
 
-            if (!touches[1].TryGetPreviousLocation(out prevPos1))
+            if (!touches[1].TryGetPreviousLocation(out TouchLocation prevPos1))
                 prevPos1 = touches[1];
 
             var delta0 = touches[0].Position - prevPos0.Position;

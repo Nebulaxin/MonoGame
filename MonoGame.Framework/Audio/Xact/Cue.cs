@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <remarks>IsPlaying and IsPaused both return true if a cue is paused while playing.</remarks>
         public bool IsPaused
         {
-            get 
+            get
             {
                 if (_curSound != null)
                     return _curSound.IsPaused;
@@ -43,7 +43,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <remarks>IsPlaying and IsPaused both return true if a cue is paused while playing.</remarks>
         public bool IsPlaying
         {
-            get 
+            get
             {
                 if (_curSound != null)
                     return _curSound.Playing || _curSound.IsPaused;
@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>Indicates whether or not the cue is currently stopped.</summary>
         public bool IsStopped
         {
-            get 
+            get
             {
                 if (_curSound != null)
                     return _curSound.Stopped;
@@ -77,7 +77,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         /// <summary>Returns whether the cue is preparing to play.</summary>
         /// <remarks>Current implementation will always return <see langword="false"/>.</remarks>
-        public bool IsPreparing 
+        public bool IsPreparing
         {
             get { return false; }
         }
@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             get { return _name; }
         }
-        
+
         internal Cue(AudioEngine engine, string cuename, XactSound sound)
         {
             _engine = engine;
@@ -112,7 +112,7 @@ namespace Microsoft.Xna.Framework.Audio
             _probs[0] = 1.0f;
             _variables = engine.CreateCueVariables();
         }
-        
+
         internal Cue(AudioEngine engine, string cuename, XactSound[] sounds, float[] probs)
         {
             _engine = engine;
@@ -135,8 +135,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             lock (_engine.UpdateLock)
             {
-                if (_curSound != null)
-                    _curSound.Pause();
+                _curSound?.Pause();
             }
         }
 
@@ -167,8 +166,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             lock (_engine.UpdateLock)
             {
-                if (_curSound != null)
-                    _curSound.Resume();
+                _curSound?.Resume();
             }
         }
 
@@ -180,8 +178,7 @@ namespace Microsoft.Xna.Framework.Audio
             {
                 _engine.ActiveCues.Remove(this);
 
-                if (_curSound != null)
-                    _curSound.Stop(options);
+                _curSound?.Stop(options);
             }
 
             IsPrepared = false;
@@ -209,7 +206,7 @@ namespace Microsoft.Xna.Framework.Audio
         public void SetVariable(string name, float value)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             var i = FindVariable(name);
             if (i == -1 || !_variables[i].IsPublic)
@@ -228,7 +225,7 @@ namespace Microsoft.Xna.Framework.Audio
         public float GetVariable(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             var i = FindVariable(name);
             if (i == -1 || !_variables[i].IsPublic)
@@ -244,12 +241,10 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>This must be called before Play().</para>
         /// <para>Calling this method automatically converts the sound to monoaural and sets the speaker mix for any sound played by this cue to a value calculated with the listener's and emitter's positions. Any stereo information in the sound will be discarded.</para>
         /// </remarks>
-        public void Apply3D(AudioListener listener, AudioEmitter emitter) 
+        public void Apply3D(AudioListener listener, AudioEmitter emitter)
         {
-            if (listener == null)
-                throw new ArgumentNullException("listener");
-            if (emitter == null)
-                throw new ArgumentNullException("emitter");
+            ArgumentNullException.ThrowIfNull(listener);
+            ArgumentNullException.ThrowIfNull(emitter);
 
             if (_played && !_applied3D)
                 throw new InvalidOperationException("You must call Apply3D on a Cue before calling Play to be able to call Apply3D after calling Play.");
@@ -271,8 +266,7 @@ namespace Microsoft.Xna.Framework.Audio
                 var angle = MathHelper.ToDegrees(MathF.Acos(slope));
                 var j = FindVariable("OrientationAngle");
                 _variables[j].SetValue(angle);
-                if (_curSound != null)
-                    _curSound.SetCuePan(Vector3.Dot(direction, right));
+                _curSound?.SetCuePan(Vector3.Dot(direction, right));
 
                 // Calculate doppler effect.
                 var relativeVelocity = emitter.Velocity - listener.Velocity;
@@ -353,7 +347,7 @@ namespace Microsoft.Xna.Framework.Audio
 
             return volume;
         }
-        
+
         /// <summary>
         /// This event is triggered when the Cue is disposed.
         /// </summary>

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Microsoft.Xna.Framework.Content
 {
-    internal class StringReader : ContentTypeReader<String>
+    internal class StringReader : ContentTypeReader<string>
     {
         public StringReader()
         {

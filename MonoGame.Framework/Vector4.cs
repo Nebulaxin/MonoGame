@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework
     /// Describes a 4D-vector.
     /// </summary>
 #if XNADESIGNPROVIDED
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector4TypeConverter))]
+    [System.ComponentModel.TypeConverter(typeof(Design.Vector4TypeConverter))]
 #endif
     [DataContract]
     [DebuggerDisplay("{DebugDisplayString,nq}")]
@@ -116,10 +116,10 @@ namespace Microsoft.Xna.Framework
             get
             {
                 return string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString(), "  ",
-                    this.Z.ToString(), "  ",
-                    this.W.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString(), "  ",
+                    Z.ToString(), "  ",
+                    W.ToString()
                 );
             }
         }
@@ -137,10 +137,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(float x, float y, float z, float w)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            X = x;
+            Y = y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
@@ -151,10 +151,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(Vector2 value, float z, float w)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = z;
-            this.W = w;
+            X = value.X;
+            Y = value.Y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
@@ -164,10 +164,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(Vector3 value, float w)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = value.Z;
-            this.W = w;
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = w;
         }
 
         /// <summary>
@@ -176,10 +176,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y, z and w coordinates in 4d-space.</param>
         public Vector4(float value)
         {
-            this.X = value;
-            this.Y = value;
-            this.Z = value;
-            this.W = value;
+            X = value;
+            Y = value;
+            Z = value;
+            W = value;
         }
 
         #endregion
@@ -386,10 +386,10 @@ namespace Microsoft.Xna.Framework
         /// <returns>The squared distance between two vectors.</returns>
         public static float DistanceSquared(Vector4 value1, Vector4 value2)
         {
-              return (value1.W - value2.W) * (value1.W - value2.W) +
-                     (value1.X - value2.X) * (value1.X - value2.X) +
-                     (value1.Y - value2.Y) * (value1.Y - value2.Y) +
-                     (value1.Z - value2.Z) * (value1.Z - value2.Z);
+            return (value1.W - value2.W) * (value1.W - value2.W) +
+                   (value1.X - value2.X) * (value1.X - value2.X) +
+                   (value1.Y - value2.Y) * (value1.Y - value2.Y) +
+                   (value1.Z - value2.Z) * (value1.Z - value2.Z);
         }
 
         /// <summary>
@@ -489,9 +489,9 @@ namespace Microsoft.Xna.Framework
         }
 
         /// <summary>
-        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// Compares whether current instance is equal to specified <see cref="object"/>.
         /// </summary>
-        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
@@ -505,10 +505,10 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Vector4 other)
         {
-            return this.W == other.W
-                && this.X == other.X
-                && this.Y == other.Y
-                && this.Z == other.Z;
+            return W == other.W
+                && X == other.X
+                && Y == other.Y
+                && Z == other.Z;
         }
 
         /// <summary>
@@ -651,7 +651,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Creates a new <see cref="Vector4"/> that contains linear interpolation of the specified vectors.
         /// Uses <see cref="MathHelper.LerpPrecise"/> on MathHelper for the interpolation.
-        /// Less efficient but more precise compared to <see cref="Vector4.Lerp(Vector4, Vector4, float)"/>.
+        /// Less efficient but more precise compared to <see cref="Lerp(Vector4, Vector4, float)"/>.
         /// See remarks section of <see cref="MathHelper.LerpPrecise"/> on MathHelper for more info.
         /// </summary>
         /// <param name="value1">The first vector.</param>
@@ -670,7 +670,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Creates a new <see cref="Vector4"/> that contains linear interpolation of the specified vectors.
         /// Uses <see cref="MathHelper.LerpPrecise"/> on MathHelper for the interpolation.
-        /// Less efficient but more precise compared to <see cref="Vector4.Lerp(ref Vector4, ref Vector4, float, out Vector4)"/>.
+        /// Less efficient but more precise compared to <see cref="Lerp(ref Vector4, ref Vector4, float, out Vector4)"/>.
         /// See remarks section of <see cref="MathHelper.LerpPrecise"/> on MathHelper for more info.
         /// </summary>
         /// <param name="value1">The first vector.</param>
@@ -847,7 +847,7 @@ namespace Microsoft.Xna.Framework
         {
             float factor = MathF.Sqrt((value.X * value.X) + (value.Y * value.Y) + (value.Z * value.Z) + (value.W * value.W));
             factor = 1f / factor;
-            return new Vector4(value.X*factor,value.Y*factor,value.Z*factor,value.W*factor);
+            return new Vector4(value.X * factor, value.Y * factor, value.Z * factor, value.W * factor);
         }
 
         /// <summary>
@@ -973,8 +973,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector2 value, Matrix matrix)
         {
-            Vector4 result;
-            Transform(ref value, ref matrix, out result);
+            Transform(ref value, ref matrix, out Vector4 result);
             return result;
         }
 
@@ -986,8 +985,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector2 value, Quaternion rotation)
         {
-            Vector4 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector4 result);
             return result;
         }
 
@@ -999,8 +997,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector3 value, Matrix matrix)
         {
-            Vector4 result;
-            Transform(ref value, ref matrix, out result);
+            Transform(ref value, ref matrix, out Vector4 result);
             return result;
         }
 
@@ -1012,8 +1009,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector3 value, Quaternion rotation)
         {
-            Vector4 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector4 result);
             return result;
         }
 
@@ -1037,8 +1033,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector4 value, Quaternion rotation)
         {
-            Vector4 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector4 result);
             return result;
         }
 
@@ -1140,10 +1135,8 @@ namespace Microsoft.Xna.Framework
             int length
         )
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1174,10 +1167,8 @@ namespace Microsoft.Xna.Framework
             int length
             )
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1198,10 +1189,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void Transform(Vector4[] sourceArray, ref Matrix matrix, Vector4[] destinationArray)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1220,10 +1209,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void Transform(Vector4[] sourceArray, ref Quaternion rotation, Vector4[] destinationArray)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1237,10 +1224,10 @@ namespace Microsoft.Xna.Framework
         #endregion
 
         /// <summary>
-        /// Returns a <see cref="String"/> representation of this <see cref="Vector4"/> in the format:
+        /// Returns a <see cref="string"/> representation of this <see cref="Vector4"/> in the format:
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Z:[<see cref="Z"/>] W:[<see cref="W"/>]}
         /// </summary>
-        /// <returns>A <see cref="String"/> representation of this <see cref="Vector4"/>.</returns>
+        /// <returns>A <see cref="string"/> representation of this <see cref="Vector4"/>.</returns>
         public override string ToString()
         {
             return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
@@ -1266,7 +1253,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector4 ToNumerics()
         {
-            return new System.Numerics.Vector4(this.X, this.Y, this.Z, this.W);
+            return new System.Numerics.Vector4(X, Y, Z, W);
         }
 
         #endregion

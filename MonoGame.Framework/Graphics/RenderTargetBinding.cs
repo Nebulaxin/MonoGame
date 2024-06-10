@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// render targets on the graphics device.
     /// </summary>
 	public struct RenderTargetBinding
-	{
+    {
         private readonly Texture _renderTarget;
         private readonly int _arraySlice;
         private DepthFormat _depthFormat;
@@ -23,8 +23,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
 		public Texture RenderTarget
         {
-			get { return _renderTarget; }
-		}
+            get { return _renderTarget; }
+        }
 
         /// <summary>
         ///
@@ -48,14 +48,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="renderTarget">The render target to create the binding for.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
 		public RenderTargetBinding(RenderTarget2D renderTarget)
-		{
-			if (renderTarget == null)
-				throw new ArgumentNullException("renderTarget");
+        {
+            ArgumentNullException.ThrowIfNull(renderTarget);
 
-			_renderTarget = renderTarget;
+            _renderTarget = renderTarget;
             _arraySlice = (int)CubeMapFace.PositiveX;
             _depthFormat = renderTarget.DepthStencilFormat;
-		}
+        }
 
         /// <summary>
         /// Creates a new <b>RenderTargetBinding</b> with the specified parameters.
@@ -69,10 +68,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace)
         {
-            if (renderTarget == null)
-                throw new ArgumentNullException("renderTarget");
+            ArgumentNullException.ThrowIfNull(renderTarget);
             if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
-                throw new ArgumentOutOfRangeException("cubeMapFace");
+                throw new ArgumentOutOfRangeException(nameof(cubeMapFace));
 
             _renderTarget = renderTarget;
             _arraySlice = (int)cubeMapFace;
@@ -166,5 +164,5 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
 #endif
-	}
+    }
 }

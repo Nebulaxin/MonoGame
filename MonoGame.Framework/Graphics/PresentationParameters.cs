@@ -87,7 +87,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Get the bounds of the back buffer.
         /// </summary>
-        public Rectangle Bounds 
+        public Rectangle Bounds
         {
             get { return new Rectangle(0, 0, backBufferWidth, backBufferHeight); }
         }
@@ -119,20 +119,20 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool IsFullScreen
         {
-			get
+            get
             {
-				 return isFullScreen;
+                return isFullScreen;
             }
             set
             {
-                isFullScreen = value;				
+                isFullScreen = value;
 #if IOS && !TVOS
 				UIApplication.SharedApplication.StatusBarHidden = isFullScreen;
 #endif
 
-			}
+            }
         }
-		
+
         /// <summary>
         /// If <code>true</code> the <see cref="GraphicsDevice"/> will do a mode switch
         /// when going to full screen mode. If <code>false</code> it will instead do a
@@ -152,7 +152,7 @@ namespace Microsoft.Xna.Framework.Graphics
             get { return multiSampleCount; }
             set { multiSampleCount = value; }
         }
-		
+
         /// <summary>
         /// Get or set the presentation interval.
         /// </summary>
@@ -161,19 +161,19 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Get or set the display orientation.
         /// </summary>
-		public DisplayOrientation DisplayOrientation 
-		{ 
-			get; 
-			set; 
-		}
-		
+		public DisplayOrientation DisplayOrientation
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// Get or set the RenderTargetUsage for the back buffer.
         /// Determines if the back buffer is cleared when it is set as the
         /// render target by the <see cref="GraphicsDevice"/>.
         /// <see cref="GraphicsDevice"/> target.
         /// </summary>
-		public RenderTargetUsage RenderTargetUsage { get; set; }
+        public RenderTargetUsage RenderTargetUsage { get; set; }
 
         #endregion Properties
 
@@ -203,7 +203,7 @@ namespace Microsoft.Xna.Framework.Graphics
             backBufferHeight = height;
 #else
             backBufferWidth = GraphicsDeviceManager.DefaultBackBufferWidth;
-            backBufferHeight = GraphicsDeviceManager.DefaultBackBufferHeight;     
+            backBufferHeight = GraphicsDeviceManager.DefaultBackBufferHeight;
 #endif
             deviceWindowHandle = IntPtr.Zero;
 #if IOS && !TVOS
@@ -224,17 +224,17 @@ namespace Microsoft.Xna.Framework.Graphics
         public PresentationParameters Clone()
         {
             PresentationParameters clone = new PresentationParameters();
-            clone.backBufferFormat = this.backBufferFormat;
-            clone.backBufferHeight = this.backBufferHeight;
-            clone.backBufferWidth = this.backBufferWidth;
-            clone.deviceWindowHandle = this.deviceWindowHandle;
-            clone.depthStencilFormat = this.depthStencilFormat;
-            clone.IsFullScreen = this.IsFullScreen;
-            clone.HardwareModeSwitch = this.HardwareModeSwitch;
-            clone.multiSampleCount = this.multiSampleCount;
-            clone.PresentationInterval = this.PresentationInterval;
-            clone.DisplayOrientation = this.DisplayOrientation;
-            clone.RenderTargetUsage = this.RenderTargetUsage;
+            clone.backBufferFormat = backBufferFormat;
+            clone.backBufferHeight = backBufferHeight;
+            clone.backBufferWidth = backBufferWidth;
+            clone.deviceWindowHandle = deviceWindowHandle;
+            clone.depthStencilFormat = depthStencilFormat;
+            clone.IsFullScreen = IsFullScreen;
+            clone.HardwareModeSwitch = HardwareModeSwitch;
+            clone.multiSampleCount = multiSampleCount;
+            clone.PresentationInterval = PresentationInterval;
+            clone.DisplayOrientation = DisplayOrientation;
+            clone.RenderTargetUsage = RenderTargetUsage;
             return clone;
         }
 

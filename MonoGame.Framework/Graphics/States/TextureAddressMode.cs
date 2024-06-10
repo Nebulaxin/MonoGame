@@ -8,7 +8,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Defines modes for addressing texels using texture coordinates that are outside of the range of 0.0 to 1.0.
     /// </summary>
 	public enum TextureAddressMode
-	{
+    {
         /// <summary>
         /// Texels outside range will form the tile at every integer junction.
         /// </summary>
@@ -18,12 +18,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
 		Clamp,
         /// <summary>
-        /// Same as <see cref="TextureAddressMode.Wrap"/> but tiles will also flipped at every integer junction.
+        /// Same as <see cref="Wrap"/> but tiles will also flipped at every integer junction.
         /// </summary>
         Mirror,
         /// <summary>
         /// Texels outside range will be set to the border color.
         /// </summary>
         Border
-	}
+    }
 }

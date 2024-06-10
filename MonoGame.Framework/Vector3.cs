@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework
     /// Describes a 3D-vector.
     /// </summary>
 #if XNADESIGNPROVIDED
-    [System.ComponentModel.TypeConverter(typeof(Microsoft.Xna.Framework.Design.Vector3TypeConverter))]
+    [System.ComponentModel.TypeConverter(typeof(Design.Vector3TypeConverter))]
 #endif
     [DataContract]
     [DebuggerDisplay("{DebugDisplayString,nq}")]
@@ -156,9 +156,9 @@ namespace Microsoft.Xna.Framework
             get
             {
                 return string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString(), "  ",
-                    this.Z.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString(), "  ",
+                    Z.ToString()
                 );
             }
         }
@@ -175,9 +175,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="z">The z coordinate in 3d-space.</param>
         public Vector3(float x, float y, float z)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            X = x;
+            Y = y;
+            Z = z;
         }
 
         /// <summary>
@@ -186,9 +186,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y and z coordinates in 3d-space.</param>
         public Vector3(float value)
         {
-            this.X = value;
-            this.Y = value;
-            this.Z = value;
+            X = value;
+            Y = value;
+            Z = value;
         }
 
         /// <summary>
@@ -198,13 +198,13 @@ namespace Microsoft.Xna.Framework
         /// <param name="z">The z coordinate in 3d-space.</param>
         public Vector3(Vector2 value, float z)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = z;
+            X = value.X;
+            Y = value.Y;
+            Z = z;
         }
-        
+
         #endregion
-        
+
         #region Public Methods
 
         /// <summary>
@@ -402,8 +402,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The distance between two vectors.</returns>
         public static float Distance(Vector3 value1, Vector3 value2)
         {
-            float result;
-            DistanceSquared(ref value1, ref value2, out result);
+            DistanceSquared(ref value1, ref value2, out float result);
             return MathF.Sqrt(result);
         }
 
@@ -427,7 +426,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The squared distance between two vectors.</returns>
         public static float DistanceSquared(Vector3 value1, Vector3 value2)
         {
-            return  (value1.X - value2.X) * (value1.X - value2.X) +
+            return (value1.X - value2.X) * (value1.X - value2.X) +
                     (value1.Y - value2.Y) * (value1.Y - value2.Y) +
                     (value1.Z - value2.Z) * (value1.Z - value2.Z);
         }
@@ -524,9 +523,9 @@ namespace Microsoft.Xna.Framework
         }
 
         /// <summary>
-        /// Compares whether current instance is equal to specified <see cref="Object"/>.
+        /// Compares whether current instance is equal to specified <see cref="object"/>.
         /// </summary>
-        /// <param name="obj">The <see cref="Object"/> to compare.</param>
+        /// <param name="obj">The <see cref="object"/> to compare.</param>
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
@@ -534,7 +533,7 @@ namespace Microsoft.Xna.Framework
                 return false;
 
             var other = (Vector3)obj;
-            return  X == other.X &&
+            return X == other.X &&
                     Y == other.Y &&
                     Z == other.Z;
         }
@@ -546,7 +545,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Vector3 other)
         {
-            return  X == other.X && 
+            return X == other.X &&
                     Y == other.Y &&
                     Z == other.Z;
         }
@@ -590,7 +589,8 @@ namespace Microsoft.Xna.Framework
         /// Gets the hash code of this <see cref="Vector3"/>.
         /// </summary>
         /// <returns>Hash code of this <see cref="Vector3"/>.</returns>
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             unchecked
             {
                 var hashCode = X.GetHashCode();
@@ -682,7 +682,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Creates a new <see cref="Vector3"/> that contains linear interpolation of the specified vectors.
         /// Uses <see cref="MathHelper.LerpPrecise"/> on MathHelper for the interpolation.
-        /// Less efficient but more precise compared to <see cref="Vector3.Lerp(Vector3, Vector3, float)"/>.
+        /// Less efficient but more precise compared to <see cref="Lerp(Vector3, Vector3, float)"/>.
         /// See remarks section of <see cref="MathHelper.LerpPrecise"/> on MathHelper for more info.
         /// </summary>
         /// <param name="value1">The first vector.</param>
@@ -700,7 +700,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Creates a new <see cref="Vector3"/> that contains linear interpolation of the specified vectors.
         /// Uses <see cref="MathHelper.LerpPrecise"/> on MathHelper for the interpolation.
-        /// Less efficient but more precise compared to <see cref="Vector3.Lerp(ref Vector3, ref Vector3, float, out Vector3)"/>.
+        /// Less efficient but more precise compared to <see cref="Lerp(ref Vector3, ref Vector3, float, out Vector3)"/>.
         /// See remarks section of <see cref="MathHelper.LerpPrecise"/> on MathHelper for more info.
         /// </summary>
         /// <param name="value1">The first vector.</param>
@@ -896,10 +896,10 @@ namespace Microsoft.Xna.Framework
             // R = I - (2 * N * ( DotProduct[ I,N] ))
             Vector3 reflectedVector;
             // inline the dotProduct here instead of calling method
-            float dotProduct = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-            reflectedVector.X = vector.X - (2.0f * normal.X) * dotProduct;
-            reflectedVector.Y = vector.Y - (2.0f * normal.Y) * dotProduct;
-            reflectedVector.Z = vector.Z - (2.0f * normal.Z) * dotProduct;
+            float dotProduct = (vector.X * normal.X) + (vector.Y * normal.Y) + (vector.Z * normal.Z);
+            reflectedVector.X = vector.X - 2.0f * normal.X * dotProduct;
+            reflectedVector.Y = vector.Y - 2.0f * normal.Y * dotProduct;
+            reflectedVector.Z = vector.Z - 2.0f * normal.Z * dotProduct;
 
             return reflectedVector;
         }
@@ -917,10 +917,10 @@ namespace Microsoft.Xna.Framework
             // R = I - (2 * N * ( DotProduct[ I,N] ))
 
             // inline the dotProduct here instead of calling method
-            float dotProduct = ((vector.X * normal.X) + (vector.Y * normal.Y)) + (vector.Z * normal.Z);
-            result.X = vector.X - (2.0f * normal.X) * dotProduct;
-            result.Y = vector.Y - (2.0f * normal.Y) * dotProduct;
-            result.Z = vector.Z - (2.0f * normal.Z) * dotProduct;
+            float dotProduct = (vector.X * normal.X) + (vector.Y * normal.Y) + (vector.Z * normal.Z);
+            result.X = vector.X - 2.0f * normal.X * dotProduct;
+            result.Y = vector.Y - 2.0f * normal.Y * dotProduct;
+            result.Z = vector.Z - 2.0f * normal.Z * dotProduct;
         }
 
         /// <summary>
@@ -1015,19 +1015,19 @@ namespace Microsoft.Xna.Framework
         }
 
         /// <summary>
-        /// Returns a <see cref="String"/> representation of this <see cref="Vector3"/> in the format:
+        /// Returns a <see cref="string"/> representation of this <see cref="Vector3"/> in the format:
         /// {X:[<see cref="X"/>] Y:[<see cref="Y"/>] Z:[<see cref="Z"/>]}
         /// </summary>
-        /// <returns>A <see cref="String"/> representation of this <see cref="Vector3"/>.</returns>
+        /// <returns>A <see cref="string"/> representation of this <see cref="Vector3"/>.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder(32);
             sb.Append("{X:");
-            sb.Append(this.X);
+            sb.Append(X);
             sb.Append(" Y:");
-            sb.Append(this.Y);
+            sb.Append(Y);
             sb.Append(" Z:");
-            sb.Append(this.Z);
+            sb.Append(Z);
             sb.Append("}");
             return sb.ToString();
         }
@@ -1070,8 +1070,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector3"/>.</returns>
         public static Vector3 Transform(Vector3 value, Quaternion rotation)
         {
-            Vector3 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector3 result);
             return result;
         }
 
@@ -1103,10 +1102,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="length">The number of vectors to be transformed.</param>
         public static void Transform(Vector3[] sourceArray, int sourceIndex, ref Matrix matrix, Vector3[] destinationArray, int destinationIndex, int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1136,10 +1133,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="length">The number of vectors to be transformed.</param>
         public static void Transform(Vector3[] sourceArray, int sourceIndex, ref Quaternion rotation, Vector3[] destinationArray, int destinationIndex, int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1171,10 +1166,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void Transform(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1182,12 +1175,12 @@ namespace Microsoft.Xna.Framework
 
             for (var i = 0; i < sourceArray.Length; i++)
             {
-                var position = sourceArray[i];                
+                var position = sourceArray[i];
                 destinationArray[i] =
                     new Vector3(
-                        (position.X*matrix.M11) + (position.Y*matrix.M21) + (position.Z*matrix.M31) + matrix.M41,
-                        (position.X*matrix.M12) + (position.Y*matrix.M22) + (position.Z*matrix.M32) + matrix.M42,
-                        (position.X*matrix.M13) + (position.Y*matrix.M23) + (position.Z*matrix.M33) + matrix.M43);
+                        (position.X * matrix.M11) + (position.Y * matrix.M21) + (position.Z * matrix.M31) + matrix.M41,
+                        (position.X * matrix.M12) + (position.Y * matrix.M22) + (position.Z * matrix.M32) + matrix.M42,
+                        (position.X * matrix.M13) + (position.Y * matrix.M23) + (position.Z * matrix.M33) + matrix.M43);
             }
         }
 
@@ -1199,10 +1192,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void Transform(Vector3[] sourceArray, ref Quaternion rotation, Vector3[] destinationArray)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1272,11 +1263,9 @@ namespace Microsoft.Xna.Framework
          int destinationIndex,
          int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
-            if(sourceArray.Length < sourceIndex + length)
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
+            if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
                 throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
@@ -1301,10 +1290,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void TransformNormal(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
-            if(sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1314,9 +1301,9 @@ namespace Microsoft.Xna.Framework
 
                 destinationArray[i] =
                     new Vector3(
-                        (normal.X*matrix.M11) + (normal.Y*matrix.M21) + (normal.Z*matrix.M31),
-                        (normal.X*matrix.M12) + (normal.Y*matrix.M22) + (normal.Z*matrix.M32),
-                        (normal.X*matrix.M13) + (normal.Y*matrix.M23) + (normal.Z*matrix.M33));
+                        (normal.X * matrix.M11) + (normal.Y * matrix.M21) + (normal.Z * matrix.M31),
+                        (normal.X * matrix.M12) + (normal.Y * matrix.M22) + (normal.Z * matrix.M32),
+                        (normal.X * matrix.M13) + (normal.Y * matrix.M23) + (normal.Z * matrix.M33));
             }
         }
 
@@ -1340,7 +1327,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector3 ToNumerics()
         {
-            return new System.Numerics.Vector3(this.X, this.Y, this.Z);
+            return new System.Numerics.Vector3(X, Y, Z);
         }
 
         #endregion

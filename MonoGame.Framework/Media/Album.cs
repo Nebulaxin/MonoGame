@@ -56,7 +56,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                return this.artist;
+                return artist;
             }
         }
 
@@ -78,7 +78,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                return this.genre;
+                return genre;
             }
         }
 
@@ -120,25 +120,25 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                return this.album;
+                return album;
             }
         }
 
         /// <summary>
-        /// Gets a <see cref="Media.SongCollection"/> that contains the songs on the Album.
+        /// Gets a <see cref="SongCollection"/> that contains the songs on the Album.
         /// </summary>
         public SongCollection Songs
         {
             get
             {
-                return this.songCollection;
+                return songCollection;
             }
         }
 
-       private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
+        private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
         {
             this.songCollection = songCollection;
-            this.album = name;
+            album = name;
             this.artist = artist;
             this.genre = genre;
         }
@@ -170,7 +170,7 @@ namespace Microsoft.Xna.Framework.Media
                 this.thumbnail.Dispose();
 #endif
         }
-        
+
 #if IOS && !TVOS
         public UIImage GetAlbumArt(int width = 0, int height = 0)
         {
@@ -235,12 +235,12 @@ namespace Microsoft.Xna.Framework.Media
         }
 #endif
 
-		/// <summary>
+        /// <summary>
         /// Returns a String representation of this Album.
         /// </summary>
         public override string ToString()
         {
-            return this.album.ToString();
+            return album.ToString();
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.album.GetHashCode();
+            return album.GetHashCode();
         }
     }
 }

@@ -21,8 +21,8 @@ namespace Microsoft.Xna.Framework.Content
         private string assetName;
         private List<KeyValuePair<int, Action<object>>> sharedResourceFixups;
         private ContentTypeReader[] typeReaders;
-		internal int version;
-		internal int sharedResourceCount;
+        internal int version;
+        internal int sharedResourceCount;
 
         internal ContentTypeReader[] TypeReaders
         {
@@ -36,9 +36,9 @@ namespace Microsoft.Xna.Framework.Content
             : base(stream)
         {
             this.recordDisposableObject = recordDisposableObject;
-            this.contentManager = manager;
+            contentManager = manager;
             this.assetName = assetName;
-			this.version = version;
+            this.version = version;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Microsoft.Xna.Framework.Content
 
             // Read shared resources
             ReadSharedResources();
-            
+
             return result;
         }
 
@@ -81,7 +81,7 @@ namespace Microsoft.Xna.Framework.Content
             InitializeTypeReaders();
 
             // Read primary object
-            object result = ReadObject<T>(existingInstance);
+            object result = ReadObject(existingInstance);
 
             // Read shared resources
             ReadSharedResources();
@@ -94,7 +94,7 @@ namespace Microsoft.Xna.Framework.Content
             typeReaderManager = new ContentTypeReaderManager();
             typeReaders = typeReaderManager.LoadAssetReaders(this);
             sharedResourceCount = Read7BitEncodedInt();
-            sharedResourceFixups = new List<KeyValuePair<int, Action<object>>>();
+            sharedResourceFixups = [];
         }
 
         internal void ReadSharedResources()
@@ -151,7 +151,7 @@ namespace Microsoft.Xna.Framework.Content
         {
             var externalReference = ReadString();
 
-            if (!String.IsNullOrEmpty(externalReference))
+            if (!string.IsNullOrEmpty(externalReference))
             {
                 return contentManager.Load<T>(FileHelpers.ResolveRelativePath(assetName, externalReference));
             }
@@ -172,7 +172,7 @@ namespace Microsoft.Xna.Framework.Content
             result.M11 = ReadSingle();
             result.M12 = ReadSingle();
             result.M13 = ReadSingle();
-            result.M14 = ReadSingle(); 
+            result.M14 = ReadSingle();
             result.M21 = ReadSingle();
             result.M22 = ReadSingle();
             result.M23 = ReadSingle();
@@ -187,7 +187,7 @@ namespace Microsoft.Xna.Framework.Content
             result.M44 = ReadSingle();
             return result;
         }
-            
+
         private void RecordDisposable<T>(T result)
         {
             var disposable = result as IDisposable;
@@ -228,7 +228,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="ContentLoadException">Type reader index read from stream is out of bounds</exception>
         public T ReadObject<T>(ContentTypeReader typeReader)
         {
-            var result = (T)typeReader.Read(this, default(T));            
+            var result = (T)typeReader.Read(this, default(T));
             RecordDisposable(result);
             return result;
         }
@@ -318,7 +318,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public T ReadRawObject<T>()
         {
-			return (T)ReadRawObject<T> (default(T));
+            return (T)ReadRawObject(default(T));
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public T ReadRawObject<T>(ContentTypeReader typeReader)
         {
-            return (T)ReadRawObject<T>(typeReader, default(T));
+            return (T)ReadRawObject(typeReader, default(T));
         }
 
         /// <summary>
@@ -349,10 +349,10 @@ namespace Microsoft.Xna.Framework.Content
         public T ReadRawObject<T>(T existingInstance)
         {
             Type objectType = typeof(T);
-            foreach(ContentTypeReader typeReader in typeReaders)
+            foreach (ContentTypeReader typeReader in typeReaders)
             {
-                if(typeReader.TargetType == objectType)
-                    return (T)ReadRawObject<T>(typeReader,existingInstance);
+                if (typeReader.TargetType == objectType)
+                    return (T)ReadRawObject(typeReader, existingInstance);
             }
             throw new NotSupportedException();
         }
@@ -389,11 +389,11 @@ namespace Microsoft.Xna.Framework.Content
             int index = Read7BitEncodedInt();
             if (index > 0)
             {
-                sharedResourceFixups.Add(new KeyValuePair<int, Action<object>>(index - 1, delegate(object v)
+                sharedResourceFixups.Add(new KeyValuePair<int, Action<object>>(index - 1, delegate (object v)
                     {
                         if (!(v is T))
                         {
-                            throw new ContentLoadException(String.Format("Error loading shared resource. Expected type {0}, received type {1}", typeof(T).Name, v.GetType().Name));
+                            throw new ContentLoadException($"Error loading shared resource. Expected type {typeof(T).Name}, received type {v.GetType().Name}");
                         }
                         fixup((T)v);
                     }));
@@ -469,12 +469,12 @@ namespace Microsoft.Xna.Framework.Content
         {
             return base.Read7BitEncodedInt();
         }
-		
-		internal BoundingSphere ReadBoundingSphere()
-		{
-			var position = ReadVector3();
+
+        internal BoundingSphere ReadBoundingSphere()
+        {
+            var position = ReadVector3();
             var radius = ReadSingle();
             return new BoundingSphere(position, radius);
-		}
+        }
     }
 }

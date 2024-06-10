@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + this.Position + " Color:" + this.Color + " Normal:" + this.Normal + " TextureCoordinate:" + this.TextureCoordinate + "}}";
+            return "{{Position:" + Position + " Color:" + Color + " Normal:" + Normal + " TextureCoordinate:" + TextureCoordinate + "}}";
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </returns>
         public static bool operator ==(VertexPositionColorNormalTexture left, VertexPositionColorNormalTexture right)
         {
-            return (((left.Position == right.Position) && (left.Color == right.Color)) && (left.Normal == right.Normal) && (left.TextureCoordinate == right.TextureCoordinate));
+            return (left.Position == right.Position) && (left.Color == right.Color) && (left.Normal == right.Normal) && (left.TextureCoordinate == right.TextureCoordinate);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (obj.GetType() != base.GetType())
                 return false;
 
-            return (this == ((VertexPositionColorNormalTexture)obj));
+            return this == ((VertexPositionColorNormalTexture)obj);
         }
 
         static VertexPositionColorNormalTexture()

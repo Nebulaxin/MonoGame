@@ -24,7 +24,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The maximum number of bones.
         /// </summary>
         public const int MaxBones = 72;
-        
+
         #region Effect Parameters
 
         EffectParameter textureParam;
@@ -82,7 +82,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Matrix World
         {
             get { return world; }
-            
+
             set
             {
                 world = value;
@@ -97,7 +97,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Matrix View
         {
             get { return view; }
-            
+
             set
             {
                 view = value;
@@ -112,7 +112,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Matrix Projection
         {
             get { return projection; }
-            
+
             set
             {
                 projection = value;
@@ -127,7 +127,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Vector3 DiffuseColor
         {
             get { return diffuseColor; }
-            
+
             set
             {
                 diffuseColor = value;
@@ -142,7 +142,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Vector3 EmissiveColor
         {
             get { return emissiveColor; }
-            
+
             set
             {
                 emissiveColor = value;
@@ -177,7 +177,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public float Alpha
         {
             get { return alpha; }
-            
+
             set
             {
                 alpha = value;
@@ -192,7 +192,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public bool PreferPerPixelLighting
         {
             get { return preferPerPixelLighting; }
-            
+
             set
             {
                 if (preferPerPixelLighting != value)
@@ -210,7 +210,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Vector3 AmbientLightColor
         {
             get { return ambientLightColor; }
-            
+
             set
             {
                 ambientLightColor = value;
@@ -243,7 +243,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public bool FogEnabled
         {
             get { return fogEnabled; }
-            
+
             set
             {
                 if (fogEnabled != value)
@@ -261,7 +261,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public float FogStart
         {
             get { return fogStart; }
-            
+
             set
             {
                 fogStart = value;
@@ -276,7 +276,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public float FogEnd
         {
             get { return fogEnd; }
-            
+
             set
             {
                 fogEnd = value;
@@ -311,14 +311,14 @@ namespace Microsoft.Xna.Framework.Graphics
         public int WeightsPerVertex
         {
             get { return weightsPerVertex; }
-            
+
             set
             {
                 if ((value != 1) &&
                     (value != 2) &&
                     (value != 4))
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 weightsPerVertex = value;
@@ -333,7 +333,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void SetBoneTransforms(Matrix[] boneTransforms)
         {
             if ((boneTransforms == null) || (boneTransforms.Length == 0))
-                throw new ArgumentNullException("boneTransforms");
+                throw new ArgumentNullException(nameof(boneTransforms));
 
             if (boneTransforms.Length > MaxBones)
                 throw new ArgumentException();
@@ -348,16 +348,16 @@ namespace Microsoft.Xna.Framework.Graphics
         public Matrix[] GetBoneTransforms(int count)
         {
             if (count <= 0 || count > MaxBones)
-                throw new ArgumentOutOfRangeException("count");
+                throw new ArgumentOutOfRangeException(nameof(count));
 
             Matrix[] bones = bonesParam.GetValueMatrixArray(count);
-            
+
             // Convert matrices from 43 to 44 format.
             for (int i = 0; i < bones.Length; i++)
             {
                 bones[i].M44 = 1;
             }
-            
+
             return bones;
         }
 
@@ -390,14 +390,14 @@ namespace Microsoft.Xna.Framework.Graphics
 
             SpecularColor = Vector3.One;
             SpecularPower = 16;
-            
+
             Matrix[] identityBones = new Matrix[MaxBones];
-            
+
             for (int i = 0; i < MaxBones; i++)
             {
                 identityBones[i] = Matrix.Identity;
             }
-            
+
             SetBoneTransforms(identityBones);
         }
 
@@ -425,7 +425,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             fogStart = cloneSource.fogStart;
             fogEnd = cloneSource.fogEnd;
-            
+
             weightsPerVertex = cloneSource.weightsPerVertex;
         }
 
@@ -453,33 +453,33 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         void CacheEffectParameters(SkinnedEffect cloneSource)
         {
-            textureParam                = Parameters["Texture"];
-            diffuseColorParam           = Parameters["DiffuseColor"];
-            emissiveColorParam          = Parameters["EmissiveColor"];
-            specularColorParam          = Parameters["SpecularColor"];
-            specularPowerParam          = Parameters["SpecularPower"];
-            eyePositionParam            = Parameters["EyePosition"];
-            fogColorParam               = Parameters["FogColor"];
-            fogVectorParam              = Parameters["FogVector"];
-            worldParam                  = Parameters["World"];
-            worldInverseTransposeParam  = Parameters["WorldInverseTranspose"];
-            worldViewProjParam          = Parameters["WorldViewProj"];
-            bonesParam                  = Parameters["Bones"];
+            textureParam = Parameters["Texture"];
+            diffuseColorParam = Parameters["DiffuseColor"];
+            emissiveColorParam = Parameters["EmissiveColor"];
+            specularColorParam = Parameters["SpecularColor"];
+            specularPowerParam = Parameters["SpecularPower"];
+            eyePositionParam = Parameters["EyePosition"];
+            fogColorParam = Parameters["FogColor"];
+            fogVectorParam = Parameters["FogVector"];
+            worldParam = Parameters["World"];
+            worldInverseTransposeParam = Parameters["WorldInverseTranspose"];
+            worldViewProjParam = Parameters["WorldViewProj"];
+            bonesParam = Parameters["Bones"];
 
             light0 = new DirectionalLight(Parameters["DirLight0Direction"],
                                           Parameters["DirLight0DiffuseColor"],
                                           Parameters["DirLight0SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light0 : null);
+                                          cloneSource?.light0);
 
             light1 = new DirectionalLight(Parameters["DirLight1Direction"],
                                           Parameters["DirLight1DiffuseColor"],
                                           Parameters["DirLight1SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light1 : null);
+                                          cloneSource?.light1);
 
             light2 = new DirectionalLight(Parameters["DirLight2Direction"],
                                           Parameters["DirLight2DiffuseColor"],
                                           Parameters["DirLight2SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light2 : null);
+                                          cloneSource?.light2);
         }
 
 
@@ -493,7 +493,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             // Recompute the world inverse transpose and eye position?
             dirtyFlags = EffectHelpers.SetLightingMatrices(dirtyFlags, ref world, ref view, worldParam, worldInverseTransposeParam, eyePositionParam);
-            
+
             // Recompute the diffuse/emissive/alpha material color parameters?
             if ((dirtyFlags & EffectDirtyFlags.MaterialColor) != 0)
             {
@@ -504,7 +504,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             // Check if we can use the only-bother-with-the-first-light shader optimization.
             bool newOneLight = !light1.Enabled && !light2.Enabled;
-            
+
             if (oneLight != newOneLight)
             {
                 oneLight = newOneLight;
@@ -515,15 +515,15 @@ namespace Microsoft.Xna.Framework.Graphics
             if ((dirtyFlags & EffectDirtyFlags.ShaderIndex) != 0)
             {
                 int shaderIndex = 0;
-                
+
                 if (!fogEnabled)
                     shaderIndex += 1;
-                
+
                 if (weightsPerVertex == 2)
                     shaderIndex += 2;
                 else if (weightsPerVertex == 4)
                     shaderIndex += 4;
-                
+
                 if (preferPerPixelLighting)
                     shaderIndex += 12;
                 else if (oneLight)

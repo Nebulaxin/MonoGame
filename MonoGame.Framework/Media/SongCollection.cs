@@ -24,22 +24,22 @@ namespace Microsoft.Xna.Framework.Media
     /// </para>
     /// </remarks>
 	public class SongCollection : ICollection<Song>, IEnumerable<Song>, IEnumerable, IDisposable
-	{
+    {
         /// <summary>
         /// Returns a <see cref="SongCollection"/> with no contents.
         /// </summary>
-        public static readonly SongCollection Empty = new SongCollection();
-		private bool isReadOnly = false;
-		private List<Song> innerlist = new List<Song>();
+        public static readonly SongCollection Empty = [];
+        private bool isReadOnly = false;
+        private List<Song> innerlist = [];
 
         internal SongCollection()
         {
-            
+
         }
 
         internal SongCollection(List<Song> songs)
         {
-            this.innerlist = songs;
+            innerlist = songs;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-				return innerlist.Count;
+                return innerlist.Count;
             }
         }
 
@@ -75,10 +75,10 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public bool IsReadOnly
         {
-		    get
-		    {
-		        return this.isReadOnly;
-		    }
+            get
+            {
+                return isReadOnly;
+            }
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-				return this.innerlist[index];
+                return innerlist[index];
             }
         }
 
@@ -98,25 +98,24 @@ namespace Microsoft.Xna.Framework.Media
 		public void Add(Song item)
         {
 
-            if (item == null)
-                throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull(item);
 
             if (innerlist.Count == 0)
             {
-                this.innerlist.Add(item);
+                innerlist.Add(item);
                 return;
             }
 
-            for (int i = 0; i < this.innerlist.Count; i++)
+            for (int i = 0; i < innerlist.Count; i++)
             {
-                if (item.TrackNumber < this.innerlist[i].TrackNumber)
+                if (item.TrackNumber < innerlist[i].TrackNumber)
                 {
-                    this.innerlist.Insert(i, item);
+                    innerlist.Insert(i, item);
                     return;
                 }
             }
 
-            this.innerlist.Add(item);
+            innerlist.Add(item);
         }
 
         /// <summary>
@@ -130,9 +129,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <inheritdoc cref="ICloneable.Clone"/>
         public SongCollection Clone()
         {
-            SongCollection sc = new SongCollection();
-            foreach (Song song in this.innerlist)
-                sc.Add(song);
+            SongCollection sc = [.. innerlist];
             return sc;
         }
 
@@ -188,6 +185,6 @@ namespace Microsoft.Xna.Framework.Media
         {
             return innerlist.Remove(item);
         }
-	}
+    }
 }
 

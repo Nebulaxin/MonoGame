@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Returns an AlbumCollection with no contents.
         /// </summary>
-        public static readonly AlbumCollection Empty = new AlbumCollection(new List<Album>());
+        public static readonly AlbumCollection Empty = new AlbumCollection([]);
 
         private List<Album> albumCollection;
 
@@ -40,7 +40,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                return this.albumCollection.Count;
+                return albumCollection.Count;
             }
         }
 
@@ -64,7 +64,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </param>
         public AlbumCollection(List<Album> albums)
         {
-            this.albumCollection = albums;
+            albumCollection = albums;
         }
 
         /// <summary>
@@ -79,14 +79,14 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                return this.albumCollection[index];
+                return albumCollection[index];
             }
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
         public void Dispose()
         {
-            foreach (var album in this.albumCollection)
+            foreach (var album in albumCollection)
                 album.Dispose();
         }
     }

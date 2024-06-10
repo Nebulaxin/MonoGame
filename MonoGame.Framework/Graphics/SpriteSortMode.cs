@@ -18,16 +18,16 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         Immediate,
         /// <summary>
-        /// Same as <see cref="SpriteSortMode.Deferred"/>, except sprites are sorted by texture prior to drawing. Depth is ignored.
+        /// Same as <see cref="Deferred"/>, except sprites are sorted by texture prior to drawing. Depth is ignored.
         /// </summary>
         Texture,
         /// <summary>
-        /// Same as <see cref="SpriteSortMode.Deferred"/>, except sprites are sorted by depth in back-to-front order prior to drawing.
+        /// Same as <see cref="Deferred"/>, except sprites are sorted by depth in back-to-front order prior to drawing.
         /// An unstable sort is used, which means sprites with equal depth may not have their order preserved.
         /// </summary>
         BackToFront,
         /// <summary>
-        /// Same as <see cref="SpriteSortMode.Deferred"/>, except sprites are sorted by depth in front-to-back order prior to drawing.
+        /// Same as <see cref="Deferred"/>, except sprites are sorted by depth in front-to-back order prior to drawing.
         /// An unstable sort is used, which means sprites with equal depth may not have their order preserved.
         /// </summary>
         FrontToBack

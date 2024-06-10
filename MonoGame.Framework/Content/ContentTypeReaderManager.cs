@@ -47,8 +47,7 @@ namespace Microsoft.Xna.Framework.Content
             if (targetType.IsArray && targetType.GetArrayRank() > 1)
                 targetType = typeof(Array);
 
-            ContentTypeReader reader;
-            if (_contentReaders.TryGetValue(targetType, out reader))
+            if (_contentReaders.TryGetValue(targetType, out ContentTypeReader reader))
                 return reader;
 
             return null;
@@ -72,12 +71,12 @@ namespace Microsoft.Xna.Framework.Content
                 var hBoundingSphereReader = new BoundingSphereReader();
                 var hBoundingFrustumReader = new BoundingFrustumReader();
                 var hRayReader = new RayReader();
-                var hCharListReader = new ListReader<Char>();
+                var hCharListReader = new ListReader<char>();
                 var hRectangleListReader = new ListReader<Rectangle>();
                 var hRectangleArrayReader = new ArrayReader<Rectangle>();
                 var hVector3ListReader = new ListReader<Vector3>();
                 var hStringListReader = new ListReader<StringReader>();
-                var hIntListReader = new ListReader<Int32>();
+                var hIntListReader = new ListReader<int>();
                 var hSpriteFontReader = new SpriteFontReader();
                 var hTexture2DReader = new Texture2DReader();
                 var hCharReader = new CharReader();
@@ -136,8 +135,7 @@ namespace Microsoft.Xna.Framework.Content
                     // string readerTypeString = reader.ReadString();
                     string originalReaderTypeString = reader.ReadString();
 
-                    Func<ContentTypeReader> readerFunc;
-                    if (typeCreators.TryGetValue(originalReaderTypeString, out readerFunc))
+                    if (typeCreators.TryGetValue(originalReaderTypeString, out Func<ContentTypeReader> readerFunc))
                     {
                         contentReaders[i] = readerFunc();
                         needsInitialize[i] = true;
@@ -154,8 +152,7 @@ namespace Microsoft.Xna.Framework.Content
                         var l_readerType = Type.GetType(readerTypeString);
                         if (l_readerType != null)
                         {
-                            ContentTypeReader typeReader;
-                            if (!_contentReadersCache.TryGetValue(l_readerType, out typeReader))
+                            if (!_contentReadersCache.TryGetValue(l_readerType, out ContentTypeReader typeReader))
                             {
                                 try
                                 {
@@ -243,7 +240,7 @@ namespace Microsoft.Xna.Framework.Content
         }
 
         // Static map of type names to creation functions. Required as iOS requires all types at compile time
-        private static Dictionary<string, Func<ContentTypeReader>> typeCreators = new Dictionary<string, Func<ContentTypeReader>>();
+        private static Dictionary<string, Func<ContentTypeReader>> typeCreators = [];
 
         /// <summary>
         /// Registers a function to create a <see cref="ContentTypeReader"/> instance used to read an object of the

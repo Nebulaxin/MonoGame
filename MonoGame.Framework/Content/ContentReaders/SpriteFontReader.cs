@@ -21,8 +21,8 @@ namespace Microsoft.Xna.Framework.Content
             if (existingInstance != null)
             {
                 // Read the texture into the existing texture instance
-                input.ReadObject<Texture2D>(existingInstance.Texture);
-                
+                input.ReadObject(existingInstance.Texture);
+
                 // discard the rest of the SpriteFont data as we are only reloading GPU resources for now
                 input.ReadObject<List<Rectangle>>();
                 input.ReadObject<List<Rectangle>>();

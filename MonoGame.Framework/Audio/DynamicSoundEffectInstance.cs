@@ -82,15 +82,15 @@ namespace Microsoft.Xna.Framework.Audio
                 throw new NoAudioHardwareException("Audio has failed to initialize. Call SoundEffect.Initialize() before sound operation to get more specific errors.");
 
             if ((sampleRate < 8000) || (sampleRate > 48000))
-                throw new ArgumentOutOfRangeException("sampleRate");
+                throw new ArgumentOutOfRangeException(nameof(sampleRate));
             if ((channels != AudioChannels.Mono) && (channels != AudioChannels.Stereo))
-                throw new ArgumentOutOfRangeException("channels");
+                throw new ArgumentOutOfRangeException(nameof(channels));
 
             _sampleRate = sampleRate;
             _channels = channels;
             _state = SoundState.Stopped;
             PlatformCreate();
-            
+
             // This instance is added to the pool so that its volume reflects master volume changes
             // and it contributes to the playing instances limit, but the source/voice is not owned by the pool.
             _isPooled = false;
@@ -201,7 +201,7 @@ namespace Microsoft.Xna.Framework.Audio
         public override void Stop(bool immediate)
         {
             AssertNotDisposed();
-            
+
             if (immediate)
             {
                 DynamicSoundEffectInstanceManager.RemoveInstance(this);
@@ -223,7 +223,7 @@ namespace Microsoft.Xna.Framework.Audio
         public void SubmitBuffer(byte[] buffer)
         {
             AssertNotDisposed();
-            
+
             if (buffer.Length == 0)
                 throw new ArgumentException("Buffer may not be empty.");
 
@@ -248,7 +248,7 @@ namespace Microsoft.Xna.Framework.Audio
         public void SubmitBuffer(byte[] buffer, int offset, int count)
         {
             AssertNotDisposed();
-            
+
             if ((buffer == null) || (buffer.Length == 0))
                 throw new ArgumentException("Buffer may not be null or empty.");
             if (count <= 0)

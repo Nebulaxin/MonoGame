@@ -54,7 +54,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + this.Position + " Color:" + this.Color + " Normal:" + this.Normal + "}}";
+            return "{{Position:" + Position + " Color:" + Color + " Normal:" + Normal + "}}";
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </returns>
         public static bool operator ==(VertexPositionColorNormal left, VertexPositionColorNormal right)
         {
-            return (((left.Position == right.Position) && (left.Color == right.Color)) && (left.Normal == right.Normal));
+            return (left.Position == right.Position) && (left.Color == right.Color) && (left.Normal == right.Normal);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (obj.GetType() != base.GetType())
                 return false;
 
-            return (this == ((VertexPositionColorNormal)obj));
+            return this == ((VertexPositionColorNormal)obj);
         }
 
         static VertexPositionColorNormal()

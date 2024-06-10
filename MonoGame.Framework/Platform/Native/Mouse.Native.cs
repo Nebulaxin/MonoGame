@@ -28,7 +28,7 @@ public static partial class Mouse
 
     }
 
-    /// <inheritdoc cref="Mouse.SetCursor"/>
+    /// <inheritdoc cref="SetCursor"/>
     public static void PlatformSetCursor(MouseCursor cursor)
     {
 

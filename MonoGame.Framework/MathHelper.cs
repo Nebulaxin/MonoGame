@@ -11,47 +11,47 @@ namespace Microsoft.Xna.Framework
     /// </summary>
     public static class MathHelper
     {
-    	/// <summary>
+        /// <summary>
         /// Represents the mathematical constant e(2.71828175).
         /// </summary>
         public const float E = MathF.E;
-        
+
         /// <summary>
         /// Represents the log base ten of e(0.4342945).
         /// </summary>
         public const float Log10E = 0.4342945f;
-        
+
         /// <summary>
         /// Represents the log base two of e(1.442695).
         /// </summary>
         public const float Log2E = 1.442695f;
-        
+
         /// <summary>
         /// Represents the value of pi(3.14159274).
         /// </summary>
         public const float Pi = MathF.PI;
-        
+
         /// <summary>
         /// Represents the value of pi divided by two(1.57079637).
         /// </summary>
         public const float PiOver2 = (float)(Math.PI / 2.0);
-        
+
         /// <summary>
         /// Represents the value of pi divided by four(0.7853982).
         /// </summary>
         public const float PiOver4 = (float)(Math.PI / 4.0);
-        
+
         /// <summary>
         /// Represents the value of pi times two(6.28318548).
         /// </summary>
         public const float TwoPi = (float)(Math.PI * 2.0);
-        
+
         /// <summary>
         /// Represents the value of pi times two(6.28318548).
         /// This is an alias of TwoPi.
         /// </summary>
         public const float Tau = TwoPi;
-        
+
         /// <summary>
         /// Returns the Cartesian coordinate for one axis of a point that is defined by a given triangle and two normalized barycentric (areal) coordinates.
         /// </summary>
@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework
             return value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
         }
 
-	/// <summary>
+        /// <summary>
         /// Performs a Catmull-Rom interpolation using the specified positions.
         /// </summary>
         /// <param name="value1">The first position in the interpolation.</param>
@@ -87,7 +87,7 @@ namespace Microsoft.Xna.Framework
                 (3.0 * value2 - value1 - 3.0 * value3 + value4) * amountCubed));
         }
 
- 	/// <summary>
+        /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
         /// <param name="value">The value to clamp.</param>
@@ -105,7 +105,7 @@ namespace Microsoft.Xna.Framework
             // There's no check to see if min > max.
             return value;
         }
-        
+
         /// <summary>
         /// Restricts a value to be within a specified range.
         /// </summary>
@@ -114,12 +114,12 @@ namespace Microsoft.Xna.Framework
         /// <param name="max">The maximum value. If <c>value</c> is greater than <c>max</c>, <c>max</c> will be returned.</param>
         /// <returns>The clamped value.</returns>
         public static int Clamp(int value, int min, int max)
-        { 
-            value = (value > max) ? max : value; 
-            value = (value < min) ? min : value; 
+        {
+            value = (value > max) ? max : value;
+            value = (value < min) ? min : value;
             return value;
         }
-        
+
         /// <summary>
         /// Calculates the absolute value of the difference of two values.
         /// </summary>
@@ -130,7 +130,7 @@ namespace Microsoft.Xna.Framework
         {
             return Math.Abs(value1 - value2);
         }
-        
+
         /// <summary>
         /// Performs a Hermite spline interpolation.
         /// </summary>
@@ -159,8 +159,8 @@ namespace Microsoft.Xna.Framework
                     v1;
             return (float)result;
         }
-        
-        
+
+
         /// <summary>
         /// Linearly interpolates between two values.
         /// </summary>
@@ -171,7 +171,7 @@ namespace Microsoft.Xna.Framework
         /// <remarks>This method performs the linear interpolation based on the following formula:
         /// <code>value1 + (value2 - value1) * amount</code>.
         /// Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
-        /// See <see cref="MathHelper.LerpPrecise"/> for a less efficient version with more precision around edge cases.
+        /// See <see cref="LerpPrecise"/> for a less efficient version with more precision around edge cases.
         /// </remarks>
         public static float Lerp(float value1, float value2, float amount)
         {
@@ -181,7 +181,7 @@ namespace Microsoft.Xna.Framework
 
         /// <summary>
         /// Linearly interpolates between two values.
-        /// This method is a less efficient, more precise version of <see cref="MathHelper.Lerp"/>.
+        /// This method is a less efficient, more precise version of <see cref="Lerp"/>.
         /// See remarks for more info.
         /// </summary>
         /// <param name="value1">Source value.</param>
@@ -191,9 +191,9 @@ namespace Microsoft.Xna.Framework
         /// <remarks>This method performs the linear interpolation based on the following formula:
         /// <code>((1 - amount) * value1) + (value2 * amount)</code>.
         /// Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
-        /// This method does not have the floating point precision issue that <see cref="MathHelper.Lerp"/> has.
+        /// This method does not have the floating point precision issue that <see cref="Lerp"/> has.
         /// i.e. If there is a big gap between value1 and value2 in magnitude (e.g. value1=10000000000000000, value2=1),
-        /// right at the edge of the interpolation range (amount=1), <see cref="MathHelper.Lerp"/> will return 0 (whereas it should return 1).
+        /// right at the edge of the interpolation range (amount=1), <see cref="Lerp"/> will return 0 (whereas it should return 1).
         /// This also holds for value1=10^17, value2=10; value1=10^18,value2=10^2... so on.
         /// For an in depth explanation of the issue, see below references:
         /// Relevant Wikipedia Article: https://en.wikipedia.org/wiki/Linear_interpolation#Programming_language_support
@@ -225,7 +225,7 @@ namespace Microsoft.Xna.Framework
         {
             return value1 > value2 ? value1 : value2;
         }
-        
+
         /// <summary>
         /// Returns the lesser of two values.
         /// </summary>
@@ -247,7 +247,7 @@ namespace Microsoft.Xna.Framework
         {
             return value1 < value2 ? value1 : value2;
         }
-        
+
         /// <summary>
         /// Interpolates between two values using a cubic equation.
         /// </summary>
@@ -277,7 +277,7 @@ namespace Microsoft.Xna.Framework
         /// Factor = 180 / pi
         /// </remarks>
         public static float ToDegrees(float radians)
-        { 
+        {
             return (float)(radians * 57.295779513082320876798154814105);
         }
 
@@ -292,10 +292,10 @@ namespace Microsoft.Xna.Framework
         /// Factor = pi / 180
         /// </remarks>
         public static float ToRadians(float degrees)
-        { 
+        {
             return (float)(degrees * 0.017453292519943295769236907684886);
         }
-	 
+
         /// <summary>
         /// Reduces a given angle to a value between π and -π.
         /// </summary>
@@ -313,14 +313,14 @@ namespace Microsoft.Xna.Framework
             return angle;
         }
 
- 	    /// <summary>
+        /// <summary>
         /// Determines if value is powered by two.
         /// </summary>
         /// <param name="value">A value.</param>
         /// <returns><c>true</c> if <c>value</c> is powered by two; otherwise <c>false</c>.</returns>
-	    public static bool IsPowerOfTwo(int value)
-	    {
-	         return (value > 0) && ((value & (value - 1)) == 0);
-	    }
+        public static bool IsPowerOfTwo(int value)
+        {
+            return (value > 0) && ((value & (value - 1)) == 0);
+        }
     }
 }

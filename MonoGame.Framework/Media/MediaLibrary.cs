@@ -16,11 +16,11 @@ namespace Microsoft.Xna.Framework.Media
     /// The collection object represents all media of that type in the device's media library.
     /// </remarks>
 	public partial class MediaLibrary : IDisposable
-	{
+    {
         /// <summary>
         /// Gets the <see cref="AlbumCollection"/> that contains all albums in the media library.
         /// </summary>
-        public AlbumCollection Albums { get { return PlatformGetAlbums();  } }
+        public AlbumCollection Albums { get { return PlatformGetAlbums(); } }
         //public ArtistCollection Artists { get; private set; }
         //public GenreCollection Genres { get; private set; }
         /// <summary>
@@ -41,17 +41,17 @@ namespace Microsoft.Xna.Framework.Media
         /// Creates a new instance of <see cref="MediaLibrary"/>.
         /// </summary>
 		public MediaLibrary()
-		{
-		}
+        {
+        }
 
         /// <summary>
         /// Load the contents of MediaLibrary. This blocking call might take up to a few minutes depending on the platform and the size of the user's music library.
         /// </summary>
         /// <param name="progressCallback">Callback that reports back the progress of the music library loading in percents (0-100).</param>
         public void Load(Action<int> progressCallback = null)
-	    {
-	        PlatformLoad(progressCallback);
-	    }
+        {
+            PlatformLoad(progressCallback);
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="MediaLibrary"/> from a supplie <see cref="MediaSource"/>.
@@ -60,18 +60,18 @@ namespace Microsoft.Xna.Framework.Media
         /// Current implenetation will always throw <see cref="NotSupportedException"/>
         /// </remarks>
 		public MediaLibrary(MediaSource mediaSource)
-		{
+        {
             throw new NotSupportedException("Initializing from MediaSource is not supported");
-		}
+        }
 
         /// <summary>
         /// Immediately releases the unmanaged resources used by this object.
         /// </summary>
 		public void Dispose()
-		{
-		    PlatformDispose();
-		    this.IsDisposed = true;
-		}
-	}
+        {
+            PlatformDispose();
+            IsDisposed = true;
+        }
+    }
 }
 

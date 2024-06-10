@@ -32,8 +32,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public CurveContinuity Continuity
         {
-            get { return this._continuity; }
-            set { this._continuity = value; }
+            get { return _continuity; }
+            set { _continuity = value; }
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float Position
         {
-            get { return this._position; }
+            get { return _position; }
         }
 
         /// <summary>
@@ -51,8 +51,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float TangentIn
         {
-            get { return this._tangentIn; }
-            set { this._tangentIn = value; }
+            get { return _tangentIn; }
+            set { _tangentIn = value; }
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float TangentOut
         {
-            get { return this._tangentOut; }
-            set { this._tangentOut = value; }
+            get { return _tangentOut; }
+            set { _tangentOut = value; }
         }
 
         /// <summary>
@@ -71,8 +71,8 @@ namespace Microsoft.Xna.Framework
         [DataMember]
         public float Value
         {
-            get { return this._value; }
-            set { this._value = value; }
+            get { return _value; }
+            set { _value = value; }
         }
 
         #endregion
@@ -121,11 +121,11 @@ namespace Microsoft.Xna.Framework
         /// <param name="continuity">Indicates whether the curve is discrete or continuous.</param>
         public CurveKey(float position, float value, float tangentIn, float tangentOut, CurveContinuity continuity)
         {
-            this._position = position;
-            this._value = value;
-            this._tangentIn = tangentIn;
-            this._tangentOut = tangentOut;
-            this._continuity = continuity;
+            _position = position;
+            _value = value;
+            _tangentIn = tangentIn;
+            _tangentOut = tangentOut;
+            _continuity = continuity;
         }
 
         #endregion
@@ -169,7 +169,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this key.</returns>
         public CurveKey Clone()
         {
-            return new CurveKey(this._position, this._value, this._tangentIn, this._tangentOut, this._continuity);
+            return new CurveKey(_position, _value, _tangentIn, _tangentOut, _continuity);
         }
 
         #region Inherited Methods
@@ -177,13 +177,13 @@ namespace Microsoft.Xna.Framework
         /// <inheritdoc/>
         public int CompareTo(CurveKey other)
         {
-            return this._position.CompareTo(other._position);
+            return _position.CompareTo(other._position);
         }
 
         /// <inheritdoc/>
         public bool Equals(CurveKey other)
         {
-            return (this == other);
+            return this == other;
         }
 
         /// <inheritdoc/>
@@ -195,9 +195,9 @@ namespace Microsoft.Xna.Framework
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return this._position.GetHashCode() ^ this._value.GetHashCode() ^ this._tangentIn.GetHashCode() ^
-                this._tangentOut.GetHashCode() ^ this._continuity.GetHashCode();
-        } 
+            return _position.GetHashCode() ^ _value.GetHashCode() ^ _tangentIn.GetHashCode() ^
+                _tangentOut.GetHashCode() ^ _continuity.GetHashCode();
+        }
 
         #endregion
     }
