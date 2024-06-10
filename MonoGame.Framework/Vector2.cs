@@ -1072,9 +1072,9 @@ namespace Microsoft.Xna.Framework
             int length)
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1110,9 +1110,9 @@ namespace Microsoft.Xna.Framework
         )
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1208,9 +1208,9 @@ namespace Microsoft.Xna.Framework
         )
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1239,9 +1239,9 @@ namespace Microsoft.Xna.Framework
             )
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 

@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework
         public static Stream OpenStream(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             // We do not accept absolute paths here.
             if (Path.IsPathRooted(name))

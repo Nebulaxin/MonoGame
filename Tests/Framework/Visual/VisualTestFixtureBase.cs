@@ -92,10 +92,10 @@ namespace MonoGame.Tests.Visual {
 		{
 			if (captureCount < 1)
 				throw new ArgumentOutOfRangeException (
-					"captureCount", "captureCount must be positive");
+					nameof(captureCount), "captureCount must be positive");
 			if (captureStride < 1)
 				throw new ArgumentOutOfRangeException (
-					"captureStride", "captureStride must be positive");
+					nameof(captureStride), "captureStride must be positive");
 
 			if (!Game.Components.Any (x => x is FrameCompareComponent))
 				Game.Components.Add (FrameCompareComponent.CreateDefault (

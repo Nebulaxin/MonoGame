@@ -68,15 +68,15 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             if (stream == null)
             {
-                throw new ArgumentNullException("stream", "'stream' cannot be null (Nothing in Visual Basic)");
+                throw new ArgumentNullException(nameof(stream), "'stream' cannot be null (Nothing in Visual Basic)");
             }
             if (width <= 0)
             {
-                throw new ArgumentOutOfRangeException("width", width, "'width' cannot be less than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(width), width, "'width' cannot be less than or equal to zero");
             }
             if (height <= 0)
             {
-                throw new ArgumentOutOfRangeException("height", height, "'height' cannot be less than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(height), height, "'height' cannot be less than or equal to zero");
             }
             Color[] data = null;
             try

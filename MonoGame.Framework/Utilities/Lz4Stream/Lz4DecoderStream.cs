@@ -85,8 +85,8 @@ namespace MonoGame.Framework.Utilities
 		{
 #if CHECK_ARGS
 			if( buffer == null )
-				throw new ArgumentNullException( "buffer" );
-			if( offset < 0 || count < 0 || buffer.Length - count < offset )
+				throw new ArgumentNullException(nameof(buffer));
+			if ( offset < 0 || count < 0 || buffer.Length - count < offset )
 				throw new ArgumentOutOfRangeException();
 
 			if( input == null )

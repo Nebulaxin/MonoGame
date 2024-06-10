@@ -99,7 +99,7 @@ namespace MonoGame.Tests.Components {
 			: base (game)
 		{
 			if (fileNameFormat == null)
-				throw new ArgumentNullException ("fileNameFormat");
+				throw new ArgumentNullException(nameof(fileNameFormat));
 			if (referenceImageDirectory == null)
 				throw new ArgumentNullException ("compareSourceDirectory");
 
@@ -159,9 +159,9 @@ namespace MonoGame.Tests.Components {
 		public void Add (IFrameComparer comparer, float weight)
 		{
 			if (comparer == null)
-				throw new ArgumentNullException ("comparer");
+				throw new ArgumentNullException(nameof(comparer));
 			if (weight < 0)
-				throw new ArgumentOutOfRangeException ("weight", "weight must not be negative");
+				throw new ArgumentOutOfRangeException(nameof(weight), "weight must not be negative");
 
 			_frameComparers.Add (Tuple.Create (comparer, weight));
 		}
@@ -406,7 +406,7 @@ namespace MonoGame.Tests.Components {
 		public ConstantComparer (float value)
 		{
 			if (value < 0)
-				throw new ArgumentOutOfRangeException ("value", "value must not be negative");
+				throw new ArgumentOutOfRangeException(nameof(value), "value must not be negative");
 			_value = value;
 		}
 

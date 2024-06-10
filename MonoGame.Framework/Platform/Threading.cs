@@ -97,7 +97,7 @@ namespace Microsoft.Xna.Framework
         internal static void BlockOnUIThread(Action action)
         {
             if (action == null)
-                throw new ArgumentNullException("action");
+                throw new ArgumentNullException(nameof(action));
 
             BlockOnUIThread(_metaAction, action);
         }
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework
         internal static void BlockOnUIThread<TState>(Action<TState> action, TState state)
         {
             if (action == null)
-                throw new ArgumentNullException("action");
+                throw new ArgumentNullException(nameof(action));
 
 #if DIRECTX || PSM
             action(state);

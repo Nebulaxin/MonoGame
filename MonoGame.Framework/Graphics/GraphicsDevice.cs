@@ -281,11 +281,11 @@ namespace Microsoft.Xna.Framework.Graphics
         public GraphicsDevice(GraphicsAdapter adapter, GraphicsProfile graphicsProfile, PresentationParameters presentationParameters)
         {
             if (adapter == null)
-                throw new ArgumentNullException("adapter");
+                throw new ArgumentNullException(nameof(adapter));
             if (!adapter.IsProfileSupported(graphicsProfile))
                 throw new NoSuitableGraphicsDeviceException(String.Format("Adapter '{0}' does not support the {1} profile.", adapter.Description, graphicsProfile));
             if (presentationParameters == null)
-                throw new ArgumentNullException("presentationParameters");
+                throw new ArgumentNullException(nameof(presentationParameters));
             Adapter = adapter;
             PresentationParameters = presentationParameters;
             _graphicsProfile = graphicsProfile;
@@ -309,11 +309,11 @@ namespace Microsoft.Xna.Framework.Graphics
         public GraphicsDevice(GraphicsAdapter adapter, GraphicsProfile graphicsProfile, bool preferHalfPixelOffset, PresentationParameters presentationParameters)
         {
             if (adapter == null)
-                throw new ArgumentNullException("adapter");
+                throw new ArgumentNullException(nameof(adapter));
             if (!adapter.IsProfileSupported(graphicsProfile))
                 throw new NoSuitableGraphicsDeviceException(String.Format("Adapter '{0}' does not support the {1} profile.", adapter.Description, graphicsProfile));
             if (presentationParameters == null)
-                throw new ArgumentNullException("presentationParameters");
+                throw new ArgumentNullException(nameof(presentationParameters));
 #if DIRECTX
             // TODO we need to figure out how to inject the half pixel offset into DX shaders
             preferHalfPixelOffset = false;
@@ -454,7 +454,7 @@ namespace Microsoft.Xna.Framework.Graphics
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 // Don't set the same state twice!
                 if (_rasterizerState == value)
@@ -512,7 +512,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 // Don't set the same state twice!
                 if (_blendState == value)
@@ -557,7 +557,7 @@ namespace Microsoft.Xna.Framework.Graphics
             set
             {
                 if (value == null)
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
 
                 // Don't set the same state twice!
                 if (_depthStencilState == value)
@@ -769,7 +769,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void Reset(PresentationParameters presentationParameters)
         {
             if (presentationParameters == null)
-                throw new ArgumentNullException("presentationParameters");
+                throw new ArgumentNullException(nameof(presentationParameters));
 
             PresentationParameters = presentationParameters;
             Reset();
@@ -1083,7 +1083,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 || vertexBuffer == null && vertexOffset != 0
                 || vertexBuffer != null && vertexOffset >= vertexBuffer.VertexCount)
             {
-                throw new ArgumentOutOfRangeException("vertexOffset");
+                throw new ArgumentOutOfRangeException(nameof(vertexOffset));
             }
 
             _vertexBuffersDirty |= (vertexBuffer == null)
@@ -1109,7 +1109,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 if (vertexBuffers.Length > _maxVertexBufferSlots)
                 {
                     var message = string.Format(CultureInfo.InvariantCulture, "Max number of vertex buffers is {0}.", _maxVertexBufferSlots);
-                    throw new ArgumentOutOfRangeException("vertexBuffers", message);
+                    throw new ArgumentOutOfRangeException(nameof(vertexBuffers), message);
                 }
 
                 _vertexBuffersDirty |= _vertexBuffers.Set(vertexBuffers);
@@ -1208,7 +1208,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new InvalidOperationException("Index buffer must be set before calling DrawIndexedPrimitives.");
 
             if (primitiveCount <= 0)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             PlatformDrawIndexedPrimitives(primitiveType, baseVertex, startIndex, primitiveCount);
 
@@ -1246,24 +1246,24 @@ namespace Microsoft.Xna.Framework.Graphics
         public void DrawUserPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int primitiveCount, VertexDeclaration vertexDeclaration) where T : struct
         {
             if (vertexData == null)
-                throw new ArgumentNullException("vertexData");
+                throw new ArgumentNullException(nameof(vertexData));
 
             if (vertexData.Length == 0)
-                throw new ArgumentOutOfRangeException("vertexData");
+                throw new ArgumentOutOfRangeException(nameof(vertexData));
 
             if (vertexOffset < 0 || vertexOffset >= vertexData.Length)
-                throw new ArgumentOutOfRangeException("vertexOffset");
+                throw new ArgumentOutOfRangeException(nameof(vertexOffset));
 
             if (primitiveCount <= 0)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             var vertexCount = GetElementCountArray(primitiveType, primitiveCount);
 
             if (vertexOffset + vertexCount > vertexData.Length)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             if (vertexDeclaration == null)
-                throw new ArgumentNullException("vertexDeclaration");
+                throw new ArgumentNullException(nameof(vertexDeclaration));
 
             PlatformDrawUserPrimitives<T>(primitiveType, vertexData, vertexOffset, vertexDeclaration, vertexCount);
 
@@ -1289,7 +1289,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new InvalidOperationException("Vertex buffer must be set before calling DrawPrimitives.");
 
             if (primitiveCount <= 0)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             var vertexCount = GetElementCountArray(primitiveType, primitiveCount);
 
@@ -1344,34 +1344,34 @@ namespace Microsoft.Xna.Framework.Graphics
             // Inlined here for efficiency.
 
             if (vertexData == null || vertexData.Length == 0)
-                throw new ArgumentNullException("vertexData");
+                throw new ArgumentNullException(nameof(vertexData));
 
             if (vertexOffset < 0 || vertexOffset >= vertexData.Length)
-                throw new ArgumentOutOfRangeException("vertexOffset");
+                throw new ArgumentOutOfRangeException(nameof(vertexOffset));
 
             if (numVertices <= 0 || numVertices > vertexData.Length)
-                throw new ArgumentOutOfRangeException("numVertices");
+                throw new ArgumentOutOfRangeException(nameof(numVertices));
 
             if (vertexOffset + numVertices > vertexData.Length)
-                throw new ArgumentOutOfRangeException("numVertices");
+                throw new ArgumentOutOfRangeException(nameof(numVertices));
 
             if (indexData == null || indexData.Length == 0)
-                throw new ArgumentNullException("indexData");
+                throw new ArgumentNullException(nameof(indexData));
 
             if (indexOffset < 0 || indexOffset >= indexData.Length)
-                throw new ArgumentOutOfRangeException("indexOffset");
+                throw new ArgumentOutOfRangeException(nameof(indexOffset));
 
             if (primitiveCount <= 0)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             if (indexOffset + GetElementCountArray(primitiveType, primitiveCount) > indexData.Length)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             if (vertexDeclaration == null)
-                throw new ArgumentNullException("vertexDeclaration");
+                throw new ArgumentNullException(nameof(vertexDeclaration));
 
             if (vertexDeclaration.VertexStride < ReflectionHelpers.SizeOf<T>.Get())
-                throw new ArgumentOutOfRangeException("vertexDeclaration", "Vertex stride of vertexDeclaration should be at least as big as the stride of the actual vertices.");
+                throw new ArgumentOutOfRangeException(nameof(vertexDeclaration), "Vertex stride of vertexDeclaration should be at least as big as the stride of the actual vertices.");
 
             PlatformDrawUserIndexedPrimitives<T>(primitiveType, vertexData, vertexOffset, numVertices, indexData, indexOffset, primitiveCount, vertexDeclaration);
 
@@ -1424,34 +1424,34 @@ namespace Microsoft.Xna.Framework.Graphics
             // Inlined here for efficiency.
 
             if (vertexData == null || vertexData.Length == 0)
-                throw new ArgumentNullException("vertexData");
+                throw new ArgumentNullException(nameof(vertexData));
 
             if (vertexOffset < 0 || vertexOffset >= vertexData.Length)
-                throw new ArgumentOutOfRangeException("vertexOffset");
+                throw new ArgumentOutOfRangeException(nameof(vertexOffset));
 
             if (numVertices <= 0 || numVertices > vertexData.Length)
-                throw new ArgumentOutOfRangeException("numVertices");
+                throw new ArgumentOutOfRangeException(nameof(numVertices));
 
             if (vertexOffset + numVertices > vertexData.Length)
-                throw new ArgumentOutOfRangeException("numVertices");
+                throw new ArgumentOutOfRangeException(nameof(numVertices));
 
             if (indexData == null || indexData.Length == 0)
-                throw new ArgumentNullException("indexData");
+                throw new ArgumentNullException(nameof(indexData));
 
             if (indexOffset < 0 || indexOffset >= indexData.Length)
-                throw new ArgumentOutOfRangeException("indexOffset");
+                throw new ArgumentOutOfRangeException(nameof(indexOffset));
 
             if (primitiveCount <= 0)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             if (indexOffset + GetElementCountArray(primitiveType, primitiveCount) > indexData.Length)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             if (vertexDeclaration == null)
-                throw new ArgumentNullException("vertexDeclaration");
+                throw new ArgumentNullException(nameof(vertexDeclaration));
 
             if (vertexDeclaration.VertexStride < ReflectionHelpers.SizeOf<T>.Get())
-                throw new ArgumentOutOfRangeException("vertexDeclaration", "Vertex stride of vertexDeclaration should be at least as big as the stride of the actual vertices.");
+                throw new ArgumentOutOfRangeException(nameof(vertexDeclaration), "Vertex stride of vertexDeclaration should be at least as big as the stride of the actual vertices.");
 
             PlatformDrawUserIndexedPrimitives<T>(primitiveType, vertexData, vertexOffset, numVertices, indexData, indexOffset, primitiveCount, vertexDeclaration);
             
@@ -1516,7 +1516,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new InvalidOperationException("Index buffer must be set before calling DrawInstancedPrimitives.");
 
             if (primitiveCount <= 0)
-                throw new ArgumentOutOfRangeException("primitiveCount");
+                throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
             PlatformDrawInstancedPrimitives(primitiveType, baseVertex, startIndex, primitiveCount, baseInstance, instanceCount);
 
@@ -1536,7 +1536,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void GetBackBufferData<T>(T[] data) where T : struct
         {
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             GetBackBufferData(null, data, 0, data.Length);
         }
 
@@ -1567,7 +1567,7 @@ namespace Microsoft.Xna.Framework.Graphics
             where T : struct
         {
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
 
             int width, height;
             if (rect.HasValue)
@@ -1591,7 +1591,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (tSize > fSize || fSize % tSize != 0)
                 throw new ArgumentException("Type T is of an invalid size for the format of this texture.", "T");
             if (startIndex < 0 || startIndex >= data.Length)
-                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", "startIndex");
+                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", nameof(startIndex));
             if (data.Length < startIndex + elementCount)
                 throw new ArgumentException("The data array is too small.");
             var dataByteSize = width * height * fSize;
@@ -1599,7 +1599,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (elementCount * tSize != dataByteSize)
                 throw new ArgumentException(string.Format("elementCount is not the right size, " +
                                             "elementCount * sizeof(T) is {0}, but data size is {1} bytes.",
-                                            elementCount * tSize, dataByteSize), "elementCount");
+                                            elementCount * tSize, dataByteSize), nameof(elementCount));
 
             PlatformGetBackBufferData(rect, data, startIndex, elementCount);
         }

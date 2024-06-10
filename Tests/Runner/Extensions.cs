@@ -129,7 +129,7 @@ namespace MonoGame.Tests {
 			: base(string.Format("Required service of type '{0}' was not found.", serviceType))
 		{
 			if (serviceType == null)
-				throw new ArgumentNullException ("serviceType");
+				throw new ArgumentNullException(nameof(serviceType));
 			ServiceType = serviceType;
 
 		}

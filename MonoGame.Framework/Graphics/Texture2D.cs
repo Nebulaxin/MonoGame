@@ -218,13 +218,13 @@ namespace Microsoft.Xna.Framework.Graphics
         protected Texture2D(GraphicsDevice graphicsDevice, int width, int height, bool mipmap, SurfaceFormat format, SurfaceType type, bool shared, int arraySize)
 		{
             if (graphicsDevice == null)
-                throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             if (width <= 0)
-                throw new ArgumentOutOfRangeException("width","Texture width must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(width), "Texture width must be greater than zero");
             if (height <= 0)
-                throw new ArgumentOutOfRangeException("height","Texture height must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(height), "Texture height must be greater than zero");
             if (arraySize > 1 && !graphicsDevice.GraphicsCapabilities.SupportsTextureArrays)
-                throw new ArgumentException("Texture arrays are not supported on this graphics device", "arraySize");
+                throw new ArgumentException("Texture arrays are not supported on this graphics device", nameof(arraySize));
 
             this.GraphicsDevice = graphicsDevice;
             this.width = width;
@@ -642,8 +642,8 @@ namespace Microsoft.Xna.Framework.Graphics
         public void GetData<T> (T[] data) where T : struct
 		{
 		    if (data == null)
-		        throw new ArgumentNullException("data");
-			this.GetData(0, null, data, 0, data.Length);
+                throw new ArgumentNullException(nameof(data));
+            this.GetData(0, null, data, 0, data.Length);
 		}
 
         /// <summary>
@@ -661,7 +661,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public static Texture2D FromFile(GraphicsDevice graphicsDevice, string path, Action<byte[]> colorProcessor)
         {
             if (path == null)
-                throw new ArgumentNullException("path");
+                throw new ArgumentNullException(nameof(path));
 
             using (var stream = File.OpenRead(path))
                 return FromStream(graphicsDevice, stream, colorProcessor);
@@ -698,9 +698,9 @@ namespace Microsoft.Xna.Framework.Graphics
         public static Texture2D FromStream(GraphicsDevice graphicsDevice, Stream stream, Action<byte[]> colorProcessor)
 		{
             if (graphicsDevice == null)
-                throw new ArgumentNullException("graphicsDevice");
+                throw new ArgumentNullException(nameof(graphicsDevice));
             if (stream == null)
-                throw new ArgumentNullException("stream");
+                throw new ArgumentNullException(nameof(stream));
 
             try
             {
@@ -779,21 +779,21 @@ namespace Microsoft.Xna.Framework.Graphics
             var textureBounds = new Rectangle(0, 0, Math.Max(width >> level, 1), Math.Max(height >> level, 1));
             checkedRect = rect ?? textureBounds;
             if (level < 0 || level >= LevelCount)
-                throw new ArgumentException("level must be smaller than the number of levels in this texture.", "level");
+                throw new ArgumentException("level must be smaller than the number of levels in this texture.", nameof(level));
             if (arraySlice > 0 && !GraphicsDevice.GraphicsCapabilities.SupportsTextureArrays)
-                throw new ArgumentException("Texture arrays are not supported on this graphics device", "arraySlice");
+                throw new ArgumentException("Texture arrays are not supported on this graphics device", nameof(arraySlice));
             if (arraySlice < 0 || arraySlice >= ArraySize)
-                throw new ArgumentException("arraySlice must be smaller than the ArraySize of this texture and larger than 0.", "arraySlice");
+                throw new ArgumentException("arraySlice must be smaller than the ArraySize of this texture and larger than 0.", nameof(arraySlice));
             if (!textureBounds.Contains(checkedRect) || checkedRect.Width <= 0 || checkedRect.Height <= 0)
-                throw new ArgumentException("Rectangle must be inside the texture bounds", "rect");
+                throw new ArgumentException("Rectangle must be inside the texture bounds", nameof(rect));
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             var tSize = ReflectionHelpers.SizeOf<T>.Get();
             var fSize = Format.GetSize();
             if (tSize > fSize || fSize % tSize != 0)
                 throw new ArgumentException("Type T is of an invalid size for the format of this texture.", "T");
             if (startIndex < 0 || startIndex >= data.Length)
-                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", "startIndex");
+                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", nameof(startIndex));
             if (data.Length < startIndex + elementCount)
                 throw new ArgumentException("The data array is too small.");
 
@@ -837,7 +837,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (elementCount * tSize != dataByteSize)
                 throw new ArgumentException(string.Format("elementCount is not the right size, " +
                                             "elementCount * sizeof(T) is {0}, but data size is {1}.",
-                                            elementCount * tSize, dataByteSize), "elementCount");
+                                            elementCount * tSize, dataByteSize), nameof(elementCount));
         }
 
         internal Color[] GetColorData()

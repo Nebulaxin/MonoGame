@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework
         public GraphicsDeviceManager(Game game)
         {
             if (game == null)
-                throw new ArgumentNullException("game", "Game cannot be null.");
+                throw new ArgumentNullException(nameof(game), "Game cannot be null.");
 
             _game = game;
 

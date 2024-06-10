@@ -31,9 +31,9 @@ namespace Microsoft.Xna.Framework.Audio
         public SoundBank(AudioEngine audioEngine, string fileName)
         {
             if (audioEngine == null)
-                throw new ArgumentNullException("audioEngine");
+                throw new ArgumentNullException(nameof(audioEngine));
             if (string.IsNullOrEmpty(fileName))
-                throw new ArgumentNullException("fileName");
+                throw new ArgumentNullException(nameof(fileName));
 
             _audioengine = audioEngine;
 
@@ -243,7 +243,7 @@ namespace Microsoft.Xna.Framework.Audio
         public Cue GetCue(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             XactSound[] sounds;
             if (!_sounds.TryGetValue(name, out sounds))
@@ -267,7 +267,7 @@ namespace Microsoft.Xna.Framework.Audio
         public void PlayCue(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             XactSound[] sounds;
             if (!_sounds.TryGetValue(name, out sounds))
@@ -295,7 +295,7 @@ namespace Microsoft.Xna.Framework.Audio
         public void PlayCue(string name, AudioListener listener, AudioEmitter emitter)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             XactSound[] sounds;
             if (!_sounds.TryGetValue(name, out sounds))

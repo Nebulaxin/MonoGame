@@ -39,7 +39,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         public TouchCollection(TouchLocation[] touches)
         {
             if (touches == null)
-                throw new ArgumentNullException("touches");
+                throw new ArgumentNullException(nameof(touches));
 
             _collection = touches;
         }
