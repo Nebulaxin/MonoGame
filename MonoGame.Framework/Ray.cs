@@ -112,7 +112,9 @@ namespace Microsoft.Xna.Framework
 
                 if (tMin > tMax)
                 {
-                    (tMax, tMin) = (tMin, tMax);
+                    var temp = tMin;
+                    tMin = tMax;
+                    tMax = temp;
                 }
             }
 
@@ -128,7 +130,9 @@ namespace Microsoft.Xna.Framework
 
                 if (tMinY > tMaxY)
                 {
-                    (tMaxY, tMinY) = (tMinY, tMaxY);
+                    var temp = tMinY;
+                    tMinY = tMaxY;
+                    tMaxY = temp;
                 }
 
                 if ((tMin.HasValue && tMin > tMaxY) || (tMax.HasValue && tMinY > tMax))
@@ -150,7 +154,9 @@ namespace Microsoft.Xna.Framework
 
                 if (tMinZ > tMaxZ)
                 {
-                    (tMaxZ, tMinZ) = (tMinZ, tMaxZ);
+                    var temp = tMinZ;
+                    tMinZ = tMaxZ;
+                    tMaxZ = temp;
                 }
 
                 if ((tMin.HasValue && tMin > tMaxZ) || (tMax.HasValue && tMinZ > tMax))
