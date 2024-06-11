@@ -226,15 +226,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if ((effects & SpriteEffects.FlipVertically) != 0)
             {
-                var temp = _texCoordBR.Y;
-                _texCoordBR.Y = _texCoordTL.Y;
-                _texCoordTL.Y = temp;
+                (_texCoordTL.Y, _texCoordBR.Y) = (_texCoordBR.Y, _texCoordTL.Y);
             }
             if ((effects & SpriteEffects.FlipHorizontally) != 0)
             {
-                var temp = _texCoordBR.X;
-                _texCoordBR.X = _texCoordTL.X;
-                _texCoordTL.X = temp;
+                (_texCoordTL.X, _texCoordBR.X) = (_texCoordBR.X, _texCoordTL.X);
             }
 
             if (rotation == 0f)
@@ -363,15 +359,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if ((effects & SpriteEffects.FlipVertically) != 0)
             {
-                var temp = _texCoordBR.Y;
-                _texCoordBR.Y = _texCoordTL.Y;
-                _texCoordTL.Y = temp;
+                (_texCoordTL.Y, _texCoordBR.Y) = (_texCoordBR.Y, _texCoordTL.Y);
             }
             if ((effects & SpriteEffects.FlipHorizontally) != 0)
             {
-                var temp = _texCoordBR.X;
-                _texCoordBR.X = _texCoordTL.X;
-                _texCoordTL.X = temp;
+                (_texCoordTL.X, _texCoordBR.X) = (_texCoordBR.X, _texCoordTL.X);
             }
 
             if (rotation == 0f)
@@ -796,15 +788,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     if ((effects & SpriteEffects.FlipVertically) != 0)
                     {
-                        var temp = _texCoordBR.Y;
-                        _texCoordBR.Y = _texCoordTL.Y;
-                        _texCoordTL.Y = temp;
+                        (_texCoordTL.Y, _texCoordBR.Y) = (_texCoordBR.Y, _texCoordTL.Y);
                     }
                     if ((effects & SpriteEffects.FlipHorizontally) != 0)
                     {
-                        var temp = _texCoordBR.X;
-                        _texCoordBR.X = _texCoordTL.X;
-                        _texCoordTL.X = temp;
+                        (_texCoordTL.X, _texCoordBR.X) = (_texCoordBR.X, _texCoordTL.X);
                     }
 
                     if (rotation == 0f)
@@ -980,15 +968,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     if ((effects & SpriteEffects.FlipVertically) != 0)
                     {
-                        var temp = _texCoordBR.Y;
-                        _texCoordBR.Y = _texCoordTL.Y;
-                        _texCoordTL.Y = temp;
+                        (_texCoordTL.Y, _texCoordBR.Y) = (_texCoordBR.Y, _texCoordTL.Y);
                     }
                     if ((effects & SpriteEffects.FlipHorizontally) != 0)
                     {
-                        var temp = _texCoordBR.X;
-                        _texCoordBR.X = _texCoordTL.X;
-                        _texCoordTL.X = temp;
+                        (_texCoordTL.X, _texCoordBR.X) = (_texCoordBR.X, _texCoordTL.X);
                     }
 
                     if (rotation == 0f)
@@ -1261,15 +1245,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     if ((effects & SpriteEffects.FlipVertically) != 0)
                     {
-                        var temp = _texCoordBR.Y;
-                        _texCoordBR.Y = _texCoordTL.Y;
-                        _texCoordTL.Y = temp;
+                        (_texCoordTL.Y, _texCoordBR.Y) = (_texCoordBR.Y, _texCoordTL.Y);
                     }
                     if ((effects & SpriteEffects.FlipHorizontally) != 0)
                     {
-                        var temp = _texCoordBR.X;
-                        _texCoordBR.X = _texCoordTL.X;
-                        _texCoordTL.X = temp;
+                        (_texCoordTL.X, _texCoordBR.X) = (_texCoordBR.X, _texCoordTL.X);
                     }
 
                     if (rotation == 0f)
@@ -1445,15 +1425,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     if ((effects & SpriteEffects.FlipVertically) != 0)
                     {
-                        var temp = _texCoordBR.Y;
-                        _texCoordBR.Y = _texCoordTL.Y;
-                        _texCoordTL.Y = temp;
+                        (_texCoordTL.Y, _texCoordBR.Y) = (_texCoordBR.Y, _texCoordTL.Y);
                     }
                     if ((effects & SpriteEffects.FlipHorizontally) != 0)
                     {
-                        var temp = _texCoordBR.X;
-                        _texCoordBR.X = _texCoordTL.X;
-                        _texCoordTL.X = temp;
+                        (_texCoordTL.X, _texCoordBR.X) = (_texCoordBR.X, _texCoordTL.X);
                     }
 
                     if (rotation == 0f)

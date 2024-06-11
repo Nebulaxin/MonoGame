@@ -545,9 +545,7 @@ namespace Microsoft.Xna.Framework.Graphics
             lock (_disposeActionsLock)
             {
                 // Swap lists so resources added during this draw will be released after the next draw
-                var temp = _disposeThisFrame;
-                _disposeThisFrame = _disposeNextFrame;
-                _disposeNextFrame = temp;
+                (_disposeNextFrame, _disposeThisFrame) = (_disposeThisFrame, _disposeNextFrame);
             }
         }
 
