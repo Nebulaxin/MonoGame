@@ -79,7 +79,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this curve.</returns>
         public Curve Clone()
         {
-            Curve curve = new Curve();
+            Curve curve = new();
 
             curve._keys = this._keys.Clone();
             curve._preLoop = this._preLoop;

@@ -28,9 +28,9 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Returns a <see cref="SongCollection"/> with no contents.
         /// </summary>
-        public static readonly SongCollection Empty = new SongCollection();
-		private bool isReadOnly = false;
-		private List<Song> innerlist = new List<Song>();
+        public static readonly SongCollection Empty = new();
+        private bool isReadOnly = false;
+        private List<Song> innerlist = new();
 
         internal SongCollection()
         {
@@ -117,7 +117,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <inheritdoc cref="ICloneable.Clone"/>
         public SongCollection Clone()
         {
-            SongCollection sc = new SongCollection();
+            SongCollection sc = new();
             foreach (Song song in this.innerlist)
                 sc.Add(song);
             return sc;

@@ -1803,8 +1803,8 @@ namespace Microsoft.Xna.Framework
         /// <returns><see cref="String"/> representation of this <see cref="Color"/>.</returns>
         public override string ToString()
         {
-        StringBuilder sb = new StringBuilder(25);
-        sb.Append("{R:");
+            StringBuilder sb = new(25);
+            sb.Append("{R:");
         sb.Append(R);
         sb.Append(" G:");
         sb.Append(G);

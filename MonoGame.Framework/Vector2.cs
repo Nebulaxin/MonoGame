@@ -21,10 +21,10 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector2 zeroVector = new Vector2(0f, 0f);
-        private static readonly Vector2 unitVector = new Vector2(1f, 1f);
-        private static readonly Vector2 unitXVector = new Vector2(1f, 0f);
-        private static readonly Vector2 unitYVector = new Vector2(0f, 1f);
+        private static readonly Vector2 zeroVector = new(0f, 0f);
+        private static readonly Vector2 unitVector = new(1f, 1f);
+        private static readonly Vector2 unitXVector = new(1f, 0f);
+        private static readonly Vector2 unitYVector = new(0f, 1f);
 
         #endregion
 

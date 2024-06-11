@@ -246,7 +246,7 @@ namespace Microsoft.Xna.Framework
         public static void CreateFromBoundingBox(ref BoundingBox box, out BoundingSphere result)
         {
             // Find the center of the box.
-            Vector3 center = new Vector3((box.Min.X + box.Max.X) / 2.0f,
+            Vector3 center = new((box.Min.X + box.Max.X) / 2.0f,
                                          (box.Min.Y + box.Max.Y) / 2.0f,
                                          (box.Min.Z + box.Max.Z) / 2.0f);
 
@@ -562,7 +562,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="BoundingSphere"/>.</returns>
         public BoundingSphere Transform(Matrix matrix)
         {
-            BoundingSphere sphere = new BoundingSphere();
+            BoundingSphere sphere = new();
             sphere.Center = Vector3.Transform(this.Center, matrix);
             sphere.Radius = this.Radius * MathF.Sqrt(Math.Max(((matrix.M11 * matrix.M11) + (matrix.M12 * matrix.M12)) + (matrix.M13 * matrix.M13), Math.Max(((matrix.M21 * matrix.M21) + (matrix.M22 * matrix.M22)) + (matrix.M23 * matrix.M23), ((matrix.M31 * matrix.M31) + (matrix.M32 * matrix.M32)) + (matrix.M33 * matrix.M33))));
             return sphere;

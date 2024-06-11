@@ -14,7 +14,7 @@ namespace MonoGame.Framework.Utilities
         private static readonly char[] UrlSafeChars = new[] { '.', '_', '-', ';', '/', '?', '\\', ':' };
 
         public static readonly char ForwardSlash = '/';
-        public static readonly string ForwardSlashString = new string(ForwardSlash, 1);
+        public static readonly string ForwardSlashString = new(ForwardSlash, 1);
         public static readonly char BackwardSlash = '\\';
 
 #if WINDOWS_UAP

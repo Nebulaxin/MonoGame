@@ -87,7 +87,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Get the bounds of the back buffer.
         /// </summary>
-        public Rectangle Bounds => new Rectangle(0, 0, backBufferWidth, backBufferHeight);
+        public Rectangle Bounds => new(0, 0, backBufferWidth, backBufferHeight);
 
         /// <summary>
         /// Get or set the handle of the window that will present the back buffer.
@@ -217,7 +217,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns></returns>
         public PresentationParameters Clone()
         {
-            PresentationParameters clone = new PresentationParameters();
+            PresentationParameters clone = new();
             clone.backBufferFormat = this.backBufferFormat;
             clone.backBufferHeight = this.backBufferHeight;
             clone.backBufferWidth = this.backBufferWidth;

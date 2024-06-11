@@ -150,7 +150,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Matrix ReadMatrix()
         {
-            Matrix result = new Matrix();
+            Matrix result = new();
             result.M11 = ReadSingle();
             result.M12 = ReadSingle();
             result.M13 = ReadSingle();
@@ -281,7 +281,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Quaternion ReadQuaternion()
         {
-            Quaternion result = new Quaternion();
+            Quaternion result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             result.Z = ReadSingle();
@@ -391,7 +391,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector2 ReadVector2()
         {
-            Vector2 result = new Vector2();
+            Vector2 result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             return result;
@@ -406,7 +406,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector3 ReadVector3()
         {
-            Vector3 result = new Vector3();
+            Vector3 result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             result.Z = ReadSingle();
@@ -422,7 +422,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector4 ReadVector4()
         {
-            Vector4 result = new Vector4();
+            Vector4 result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             result.Z = ReadSingle();
@@ -439,7 +439,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Color ReadColor()
         {
-            Color result = new Color();
+            Color result = new();
             result.R = ReadByte();
             result.G = ReadByte();
             result.B = ReadByte();

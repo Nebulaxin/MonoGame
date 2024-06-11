@@ -21,9 +21,9 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
 	public sealed class MediaQueue
 	{
-        List<Song> songs = new List<Song>();
-		private int _activeSongIndex = -1;
-		private Random random = new Random();
+        List<Song> songs = new();
+        private int _activeSongIndex = -1;
+        private Random random = new();
 
         /// <summary>
         /// Creates a new instance of <see cref="MediaQueue"/>.

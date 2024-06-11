@@ -11,7 +11,7 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         public readonly int Program;
 
-        private readonly Dictionary<string, int> _uniformLocations = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _uniformLocations = new();
 
         public ShaderProgram(int program)
         {
@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     internal class ShaderProgramCache : IDisposable
     {
-        private readonly Dictionary<int, ShaderProgram> _programCache = new Dictionary<int, ShaderProgram>();
+        private readonly Dictionary<int, ShaderProgram> _programCache = new();
         GraphicsDevice _graphicsDevice;
         bool disposed;
 

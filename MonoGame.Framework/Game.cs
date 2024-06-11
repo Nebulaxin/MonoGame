@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework
         internal GamePlatform Platform;
 
         private SortingFilteringCollection<IDrawable> _drawables =
-            new SortingFilteringCollection<IDrawable>(
+            new(
                 d => d.Visible,
                 (d, handler) => d.VisibleChanged += handler,
                 (d, handler) => d.VisibleChanged -= handler,
@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework
                 (d, handler) => d.DrawOrderChanged -= handler);
 
         private SortingFilteringCollection<IUpdateable> _updateables =
-            new SortingFilteringCollection<IUpdateable>(
+            new(
                 u => u.Enabled,
                 (u, handler) => u.EnabledChanged += handler,
                 (u, handler) => u.EnabledChanged -= handler,
@@ -486,7 +486,7 @@ namespace Microsoft.Xna.Framework
         }
 
         private TimeSpan _accumulatedElapsedTime;
-        private readonly GameTime _gameTime = new GameTime();
+        private readonly GameTime _gameTime = new();
         private Stopwatch _gameTimer;
         private long _previousTicks = 0;
         private int _updateFrameLag;

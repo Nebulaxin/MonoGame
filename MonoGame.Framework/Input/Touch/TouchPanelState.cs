@@ -21,12 +21,12 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// The current touch state.
         /// </summary>
-        private readonly List<TouchLocation> _touchState = new List<TouchLocation>();
+        private readonly List<TouchLocation> _touchState = new();
 
         /// <summary>
         /// The current gesture state.
         /// </summary>
-        private readonly List<TouchLocation> _gestureState = new List<TouchLocation>();
+        private readonly List<TouchLocation> _gestureState = new();
 
         /// <summary>
         /// The positional scale to apply to touch input.
@@ -53,11 +53,11 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// The mapping between platform specific touch ids
         /// and the touch ids we assign to touch locations.
         /// </summary>
-        private readonly Dictionary<int, int> _touchIds = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> _touchIds = new();
 
-        internal readonly Queue<GestureSample> GestureList = new Queue<GestureSample>();
+        internal readonly Queue<GestureSample> GestureList = new();
 
-        private TouchPanelCapabilities Capabilities = new TouchPanelCapabilities();
+        private TouchPanelCapabilities Capabilities = new();
 
 
         /// <summary>

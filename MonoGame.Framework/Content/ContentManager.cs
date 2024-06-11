@@ -30,16 +30,16 @@ namespace Microsoft.Xna.Framework.Content
 
 		private string _rootDirectory = string.Empty;
 		private IServiceProvider serviceProvider;
-        private Dictionary<string, object> loadedAssets = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-		private List<IDisposable> disposableAssets = new List<IDisposable>();
+        private Dictionary<string, object> loadedAssets = new(StringComparer.OrdinalIgnoreCase);
+        private List<IDisposable> disposableAssets = new();
         private bool disposed;
 
-		private static object ContentManagerLock = new object();
-        private static List<WeakReference> ContentManagers = new List<WeakReference>();
+        private static object ContentManagerLock = new();
+        private static List<WeakReference> ContentManagers = new();
 
-        internal static readonly ByteBufferPool ScratchBufferPool = new ByteBufferPool(1024 * 1024, Environment.ProcessorCount);
+        internal static readonly ByteBufferPool ScratchBufferPool = new(1024 * 1024, Environment.ProcessorCount);
 
-        private static readonly List<char> targetPlatformIdentifiers = new List<char>()
+        private static readonly List<char> targetPlatformIdentifiers = new()
         {
             'w', // Windows (XNA & DirectX)
             'x', // Xbox360 (XNA)

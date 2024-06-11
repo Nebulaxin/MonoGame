@@ -48,9 +48,9 @@ namespace Microsoft.Xna.Framework.Media
 #if IOS
 			MediaSource[] result = { new MediaSource(UIDevice.CurrentDevice.SystemName, MediaSourceType.LocalDevice) };
 #else
-			MediaSource[] result = { new MediaSource("DummpMediaSource", MediaSourceType.LocalDevice) };
+            MediaSource[] result = { new("DummpMediaSource", MediaSourceType.LocalDevice) };
 #endif
-			return result;
+            return result;
         }
     }
 }

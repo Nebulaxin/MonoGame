@@ -103,12 +103,12 @@ namespace Microsoft.Xna.Framework.Graphics
             }
         }
 
-        List<ResourceHandle> _disposeThisFrame = new List<ResourceHandle>();
-        List<ResourceHandle> _disposeNextFrame = new List<ResourceHandle>();
-        object _disposeActionsLock = new object();
+        List<ResourceHandle> _disposeThisFrame = new();
+        List<ResourceHandle> _disposeNextFrame = new();
+        object _disposeActionsLock = new();
 
-        static List<IntPtr> _disposeContexts = new List<IntPtr>();
-        static object _disposeContextsLock = new object();
+        static List<IntPtr> _disposeContexts = new();
+        static object _disposeContextsLock = new();
 
         private ShaderProgramCache _programCache;
         private ShaderProgram _shaderProgram = null;
@@ -118,7 +118,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private static BufferBindingInfo[] _bufferBindingInfos;
         private static int _activeBufferBindingInfosCount;
         private static bool[] _newEnabledVertexAttributes;
-        internal static readonly List<int> _enabledVertexAttributes = new List<int>();
+        internal static readonly List<int> _enabledVertexAttributes = new();
         internal static bool _attribsDirty;
 
         internal FramebufferHelper framebufferHelper;
@@ -131,9 +131,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
         // Keeps track of last applied state to avoid redundant OpenGL calls
         internal bool _lastBlendEnable = false;
-        internal BlendState _lastBlendState = new BlendState();
-        internal DepthStencilState _lastDepthStencilState = new DepthStencilState();
-        internal RasterizerState _lastRasterizerState = new RasterizerState();
+        internal BlendState _lastBlendState = new();
+        internal DepthStencilState _lastDepthStencilState = new();
+        internal RasterizerState _lastRasterizerState = new();
         private Vector4 _lastClearColor = Vector4.Zero;
         private float _lastClearDepth = 1.0f;
         private int _lastClearStencil = 0;
@@ -353,7 +353,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 _bufferBindingInfos[i] = new BufferBindingInfo(null, IntPtr.Zero, 0, -1);
         }
 
-        private DepthStencilState clearDepthStencilState = new DepthStencilState { StencilEnable = true };
+        private DepthStencilState clearDepthStencilState = new() { StencilEnable = true };
 
         private void PlatformClear(ClearOptions options, Vector4 color, float depth, int stencil)
         {
@@ -625,9 +625,9 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 
         // FBO cache, we create 1 FBO per RenderTargetBinding combination
-        private Dictionary<RenderTargetBinding[], int> glFramebuffers = new Dictionary<RenderTargetBinding[], int>(new RenderTargetBindingArrayComparer());
+        private Dictionary<RenderTargetBinding[], int> glFramebuffers = new(new RenderTargetBindingArrayComparer());
         // FBO cache used to resolve MSAA rendertargets, we create 1 FBO per RenderTargetBinding combination
-        private Dictionary<RenderTargetBinding[], int> glResolveFramebuffers = new Dictionary<RenderTargetBinding[], int>(new RenderTargetBindingArrayComparer());
+        private Dictionary<RenderTargetBinding[], int> glResolveFramebuffers = new(new RenderTargetBindingArrayComparer());
 
         internal void PlatformCreateRenderTarget(IRenderTarget renderTarget, int width, int height, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage)
         {

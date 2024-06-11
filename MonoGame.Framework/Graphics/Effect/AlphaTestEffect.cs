@@ -331,7 +331,7 @@ namespace Microsoft.Xna.Framework.Graphics
             // Recompute the alpha test settings?
             if ((dirtyFlags & EffectDirtyFlags.AlphaTest) != 0)
             {
-                Vector4 alphaTest = new Vector4();
+                Vector4 alphaTest = new();
                 bool eqNe = false;
                 
                 // Convert reference alpha from 8 bit integer to 0-1 float format.

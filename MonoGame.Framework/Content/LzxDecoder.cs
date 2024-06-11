@@ -124,7 +124,7 @@ namespace Microsoft.Xna.Framework.Content
 		
 		public int Decompress(Stream inData, int inLen, Stream outData, int outLen)
 		{
-			BitBuffer bitbuf = new BitBuffer(inData);
+			BitBuffer bitbuf = new(inData);
 			long startpos = inData.Position;
 			long endpos = inData.Position + inLen;
 			

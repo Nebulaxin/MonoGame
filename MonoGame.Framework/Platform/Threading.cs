@@ -21,10 +21,10 @@ namespace Microsoft.Xna.Framework
     {
         static int _mainThreadId;
 
-        static Stack<ManualResetEventSlim> _resetEventPool = new Stack<ManualResetEventSlim>();
+        static Stack<ManualResetEventSlim> _resetEventPool = new();
 
         // Storing non-generic dequeue actions allows us to preserve invocation order.
-        static List<Action> _queuedActions = new List<Action>();
+        static List<Action> _queuedActions = new();
 
         // Used to share one implementation for both generic and non-generic actions.
         readonly static Action<Action> _metaAction = (a) => a();
@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework
         /// <typeparam name="TState"></typeparam>
         static class StateActionHelper<TState>
         {
-            public static readonly Queue<QueuedAction> Queue = new Queue<QueuedAction>();
+            public static readonly Queue<QueuedAction> Queue = new();
             public static readonly Action DequeueAction = Dequeue;
 
             public static void Dequeue()

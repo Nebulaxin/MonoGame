@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Media
 		private static bool _isMuted;
         private static bool _isRepeating;
         private static bool _isShuffled;
-		private static readonly MediaQueue _queue = new MediaQueue();
+        private static readonly MediaQueue _queue = new();
 
         /// <summary>
         /// Raised when the active song changes due to active playback or due to explicit calls to the

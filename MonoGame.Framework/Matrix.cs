@@ -264,8 +264,8 @@ namespace Microsoft.Xna.Framework
         #endregion
 
         #region Private Members
-        private static Matrix identity = new Matrix(1f, 0f, 0f, 0f, 
-		                                            0f, 1f, 0f, 0f, 
+        private static Matrix identity = new(1f, 0f, 0f, 0f,
+                                                    0f, 1f, 0f, 0f, 
 		                                            0f, 0f, 1f, 0f, 
 		                                            0f, 0f, 0f, 1f);
         #endregion
@@ -277,7 +277,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Backward
         {
-            get => new Vector3(this.M31, this.M32, this.M33);
+            get => new(this.M31, this.M32, this.M33);
             set
             {
                 this.M31 = value.X;
@@ -291,7 +291,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Down
         {
-            get => new Vector3(-this.M21, -this.M22, -this.M23);
+            get => new(-this.M21, -this.M22, -this.M23);
             set
             {
                 this.M21 = -value.X;
@@ -305,7 +305,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Forward
         {
-            get => new Vector3(-this.M31, -this.M32, -this.M33);
+            get => new(-this.M31, -this.M32, -this.M33);
             set
             {
                 this.M31 = -value.X;
@@ -324,7 +324,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Left
         {
-            get => new Vector3(-this.M11, -this.M12, -this.M13);
+            get => new(-this.M11, -this.M12, -this.M13);
             set
             {
                 this.M11 = -value.X;
@@ -338,7 +338,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Right
         {
-            get => new Vector3(this.M11, this.M12, this.M13);
+            get => new(this.M11, this.M12, this.M13);
             set
             {
                 this.M11 = value.X;
@@ -352,7 +352,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Translation
         {
-            get => new Vector3(this.M41, this.M42, this.M43);
+            get => new(this.M41, this.M42, this.M43);
             set
             {
                 this.M41 = value.X;
@@ -366,7 +366,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Up
         {
-            get => new Vector3(this.M21, this.M22, this.M23);
+            get => new(this.M21, this.M22, this.M23);
             set
             {
                 this.M21 = value.X;
@@ -1433,7 +1433,7 @@ namespace Microsoft.Xna.Framework
                 return false;
             }
 
-            Matrix m1 = new Matrix(this.M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
+            Matrix m1 = new(this.M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
                                    this.M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
                                    this.M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
                                    0, 0, 0, 1);

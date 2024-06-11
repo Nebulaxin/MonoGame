@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static Rectangle emptyRectangle = new Rectangle();
+        private static Rectangle emptyRectangle = new();
 
         #endregion
 
@@ -87,7 +87,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Point Location
         {
-            get => new Point(this.X, this.Y);
+            get => new(this.X, this.Y);
             set
             {
                 X = value.X;
@@ -100,7 +100,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Point Size
         {
-            get => new Point(this.Width, this.Height);
+            get => new(this.Width, this.Height);
             set
             {
                 Width = value.X;
@@ -115,7 +115,7 @@ namespace Microsoft.Xna.Framework
         /// If <see cref="Width"/> or <see cref="Height"/> is an odd number,
         /// the center point will be rounded down.
         /// </remarks>
-        public Point Center => new Point(this.X + (this.Width / 2), this.Y + (this.Height / 2));
+        public Point Center => new(this.X + (this.Width / 2), this.Y + (this.Height / 2));
 
         #endregion
 

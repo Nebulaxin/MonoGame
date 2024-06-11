@@ -293,8 +293,8 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-        private static readonly Vector3 MaxVector3 = new Vector3(float.MaxValue);
-        private static readonly Vector3 MinVector3 = new Vector3(float.MinValue);
+        private static readonly Vector3 MaxVector3 = new(float.MaxValue);
+        private static readonly Vector3 MinVector3 = new(float.MinValue);
 
 
         /// <summary>
@@ -482,14 +482,14 @@ namespace Microsoft.Xna.Framework
         public Vector3[] GetCorners()
         {
             return new Vector3[] {
-                new Vector3(this.Min.X, this.Max.Y, this.Max.Z), 
-                new Vector3(this.Max.X, this.Max.Y, this.Max.Z),
-                new Vector3(this.Max.X, this.Min.Y, this.Max.Z), 
-                new Vector3(this.Min.X, this.Min.Y, this.Max.Z), 
-                new Vector3(this.Min.X, this.Max.Y, this.Min.Z),
-                new Vector3(this.Max.X, this.Max.Y, this.Min.Z),
-                new Vector3(this.Max.X, this.Min.Y, this.Min.Z),
-                new Vector3(this.Min.X, this.Min.Y, this.Min.Z)
+                new(this.Min.X, this.Max.Y, this.Max.Z),
+                new(this.Max.X, this.Max.Y, this.Max.Z),
+                new(this.Max.X, this.Min.Y, this.Max.Z),
+                new(this.Min.X, this.Min.Y, this.Max.Z),
+                new(this.Min.X, this.Max.Y, this.Min.Z),
+                new(this.Max.X, this.Max.Y, this.Min.Z),
+                new(this.Max.X, this.Min.Y, this.Min.Z),
+                new(this.Min.X, this.Min.Y, this.Min.Z)
             };
         }
 

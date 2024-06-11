@@ -9,13 +9,13 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public sealed class ModelBone
 	{
-		private List<ModelBone> children = new List<ModelBone>();
-		
-		private List<ModelMesh> meshes = new List<ModelMesh>();
+		private List<ModelBone> children = new();
 
-        /// <summary>
-        /// List of the meshes for this bone.
-        /// </summary>
+		private List<ModelMesh> meshes = new();
+
+		/// <summary>
+		/// List of the meshes for this bone.
+		/// </summary>
 		public List<ModelMesh> Meshes {
 			get => this.meshes;
 			private set => meshes = value;

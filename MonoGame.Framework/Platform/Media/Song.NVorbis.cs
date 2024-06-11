@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Media
     {
         private OggStream stream;
         private float _volume = 1f;
-        private readonly object _sourceMutex = new object();
+        private readonly object _sourceMutex = new();
 
         private void PlatformInitialize(string fileName)
         {

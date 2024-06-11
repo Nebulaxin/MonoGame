@@ -124,7 +124,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this collection.</returns>
         public CurveKeyCollection Clone()
         {
-            CurveKeyCollection ckc = new CurveKeyCollection();
+            CurveKeyCollection ckc = new();
             foreach (CurveKey key in this._keys)
                 ckc.Add(key);
             return ckc;

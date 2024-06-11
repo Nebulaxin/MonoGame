@@ -18,8 +18,8 @@ namespace Microsoft.Xna.Framework.Audio
         readonly WaveBank[] _waveBanks;
 
         readonly float [] defaultProbability = new float [1] { 1.0f };
-        readonly Dictionary<string, XactSound[]> _sounds = new Dictionary<string, XactSound[]>();
-        readonly Dictionary<string, float []> _probabilities = new Dictionary<string, float []> ();
+        readonly Dictionary<string, XactSound[]> _sounds = new();
+        readonly Dictionary<string, float[]> _probabilities = new();
 
         /// <summary>
         /// Is true if the SoundBank has any live Cues in use.
@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                         var oldPosition = stream.Position;
                         stream.Seek(soundOffset, SeekOrigin.Begin);
-                        XactSound sound = new XactSound(audioEngine, this, reader);
+                        XactSound sound = new(audioEngine, this, reader);
                         stream.Seek(oldPosition, SeekOrigin.Begin);
 
                         _sounds.Add(cueNames [i], new XactSound [] { sound } );
@@ -123,7 +123,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                             var oldPosition = stream.Position;
                             stream.Seek(soundOffset, SeekOrigin.Begin);
-                            XactSound sound = new XactSound(audioEngine, this, reader);
+                            XactSound sound = new(audioEngine, this, reader);
                             stream.Seek(oldPosition, SeekOrigin.Begin);
 
                             _sounds.Add (cueNames [numSimpleCues + i], new XactSound [] { sound });
