@@ -37,10 +37,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// <summary>
         /// Gets the collection of indices for this mesh part.
         /// </summary>
-        public IndexCollection IndexBuffer
-        {
-            get { return _indexBuffer; }
-        }
+        public IndexCollection IndexBuffer => _indexBuffer;
 
         /// <summary>
         /// Gets the material of this mesh part.
@@ -54,26 +51,17 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// <summary>
         /// Gets the number of vertices used in this mesh part.
         /// </summary>
-        public int NumVertices
-        {
-            get { return _numVertices; }
-        }
+        public int NumVertices => _numVertices;
 
         /// <summary>
         /// Gets the number of primitives to render for this mesh part.
         /// </summary>
-        public int PrimitiveCount
-        {
-            get { return _primitiveCount; }
-        }
+        public int PrimitiveCount => _primitiveCount;
 
         /// <summary>
         /// Gets the location in the index buffer at which to start reading vertices.
         /// </summary>
-        public int StartIndex
-        {
-            get { return _startIndex; }
-        }
+        public int StartIndex => _startIndex;
 
         /// <summary>
         /// Gets a user-defined tag object.
@@ -83,17 +71,11 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// <summary>
         /// Gets the collection of vertices for this mesh part.
         /// </summary>
-        public VertexBufferContent VertexBuffer
-        {
-            get { return _vertexBuffer; }
-        }
+        public VertexBufferContent VertexBuffer => _vertexBuffer;
 
         /// <summary>
         /// Gets the offset from the start of the index buffer to the first vertex index.
         /// </summary>
-        public int VertexOffset
-        {
-            get { return _vertexOffset; }
-        }
+        public int VertexOffset => _vertexOffset;
     }
 }
