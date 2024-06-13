@@ -78,7 +78,7 @@ namespace Microsoft.Xna.Framework.Media
             }
             else
             {
-                var afd = Game.Activity.Assets.OpenFd(_name);
+                var afd = Game.Activity.Assets.OpenFd(Name);
                 if (afd == null)
                     return;
 
@@ -175,7 +175,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private string PlatformGetName()
         {
-            return this.assetUri != null ? this.name : Path.GetFileNameWithoutExtension(_name);
+            return this.assetUri != null ? this.name : Path.GetFileNameWithoutExtension(Name);
         }
 
         private int PlatformGetPlayCount()

@@ -68,8 +68,8 @@ namespace Microsoft.Xna.Framework.Media
 #if (IOS && !TVOS) || ANDROID
         private static void PlatformSetPlayPosition(TimeSpan playPosition)
         {
-            if (_queue.ActiveSong != null)
-                _queue.ActiveSong.Position = playPosition;
+            if (Queue.ActiveSong != null)
+                Queue.ActiveSong.Position = playPosition;
         }
 #endif
 

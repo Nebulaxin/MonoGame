@@ -4,10 +4,10 @@
 
 using System;
 using System.IO;
-using Foundation;
 using AVFoundation;
-using MediaPlayer;
 using CoreMedia;
+using Foundation;
+using MediaPlayer;
 
 namespace Microsoft.Xna.Framework.Media
 {
@@ -211,7 +211,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private string PlatformGetName()
         {
-            return this.title ?? Path.GetFileNameWithoutExtension(_name);
+            return this.title ?? Path.GetFileNameWithoutExtension(Name);
         }
 
         private int PlatformGetPlayCount()

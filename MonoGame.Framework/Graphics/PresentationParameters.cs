@@ -145,16 +145,16 @@ namespace Microsoft.Xna.Framework.Graphics
 				width = height;
 				height = (int)(UIScreen.MainScreen.Bounds.Width * UIScreen.MainScreen.Scale);
 			}
-			
-			backBufferWidth = width;
-            backBufferHeight = height;
+
+            BackBufferWidth = width;
+            BackBufferHeight = height;
 #else
             BackBufferWidth = GraphicsDeviceManager.DefaultBackBufferWidth;
             BackBufferHeight = GraphicsDeviceManager.DefaultBackBufferHeight;
 #endif
             DeviceWindowHandle = IntPtr.Zero;
 #if IOS && !TVOS
-			isFullScreen = UIApplication.SharedApplication.StatusBarHidden;
+            IsFullScreen = UIApplication.SharedApplication.StatusBarHidden;
 #else
             // isFullScreen = false;
 #endif

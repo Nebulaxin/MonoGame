@@ -3,9 +3,9 @@
 // file 'LICENSE.txt', which is part of this source code package.
 
 using System;
-using Microsoft.Xna.Framework.Graphics;
-using MediaPlayer;
 using Foundation;
+using MediaPlayer;
+using Microsoft.Xna.Framework.Graphics;
 using UIKit;
 
 namespace Microsoft.Xna.Framework.Media
@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private void PlatformResume()
         {
-            _currentVideo.MovieView.MoviePlayer.Play();
+            Video.MovieView.MoviePlayer.Play();
         }
 
         private void PlatformPlay()
@@ -51,10 +51,10 @@ namespace Microsoft.Xna.Framework.Media
             _playbackDidFinishObserver = NSNotificationCenter.DefaultCenter.AddObserver(
                 MPMoviePlayerController.PlaybackDidFinishNotification, OnStop);
 
-            _currentVideo.MovieView.MoviePlayer.RepeatMode = IsLooped ? MPMovieRepeatMode.One : MPMovieRepeatMode.None;
+            Video.MovieView.MoviePlayer.RepeatMode = IsLooped ? MPMovieRepeatMode.One : MPMovieRepeatMode.None;
 
-            _platform.ViewController.PresentViewController(_currentVideo.MovieView, false, null);
-            _currentVideo.MovieView.MoviePlayer.Play();
+            _platform.ViewController.PresentViewController(Video.MovieView, false, null);
+            Video.MovieView.MoviePlayer.Play();
         }
 
         private void PlatformStop()
@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework.Media
                 _playbackDidFinishObserver = null;
             }
 
-            _currentVideo.MovieView.MoviePlayer.Stop();
+            Video.MovieView.MoviePlayer.Stop();
             _platform.IsPlayingVideo = false;
             _platform.ViewController.DismissViewController(false, null);
         }
