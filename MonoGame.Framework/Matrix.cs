@@ -277,7 +277,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Backward
         {
-            get => new Vector3(this.M31, this.M32, this.M33);
+            get => new(this.M31, this.M32, this.M33);
             set
             {
                 this.M31 = value.X;
@@ -291,7 +291,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Down
         {
-            get => new Vector3(-this.M21, -this.M22, -this.M23);
+            get => new(-this.M21, -this.M22, -this.M23);
             set
             {
                 this.M21 = -value.X;
@@ -305,7 +305,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Forward
         {
-            get => new Vector3(-this.M31, -this.M32, -this.M33);
+            get => new(-this.M31, -this.M32, -this.M33);
             set
             {
                 this.M31 = -value.X;
@@ -324,7 +324,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Left
         {
-            get => new Vector3(-this.M11, -this.M12, -this.M13);
+            get => new(-this.M11, -this.M12, -this.M13);
             set
             {
                 this.M11 = -value.X;
@@ -338,7 +338,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Right
         {
-            get => new Vector3(this.M11, this.M12, this.M13);
+            get => new(this.M11, this.M12, this.M13);
             set
             {
                 this.M11 = value.X;
@@ -352,7 +352,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Translation
         {
-            get => new Vector3(this.M41, this.M42, this.M43);
+            get => new(this.M41, this.M42, this.M43);
             set
             {
                 this.M41 = value.X;
@@ -366,7 +366,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Up
         {
-            get => new Vector3(this.M21, this.M22, this.M23);
+            get => new(this.M21, this.M22, this.M23);
             set
             {
                 this.M21 = value.X;

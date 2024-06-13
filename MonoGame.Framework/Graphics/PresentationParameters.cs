@@ -67,7 +67,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Get the bounds of the back buffer.
         /// </summary>
-        public Rectangle Bounds => new Rectangle(0, 0, BackBufferWidth, BackBufferHeight);
+        public Rectangle Bounds => new(0, 0, BackBufferWidth, BackBufferHeight);
 
         /// <summary>
         /// Get or set the handle of the window that will present the back buffer.
@@ -170,18 +170,20 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns></returns>
         public PresentationParameters Clone()
         {
-            PresentationParameters clone = new();
-            clone.BackBufferFormat = this.BackBufferFormat;
-            clone.BackBufferHeight = this.BackBufferHeight;
-            clone.BackBufferWidth = this.BackBufferWidth;
-            clone.DeviceWindowHandle = this.DeviceWindowHandle;
-            clone.DepthStencilFormat = this.DepthStencilFormat;
-            clone.IsFullScreen = this.IsFullScreen;
-            clone.HardwareModeSwitch = this.HardwareModeSwitch;
-            clone.MultiSampleCount = this.MultiSampleCount;
-            clone.PresentationInterval = this.PresentationInterval;
-            clone.DisplayOrientation = this.DisplayOrientation;
-            clone.RenderTargetUsage = this.RenderTargetUsage;
+            PresentationParameters clone = new()
+            {
+                BackBufferFormat = this.BackBufferFormat,
+                BackBufferHeight = this.BackBufferHeight,
+                BackBufferWidth = this.BackBufferWidth,
+                DeviceWindowHandle = this.DeviceWindowHandle,
+                DepthStencilFormat = this.DepthStencilFormat,
+                IsFullScreen = this.IsFullScreen,
+                HardwareModeSwitch = this.HardwareModeSwitch,
+                MultiSampleCount = this.MultiSampleCount,
+                PresentationInterval = this.PresentationInterval,
+                DisplayOrientation = this.DisplayOrientation,
+                RenderTargetUsage = this.RenderTargetUsage
+            };
             return clone;
         }
 

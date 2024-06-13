@@ -104,7 +104,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Rectangle Bounds
         {
-            get => new Rectangle(x, y, width, height);
+            get => new(x, y, width, height);
 
             set
             {
