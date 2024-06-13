@@ -32,8 +32,6 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </remarks>
 	public partial class Texture3D : Texture
     {
-        private int _depth;
-
         /// <summary>
         /// Gets the width, in pixels, of this texture resource.
         /// </summary>
@@ -47,7 +45,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the depth, in pixels, of this texture resource.
         /// </summary>
-        public int Depth => _depth;
+        public int Depth { get; }
 
         /// <summary>
         /// Creates an uninitialized <b>Texture3D</b> resource with the specified parameters.
@@ -94,9 +92,9 @@ namespace Microsoft.Xna.Framework.Graphics
 		    this.GraphicsDevice = graphicsDevice;
             this.Width = width;
             this.Height = height;
-            this._depth = depth;
-            this._levelCount = 1;
-		    this._format = format;
+            this.Depth = depth;
+            this.LevelCount = 1;
+            this.Format = format;
 
             PlatformConstruct(graphicsDevice, width, height, depth, mipMap, format, renderTarget);
         }
@@ -352,7 +350,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            GetData(0, 0, 0, Width, Height, 0, _depth, data, startIndex, elementCount);
+            GetData(0, 0, 0, Width, Height, 0, Depth, data, startIndex, elementCount);
         }
 
         /// <summary>
@@ -416,7 +414,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (elementCount * tSize != dataByteSize)
                 throw new ArgumentException(string.Format("elementCount is not the right size, " +
                                             "elementCount * sizeof(T) is {0}, but data size is {1}.",
-                                            elementCount * tSize, dataByteSize), "elementCount");
+                                            elementCount * tSize, (object)dataByteSize), "elementCount");
         }
 	}
 }

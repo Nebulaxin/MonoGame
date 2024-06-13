@@ -54,16 +54,16 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 _shaderProgram = program;
                 _location = location;
-                Dirty = true;
+                _dirty = true;
             }
 
             // If the shader program is the same, the effect may still be different and have different values in the buffer
             if (!Object.ReferenceEquals(this, _lastConstantBufferApplied))
-                Dirty = true;
+                _dirty = true;
 
             // If the buffer content hasn't changed then we're
             // done... use the previously set uniform state.
-            if (!Dirty)
+            if (!_dirty)
                 return;
 
             fixed (byte* bytePtr = _buffer)
@@ -77,7 +77,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             // Clear the dirty flag.
-            Dirty = false;
+            _dirty = false;
 
             _lastConstantBufferApplied = this;
         }

@@ -32,7 +32,6 @@ namespace Microsoft.Xna.Framework.Graphics
         #region Private Fields
 
         private bool disposed;
-        private bool hardwareModeSwitch = true;
 
         #endregion Private Fields
 
@@ -94,11 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// when going to full screen mode. If <code>false</code> it will instead do a
         /// soft full screen by maximizing the window and making it borderless.
         /// </summary>
-        public bool HardwareModeSwitch
-        {
-            get => hardwareModeSwitch;
-            set => hardwareModeSwitch = value;
-        }
+        public bool HardwareModeSwitch { get; set; } = true;
 
         /// <summary>
         /// Get or set the multisample count for the back buffer.

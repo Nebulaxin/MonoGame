@@ -122,7 +122,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private string PlatformGetName()
         {
-            return Path.GetFileNameWithoutExtension(_name);
+            return Path.GetFileNameWithoutExtension(Name);
         }
 
         private int PlatformGetPlayCount()

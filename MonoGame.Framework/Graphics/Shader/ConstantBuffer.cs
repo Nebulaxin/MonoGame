@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private ulong _stateKey;
 
-        private bool Dirty { get; set; }
+        private bool _dirty;
 
         public ConstantBuffer(ConstantBuffer cloneSource)
         {
@@ -162,7 +162,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     continue;
 
                 var offset = _offsets[p];
-                Dirty = true;
+                _dirty = true;
 
                 SetParameter(offset, param);
             }

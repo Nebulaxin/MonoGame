@@ -21,7 +21,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector3 backward = new(0f, 0f, 1f);
 
         #endregion
 
@@ -102,7 +101,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.
         /// </summary>
-        public static Vector3 Backward => backward;
+        public static Vector3 Backward { get; } = new(0f, 0f, 1f);
 
         #endregion
 

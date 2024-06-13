@@ -226,8 +226,8 @@ namespace Microsoft.Xna.Framework.Graphics
             this.TexelWidth = 1f / (float)width;
             this.TexelHeight = 1f / (float)height;
 
-            this._format = format;
-            this._levelCount = mipmap ? CalculateMipLevels(width, height) : 1;
+            this.Format = format;
+            this.LevelCount = mipmap ? CalculateMipLevels(width, height) : 1;
             this.ArraySize = arraySize;
 
             // Texture will be assigned by the swap chain.

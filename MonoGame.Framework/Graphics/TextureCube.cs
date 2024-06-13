@@ -57,8 +57,8 @@ namespace Microsoft.Xna.Framework.Graphics
 
             this.GraphicsDevice = graphicsDevice;
 			this.size = size;
-            this._format = format;
-            this._levelCount = mipMap ? CalculateMipLevels(size) : 1;
+            this.Format = format;
+            this.LevelCount = mipMap ? CalculateMipLevels(size) : 1;
 
             PlatformConstruct(graphicsDevice, size, mipMap, format, renderTarget);
         }

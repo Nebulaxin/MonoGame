@@ -143,7 +143,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     0,
                     GetTexture(),
                     0,
-                    SharpDXHelper.ToFormat(_format));
+                    SharpDXHelper.ToFormat(Format));
             }
         }
 

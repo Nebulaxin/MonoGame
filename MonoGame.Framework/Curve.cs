@@ -17,7 +17,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private CurveKeyCollection _keys;
 
         #endregion
 
@@ -27,7 +26,7 @@ namespace Microsoft.Xna.Framework
         /// Returns <c>true</c> if this curve is constant (has zero or one points); <c>false</c> otherwise.
         /// </summary>
         [DataMember]
-        public bool IsConstant => this._keys.Count <= 1;
+        public bool IsConstant => this.Keys.Count <= 1;
 
         /// <summary>
         /// Defines how to handle weighting values that are less than the first control point in the curve.
@@ -45,7 +44,7 @@ namespace Microsoft.Xna.Framework
         /// The collection of curve keys.
         /// </summary>
         [DataMember]
-        public CurveKeyCollection Keys => this._keys;
+        public CurveKeyCollection Keys { get; private set; }
 
         #endregion
 
@@ -56,7 +55,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Curve()
         {
-            this._keys = new CurveKeyCollection();
+            this.Keys = new CurveKeyCollection();
         }
 
         #endregion
@@ -71,7 +70,7 @@ namespace Microsoft.Xna.Framework
         {
             Curve curve = new();
 
-            curve._keys = this._keys.Clone();
+            curve.Keys = this.Keys.Clone();
             curve.PreLoop = this.PreLoop;
             curve.PostLoop = this.PostLoop;
 
@@ -85,18 +84,18 @@ namespace Microsoft.Xna.Framework
         /// <returns>Value at the position on this <see cref="Curve"/>.</returns>
         public float Evaluate(float position)
         {
-            if (_keys.Count == 0)
+            if (Keys.Count == 0)
             {
             	return 0f;
             }
-						
-            if (_keys.Count == 1)
+
+            if (Keys.Count == 1)
             {
-            	return _keys[0].Value;
+                return Keys[0].Value;
             }
-			
-            CurveKey first = _keys[0];
-            CurveKey last = _keys[_keys.Count - 1];
+
+            CurveKey first = Keys[0];
+            CurveKey last = Keys[Keys.Count - 1];
 
             if (position < first.Position)
             {
@@ -217,7 +216,7 @@ namespace Microsoft.Xna.Framework
         {
             // See http://msdn.microsoft.com/en-us/library/microsoft.xna.framework.curvetangent.aspx
 
-            var key = _keys[keyIndex];
+            var key = Keys[keyIndex];
 
             float p0, p, p1;
             p0 = p = p1 = key.Position;
@@ -227,14 +226,14 @@ namespace Microsoft.Xna.Framework
 
             if ( keyIndex > 0 )
             {
-                p0 = _keys[keyIndex - 1].Position;
-                v0 = _keys[keyIndex - 1].Value;
+                p0 = Keys[keyIndex - 1].Position;
+                v0 = Keys[keyIndex - 1].Value;
             }
 
-            if (keyIndex < _keys.Count-1)
+            if (keyIndex < Keys.Count - 1)
             {
-                p1 = _keys[keyIndex + 1].Position;
-                v1 = _keys[keyIndex + 1].Value;
+                p1 = Keys[keyIndex + 1].Position;
+                v1 = Keys[keyIndex + 1].Value;
             }
 
             switch (tangentInType)
@@ -278,7 +277,7 @@ namespace Microsoft.Xna.Framework
 
         private int GetNumberOfCycle(float position)
         {
-            float cycle = (position - _keys[0].Position) / (_keys[_keys.Count - 1].Position - _keys[0].Position);
+            float cycle = (position - Keys[0].Position) / (Keys[Keys.Count - 1].Position - Keys[0].Position);
             if (cycle < 0f)
                 cycle--;
             return (int)cycle;
@@ -287,12 +286,12 @@ namespace Microsoft.Xna.Framework
         private float GetCurvePosition(float position)
         {
             //only for position in curve
-            int nextIndex = this._keys.IndexAtPosition(position);
+            int nextIndex = this.Keys.IndexAtPosition(position);
             if (nextIndex < 0)
                 nextIndex = ~nextIndex;
             nextIndex = Math.Max(nextIndex, 1);
-            CurveKey prev = _keys[nextIndex - 1];
-            CurveKey next = _keys[nextIndex];
+            CurveKey prev = Keys[nextIndex - 1];
+            CurveKey next = Keys[nextIndex];
             if (prev.Continuity == CurveContinuity.Step)
             {
                 if (position >= 1f)

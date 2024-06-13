@@ -272,7 +272,7 @@ namespace Microsoft.Xna.Framework.Graphics
             _currentDepthStencilView = null;
             Array.Clear(_currentRenderTargets, 0, _currentRenderTargets.Length);
             Array.Clear(_currentRenderTargetBindings, 0, _currentRenderTargetBindings.Length);
-            _currentRenderTargetCount = 0;
+            RenderTargetCount = 0;
 
             // Make sure all pending rendering commands are flushed.
             _d3dContext.Flush();
@@ -613,7 +613,7 @@ namespace Microsoft.Xna.Framework.Graphics
             _d3dContext = _d3dDevice.ImmediateContext.QueryInterface<SharpDX.Direct3D11.DeviceContext>();
             
             // Create a new instance of GraphicsDebug because we support it on Windows platforms.
-            _graphicsDebug = new GraphicsDebug(this);
+            GraphicsDebug = new GraphicsDebug(this);
         }
 
         internal void SetHardwareFullscreen()
@@ -721,7 +721,7 @@ namespace Microsoft.Xna.Framework.Graphics
             _currentDepthStencilView = null;
             Array.Clear(_currentRenderTargets, 0, _currentRenderTargets.Length);
             Array.Clear(_currentRenderTargetBindings, 0, _currentRenderTargetBindings.Length);
-            _currentRenderTargetCount = 0;
+            RenderTargetCount = 0;
 
             // Make sure all pending rendering commands are flushed.
             _d3dContext.Flush();
@@ -1137,7 +1137,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void PlatformResolveRenderTargets()
         {
-            for (var i = 0; i < _currentRenderTargetCount; i++)
+            for (var i = 0; i < RenderTargetCount; i++)
             {
                 var renderTargetBinding = _currentRenderTargetBindings[i];
 
@@ -1169,7 +1169,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 Textures.ClearTargets(this, _currentRenderTargetBindings);
             }
 
-            for (var i = 0; i < _currentRenderTargetCount; i++)
+            for (var i = 0; i < RenderTargetCount; i++)
             {
                 var binding = _currentRenderTargetBindings[i];
                 var target = (IRenderTarget)binding.RenderTarget;

@@ -8,13 +8,13 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         private readonly ConstantBuffer[] _buffers;
 
-        private ShaderStage Stage { get; }
+        private readonly ShaderStage _stage;
 
         private int _valid;
 
         internal ConstantBufferCollection(ShaderStage stage, int maxBuffers)
         {
-            Stage = stage;
+            _stage = stage;
             _buffers = new ConstantBuffer[maxBuffers];
             _valid = 0;
         }

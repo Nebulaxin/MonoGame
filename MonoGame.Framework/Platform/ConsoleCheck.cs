@@ -256,7 +256,7 @@ namespace Microsoft.Xna.Framework
             private const bool PlatformIsSupported = false;
             private static JoystickCapabilities PlatformGetCapabilities(int index) => default;
             private static JoystickState PlatformGetState(int index) => default;
-            private static int PlatformLastConnectedIndex => 0;
+            private static int _platformLastConnectedIndex = 0;
             private static void PlatformGetState(ref JoystickState joystickState, int index) { }
         }
         public static partial class Keyboard

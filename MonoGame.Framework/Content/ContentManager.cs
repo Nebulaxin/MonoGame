@@ -27,7 +27,6 @@ namespace Microsoft.Xna.Framework.Content
 	{
         const byte ContentCompressedLzx = 0x80;
         const byte ContentCompressedLz4 = 0x40;
-        private IServiceProvider serviceProvider;
         private Dictionary<string, object> loadedAssets = new(StringComparer.OrdinalIgnoreCase);
         private List<IDisposable> disposableAssets = new();
         private bool disposed;
@@ -166,7 +165,7 @@ namespace Microsoft.Xna.Framework.Content
 			{
 				throw new ArgumentNullException("serviceProvider");
 			}
-			this.serviceProvider = serviceProvider;
+            this.ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
 
@@ -184,7 +183,7 @@ namespace Microsoft.Xna.Framework.Content
 				throw new ArgumentNullException("rootDirectory");
 			}
 			this.RootDirectory = rootDirectory;
-			this.serviceProvider = serviceProvider;
+            this.ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
 
@@ -660,6 +659,6 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary>
         /// Gets the service provider instance used by this ContentManager.
         /// </summary>
-		public IServiceProvider ServiceProvider => this.serviceProvider;
+		public IServiceProvider ServiceProvider { get; }
     }
 }

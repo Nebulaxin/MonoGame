@@ -12,9 +12,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Represents a texture resource
     /// </summary>
 	public abstract partial class Texture : GraphicsResource
-	{
-		internal SurfaceFormat _format;
-        internal int _levelCount;
+    {
         private static int _lastSortingKey;
 
         /// <summary>
@@ -30,12 +28,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the surface format used by this <b>Texture</b>.
         /// </summary>
-        public SurfaceFormat Format => _format;
+        public SurfaceFormat Format { get; internal set; }
 
         /// <summary>
         /// Gets the number of mipmap levels in this <b>Texture</b>.
         /// </summary>
-        public int LevelCount => _levelCount;
+        public int LevelCount { get; internal set; }
 
         internal static int CalculateMipLevels(int width, int height = 0, int depth = 0)
         {
@@ -91,7 +89,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             int pitch;
 
-            switch (_format)
+            switch (Format)
             {
                 case SurfaceFormat.Dxt1:
                 case SurfaceFormat.Dxt1SRgb:
@@ -109,11 +107,11 @@ namespace Microsoft.Xna.Framework.Graphics
                 case SurfaceFormat.Dxt5SRgb:
                 case SurfaceFormat.RgbPvrtc4Bpp:
                 case SurfaceFormat.RgbaPvrtc4Bpp:
-                    pitch = ((width + 3) / 4) * _format.GetSize();
+                    pitch = ((width + 3) / 4) * Format.GetSize();
                     break;
 
                 default:
-                    pitch = width * _format.GetSize();
+                    pitch = width * Format.GetSize();
                     break;
             };
 

@@ -42,7 +42,6 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         #region Fields
 
-        private int width;
 
         #endregion Fields
 
@@ -51,7 +50,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value indicating the aspect ratio of the display mode
         /// </summary>
-        public float AspectRatio => (float)width / (float)Height;
+        public float AspectRatio => (float)Width / (float)Height;
 
         /// <summary>
         /// Gets a value indicating the surface format of the display mode.
@@ -66,12 +65,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value indicating the screen width, in pixels.
         /// </summary>
-        public int Width => this.width;
+        public int Width { get; }
 
         /// <summary>
         /// Gets the bounds of the display that is guaranteed to be visible by the users screen.
         /// </summary>
-        public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(0, 0, width, Height);
+        public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(0, 0, Width, Height);
 
         #endregion Properties
 
@@ -79,7 +78,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal DisplayMode(int width, int height, SurfaceFormat format)
         {
-            this.width = width;
+            this.Width = width;
             this.Height = height;
             this.Format = format;
         }
@@ -119,7 +118,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
             return (left.Format == right.Format) &&
                 (left.Height == right.Height) &&
-                (left.width == right.width);
+                (left.Width == right.Width);
         }
 
         #endregion Operators
@@ -135,13 +134,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return (this.width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Format.GetHashCode());
+            return (this.Width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Format.GetHashCode());
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return "{Width:" + this.width + " Height:" + this.Height + " Format:" + this.Format + " AspectRatio:" + this.AspectRatio + "}";
+            return "{Width:" + this.Width + " Height:" + this.Height + " Format:" + this.Format + " AspectRatio:" + this.AspectRatio + "}";
         }
 
         #endregion Public Methods

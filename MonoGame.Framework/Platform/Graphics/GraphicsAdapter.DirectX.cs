@@ -80,7 +80,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 {
                     var mode = new DisplayMode(desktopWidth, desktopHeight, SurfaceFormat.Color);
                     modes.Add(mode);
-                    adapter._currentDisplayMode = mode;
+                    adapter.CurrentDisplayMode = mode;
                     break;
                 }
 
@@ -95,18 +95,18 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     modes.Add(mode);
 
-                    if (adapter._currentDisplayMode == null)
+                    if (adapter.CurrentDisplayMode == null)
                     {
                         if (mode.Width == desktopWidth && mode.Height == desktopHeight && mode.Format == SurfaceFormat.Color)
-                            adapter._currentDisplayMode = mode;
+                            adapter.CurrentDisplayMode = mode;
                     }
                 }
             }
 
-            adapter._supportedDisplayModes = new DisplayModeCollection(modes);
+            adapter.SupportedDisplayModes = new DisplayModeCollection(modes);
 
-            if (adapter._currentDisplayMode == null) //(i.e. desktop mode wasn't found in the available modes)
-                adapter._currentDisplayMode = new DisplayMode(desktopWidth, desktopHeight, SurfaceFormat.Color);
+            if (adapter.CurrentDisplayMode == null) //(i.e. desktop mode wasn't found in the available modes)
+                adapter.CurrentDisplayMode = new DisplayMode(desktopWidth, desktopHeight, SurfaceFormat.Color);
 
             return adapter;
         }

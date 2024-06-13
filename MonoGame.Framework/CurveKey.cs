@@ -16,7 +16,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private float _value;
 
         #endregion
 
@@ -50,11 +49,7 @@ namespace Microsoft.Xna.Framework
         /// Gets a value of this point.
         /// </summary>
         [DataMember]
-        public float Value
-        {
-            get => this._value;
-            set => this._value = value;
-        }
+        public float Value { get; set; }
 
         #endregion
 
@@ -103,7 +98,7 @@ namespace Microsoft.Xna.Framework
         public CurveKey(float position, float value, float tangentIn, float tangentOut, CurveContinuity continuity)
         {
             this.Position = position;
-            this._value = value;
+            this.Value = value;
             this.TangentIn = tangentIn;
             this.TangentOut = tangentOut;
             this.Continuity = continuity;
@@ -138,7 +133,7 @@ namespace Microsoft.Xna.Framework
                 return object.Equals(value1, null);
 
             return (value1.Position == value2.Position)
-                && (value1._value == value2._value)
+                && (value1.Value == value2.Value)
                 && (value1.TangentIn == value2.TangentIn)
                 && (value1.TangentOut == value2.TangentOut)
                 && (value1.Continuity == value2.Continuity);
@@ -150,7 +145,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this key.</returns>
         public CurveKey Clone()
         {
-            return new CurveKey(this.Position, this._value, this.TangentIn, this.TangentOut, this.Continuity);
+            return new CurveKey(this.Position, this.Value, this.TangentIn, this.TangentOut, this.Continuity);
         }
 
         #region Inherited Methods
@@ -176,7 +171,7 @@ namespace Microsoft.Xna.Framework
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return this.Position.GetHashCode() ^ this._value.GetHashCode() ^ this.TangentIn.GetHashCode() ^
+            return this.Position.GetHashCode() ^ this.Value.GetHashCode() ^ this.TangentIn.GetHashCode() ^
                 this.TangentOut.GetHashCode() ^ this.Continuity.GetHashCode();
         } 
 

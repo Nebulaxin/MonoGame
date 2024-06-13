@@ -21,10 +21,9 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
 	public sealed class MediaSource
     {
-        private string _name;
         internal MediaSource (string name, MediaSourceType type)
 		{
-			_name = name;
+            Name = name;
             MediaSourceType = type;
         }
 
@@ -36,7 +35,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the name of this media source.
         /// </summary>
-        public string Name => _name;
+        public string Name { get; }
 
         /// <summary>
         /// Gets the available media sources with which a media library can be constructed.

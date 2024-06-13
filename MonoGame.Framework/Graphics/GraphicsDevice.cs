@@ -35,16 +35,6 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private Viewport _viewport;
 
-        // On Intel Integrated graphics, there is a fast hw unit for doing
-        // clears to colors where all components are either 0 or 255.
-        // Despite XNA4 using Purple here, we use black (in Release) to avoid
-        // performance warnings on Intel/Mesa
-#if DEBUG
-        private static Color _discardColor = new(68, 34, 136, 255);
-#else
-        private static Color _discardColor = new Color(0, 0, 0, 255);
-#endif
-
         private Color _blendFactor = Color.White;
         private bool _blendFactorDirty;
 
@@ -112,24 +102,30 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Get or set the color a <see cref="RenderTarget2D"/> is cleared to when it is set.
         /// </summary>
-        public static Color DiscardColor {
-            get => _discardColor;
-            set => _discardColor = value;
-        }
+        public static Color DiscardColor { get; set; }
+        // On Intel Integrated graphics, there is a fast hw unit for doing
+        // clears to colors where all components are either 0 or 255.
+        // Despite XNA4 using Purple here, we use black (in Release) to avoid
+        // performance warnings on Intel/Mesa
+#if DEBUG
+            = new(68, 34, 136, 255);
+#else
+            = new(0, 0, 0, 255);
+#endif
 
         /// <summary>
         /// The active vertex shader.
         /// </summary>
         private Shader _vertexShader;
 
-        private bool VertexShaderDirty { get; set; }
+        private bool _vertexShaderDirty;
 
         /// <summary>
         /// The active pixel shader.
         /// </summary>
         private Shader _pixelShader;
 
-        private bool PixelShaderDirty { get; set; }
+        private bool _pixelShaderDirty;
 
         private readonly ConstantBufferCollection _vertexConstantBuffers = new(ShaderStage.Vertex, 16);
         private readonly ConstantBufferCollection _pixelConstantBuffers = new(ShaderStage.Pixel, 16);
@@ -397,8 +393,8 @@ namespace Microsoft.Xna.Framework.Graphics
             _vertexBuffers = new VertexBufferBindings(_maxVertexBufferSlots);
             _vertexBuffersDirty = true;
             _indexBufferDirty = true;
-            VertexShaderDirty = true;
-            PixelShaderDirty = true;
+            _vertexShaderDirty = true;
+            _pixelShaderDirty = true;
 
             // Set the default scissor rect.
             _scissorRectangleDirty = true;
@@ -1078,7 +1074,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 _vertexShader = value;
                 _vertexConstantBuffers.Clear();
-                VertexShaderDirty = true;
+                _vertexShaderDirty = true;
             }
         }
 
@@ -1093,7 +1089,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 _pixelShader = value;
                 _pixelConstantBuffers.Clear();
-                PixelShaderDirty = true;
+                _pixelShaderDirty = true;
             }
         }
 

@@ -28,8 +28,8 @@ namespace Microsoft.Xna.Framework.Input
             while (Joysticks.ContainsKey(id))
                 id++;
 
-            if (id > PlatformLastConnectedIndex)
-                PlatformLastConnectedIndex = id;
+            if (id > _platformLastConnectedIndex)
+                _platformLastConnectedIndex = id;
 
             Joysticks.Add(id, jdevice);
 
@@ -48,7 +48,7 @@ namespace Microsoft.Xna.Framework.Input
                     Sdl.Joystick.Close(Joysticks[entry.Key]);
                     Joysticks.Remove(entry.Key);
 
-                    if (key == PlatformLastConnectedIndex)
+                    if (key == _platformLastConnectedIndex)
                         RecalculateLastConnectedIndex();
 
                     break;
@@ -68,15 +68,15 @@ namespace Microsoft.Xna.Framework.Input
 
         private static void RecalculateLastConnectedIndex()
         {
-            PlatformLastConnectedIndex = -1;
+            _platformLastConnectedIndex = -1;
             foreach (var entry in Joysticks)
             {
-                if (entry.Key > PlatformLastConnectedIndex)
-                    PlatformLastConnectedIndex = entry.Key;
+                if (entry.Key > _platformLastConnectedIndex)
+                    _platformLastConnectedIndex = entry.Key;
             }
         }
 
-        private static int PlatformLastConnectedIndex { get; set; } = -1;
+        private static int _platformLastConnectedIndex = -1;
 
         private const bool PlatformIsSupported = true;
 

@@ -22,7 +22,6 @@ namespace Microsoft.Xna.Framework.Input
 #endif
 
         internal readonly Buttons _virtualButtons;
-        private readonly Vector2 _right;
 
         /// <summary>
         /// Gets a value indicating the position of the left stick (thumbstick). 
@@ -34,7 +33,7 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating the position of the right stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the right stick (thumbstick).</value>
-        public Vector2 Right => _right;
+        public Vector2 Right { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GamePadThumbSticks"/> struct,
@@ -52,7 +51,7 @@ namespace Microsoft.Xna.Framework.Input
         {
             // Apply dead zone
             Left = ApplyDeadZone(leftDeadZoneMode, leftThumbDeadZone, leftPosition);
-            _right = ApplyDeadZone(rightDeadZoneMode, rightThumbDeadZone, rightPosition);
+            Right = ApplyDeadZone(rightDeadZoneMode, rightThumbDeadZone, rightPosition);
 
             // VirtualButtons should always behave like deadzone is IndependentAxes. 
             // This is consistent with XNA behaviour and generally most convenient (e.g. for menu navigation)

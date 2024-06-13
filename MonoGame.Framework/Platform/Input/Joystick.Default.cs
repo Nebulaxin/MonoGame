@@ -28,7 +28,7 @@ namespace Microsoft.Xna.Framework.Input
             return _defaultJoystickState;
         }
 
-        private static int PlatformLastConnectedIndex => -1;
+        private static int _platformLastConnectedIndex = -1;
 
         private static void PlatformGetState(ref JoystickState joystickState, int index)
         {

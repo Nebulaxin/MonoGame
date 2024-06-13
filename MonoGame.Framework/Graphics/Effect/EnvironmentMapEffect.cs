@@ -56,8 +56,6 @@ namespace Microsoft.Xna.Framework.Graphics
         Vector3 ambientLightColor = Vector3.Zero;
 
         float alpha = 1;
-        DirectionalLight light2;
-
         float fogStart = 0;
         float fogEnd = 1;
 
@@ -188,7 +186,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the third directional light.
         /// </summary>
-        public DirectionalLight DirectionalLight2 => light2;
+        public DirectionalLight DirectionalLight2 { get; private set; }
 
 
         /// <summary>
@@ -410,7 +408,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public void EnableDefaultLighting()
         {
-            AmbientLightColor = EffectHelpers.EnableDefaultLighting(DirectionalLight0, DirectionalLight1, light2);
+            AmbientLightColor = EffectHelpers.EnableDefaultLighting(DirectionalLight0, DirectionalLight1, DirectionalLight2);
         }
 
 
@@ -443,10 +441,10 @@ namespace Microsoft.Xna.Framework.Graphics
                                           null,
                                           (cloneSource != null) ? cloneSource.DirectionalLight1 : null);
 
-            light2 = new DirectionalLight(Parameters["DirLight2Direction"],
+            DirectionalLight2 = new DirectionalLight(Parameters["DirLight2Direction"],
                                           Parameters["DirLight2DiffuseColor"],
                                           null,
-                                          (cloneSource != null) ? cloneSource.light2 : null);
+                                          (cloneSource != null) ? cloneSource.DirectionalLight2 : null);
         }
 
 
@@ -470,7 +468,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             // Check if we can use the only-bother-with-the-first-light shader optimization.
-            bool newOneLight = !DirectionalLight1.Enabled && !light2.Enabled;
+            bool newOneLight = !DirectionalLight1.Enabled && !DirectionalLight2.Enabled;
 
             if (oneLight != newOneLight)
             {

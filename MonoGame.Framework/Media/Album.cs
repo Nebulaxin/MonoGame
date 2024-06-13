@@ -34,7 +34,6 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
     public sealed class Album : IDisposable
     {
-        private SongCollection songCollection;
 #if WINDOWS_UAP
         private StorageItemThumbnail thumbnail;
 #elif IOS && !TVOS
@@ -90,11 +89,11 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets a <see cref="Media.SongCollection"/> that contains the songs on the Album.
         /// </summary>
-        public SongCollection Songs => this.songCollection;
+        public SongCollection Songs { get; }
 
         private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
         {
-            this.songCollection = songCollection;
+            this.Songs = songCollection;
             this.Name = name;
             this.Artist = artist;
             this.Genre = genre;

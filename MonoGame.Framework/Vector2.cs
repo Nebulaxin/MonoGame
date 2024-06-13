@@ -21,7 +21,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector2 unitYVector = new(0f, 1f);
 
         #endregion
 
@@ -61,7 +60,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector2"/> with components 0, 1.
         /// </summary>
-        public static Vector2 UnitY => unitYVector;
+        public static Vector2 UnitY { get; } = new(0f, 1f);
 
         #endregion
 

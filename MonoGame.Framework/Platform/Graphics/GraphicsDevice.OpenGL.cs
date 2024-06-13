@@ -565,7 +565,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             // In OpenGL we have to re-apply the special "posFixup"
             // vertex shader uniform if the viewport changes.
-            VertexShaderDirty = true;
+            _vertexShaderDirty = true;
 
         }
 
@@ -1018,11 +1018,11 @@ namespace Microsoft.Xna.Framework.Graphics
             if (_pixelShader == null)
                 throw new InvalidOperationException("A pixel shader must be set!");
 
-            if (VertexShaderDirty || PixelShaderDirty)
+            if (_vertexShaderDirty || _pixelShaderDirty)
             {
                 ActivateShaderProgram();
 
-                if (VertexShaderDirty)
+                if (_vertexShaderDirty)
                 {
                     unchecked
                     {
@@ -1030,7 +1030,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     }
                 }
 
-                if (PixelShaderDirty)
+                if (_pixelShaderDirty)
                 {
                     unchecked
                     {
@@ -1038,7 +1038,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     }
                 }
 
-                VertexShaderDirty = PixelShaderDirty = false;
+                _vertexShaderDirty = _pixelShaderDirty = false;
             }
 
             _vertexConstantBuffers.SetConstantBuffers(this, _shaderProgram);

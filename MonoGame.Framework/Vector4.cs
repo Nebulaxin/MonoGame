@@ -20,7 +20,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector4 unitW = new(0f, 0f, 0f, 1f);
 
         #endregion
 
@@ -82,7 +81,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 0, 0, 0, 1.
         /// </summary>
-        public static Vector4 UnitW => unitW;
+        public static Vector4 UnitW { get; } = new(0f, 0f, 0f, 1f);
 
         #endregion
 
