@@ -15,43 +15,37 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
     /// </summary>
     public sealed class AudioFormat
     {
-        int averageBytesPerSecond;
-        int bitsPerSample;
-        int blockAlign;
-        int channelCount;
-        int format;
         List<byte> nativeWaveFormat;
-        int sampleRate;
 
         /// <summary>
         /// Gets the average bytes processed per second.
         /// </summary>
         /// <value>Average bytes processed per second.</value>
-        public int AverageBytesPerSecond => averageBytesPerSecond;
+        public int AverageBytesPerSecond { get; }
 
         /// <summary>
         /// Gets the bit depth of the audio content.
         /// </summary>
         /// <value>If the audio has not been processed, the source bit depth; otherwise, the bit depth of the new format.</value>
-        public int BitsPerSample => bitsPerSample;
+        public int BitsPerSample { get; }
 
         /// <summary>
         /// Gets the number of bytes per sample block, taking channels into consideration. For example, for 16-bit stereo audio (PCM format), the size of each sample block is 4 bytes.
         /// </summary>
         /// <value>Number of bytes, per sample block.</value>
-        public int BlockAlign => blockAlign;
+        public int BlockAlign { get; }
 
         /// <summary>
         /// Gets the number of channels.
         /// </summary>
         /// <value>If the audio has not been processed, the source channel count; otherwise, the new channel count.</value>
-        public int ChannelCount => channelCount;
+        public int ChannelCount { get; }
 
         /// <summary>
         /// Gets the format of the audio content.
         /// </summary>
         /// <value>If the audio has not been processed, the format tag of the source content; otherwise, the new format tag.</value>
-        public int Format => format;
+        public int Format { get; }
 
         /// <summary>
         /// Gets the raw byte buffer for the format. For non-PCM formats, this buffer contains important format-specific information beyond the basic format information exposed in other properties of the AudioFormat type.
@@ -63,7 +57,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// Gets the sample rate of the audio content.
         /// </summary>
         /// <value>If the audio has not been processed, the source sample rate; otherwise, the new sample rate.</value>
-        public int SampleRate => sampleRate;
+        public int SampleRate { get; }
 
         internal AudioFormat(
             int averageBytesPerSecond,
@@ -73,12 +67,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
             int format,
             int sampleRate)
         {
-            this.averageBytesPerSecond = averageBytesPerSecond;
-            this.bitsPerSample = bitsPerSample;
-            this.blockAlign = blockAlign;
-            this.channelCount = channelCount;
-            this.format = format;
-            this.sampleRate = sampleRate;
+            this.AverageBytesPerSecond = averageBytesPerSecond;
+            this.BitsPerSample = bitsPerSample;
+            this.BlockAlign = blockAlign;
+            this.ChannelCount = channelCount;
+            this.Format = format;
+            this.SampleRate = sampleRate;
 
             this.nativeWaveFormat = this.ConstructNativeWaveFormat();
         }
@@ -89,12 +83,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
             {
                 using (var writer = new BinaryWriter(memory))
                 {
-                    writer.Write((short)this.format);
-                    writer.Write((short)this.channelCount);
-                    writer.Write((int)this.sampleRate);
-                    writer.Write((int)this.averageBytesPerSecond);
-                    writer.Write((short)this.blockAlign);
-                    writer.Write((short)this.bitsPerSample);
+                    writer.Write((short)this.Format);
+                    writer.Write((short)this.ChannelCount);
+                    writer.Write((int)this.SampleRate);
+                    writer.Write((int)this.AverageBytesPerSecond);
+                    writer.Write((short)this.BlockAlign);
+                    writer.Write((short)this.BitsPerSample);
                     writer.Write((short)0);
 
                     var bytes = new byte[memory.Position];

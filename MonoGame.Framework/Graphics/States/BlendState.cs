@@ -54,13 +54,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
         public BlendFunction AlphaBlendFunction
         {
-	        get { return _targetBlendState[0].AlphaBlendFunction; }
+            get => _targetBlendState[0].AlphaBlendFunction;
             set
             {
                 ThrowIfBound();
                 _targetBlendState[0].AlphaBlendFunction = value;
             }
-	    }
+        }
 
         /// <summary>
         /// Gets or sets the blend factor for the destination alpha, which is the
@@ -72,7 +72,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public Blend AlphaDestinationBlend
         {
-            get { return _targetBlendState[0].AlphaDestinationBlend; }
+            get => _targetBlendState[0].AlphaDestinationBlend;
             set
             {
                 ThrowIfBound();
@@ -89,7 +89,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public Blend AlphaSourceBlend
         {
-            get { return _targetBlendState[0].AlphaSourceBlend; }
+            get => _targetBlendState[0].AlphaSourceBlend;
             set
             {
                 ThrowIfBound();
@@ -106,7 +106,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public BlendFunction ColorBlendFunction
         {
-            get { return _targetBlendState[0].ColorBlendFunction; }
+            get => _targetBlendState[0].ColorBlendFunction;
             set
             {
                 ThrowIfBound();
@@ -123,7 +123,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public Blend ColorDestinationBlend
         {
-            get { return _targetBlendState[0].ColorDestinationBlend; }
+            get => _targetBlendState[0].ColorDestinationBlend;
             set
             {
                 ThrowIfBound();
@@ -140,7 +140,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public Blend ColorSourceBlend
         {
-            get { return _targetBlendState[0].ColorSourceBlend; }
+            get => _targetBlendState[0].ColorSourceBlend;
             set
             {
                 ThrowIfBound();
@@ -158,7 +158,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public ColorWriteChannels ColorWriteChannels
         {
-            get { return _targetBlendState[0].ColorWriteChannels; }
+            get => _targetBlendState[0].ColorWriteChannels;
             set
             {
                 ThrowIfBound();
@@ -176,7 +176,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public ColorWriteChannels ColorWriteChannels1
         {
-            get { return _targetBlendState[1].ColorWriteChannels; }
+            get => _targetBlendState[1].ColorWriteChannels;
             set
             {
                 ThrowIfBound();
@@ -194,7 +194,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public ColorWriteChannels ColorWriteChannels2
         {
-            get { return _targetBlendState[2].ColorWriteChannels; }
+            get => _targetBlendState[2].ColorWriteChannels;
             set
             {
                 ThrowIfBound();
@@ -212,7 +212,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </value>
 		public ColorWriteChannels ColorWriteChannels3
         {
-            get { return _targetBlendState[3].ColorWriteChannels; }
+            get => _targetBlendState[3].ColorWriteChannels;
             set
             {
                 ThrowIfBound();
@@ -228,14 +228,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// is bound to a GraphicsDevice.
         /// </remarks>
 	    public Color BlendFactor
-	    {
-	        get { return _blendFactor; }
+        {
+            get => _blendFactor;
             set
             {
                 ThrowIfBound();
                 _blendFactor = value;
             }
-	    }
+        }
 
         /// <summary>
         /// Gets or sets a bitmask which defines which samples can be written
@@ -243,7 +243,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public int MultiSampleMask
         {
-            get { return _multiSampleMask; }
+            get => _multiSampleMask;
             set
             {
                 ThrowIfBound();
@@ -256,7 +256,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool IndependentBlendEnable
         {
-            get { return _independentBlendEnable; }
+            get => _independentBlendEnable;
             set
             {
                 ThrowIfBound();

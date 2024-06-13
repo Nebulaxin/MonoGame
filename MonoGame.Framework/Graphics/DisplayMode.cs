@@ -42,8 +42,6 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         #region Fields
 
-        private SurfaceFormat format;
-        private int height;
         private int width;
 
         #endregion Fields
@@ -53,17 +51,17 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value indicating the aspect ratio of the display mode
         /// </summary>
-        public float AspectRatio => (float)width / (float)height;
+        public float AspectRatio => (float)width / (float)Height;
 
         /// <summary>
         /// Gets a value indicating the surface format of the display mode.
         /// </summary>
-        public SurfaceFormat Format => format;
+        public SurfaceFormat Format { get; }
 
         /// <summary>
         /// Gets a value indicating the screen height, in pixels.
         /// </summary>
-        public int Height => this.height;
+        public int Height { get; }
 
         /// <summary>
         /// Gets a value indicating the screen width, in pixels.
@@ -73,7 +71,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the bounds of the display that is guaranteed to be visible by the users screen.
         /// </summary>
-        public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(0, 0, width, height);
+        public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(0, 0, width, Height);
 
         #endregion Properties
 
@@ -82,8 +80,8 @@ namespace Microsoft.Xna.Framework.Graphics
         internal DisplayMode(int width, int height, SurfaceFormat format)
         {
             this.width = width;
-            this.height = height;
-            this.format = format;
+            this.Height = height;
+            this.Format = format;
         }
 
         #endregion Constructors
@@ -119,8 +117,8 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 return false;
             }
-            return (left.format == right.format) &&
-                (left.height == right.height) &&
+            return (left.Format == right.Format) &&
+                (left.Height == right.Height) &&
                 (left.width == right.width);
         }
 
@@ -137,13 +135,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return (this.width.GetHashCode() ^ this.height.GetHashCode() ^ this.format.GetHashCode());
+            return (this.width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Format.GetHashCode());
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return "{Width:" + this.width + " Height:" + this.height + " Format:" + this.Format + " AspectRatio:" + this.AspectRatio + "}";
+            return "{Width:" + this.width + " Height:" + this.Height + " Format:" + this.Format + " AspectRatio:" + this.AspectRatio + "}";
         }
 
         #endregion Public Methods

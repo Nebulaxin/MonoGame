@@ -24,17 +24,14 @@ namespace Microsoft.Xna.Framework.Graphics
 				"Character cannot be resolved by this SpriteFont.";
 		}
 
-        private readonly Glyph[] _glyphs;
         private readonly CharacterRegion[] _regions;
         private char? _defaultCharacter;
         private int _defaultGlyphIndex = -1;
-		
-		private readonly Texture2D _texture;
 
         /// <summary>
         /// All the glyphs in this SpriteFont.
         /// </summary>
-        public Glyph[] Glyphs => _glyphs;
+        public Glyph[] Glyphs { get; }
 
         class CharComparer : IEqualityComparer<char>
         {
@@ -67,16 +64,16 @@ namespace Microsoft.Xna.Framework.Graphics
 			int lineSpacing, float spacing, List<Vector3> kerning, char? defaultCharacter)
 		{
 			Characters = new ReadOnlyCollection<char>(characters.ToArray());
-			_texture = texture;
-			LineSpacing = lineSpacing;
+            Texture = texture;
+            LineSpacing = lineSpacing;
 			Spacing = spacing;
 
-            _glyphs = new Glyph[characters.Count];
+            Glyphs = new Glyph[characters.Count];
             var regions = new Stack<CharacterRegion>();
 
 			for (var i = 0; i < characters.Count; i++) 
             {
-				_glyphs[i] = new Glyph 
+                Glyphs[i] = new Glyph
                 {
 					BoundsInTexture = glyphBounds[i],
 					Cropping = cropping[i],
@@ -117,7 +114,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the texture that this SpriteFont draws from.
         /// </summary>
         /// <remarks>Can be used to implement custom rendering of a SpriteFont</remarks>
-        public Texture2D Texture => _texture;
+        public Texture2D Texture { get; }
 
         /// <summary>
         /// Returns a copy of the dictionary containing the glyphs in this SpriteFont.
@@ -126,8 +123,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <remarks>Can be used to calculate character bounds when implementing custom SpriteFont rendering.</remarks>
         public Dictionary<char, Glyph> GetGlyphs()
         {
-            var glyphsDictionary = new Dictionary<char, Glyph>(_glyphs.Length, CharComparer.Default);
-            foreach(var glyph in _glyphs)
+            var glyphsDictionary = new Dictionary<char, Glyph>(Glyphs.Length, CharComparer.Default);
+            foreach (var glyph in Glyphs)
                 glyphsDictionary.Add(glyph.Character, glyph);
             return glyphsDictionary;
         }
@@ -143,13 +140,13 @@ namespace Microsoft.Xna.Framework.Graphics
 		/// </summary>
 		public char? DefaultCharacter
         {
-            get { return _defaultCharacter; }
+            get => _defaultCharacter;
             set
-            {   
+            {
                 // Get the default glyph index here once.
                 if (value.HasValue)
                 {
-                    if(!TryGetGlyphIndex(value.Value, out _defaultGlyphIndex))
+                    if (!TryGetGlyphIndex(value.Value, out _defaultGlyphIndex))
                         throw new ArgumentException(Errors.UnresolvableCharacter);
                 }
                 else
@@ -159,25 +156,25 @@ namespace Microsoft.Xna.Framework.Graphics
             }
         }
 
-		/// <summary>
-		/// Gets or sets the line spacing (the distance from baseline
-		/// to baseline) of the font.
-		/// </summary>
-		public int LineSpacing { get; set; }
+        /// <summary>
+        /// Gets or sets the line spacing (the distance from baseline
+        /// to baseline) of the font.
+        /// </summary>
+        public int LineSpacing { get; set; }
 
-		/// <summary>
-		/// Gets or sets the spacing (tracking) between characters in
-		/// the font.
-		/// </summary>
-		public float Spacing { get; set; }
+        /// <summary>
+        /// Gets or sets the spacing (tracking) between characters in
+        /// the font.
+        /// </summary>
+        public float Spacing { get; set; }
 
-		/// <summary>
-		/// Returns the size of a string when rendered in this font.
-		/// </summary>
-		/// <param name="text">The text to measure.</param>
-		/// <returns>The size, in pixels, of 'text' when rendered in
-		/// this font.</returns>
-		public Vector2 MeasureString(string text)
+        /// <summary>
+        /// Returns the size of a string when rendered in this font.
+        /// </summary>
+        /// <param name="text">The text to measure.</param>
+        /// <returns>The size, in pixels, of 'text' when rendered in
+        /// this font.</returns>
+        public Vector2 MeasureString(string text)
 		{
 			var source = new CharacterSource(text);
 			Vector2 size;

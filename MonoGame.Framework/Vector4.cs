@@ -20,11 +20,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector4 zero = new();
-        private static readonly Vector4 one = new(1f, 1f, 1f, 1f);
-        private static readonly Vector4 unitX = new(1f, 0f, 0f, 0f);
-        private static readonly Vector4 unitY = new(0f, 1f, 0f, 0f);
-        private static readonly Vector4 unitZ = new(0f, 0f, 1f, 0f);
         private static readonly Vector4 unitW = new(0f, 0f, 0f, 1f);
 
         #endregion
@@ -62,27 +57,27 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 0, 0, 0, 0.
         /// </summary>
-        public static Vector4 Zero => zero;
+        public static Vector4 Zero { get; } = new();
 
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 1, 1, 1, 1.
         /// </summary>
-        public static Vector4 One => one;
+        public static Vector4 One { get; } = new(1f, 1f, 1f, 1f);
 
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 1, 0, 0, 0.
         /// </summary>
-        public static Vector4 UnitX => unitX;
+        public static Vector4 UnitX { get; } = new(1f, 0f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 0, 1, 0, 0.
         /// </summary>
-        public static Vector4 UnitY => unitY;
+        public static Vector4 UnitY { get; } = new(0f, 1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 0, 0, 1, 0.
         /// </summary>
-        public static Vector4 UnitZ => unitZ;
+        public static Vector4 UnitZ { get; } = new(0f, 0f, 1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector4"/> with components 0, 0, 0, 1.

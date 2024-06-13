@@ -13,14 +13,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 
         public ExternalReference<EffectContent> Effect
         {
-            get { return GetReferenceTypeProperty<ExternalReference<EffectContent>>(EffectKey); }
-            set { SetProperty(EffectKey, value); }
+            get => GetReferenceTypeProperty<ExternalReference<EffectContent>>(EffectKey);
+            set => SetProperty(EffectKey, value);
         }
 
         public ExternalReference<CompiledEffectContent> CompiledEffect
         {
-            get { return GetReferenceTypeProperty<ExternalReference<CompiledEffectContent>>(CompiledEffectKey); }
-            set { SetProperty(CompiledEffectKey, value); }
+            get => GetReferenceTypeProperty<ExternalReference<CompiledEffectContent>>(CompiledEffectKey);
+            set => SetProperty(CompiledEffectKey, value);
         }
     }
 }

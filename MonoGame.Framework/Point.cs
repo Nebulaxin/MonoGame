@@ -18,7 +18,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Point zeroPoint = new();
 
         #endregion
 
@@ -43,7 +42,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Point"/> with coordinates 0, 0.
         /// </summary>
-        public static Point Zero => zeroPoint;
+        public static Point Zero { get; } = new();
 
         #endregion
 

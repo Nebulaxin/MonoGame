@@ -22,7 +22,6 @@ namespace Microsoft.Xna.Framework.Media
 	public sealed class MediaQueue
 	{
         List<Song> songs = new();
-        private int _activeSongIndex = -1;
         private Random random = new();
 
         /// <summary>
@@ -40,11 +39,11 @@ namespace Microsoft.Xna.Framework.Media
 		{
 			get
 			{
-				if (songs.Count == 0 || _activeSongIndex < 0)
-					return null;
+                if (songs.Count == 0 || ActiveSongIndex < 0)
+                    return null;
 
-				return songs[_activeSongIndex];
-			}
+                return songs[ActiveSongIndex];
+            }
 		}
 
         /// <summary>
@@ -53,17 +52,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <remarks>
         /// Changing the active song index does not alter the current media state (playing, paused, or stopped).
         /// </remarks>
-		public int ActiveSongIndex
-		{
-		    get
-		    {
-		        return _activeSongIndex;
-		    }
-		    set
-		    {
-		        _activeSongIndex = value;
-		    }
-		}
+		public int ActiveSongIndex { get; set; } = -1;
 
         /// <summary>
         /// Gets the count of songs in the MediaQueue.
@@ -80,12 +69,12 @@ namespace Microsoft.Xna.Framework.Media
         internal Song GetNextSong(int direction, bool shuffle)
         {
             if (shuffle)
-				_activeSongIndex = random.Next(songs.Count);
-			else
-				_activeSongIndex = (int)MathHelper.Clamp(_activeSongIndex + direction, 0, songs.Count - 1);
+                ActiveSongIndex = random.Next(songs.Count);
+            else
+                ActiveSongIndex = (int)MathHelper.Clamp(ActiveSongIndex + direction, 0, songs.Count - 1);
 
-			return songs[_activeSongIndex];
-		}
+            return songs[ActiveSongIndex];
+        }
 
 		internal void Clear()
 		{

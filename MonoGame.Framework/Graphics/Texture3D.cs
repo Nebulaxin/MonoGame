@@ -31,20 +31,18 @@ namespace Microsoft.Xna.Framework.Graphics
     ///     </para>
     /// </remarks>
 	public partial class Texture3D : Texture
-	{
-        private int _width;
-        private int _height;
+    {
         private int _depth;
 
         /// <summary>
         /// Gets the width, in pixels, of this texture resource.
         /// </summary>
-        public int Width => _width;
+        public int Width { get; }
 
         /// <summary>
         /// Gets the height, in pixels, of this texture resource.
         /// </summary>
-        public int Height => _height;
+        public int Height { get; }
 
         /// <summary>
         /// Gets the depth, in pixels, of this texture resource.
@@ -94,8 +92,8 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new ArgumentOutOfRangeException("depth","Texture depth must be greater than zero");
 
 		    this.GraphicsDevice = graphicsDevice;
-            this._width = width;
-            this._height = height;
+            this.Width = width;
+            this.Height = height;
             this._depth = depth;
             this._levelCount = 1;
 		    this._format = format;
@@ -354,7 +352,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            GetData(0, 0, 0, _width, _height, 0, _depth, data, startIndex, elementCount);
+            GetData(0, 0, 0, Width, Height, 0, _depth, data, startIndex, elementCount);
         }
 
         /// <summary>

@@ -11,21 +11,19 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public struct VertexBufferBinding
     {
-        private readonly VertexBuffer _vertexBuffer;
-        private readonly int _vertexOffset;
         private readonly int _instanceFrequency;
 
         /// <summary>
         /// Gets the vertex buffer.
         /// </summary>
         /// <value>The vertex buffer.</value>
-        public VertexBuffer VertexBuffer => _vertexBuffer;
+        public VertexBuffer VertexBuffer { get; }
 
         /// <summary>
         /// Gets the index of the first vertex in the vertex buffer to use.
         /// </summary>
         /// <value>The index of the first vertex in the vertex buffer to use.</value>
-        public int VertexOffset => _vertexOffset;
+        public int VertexOffset { get; }
 
         /// <summary>
         /// Gets the number of instances to draw using the same per-instance data before advancing
@@ -86,8 +84,8 @@ namespace Microsoft.Xna.Framework.Graphics
             if (instanceFrequency < 0)
                 throw new ArgumentOutOfRangeException("instanceFrequency");
 
-            _vertexBuffer = vertexBuffer;
-            _vertexOffset = vertexOffset;
+            VertexBuffer = vertexBuffer;
+            VertexOffset = vertexOffset;
             _instanceFrequency = instanceFrequency;
         }
     }

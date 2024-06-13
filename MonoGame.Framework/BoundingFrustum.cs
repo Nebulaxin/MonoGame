@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Matrix Matrix
         {
-            get { return this._matrix; }
+            get => this._matrix;
             set
             {
                 this._matrix = value;

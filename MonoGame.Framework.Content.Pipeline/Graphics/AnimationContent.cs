@@ -11,35 +11,23 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
     /// </summary>
     public class AnimationContent : ContentItem
     {
-        AnimationChannelDictionary channels;
-        TimeSpan duration;
 
         /// <summary>
         /// Gets the collection of animation data channels. Each channel describes the movement of a single bone or rigid object.
         /// </summary>
-        public AnimationChannelDictionary Channels => channels;
+        public AnimationChannelDictionary Channels { get; }
 
         /// <summary>
         /// Gets or sets the total length of the animation.
         /// </summary>
-        public TimeSpan Duration
-        {
-            get
-            {
-                return duration;
-            }
-            set
-            {
-                duration = value;
-            }
-        }
+        public TimeSpan Duration { get; set; }
 
         /// <summary>
         /// Initializes a new instance of AnimationContent.
         /// </summary>
         public AnimationContent()
         {
-            channels = new AnimationChannelDictionary();
+            Channels = new AnimationChannelDictionary();
         }
     }
 }

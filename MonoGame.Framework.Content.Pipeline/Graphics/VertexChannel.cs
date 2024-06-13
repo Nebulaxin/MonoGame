@@ -14,7 +14,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
     /// </summary>
     public abstract class VertexChannel : IList, ICollection, IEnumerable
     {
-        string name;
 
         /// <summary>
         /// Allows overriding classes to implement the list, and for properties/methods in this class to access it.
@@ -39,30 +38,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public Object this[int index]
         {
-            get
-            {
-                return Items[index];
-            }
-            set
-            {
-                Items[index] = value;
-            }
+            get => Items[index];
+            set => Items[index] = value;
         }
 
         /// <summary>
         /// Gets the name of the vertex channel.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            internal set
-            {
-                name = value;
-            }
-        }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether access to the collection is synchronized (thread safe).

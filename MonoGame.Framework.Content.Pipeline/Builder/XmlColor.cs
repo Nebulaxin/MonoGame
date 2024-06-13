@@ -93,8 +93,8 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
         [XmlText]
         public string Default
         {
-            get { return FromColor(_color); }
-            set { _color = ToColor(value); }
+            get => FromColor(_color);
+            set => _color = ToColor(value);
         }
     }
 }

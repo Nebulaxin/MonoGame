@@ -29,14 +29,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public VertexChannel this[int index]
         {
-            get
-            {
-                return channels[index];
-            }
-            set
-            {
-                channels[index] = value;
-            }
+            get => channels[index];
+            set => channels[index] = value;
         }
 
         /// <summary>

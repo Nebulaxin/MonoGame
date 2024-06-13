@@ -163,8 +163,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public static bool UseReferenceDevice
         {
-            get { return UseDriverType == DriverType.Reference; }
-            set { UseDriverType = value ? DriverType.Reference : DriverType.Hardware; }
+            get => UseDriverType == DriverType.Reference;
+            set => UseDriverType = value ? DriverType.Reference : DriverType.Hardware;
         }
 
         /// <summary>

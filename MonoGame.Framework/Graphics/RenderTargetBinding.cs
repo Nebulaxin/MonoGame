@@ -13,20 +13,18 @@ namespace Microsoft.Xna.Framework.Graphics
     /// render targets on the graphics device.
     /// </summary>
 	public struct RenderTargetBinding
-	{
-        private readonly Texture _renderTarget;
-        private readonly int _arraySlice;
+    {
         private DepthFormat _depthFormat;
 
         /// <summary>
         /// Gets the the render target texture
         /// </summary>
-		public Texture RenderTarget => _renderTarget;
+		public Texture RenderTarget { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public int ArraySlice => _arraySlice;
+        public int ArraySlice { get; }
 
         /// <summary>
         /// Gets the depth format specified for the render target
@@ -43,8 +41,8 @@ namespace Microsoft.Xna.Framework.Graphics
 			if (renderTarget == null)
 				throw new ArgumentNullException("renderTarget");
 
-			_renderTarget = renderTarget;
-            _arraySlice = (int)CubeMapFace.PositiveX;
+            RenderTarget = renderTarget;
+            ArraySlice = (int)CubeMapFace.PositiveX;
             _depthFormat = renderTarget.DepthStencilFormat;
 		}
 
@@ -65,8 +63,8 @@ namespace Microsoft.Xna.Framework.Graphics
             if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
                 throw new ArgumentOutOfRangeException("cubeMapFace");
 
-            _renderTarget = renderTarget;
-            _arraySlice = (int)cubeMapFace;
+            RenderTarget = renderTarget;
+            ArraySlice = (int)cubeMapFace;
             _depthFormat = renderTarget.DepthStencilFormat;
         }
 

@@ -11,27 +11,20 @@ namespace MonoGame.OpenGL
     {
         private IntPtr _context;
         private IntPtr _winHandle;
-        private bool _disposed;
 
         public int SwapInterval
         {
-            get
-            {
-                return Sdl.GL.GetSwapInterval();
-            }
-            set
-            {
-                Sdl.GL.SetSwapInterval(value);
-            }
+            get => Sdl.GL.GetSwapInterval();
+            set => Sdl.GL.SetSwapInterval(value);
         }
 
-        public bool IsDisposed => _disposed;
+        public bool IsDisposed { get; private set; }
 
         public bool IsCurrent => true;
 
         public GraphicsContext(IWindowInfo info)
         {
-            if (_disposed)
+            if (IsDisposed)
                 return;
             
             SetWindowHandle(info);
@@ -56,7 +49,7 @@ namespace MonoGame.OpenGL
 
         public void MakeCurrent(IWindowInfo info)
         {
-            if (_disposed)
+            if (IsDisposed)
                 return;
             
             SetWindowHandle(info);
@@ -65,7 +58,7 @@ namespace MonoGame.OpenGL
 
         public void SwapBuffers()
         {
-            if (_disposed)
+            if (IsDisposed)
                 return;
             
             Sdl.GL.SwapWindow(_winHandle);
@@ -73,12 +66,12 @@ namespace MonoGame.OpenGL
 
         public void Dispose()
         {
-            if (_disposed)
+            if (IsDisposed)
                 return;
 
             GraphicsDevice.DisposeContext(_context);
             _context = IntPtr.Zero;
-            _disposed = true;
+            IsDisposed = true;
         }
 
         private void SetWindowHandle(IWindowInfo info)

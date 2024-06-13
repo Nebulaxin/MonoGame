@@ -39,8 +39,8 @@ namespace Microsoft.Xna.Framework.Audio
 
         public float this[int index]
         {
-            get { return _parameters[index].Value; }
-            set { _parameters[index].SetValue(value); }
+            get => _parameters[index].Value;
+            set => _parameters[index].SetValue(value);
         }
 
         public float ReflectionsDelayMs => _parameters[0].Value;

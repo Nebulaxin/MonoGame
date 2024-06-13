@@ -22,14 +22,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public float Weight
         {
-            get
-            {
-                return weight;
-            }
-            internal set
-            {
-                weight = value;
-            }
+            get => weight;
+            internal set => weight = value;
         }
 
         /// <summary>

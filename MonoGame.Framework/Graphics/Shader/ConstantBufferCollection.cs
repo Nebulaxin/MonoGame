@@ -8,21 +8,20 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         private readonly ConstantBuffer[] _buffers;
 
-        private ShaderStage _stage;
-        private ShaderStage Stage => this._stage;
+        private ShaderStage Stage { get; }
 
         private int _valid;
 
         internal ConstantBufferCollection(ShaderStage stage, int maxBuffers)
         {
-            _stage = stage;
+            Stage = stage;
             _buffers = new ConstantBuffer[maxBuffers];
             _valid = 0;
         }
 
         public ConstantBuffer this[int index]
         {
-            get { return _buffers[index]; }
+            get => _buffers[index];
             set
             {
                 if (_buffers[index] == value)

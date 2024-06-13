@@ -12,10 +12,9 @@ namespace Microsoft.Xna.Framework.Media
     /// </summary>
     public sealed partial class Song : IEquatable<Song>, IDisposable
     {
-        private string _name;
-		private int _playCount = 0;
+        private int _playCount = 0;
         private TimeSpan _duration = TimeSpan.Zero;
-        bool disposed;
+
         /// <summary>
         /// Gets the <see cref="Album"/> on which the Song appears.
         /// </summary>
@@ -34,7 +33,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
         /// </summary>
-        public bool IsDisposed => disposed;
+        public bool IsDisposed { get; private set; }
 
 #if ANDROID || OPENAL || WEB || IOS
         internal delegate void FinishedPlayingHandler(object sender, EventArgs args);
@@ -49,8 +48,8 @@ namespace Microsoft.Xna.Framework.Media
         }
 
 		internal Song(string fileName)
-		{			
-			_name = fileName;
+		{
+            FilePath = fileName;
 
             PlatformInitialize(fileName);
         }
@@ -61,7 +60,7 @@ namespace Microsoft.Xna.Framework.Media
             Dispose(false);
         }
 
-        internal string FilePath => _name;
+        internal string FilePath { get; private set; }
 
         /// <summary>
         /// Returns a song that can be played via <see cref="MediaPlayer"/>.
@@ -72,7 +71,7 @@ namespace Microsoft.Xna.Framework.Media
         public static Song FromUri(string name, Uri uri)
         {
             var song = new Song(uri.OriginalString);
-            song._name = name;
+            song.FilePath = name;
             return song;
         }
 
@@ -85,14 +84,14 @@ namespace Microsoft.Xna.Framework.Media
         
         void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!IsDisposed)
             {
                 if (disposing)
                 {
                     PlatformDispose(disposing);
                 }
 
-                disposed = true;
+                IsDisposed = true;
             }
         }
 

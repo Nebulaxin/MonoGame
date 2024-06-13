@@ -85,12 +85,12 @@ namespace Microsoft.Xna.Framework.Audio
 
         internal void PlatformStart()
         {
-            if (_state == MicrophoneState.Started)
+            if (State == MicrophoneState.Started)
                 return;
 
             _captureDevice = Alc.CaptureOpenDevice(
                 Name,
-                (uint)_sampleRate,
+                (uint)SampleRate,
                 ALFormat.Mono16,
                 GetSampleSizeInBytes(_bufferDuration));
 
@@ -101,7 +101,7 @@ namespace Microsoft.Xna.Framework.Audio
                 Alc.CaptureStart(_captureDevice);
                 CheckALCError("Failed to start capture.");
 
-                _state = MicrophoneState.Started;
+                State = MicrophoneState.Started;
             }
             else
             {
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         internal void PlatformStop()
         {
-            if (_state == MicrophoneState.Started)
+            if (State == MicrophoneState.Started)
             {
                 Alc.CaptureStop(_captureDevice);
                 CheckALCError("Failed to stop capture.");
@@ -119,12 +119,12 @@ namespace Microsoft.Xna.Framework.Audio
                 CheckALCError("Failed to close capture device.");
                 _captureDevice = IntPtr.Zero;
             }
-            _state = MicrophoneState.Stopped;
+            State = MicrophoneState.Stopped;
         }
 
         internal int GetQueuedSampleCount()
         {
-            if (_state == MicrophoneState.Stopped || BufferReady == null)
+            if (State == MicrophoneState.Stopped || BufferReady == null)
                 return 0;
 
             int[] values = new int[1];

@@ -81,14 +81,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <param name="key">Identity of a key.</param>
         public T this[string key]
         {
-            get
-            {
-                return dict[key];
-            }
-            set
-            {
-                dict[key] = value;
-            }
+            get => dict[key];
+            set => dict[key] = value;
         }
 
         /// <summary>

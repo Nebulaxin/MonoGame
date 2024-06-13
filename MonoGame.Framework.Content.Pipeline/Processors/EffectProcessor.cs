@@ -26,13 +26,13 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// The debug mode for compiling effects.
         /// </summary>
         /// <value>The debug mode to use when compiling effects.</value>
-        public virtual EffectProcessorDebugMode DebugMode { get { return debugMode; } set { debugMode = value; } }
+        public virtual EffectProcessorDebugMode DebugMode { get => debugMode; set => debugMode = value; }
 
         /// <summary>
         /// Define assignments for the effect.
         /// </summary>
         /// <value>A list of define assignments delimited by semicolons.</value>
-        public virtual string Defines { get { return defines; } set { defines = value; } }
+        public virtual string Defines { get => defines; set => defines = value; }
 
         /// <summary>
         /// Initializes a new instance of EffectProcessor.

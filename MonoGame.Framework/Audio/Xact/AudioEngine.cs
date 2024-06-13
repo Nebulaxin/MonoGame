@@ -14,7 +14,6 @@ namespace Microsoft.Xna.Framework.Audio
     /// </summary> 
     public class AudioEngine : IDisposable
     {
-        private readonly AudioCategory[] _categories;
         private readonly Dictionary<string, int> _categoryLookup = new();
 
         private readonly RpcVariable[] _variables;
@@ -30,7 +29,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         internal List<Cue> ActiveCues = new();
 
-        internal AudioCategory[] Categories => _categories;
+        internal AudioCategory[] Categories { get; }
 
         internal Dictionary<string, WaveBank> Wavebanks = new();
 
@@ -133,11 +132,11 @@ namespace Microsoft.Xna.Framework.Audio
                 reader.BaseStream.Seek (catNamesOffset, SeekOrigin.Begin);
                 string[] categoryNames = ReadNullTerminatedStrings(numCats, reader);
 
-                _categories = new AudioCategory[numCats];
+                Categories = new AudioCategory[numCats];
                 reader.BaseStream.Seek (catsOffset, SeekOrigin.Begin);
                 for (int i=0; i<numCats; i++) 
                 {
-                    _categories [i] = new AudioCategory (this, categoryNames [i], reader);
+                    Categories[i] = new AudioCategory(this, categoryNames[i], reader);
                     _categoryLookup.Add (categoryNames [i], i);
                 }
 
@@ -320,7 +319,7 @@ namespace Microsoft.Xna.Framework.Audio
             if (!_categoryLookup.TryGetValue(name, out i))
                 throw new InvalidOperationException("This resource could not be created.");
 
-            return _categories[i];
+            return Categories[i];
         }
 
         /// <summary>Gets the value of a global variable.</summary>

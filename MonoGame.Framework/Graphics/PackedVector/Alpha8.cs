@@ -11,20 +11,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
     public struct Alpha8 : IPackedVector<byte>, IEquatable<Alpha8>, IPackedVector
     {
-        private byte packedValue;
-
         /// <inheritdoc />
-        public byte PackedValue
-        {
-            get
-            {
-                return packedValue;
-            }
-            set
-            {
-                packedValue = value;
-            }
-        }
+        public byte PackedValue { get; set; }
 
         /// <summary>
         /// Initializes a new instance of this structure.
@@ -32,7 +20,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="alpha">The initial value for this structure.</param>
         public Alpha8(float alpha)
         {
-            packedValue = Pack(alpha);
+            PackedValue = Pack(alpha);
         }
 
         /// <summary>
@@ -41,13 +29,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>The expanded value.</returns>
         public float ToAlpha()
         {
-            return (float) (packedValue / 255.0f);
+            return (float)(PackedValue / 255.0f);
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            packedValue = Pack(vector.W);
+            PackedValue = Pack(vector.W);
         }
 
         /// <inheritdoc />
@@ -57,7 +45,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
                 0.0f,
                 0.0f,
                 0.0f,
-                (float) (packedValue / 255.0f)
+                (float)(PackedValue / 255.0f)
             );
         }
 
@@ -70,19 +58,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(Alpha8 other)
         {
-            return packedValue == other.packedValue;
+            return PackedValue == other.PackedValue;
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return (packedValue / 255.0f).ToString();
+            return (PackedValue / 255.0f).ToString();
         }
 
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return packedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 
         /// <summary>
@@ -93,7 +81,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two values are equal; otherwise, false.</returns>
         public static bool operator ==(Alpha8 lhs, Alpha8 rhs)
         {
-            return lhs.packedValue == rhs.packedValue;
+            return lhs.PackedValue == rhs.PackedValue;
         }
 
         /// <summary>
@@ -104,7 +92,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two value are not equal; otherwise, false.</returns>
         public static bool operator !=(Alpha8 lhs, Alpha8 rhs)
         {
-            return lhs.packedValue != rhs.packedValue;
+            return lhs.PackedValue != rhs.PackedValue;
         }
 
         private static byte Pack(float alpha)

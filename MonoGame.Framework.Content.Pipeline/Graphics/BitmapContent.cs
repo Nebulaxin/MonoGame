@@ -20,10 +20,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public int Height
         {
-            get
-            {
-                return height;
-            }
+            get => height;
             protected set
             {
                 if (value <= 0)
@@ -37,10 +34,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public int Width
         {
-            get
-            {
-                return width;
-            }
+            get => width;
             protected set
             {
                 if (value <= 0)

@@ -27,9 +27,7 @@ namespace Microsoft.Xna.Framework.Content
 	{
         const byte ContentCompressedLzx = 0x80;
         const byte ContentCompressedLz4 = 0x40;
-
-		private string _rootDirectory = string.Empty;
-		private IServiceProvider serviceProvider;
+        private IServiceProvider serviceProvider;
         private Dictionary<string, object> loadedAssets = new(StringComparer.OrdinalIgnoreCase);
         private List<IDisposable> disposableAssets = new();
         private bool disposed;
@@ -655,17 +653,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary>
         /// Gets or Sets the root directory that this ContentManager will search for assets in.
         /// </summary>
-		public string RootDirectory
-		{
-			get
-			{
-				return _rootDirectory;
-			}
-			set
-			{
-				_rootDirectory = value;
-			}
-		}
+		public string RootDirectory { get; set; } = string.Empty;
 
         internal string RootDirectoryFullPath => Path.Combine(TitleContainer.Location, RootDirectory);
 

@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework
     {
         public override bool AllowUserResizing
         {
-            get { return !IsBorderless && _resizable; }
+            get => !IsBorderless && _resizable;
             set
             {
                 var nonResizeableVersion = new Sdl.Version() { Major = 2, Minor = 0, Patch = 4 };
@@ -65,7 +65,7 @@ namespace Microsoft.Xna.Framework
 
         public override bool IsBorderless
         {
-            get { return _borderless; }
+            get => _borderless;
             set
             {
                 Sdl.Window.SetBordered(_handle, value ? 0 : 1);

@@ -11,10 +11,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// Packed vector type containing two 16-bit signed normalized values, ranging from −1 to 1.
     /// </summary>
 	public struct NormalizedShort2 : IPackedVector<uint>, IEquatable<NormalizedShort2>
-	{
-		private uint short2Packed;
-
-
+    {
         /// <summary>
         /// Initializes a new instance of this structure.
         /// </summary>
@@ -23,8 +20,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public NormalizedShort2(Vector2 vector)
 		{
-            short2Packed = PackInTwo(vector.X, vector.Y);
-		}
+            PackedValue = PackInTwo(vector.X, vector.Y);
+        }
 
         /// <summary>
         /// Initializes a new instance of this structure.
@@ -33,8 +30,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="y">The initial y-component value for this structure.</param>
         public NormalizedShort2(float x, float y)
 		{
-            short2Packed = PackInTwo(x, y);
-		}
+            PackedValue = PackInTwo(x, y);
+        }
 
         /// <summary>
         /// Returns a value that indicates whether the two value are not equal.
@@ -59,17 +56,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
         /// <inheritdoc />
-        public uint PackedValue
-        {
-            get
-            {
-                return short2Packed;
-            }
-            set
-            {
-                short2Packed = value;
-            }
-		}
+        public uint PackedValue { get; set; }
 
         /// <inheritdoc />
 		public override bool Equals (object obj)
@@ -80,20 +67,20 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(NormalizedShort2 other)
 		{
-            return short2Packed.Equals(other.short2Packed);
-		}
+            return PackedValue.Equals(other.PackedValue);
+        }
 
         /// <inheritdoc />
 		public override int GetHashCode ()
 		{
-			return short2Packed.GetHashCode();
-		}
+            return PackedValue.GetHashCode();
+        }
 
         /// <inheritdoc />
         public override string ToString ()
 		{
-            return short2Packed.ToString("X");
-		}
+            return PackedValue.ToString("X");
+        }
 
         /// <summary>
         /// Expands the packed representation to a <see cref="Vector2"/>.
@@ -104,10 +91,10 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
             const float maxVal = 0x7FFF;
 
 			var v2 = new Vector2 ();
-            v2.X = ((short)(short2Packed & 0xFFFF)) / maxVal;
-            v2.Y = (short)(short2Packed >> 0x10) / maxVal;
-			return v2;
-		}
+            v2.X = ((short)(PackedValue & 0xFFFF)) / maxVal;
+            v2.Y = (short)(PackedValue >> 0x10) / maxVal;
+            return v2;
+        }
 
 		private static uint PackInTwo (float vectorX, float vectorY)
 		{
@@ -124,8 +111,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 
 		void IPackedVector.PackFromVector4 (Vector4 vector)
 		{
-            short2Packed = PackInTwo(vector.X, vector.Y);
-		}
+            PackedValue = PackInTwo(vector.X, vector.Y);
+        }
 
         /// <inheritdoc />
 		public Vector4 ToVector4 ()
@@ -133,9 +120,9 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
             const float maxVal = 0x7FFF;
 
 			var v4 = new Vector4 (0,0,0,1);
-            v4.X = ((short)((short2Packed >> 0x00) & 0xFFFF)) / maxVal;
-            v4.Y = ((short)((short2Packed >> 0x10) & 0xFFFF)) / maxVal;
-			return v4;
-		}
+            v4.X = ((short)((PackedValue >> 0x00) & 0xFFFF)) / maxVal;
+            v4.Y = ((short)((PackedValue >> 0x10) & 0xFFFF)) / maxVal;
+            return v4;
+        }
 	}
 }

@@ -17,7 +17,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Quaternion _identity = new(0, 0, 0, 1);
 
         #endregion
 
@@ -98,7 +97,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a quaternion representing no rotation.
         /// </summary>
-        public static Quaternion Identity => _identity;
+        public static Quaternion Identity { get; } = new(0, 0, 0, 1);
 
         #endregion
 
@@ -108,7 +107,7 @@ namespace Microsoft.Xna.Framework
         {
             get
             {
-                if (this == Quaternion._identity)
+                if (this == Quaternion.Identity)
                 {
                     return "Identity";
                 }

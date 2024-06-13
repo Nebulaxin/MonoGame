@@ -17,7 +17,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
     public class AudioContent : ContentItem, IDisposable
     {
         private bool _disposed;
-        private readonly string _fileName;
         private readonly AudioFileType _fileType;
         private ReadOnlyCollection<byte> _data;
         private TimeSpan _duration;
@@ -29,7 +28,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// The name of the original source audio file.
         /// </summary>
         [ContentSerializer(AllowNull = false)]
-        public string FileName => _fileName;
+        public string FileName { get; }
 
         /// <summary>
         /// The type of the original source audio file.
@@ -47,8 +46,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         {
             get
             {
-                if (_disposed || _data == null)                
-                    throw new InvalidContentException("Could not read the audio data from file \"" + Path.GetFileName(_fileName) + "\".");
+                if (_disposed || _data == null)
+                    throw new InvalidContentException("Could not read the audio data from file \"" + Path.GetFileName(FileName) + "\".");
                 return _data;
             }
         }
@@ -84,7 +83,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// <remarks>Constructs the object from the specified source file, in the format specified.</remarks>
         public AudioContent(string audioFileName, AudioFileType audioFileType)
         {
-            _fileName = audioFileName;
+            FileName = audioFileName;
 
             try
             {

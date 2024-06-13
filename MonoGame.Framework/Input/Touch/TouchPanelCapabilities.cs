@@ -18,9 +18,6 @@ namespace Microsoft.Xna.Framework.Input.Touch
     /// </summary>
     public struct TouchPanelCapabilities
     {
-        private bool hasPressure;
-        private bool isConnected;
-        private int maximumTouchCount;
         private bool initialized;
 
         internal void Initialize()
@@ -31,7 +28,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
 
                 // There does not appear to be a way of finding out if a touch device supports pressure.
                 // XNA does not expose a pressure value, so let's assume it doesn't support it.
-                hasPressure = false;
+                HasPressure = false;
 
 #if WINDOWS_UAP
                 // Is a touch device present?
@@ -67,7 +64,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
                     maximumTouchCount = 11;
 #else
                 //Touch isn't implemented in OpenTK, so no linux or mac https://github.com/opentk/opentk/issues/80
-                isConnected = false;
+                IsConnected = false;
 #endif
             }
         }
@@ -75,17 +72,17 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Returns <see langword="true"/> if a touch device supports pressure.
         /// </summary>
-        public bool HasPressure => hasPressure;
+        public bool HasPressure { get; private set; }
 
         /// <summary>
         /// Returns true if a device is available for use.
         /// </summary>
-        public bool IsConnected => isConnected;
+        public bool IsConnected { get; private set; }
 
         /// <summary>
         /// Returns the maximum number of touch locations tracked by the touch panel device.
         /// </summary>
-        public int MaximumTouchCount => maximumTouchCount;
+        public int MaximumTouchCount { get; }
 
 #if WINDOWS
         [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, ExactSpelling = true)]

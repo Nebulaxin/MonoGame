@@ -20,8 +20,6 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
     public sealed class Artist : IDisposable
     {
-        private string artist;
-
         /// <summary>
         /// Gets the <see cref="AlbumCollection">AlbumCollection</see> for the Artist.
         /// </summary>
@@ -35,7 +33,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the name of the Artist.
         /// </summary>
-        public string Name => this.artist;
+        public string Name { get; }
 
         /// <summary>
         /// Gets the <see cref="SongCollection"/> for the Artist.
@@ -48,7 +46,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <param name="artist">Name of the artist.</param>
         public Artist(string artist)
         {
-            this.artist = artist;
+            this.Name = artist;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -61,7 +59,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.artist.ToString();
+            return this.Name.ToString();
         }
 
         /// <summary>
@@ -69,7 +67,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.artist.GetHashCode();
+            return this.Name.GetHashCode();
         }
     }
 }

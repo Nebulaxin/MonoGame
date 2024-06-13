@@ -33,14 +33,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public string Name
         {
-            get
-            {
-                return _meshContent.Name;
-            }
-            set
-            {
-                _meshContent.Name = value;
-            }
+            get => _meshContent.Name;
+            set => _meshContent.Name = value;
         }
 
         /// <summary>

@@ -8,24 +8,20 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 {
     public sealed class ModelContent
     {
-        private ModelBoneContentCollection _bones;
-        private ModelMeshContentCollection _meshes;
-        private ModelBoneContent _root;
-
         internal ModelContent() { }
 
         internal ModelContent(ModelBoneContent root, IList<ModelBoneContent> bones, IList<ModelMeshContent> meshes)
         {
-            _root = root;
-            _bones = new ModelBoneContentCollection(bones);
-            _meshes = new ModelMeshContentCollection(meshes);
+            Root = root;
+            Bones = new ModelBoneContentCollection(bones);
+            Meshes = new ModelMeshContentCollection(meshes);
         }
 
-        public ModelBoneContentCollection Bones => _bones;
+        public ModelBoneContentCollection Bones { get; }
 
-        public ModelMeshContentCollection Meshes => _meshes;
+        public ModelMeshContentCollection Meshes { get; }
 
-        public ModelBoneContent Root => _root;
+        public ModelBoneContent Root { get; }
 
         public object Tag { get; set; }
     }

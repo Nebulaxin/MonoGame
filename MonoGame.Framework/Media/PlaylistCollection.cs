@@ -13,7 +13,6 @@ namespace Microsoft.Xna.Framework.Media
     /// </summary>
     public sealed class PlaylistCollection : ICollection<Playlist>, IEnumerable<Playlist>, IEnumerable, IDisposable
     {
-		private bool isReadOnly = false;
         private List<Playlist> innerlist = new();
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -40,7 +39,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets whether this collection is read-only,
         /// </summary>
-		public bool IsReadOnly => this.isReadOnly;
+		public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// Gets the <see cref="Playlist"/> at the specified index in the <see cref="PlaylistCollection"/>.

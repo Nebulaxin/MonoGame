@@ -10,11 +10,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
     [System.Diagnostics.DebuggerDisplay("Node '{Name}'")]
     public class NodeContent : ContentItem
     {
-        Matrix transform;
-        NodeContent parent;
-        NodeContentCollection children;
-        AnimationContentDictionary animations;
-
         /// <summary>
         /// Gets the value of the local Transform property, multiplied by the AbsoluteTransform of the parent.
         /// </summary>
@@ -22,60 +17,40 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         {
             get
             {
-                if (parent != null)
-                    return transform * parent.AbsoluteTransform;
-                return transform;
+                if (Parent != null)
+                    return Transform * Parent.AbsoluteTransform;
+                return Transform;
             }
         }
 
         /// <summary>
         /// Gets the set of animations belonging to this node.
         /// </summary>
-        public AnimationContentDictionary Animations => animations;
+        public AnimationContentDictionary Animations { get; }
 
         /// <summary>
         /// Gets the children of the NodeContent object.
         /// </summary>
-        public NodeContentCollection Children => children;
+        public NodeContentCollection Children { get; }
 
         /// <summary>
         /// Gets the parent of this NodeContent object.
         /// </summary>
-        public NodeContent Parent
-        {
-            get
-            {
-                return parent;
-            }
-            set
-            {
-                parent = value;
-            }
-        }
+        public NodeContent Parent { get; set; }
 
         /// <summary>
         /// Gets the transform matrix of the scene.
         /// The transform matrix defines a local coordinate system for the content in addition to any children of this object.
         /// </summary>
-        public Matrix Transform
-        {
-            get
-            {
-                return transform;
-            }
-            set
-            {
-                transform = value;
-            }
-        }
+        public Matrix Transform { get; set; }
 
         /// <summary>
         /// Creates an instance of NodeContent.
         /// </summary>
         public NodeContent()
         {
-            children = new NodeContentCollection(this);
-            animations = new AnimationContentDictionary();
+            Children = new NodeContentCollection(this);
+            Animations = new AnimationContentDictionary();
             Transform = Matrix.Identity;
         }
     }

@@ -12,21 +12,19 @@ namespace Microsoft.Xna.Framework
     /// </summary>
     public class GameComponentCollectionEventArgs : EventArgs
     {
-        private IGameComponent _gameComponent;
-
         /// <summary>
         /// Create a <see cref="GameComponentCollectionEventArgs"/> instance.
         /// </summary>
         /// <param name="gameComponent">The <see cref="IGameComponent"/> that the event notifies about.</param>
         public GameComponentCollectionEventArgs(IGameComponent gameComponent)
         {
-            _gameComponent = gameComponent;
+            GameComponent = gameComponent;
         }
 
         /// <summary>
         /// The <see cref="IGameComponent"/> that the event notifies about.
         /// </summary>
-        public IGameComponent GameComponent => _gameComponent;
+        public IGameComponent GameComponent { get; }
     }
 }
 

@@ -13,8 +13,6 @@ namespace Microsoft.Xna.Framework.Content
     /// </summary>
     public abstract class ContentTypeReader
     {
-        private Type _targetType;
-
         /// <summary>
         /// Gets a value that indicates whether this content type read can deserialize into an object with the same
         /// type ad defined in the <see cref="TargetType"/> property.
@@ -24,7 +22,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary>
         /// Gets the type handled by this reader component.
         /// </summary>
-        public Type TargetType => _targetType;
+        public Type TargetType { get; }
 
         /// <summary>
         /// Gets the format version number for this type.
@@ -34,7 +32,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary />
         protected ContentTypeReader(Type targetType)
         {
-            _targetType = targetType;
+            TargetType = targetType;
         }
 
         /// <summary />

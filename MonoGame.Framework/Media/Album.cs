@@ -34,9 +34,6 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
     public sealed class Album : IDisposable
     {
-        private Artist artist;
-        private Genre genre;
-        private string album;
         private SongCollection songCollection;
 #if WINDOWS_UAP
         private StorageItemThumbnail thumbnail;
@@ -52,7 +49,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <value>
         /// <see cref="Media.Artist"/> of this Album.
         /// </value>
-        public Artist Artist => this.artist;
+        public Artist Artist { get; }
 
         /// <summary>
         /// Gets the duration of the Album.
@@ -62,7 +59,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="Media.Genre"/> of the Album.
         /// </summary>
-        public Genre Genre => this.genre;
+        public Genre Genre { get; }
 
         /// <summary>
         /// Gets a value indicating whether the Album has associated album art.
@@ -88,7 +85,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the name of the Album.
         /// </summary>
-        public string Name => this.album;
+        public string Name { get; }
 
         /// <summary>
         /// Gets a <see cref="Media.SongCollection"/> that contains the songs on the Album.
@@ -98,9 +95,9 @@ namespace Microsoft.Xna.Framework.Media
         private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
         {
             this.songCollection = songCollection;
-            this.album = name;
-            this.artist = artist;
-            this.genre = genre;
+            this.Name = name;
+            this.Artist = artist;
+            this.Genre = genre;
         }
 #if WINDOWS_UAP
         internal Album(SongCollection songCollection, string name, Artist artist, Genre genre, StorageItemThumbnail thumbnail)
@@ -200,7 +197,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.album.ToString();
+            return this.Name.ToString();
         }
 
         /// <summary>
@@ -208,7 +205,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.album.GetHashCode();
+            return this.Name.GetHashCode();
         }
     }
 }

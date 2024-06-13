@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework
         [DataMember(Name = "Items")]
         public CurveKey this[int index]
         {
-            get { return _keys[index]; }
+            get => _keys[index];
             set
             {
                 if (value == null)

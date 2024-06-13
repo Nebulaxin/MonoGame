@@ -29,7 +29,6 @@ namespace Microsoft.Xna.Framework.Media
         /// Returns a <see cref="SongCollection"/> with no contents.
         /// </summary>
         public static readonly SongCollection Empty = new();
-        private bool isReadOnly = false;
         private List<Song> innerlist = new();
 
         internal SongCollection()
@@ -67,7 +66,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets whether this collection is read-only,
         /// </summary>
-        public bool IsReadOnly => this.isReadOnly;
+        public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// Gets the <see cref="Song"/> at the specified index in the <see cref="SongCollection"/>.

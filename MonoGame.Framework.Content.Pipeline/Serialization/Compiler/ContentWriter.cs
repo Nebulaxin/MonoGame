@@ -24,8 +24,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         const int HeaderSize = 6;
 
         ContentCompiler compiler;
-        TargetPlatform targetPlatform;
-        GraphicsProfile targetProfile;
         string rootDirectory;
         string referenceRelocationPath;
         bool compressContent;
@@ -62,12 +60,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         /// <summary>
         /// Gets the content build target platform.
         /// </summary>
-        public TargetPlatform TargetPlatform => targetPlatform;
+        public TargetPlatform TargetPlatform { get; }
 
         /// <summary>
         /// Gets or sets the target graphics profile.
         /// </summary>
-        public GraphicsProfile TargetProfile => targetProfile;
+        public GraphicsProfile TargetProfile { get; }
 
         /// <summary>
         /// Creates a new instance of ContentWriter.
@@ -83,8 +81,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             : base(output)
         {
             this.compiler = compiler;
-            this.targetPlatform = targetPlatform;
-            this.targetProfile = targetProfile;
+            this.TargetPlatform = targetPlatform;
+            this.TargetProfile = targetProfile;
             this.compressContent = compressContent;
             this.rootDirectory = rootDirectory;
 
@@ -184,7 +182,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             Write7BitEncodedInt(typeWriters.Count);
             foreach (var typeWriter in typeWriters)
             {
-                Write(typeWriter.GetRuntimeReader(targetPlatform));
+                Write(typeWriter.GetRuntimeReader(TargetPlatform));
                 Write(typeWriter.TypeVersion);
             }
             Write7BitEncodedInt(sharedResources.Count);
@@ -198,10 +196,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             Write('X');
             Write('N');
             Write('B');
-            Write(targetPlatformIdentifiers[(int)targetPlatform]);
+            Write(targetPlatformIdentifiers[(int)TargetPlatform]);
             Write(XnbFormatVersion);
             // We cannot use LZX compression, so we use the public domain LZ4 compression. Use one of the spare bits in the flags byte to specify LZ4.
-            byte flags = (byte)((targetProfile == GraphicsProfile.HiDef ? HiDefContent : (byte)0) | (compressContent ? ContentCompressedLz4 : (byte)0));
+            byte flags = (byte)((TargetProfile == GraphicsProfile.HiDef ? HiDefContent : (byte)0) | (compressContent ? ContentCompressedLz4 : (byte)0));
             Write(flags);
         }
 

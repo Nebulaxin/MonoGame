@@ -11,29 +11,17 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
     public struct HalfSingle : IPackedVector<UInt16>, IEquatable<HalfSingle>, IPackedVector
     {
-        UInt16 packedValue;
-
         /// <summary>
         /// Initializes a new instance of this structure.
         /// </summary>
         /// <param name="single">TheThe initial value for this structure.</param>
         public HalfSingle(float single)
         {
-            packedValue = HalfTypeHelper.Convert(single);
+            PackedValue = HalfTypeHelper.Convert(single);
         }
 
         /// <inheritdoc />
-        public ushort PackedValue
-        {
-            get
-            {
-                return this.packedValue;
-            }
-            set
-            {
-                this.packedValue = value;
-            }
-        }
+        public ushort PackedValue { get; set; }
 
         /// <summary>
         /// Expands the packed representation to a <see cref="Single">System.Single</see>
@@ -41,13 +29,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>The expanded value.</returns>
         public float ToSingle()
         {
-            return HalfTypeHelper.Convert(this.packedValue);
+            return HalfTypeHelper.Convert(this.PackedValue);
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            this.packedValue = HalfTypeHelper.Convert(vector.X);
+            this.PackedValue = HalfTypeHelper.Convert(vector.X);
         }
 
         /// <inheritdoc />
@@ -70,7 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(HalfSingle other)
         {
-            return this.packedValue == other.packedValue;
+            return this.PackedValue == other.PackedValue;
         }
 
         /// <inheritdoc />
@@ -82,7 +70,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.packedValue.GetHashCode();
+            return this.PackedValue.GetHashCode();
         }
 
         /// <summary>
@@ -93,7 +81,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two values are equal; otherwise, false.</returns>
         public static bool operator ==(HalfSingle lhs, HalfSingle rhs)
         {
-            return lhs.packedValue == rhs.packedValue;
+            return lhs.PackedValue == rhs.PackedValue;
         }
 
         /// <summary>
@@ -104,7 +92,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two value are not equal; otherwise, false.</returns>
         public static bool operator !=(HalfSingle lhs, HalfSingle rhs)
         {
-            return lhs.packedValue != rhs.packedValue;
+            return lhs.PackedValue != rhs.PackedValue;
         }
     }
 }

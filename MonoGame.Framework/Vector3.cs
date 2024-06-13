@@ -21,16 +21,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector3 zero = new(0f, 0f, 0f);
-        private static readonly Vector3 one = new(1f, 1f, 1f);
-        private static readonly Vector3 unitX = new(1f, 0f, 0f);
-        private static readonly Vector3 unitY = new(0f, 1f, 0f);
-        private static readonly Vector3 unitZ = new(0f, 0f, 1f);
-        private static readonly Vector3 up = new(0f, 1f, 0f);
-        private static readonly Vector3 down = new(0f, -1f, 0f);
-        private static readonly Vector3 right = new(1f, 0f, 0f);
-        private static readonly Vector3 left = new(-1f, 0f, 0f);
-        private static readonly Vector3 forward = new(0f, 0f, -1f);
         private static readonly Vector3 backward = new(0f, 0f, 1f);
 
         #endregion
@@ -62,52 +52,52 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 0.
         /// </summary>
-        public static Vector3 Zero => zero;
+        public static Vector3 Zero { get; } = new(0f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 1, 1.
         /// </summary>
-        public static Vector3 One => one;
+        public static Vector3 One { get; } = new(1f, 1f, 1f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 0, 0.
         /// </summary>
-        public static Vector3 UnitX => unitX;
+        public static Vector3 UnitX { get; } = new(1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 1, 0.
         /// </summary>
-        public static Vector3 UnitY => unitY;
+        public static Vector3 UnitY { get; } = new(0f, 1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.
         /// </summary>
-        public static Vector3 UnitZ => unitZ;
+        public static Vector3 UnitZ { get; } = new(0f, 0f, 1f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 1, 0.
         /// </summary>
-        public static Vector3 Up => up;
+        public static Vector3 Up { get; } = new(0f, 1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, -1, 0.
         /// </summary>
-        public static Vector3 Down => down;
+        public static Vector3 Down { get; } = new(0f, -1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 0, 0.
         /// </summary>
-        public static Vector3 Right => right;
+        public static Vector3 Right { get; } = new(1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components -1, 0, 0.
         /// </summary>
-        public static Vector3 Left => left;
+        public static Vector3 Left { get; } = new(-1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, -1.
         /// </summary>
-        public static Vector3 Forward => forward;
+        public static Vector3 Forward { get; } = new(0f, 0f, -1f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.

@@ -11,8 +11,6 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
     public struct Bgr565 : IPackedVector<UInt16>, IEquatable<Bgr565>, IPackedVector
     {
-        UInt16 _packedValue;
-
         private static UInt16 Pack(float x, float y, float z)
         {
             return (UInt16) ((((int) MathF.Round(MathHelper.Clamp(x, 0, 1) * 31.0f) & 0x1F) << 11) |
@@ -28,7 +26,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="z">The initial z-component value for this structure.</param>
         public Bgr565(float x, float y, float z)
         {
-            _packedValue = Pack(x, y, z);
+            PackedValue = Pack(x, y, z);
         }
 
         /// <summary>
@@ -39,21 +37,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public Bgr565(Vector3 vector)
         {
-            _packedValue = Pack(vector.X, vector.Y, vector.Z);
+            PackedValue = Pack(vector.X, vector.Y, vector.Z);
         }
 
         /// <inheritdoc />
-        public UInt16 PackedValue
-        {
-            get
-            {
-                return _packedValue;
-            }
-            set
-            {
-                _packedValue = value;
-            }
-        }
+        public UInt16 PackedValue { get; set; }
 
         /// <summary>
         /// Expands the packed representation of this structure to a <see cref="Vector3"/>.
@@ -61,16 +49,16 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>The expanded value.</returns>
         public Vector3 ToVector3()
         {
-            return new Vector3((float)(((_packedValue >> 11) & 0x1F) * (1.0f / 31.0f)),
-                (float)(((_packedValue >> 5) & 0x3F) * (1.0f / 63.0f)),
-                (float)((_packedValue & 0x1F) * (1.0f / 31.0f))
+            return new Vector3((float)(((PackedValue >> 11) & 0x1F) * (1.0f / 31.0f)),
+                (float)(((PackedValue >> 5) & 0x3F) * (1.0f / 63.0f)),
+                (float)((PackedValue & 0x1F) * (1.0f / 31.0f))
                 );
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            _packedValue = (UInt16)((((int)(vector.X * 31.0f) & 0x1F) << 11) |
+            PackedValue = (UInt16)((((int)(vector.X * 31.0f) & 0x1F) << 11) |
                 (((int)(vector.Y * 63.0f) & 0x3F) << 5) |
                 ((int)(vector.Z * 31.0f) & 0x1F));
         }
@@ -92,7 +80,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(Bgr565 other)
         {
-            return _packedValue == other._packedValue;
+            return PackedValue == other.PackedValue;
         }
 
         /// <inheritdoc />
@@ -104,7 +92,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return _packedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 
         /// <summary>
@@ -115,7 +103,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two values are equal; otherwise, false.</returns>
         public static bool operator ==(Bgr565 lhs, Bgr565 rhs)
         {
-            return lhs._packedValue == rhs._packedValue;
+            return lhs.PackedValue == rhs.PackedValue;
         }
 
         /// <summary>
@@ -126,7 +114,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two value are not equal; otherwise, false.</returns>
         public static bool operator !=(Bgr565 lhs, Bgr565 rhs)
         {
-            return lhs._packedValue != rhs._packedValue;
+            return lhs.PackedValue != rhs.PackedValue;
         }
     }
 }

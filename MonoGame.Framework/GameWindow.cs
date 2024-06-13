@@ -29,17 +29,17 @@ namespace Microsoft.Xna.Framework
 
 	    internal bool _allowAltF4 = true;
 
-        /// <summary>
-        /// Gets or sets a bool that enables usage of Alt+F4 for window closing on desktop platforms. Value is true by default.
-        /// </summary>
-        public virtual bool AllowAltF4 { get { return _allowAltF4; } set { _allowAltF4 = value; } }
+		/// <summary>
+		/// Gets or sets a bool that enables usage of Alt+F4 for window closing on desktop platforms. Value is true by default.
+		/// </summary>
+		public virtual bool AllowAltF4 { get => _allowAltF4; set => _allowAltF4 = value; }
 
 #if (WINDOWS && !WINDOWS_UAP) || DESKTOPGL
-        /// <summary>
-        /// The location of this window on the desktop, eg: global coordinate space
-        /// which stretches across all screens.
-        /// </summary>
-        public abstract Point Position { get; set; }
+		/// <summary>
+		/// The location of this window on the desktop, eg: global coordinate space
+		/// which stretches across all screens.
+		/// </summary>
+		public abstract Point Position { get; set; }
 #endif
 
 	    /// <summary>
@@ -62,40 +62,37 @@ namespace Microsoft.Xna.Framework
 		public abstract string ScreenDeviceName { get; }
 
 		private string _title;
-        /// <summary>
-        /// Gets or sets the title of the game window.
-        /// </summary>
-        /// <remarks>
-        /// For UWP this has no effect. The title should be
-        /// set by using the DisplayName property found in the app manifest file.
-        /// </remarks>
-        public string Title {
-			get { return _title; }
-			set {
-				if (_title != value) {
+		/// <summary>
+		/// Gets or sets the title of the game window.
+		/// </summary>
+		/// <remarks>
+		/// For UWP this has no effect. The title should be
+		/// set by using the DisplayName property found in the app manifest file.
+		/// </remarks>
+		public string Title
+		{
+			get => _title;
+			set
+			{
+				if (_title != value)
+				{
 					SetTitle(value);
 					_title = value;
 				}
 			}
 		}
 
-        /// <summary>
-        /// Determines whether the border of the window is visible. Currently only supported on the WindowsDX and DesktopGL platforms.
-        /// </summary>
-        /// <exception cref="System.NotImplementedException">
-        /// Thrown when trying to use this property on a platform other than WinowsDX or DesktopGL.
-        /// </exception>
-        public virtual bool IsBorderless
+		/// <summary>
+		/// Determines whether the border of the window is visible. Currently only supported on the WindowsDX and DesktopGL platforms.
+		/// </summary>
+		/// <exception cref="System.NotImplementedException">
+		/// Thrown when trying to use this property on a platform other than WinowsDX or DesktopGL.
+		/// </exception>
+		public virtual bool IsBorderless
         {
-            get
-            {
-                return false;
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+			get => false;
+			set => throw new NotImplementedException();
+		}
 
         internal MouseState MouseState;
 	    internal TouchPanelState TouchPanelState;

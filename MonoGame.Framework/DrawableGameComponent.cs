@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public int DrawOrder
         {
-            get { return _drawOrder; }
+            get => _drawOrder;
             set
             {
                 if (_drawOrder != value)
@@ -54,7 +54,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool Visible
         {
-            get { return _visible; }
+            get => _visible;
             set
             {
                 if (_visible != value)

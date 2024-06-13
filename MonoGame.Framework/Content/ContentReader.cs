@@ -15,35 +15,32 @@ namespace Microsoft.Xna.Framework.Content
     /// </summary>
     public sealed class ContentReader : BinaryReader
     {
-        private ContentManager contentManager;
         private Action<IDisposable> recordDisposableObject;
         private ContentTypeReaderManager typeReaderManager;
-        private string assetName;
         private List<KeyValuePair<int, Action<object>>> sharedResourceFixups;
-        private ContentTypeReader[] typeReaders;
-		internal int version;
-		internal int sharedResourceCount;
+        internal int version;
+        internal int sharedResourceCount;
 
-        internal ContentTypeReader[] TypeReaders => typeReaders;
+        internal ContentTypeReader[] TypeReaders { get; private set; }
 
         internal ContentReader(ContentManager manager, Stream stream, string assetName, int version, Action<IDisposable> recordDisposableObject)
             : base(stream)
         {
             this.recordDisposableObject = recordDisposableObject;
-            this.contentManager = manager;
-            this.assetName = assetName;
-			this.version = version;
+            this.ContentManager = manager;
+            this.AssetName = assetName;
+            this.version = version;
         }
 
         /// <summary>
         /// Gets a reference to the <see cref="ContentManager"/> instance that is using this content reader.
         /// </summary>
-        public ContentManager ContentManager => contentManager;
+        public ContentManager ContentManager { get; }
 
         /// <summary>
         /// Gets the name of the asset currently being read by this content reader.
         /// </summary>
-        public string AssetName => assetName;
+        public string AssetName { get; }
 
         internal object ReadAsset<T>()
         {
@@ -74,7 +71,7 @@ namespace Microsoft.Xna.Framework.Content
         internal void InitializeTypeReaders()
         {
             typeReaderManager = new ContentTypeReaderManager();
-            typeReaders = typeReaderManager.LoadAssetReaders(this);
+            TypeReaders = typeReaderManager.LoadAssetReaders(this);
             sharedResourceCount = Read7BitEncodedInt();
             sharedResourceFixups = new List<KeyValuePair<int, Action<object>>>();
         }
@@ -135,7 +132,7 @@ namespace Microsoft.Xna.Framework.Content
 
             if (!String.IsNullOrEmpty(externalReference))
             {
-                return contentManager.Load<T>(FileHelpers.ResolveRelativePath(assetName, externalReference));
+                return ContentManager.Load<T>(FileHelpers.ResolveRelativePath(AssetName, externalReference));
             }
 
             return default(T);
@@ -179,7 +176,7 @@ namespace Microsoft.Xna.Framework.Content
             if (recordDisposableObject != null)
                 recordDisposableObject(disposable);
             else
-                contentManager.RecordDisposable(disposable);
+                ContentManager.RecordDisposable(disposable);
         }
 
         /// <summary>
@@ -237,10 +234,10 @@ namespace Microsoft.Xna.Framework.Content
             if (typeReaderIndex == 0)
                 return existingInstance;
 
-            if (typeReaderIndex > typeReaders.Length)
+            if (typeReaderIndex > TypeReaders.Length)
                 throw new ContentLoadException("Incorrect type reader index found!");
 
-            var typeReader = typeReaders[typeReaderIndex - 1];
+            var typeReader = TypeReaders[typeReaderIndex - 1];
             var result = (T)typeReader.Read(this, existingInstance);
 
             RecordDisposable(result);
@@ -331,7 +328,7 @@ namespace Microsoft.Xna.Framework.Content
         public T ReadRawObject<T>(T existingInstance)
         {
             Type objectType = typeof(T);
-            foreach(ContentTypeReader typeReader in typeReaders)
+            foreach (ContentTypeReader typeReader in TypeReaders)
             {
                 if(typeReader.TargetType == objectType)
                     return (T)ReadRawObject<T>(typeReader,existingInstance);

@@ -56,9 +56,6 @@ namespace Microsoft.Xna.Framework.Graphics
         Vector3 ambientLightColor = Vector3.Zero;
 
         float alpha = 1;
-
-        DirectionalLight light0;
-        DirectionalLight light1;
         DirectionalLight light2;
 
         float fogStart = 0;
@@ -76,8 +73,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Matrix World
         {
-            get { return world; }
-            
+            get => world;
+
             set
             {
                 world = value;
@@ -91,8 +88,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Matrix View
         {
-            get { return view; }
-            
+            get => view;
+
             set
             {
                 view = value;
@@ -106,8 +103,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Matrix Projection
         {
-            get { return projection; }
-            
+            get => projection;
+
             set
             {
                 projection = value;
@@ -121,8 +118,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 DiffuseColor
         {
-            get { return diffuseColor; }
-            
+            get => diffuseColor;
+
             set
             {
                 diffuseColor = value;
@@ -136,8 +133,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 EmissiveColor
         {
-            get { return emissiveColor; }
-            
+            get => emissiveColor;
+
             set
             {
                 emissiveColor = value;
@@ -151,8 +148,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 SpecularColor
         {
-            get { return specularColorParam.GetValueVector3(); }
-            set { specularColorParam.SetValue(value); }
+            get => specularColorParam.GetValueVector3();
+            set => specularColorParam.SetValue(value);
         }
 
 
@@ -161,8 +158,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public float SpecularPower
         {
-            get { return specularPowerParam.GetValueSingle(); }
-            set { specularPowerParam.SetValue(value); }
+            get => specularPowerParam.GetValueSingle();
+            set => specularPowerParam.SetValue(value);
         }
 
 
@@ -171,8 +168,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public float Alpha
         {
-            get { return alpha; }
-            
+            get => alpha;
+
             set
             {
                 alpha = value;
@@ -183,8 +180,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc/>
         public bool LightingEnabled
         {
-            get { return lightingEnabled; }
-            
+            get => lightingEnabled;
+
             set
             {
                 if (lightingEnabled != value)
@@ -201,8 +198,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool PreferPerPixelLighting
         {
-            get { return preferPerPixelLighting; }
-            
+            get => preferPerPixelLighting;
+
             set
             {
                 if (preferPerPixelLighting != value)
@@ -217,8 +214,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc/>
         public Vector3 AmbientLightColor
         {
-            get { return ambientLightColor; }
-            
+            get => ambientLightColor;
+
             set
             {
                 ambientLightColor = value;
@@ -228,11 +225,11 @@ namespace Microsoft.Xna.Framework.Graphics
 
 
         /// <inheritdoc/>
-        public DirectionalLight DirectionalLight0 => light0;
+        public DirectionalLight DirectionalLight0 { get; private set; }
 
 
         /// <inheritdoc/>
-        public DirectionalLight DirectionalLight1 => light1;
+        public DirectionalLight DirectionalLight1 { get; private set; }
 
 
         /// <inheritdoc/>
@@ -242,8 +239,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc/>
         public bool FogEnabled
         {
-            get { return fogEnabled; }
-            
+            get => fogEnabled;
+
             set
             {
                 if (fogEnabled != value)
@@ -258,8 +255,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc/>
         public float FogStart
         {
-            get { return fogStart; }
-            
+            get => fogStart;
+
             set
             {
                 fogStart = value;
@@ -271,8 +268,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc/>
         public float FogEnd
         {
-            get { return fogEnd; }
-            
+            get => fogEnd;
+
             set
             {
                 fogEnd = value;
@@ -284,8 +281,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc/>
         public Vector3 FogColor
         {
-            get { return fogColorParam.GetValueVector3(); }
-            set { fogColorParam.SetValue(value); }
+            get => fogColorParam.GetValueVector3();
+            set => fogColorParam.SetValue(value);
         }
 
 
@@ -294,8 +291,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool TextureEnabled
         {
-            get { return textureEnabled; }
-            
+            get => textureEnabled;
+
             set
             {
                 if (textureEnabled != value)
@@ -312,8 +309,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Texture2D Texture
         {
-            get { return textureParam.GetValueTexture2D(); }
-            set { textureParam.SetValue(value); }
+            get => textureParam.GetValueTexture2D();
+            set => textureParam.SetValue(value);
         }
 
 
@@ -322,8 +319,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool VertexColorEnabled
         {
-            get { return vertexColorEnabled; }
-            
+            get => vertexColorEnabled;
+
             set
             {
                 if (vertexColorEnabled != value)
@@ -395,7 +392,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             LightingEnabled = true;
 
-            AmbientLightColor = EffectHelpers.EnableDefaultLighting(light0, light1, light2);
+            AmbientLightColor = EffectHelpers.EnableDefaultLighting(DirectionalLight0, DirectionalLight1, light2);
         }
 
 
@@ -416,15 +413,15 @@ namespace Microsoft.Xna.Framework.Graphics
             worldInverseTransposeParam  = Parameters["WorldInverseTranspose"];
             worldViewProjParam          = Parameters["WorldViewProj"];
 
-            light0 = new DirectionalLight(Parameters["DirLight0Direction"],
+            DirectionalLight0 = new DirectionalLight(Parameters["DirLight0Direction"],
                                           Parameters["DirLight0DiffuseColor"],
                                           Parameters["DirLight0SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light0 : null);
+                                          (cloneSource != null) ? cloneSource.DirectionalLight0 : null);
 
-            light1 = new DirectionalLight(Parameters["DirLight1Direction"],
+            DirectionalLight1 = new DirectionalLight(Parameters["DirLight1Direction"],
                                           Parameters["DirLight1DiffuseColor"],
                                           Parameters["DirLight1SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light1 : null);
+                                          (cloneSource != null) ? cloneSource.DirectionalLight1 : null);
 
             light2 = new DirectionalLight(Parameters["DirLight2Direction"],
                                           Parameters["DirLight2DiffuseColor"],
@@ -454,10 +451,10 @@ namespace Microsoft.Xna.Framework.Graphics
                 // Recompute the world inverse transpose and eye position?
                 dirtyFlags = EffectHelpers.SetLightingMatrices(dirtyFlags, ref world, ref view, worldParam, worldInverseTransposeParam, eyePositionParam);
 
-                
+
                 // Check if we can use the only-bother-with-the-first-light shader optimization.
-                bool newOneLight = !light1.Enabled && !light2.Enabled;
-                
+                bool newOneLight = !DirectionalLight1.Enabled && !light2.Enabled;
+
                 if (oneLight != newOneLight)
                 {
                     oneLight = newOneLight;

@@ -17,9 +17,6 @@ namespace Microsoft.Xna.Framework.Audio
     {
         #region Internal Audio Data
 
-        private string _name = string.Empty;
-        
-        private bool _isDisposed = false;
         private readonly TimeSpan _duration;
 
         #endregion
@@ -406,11 +403,7 @@ namespace Microsoft.Xna.Framework.Audio
         public TimeSpan Duration => _duration;
 
         /// <summary>Gets or sets the asset name of the SoundEffect.</summary>
-        public string Name
-        {
-            get { return _name; }
-            set { _name = value; }
-        }
+        public string Name { get; set; } = string.Empty;
 
         #endregion
 
@@ -424,9 +417,9 @@ namespace Microsoft.Xna.Framework.Audio
         /// <para>Each SoundEffectInstance has its own Volume property that is independent to SoundEffect.MasterVolume. During playback SoundEffectInstance.Volume is multiplied by SoundEffect.MasterVolume.</para>
         /// <para>This property is used to adjust the volume on all current and newly created SoundEffectInstances. The volume of an individual SoundEffectInstance can be adjusted on its own.</para>
         /// </remarks>
-        public static float MasterVolume 
-        { 
-            get { return _masterVolume; }
+        public static float MasterVolume
+        {
+            get => _masterVolume;
             set
             {
                 if (value < 0.0f || value > 1.0f)
@@ -434,7 +427,7 @@ namespace Microsoft.Xna.Framework.Audio
 
                 if (_masterVolume == value)
                     return;
-                
+
                 _masterVolume = value;
                 SoundEffectInstancePool.UpdateMasterVolume();
             }
@@ -450,11 +443,11 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static float DistanceScale
         {
-            get { return _distanceScale; }
+            get => _distanceScale;
             set
             {
                 if (value <= 0f)
-                    throw new ArgumentOutOfRangeException ("value", "value of DistanceScale");
+                    throw new ArgumentOutOfRangeException("value", "value of DistanceScale");
 
                 _distanceScale = value;
             }
@@ -471,14 +464,14 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static float DopplerScale
         {
-            get { return _dopplerScale; }
+            get => _dopplerScale;
             set
             {
                 // As per documenation it does not look like the value can be less than 0
                 //   although the documentation does not say it throws an error we will anyway
                 //   just so it is like the DistanceScale
                 if (value < 0.0f)
-                    throw new ArgumentOutOfRangeException ("value", "value of DopplerScale");
+                    throw new ArgumentOutOfRangeException("value", "value of DopplerScale");
 
                 _dopplerScale = value;
             }
@@ -492,7 +485,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public static float SpeedOfSound
         {
-            get { return speedOfSound; }
+            get => speedOfSound;
             set
             {
                 if (value <= 0.0f)
@@ -507,7 +500,7 @@ namespace Microsoft.Xna.Framework.Audio
         #region IDisposable Members
 
         /// <summary>Indicates whether the object is disposed.</summary>
-        public bool IsDisposed => _isDisposed;
+        public bool IsDisposed { get; private set; } = false;
 
         /// <summary>Releases the resources held by this <see cref="Microsoft.Xna.Framework.Audio.SoundEffect"/>.</summary>
         public void Dispose()
@@ -527,11 +520,11 @@ namespace Microsoft.Xna.Framework.Audio
         /// not at that time.  Unmanaged resources should always be released.</remarks>
         void Dispose(bool disposing)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 SoundEffectInstancePool.StopPooledInstances(this);
                 PlatformDispose(disposing);
-                _isDisposed = true;
+                IsDisposed = true;
             }
         }
 

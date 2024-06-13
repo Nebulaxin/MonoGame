@@ -445,7 +445,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void DisposeTexture(int handle)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 lock (_disposeActionsLock)
                 {
@@ -456,7 +456,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void DisposeBuffer(int handle)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 lock (_disposeActionsLock)
                 {
@@ -467,7 +467,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void DisposeShader(int handle)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 lock (_disposeActionsLock)
                 {
@@ -478,7 +478,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void DisposeProgram(int handle)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 lock (_disposeActionsLock)
                 {
@@ -489,7 +489,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void DisposeQuery(int handle)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 lock (_disposeActionsLock)
                 {
@@ -500,7 +500,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void DisposeFramebuffer(int handle)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 lock (_disposeActionsLock)
                 {
@@ -562,10 +562,10 @@ namespace Microsoft.Xna.Framework.Graphics
 
             GL.DepthRange(value.MinDepth, value.MaxDepth);
             GraphicsExtensions.LogGLError("GraphicsDevice.Viewport_set() GL.DepthRange");
-                
+
             // In OpenGL we have to re-apply the special "posFixup"
             // vertex shader uniform if the viewport changes.
-            _vertexShaderDirty = true;
+            VertexShaderDirty = true;
 
         }
 
@@ -765,7 +765,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private void PlatformResolveRenderTargets()
         {
-            if (this._currentRenderTargetCount == 0)
+            if (this.RenderTargetCount == 0)
                 return;
 
             var renderTargetBinding = this._currentRenderTargetBindings[0];
@@ -777,7 +777,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 {
                     this.framebufferHelper.GenFramebuffer(out glResolveFramebuffer);
                     this.framebufferHelper.BindFramebuffer(glResolveFramebuffer);
-                    for (var i = 0; i < this._currentRenderTargetCount; ++i)
+                    for (var i = 0; i < this.RenderTargetCount; ++i)
                     {
                         var rt = this._currentRenderTargetBindings[i].RenderTarget as IRenderTarget;
                         this.framebufferHelper.FramebufferTexture2D((int)(FramebufferAttachment.ColorAttachment0 + i), (int) rt.GetFramebufferTarget(renderTargetBinding), rt.GLTexture);
@@ -796,7 +796,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 }
                 var glFramebuffer = this.glFramebuffers[this._currentRenderTargetBindings];
                 this.framebufferHelper.BindReadFramebuffer(glFramebuffer);
-                for (var i = 0; i < this._currentRenderTargetCount; ++i)
+                for (var i = 0; i < this.RenderTargetCount; ++i)
                 {
                     renderTargetBinding = this._currentRenderTargetBindings[i];
                     renderTarget = renderTargetBinding.RenderTarget as IRenderTarget;
@@ -810,7 +810,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     GraphicsExtensions.CheckGLError();
                 }
             }
-            for (var i = 0; i < this._currentRenderTargetCount; ++i)
+            for (var i = 0; i < this.RenderTargetCount; ++i)
             {
                 renderTargetBinding = this._currentRenderTargetBindings[i];
                 renderTarget = renderTargetBinding.RenderTarget as IRenderTarget;
@@ -834,7 +834,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 var renderTarget = renderTargetBinding.RenderTarget as IRenderTarget;
                 this.framebufferHelper.FramebufferRenderbuffer((int)FramebufferAttachment.DepthAttachment, renderTarget.GLDepthBuffer, 0);
                 this.framebufferHelper.FramebufferRenderbuffer((int)FramebufferAttachment.StencilAttachment, renderTarget.GLStencilBuffer, 0);
-                for (var i = 0; i < this._currentRenderTargetCount; ++i)
+                for (var i = 0; i < this.RenderTargetCount; ++i)
                 {
                     renderTargetBinding = this._currentRenderTargetBindings[i];
                     renderTarget = renderTargetBinding.RenderTarget as IRenderTarget;
@@ -855,7 +855,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 this.framebufferHelper.BindFramebuffer(glFramebuffer);
             }
 #if !GLES
-            GL.DrawBuffers(this._currentRenderTargetCount, this._drawBuffers);
+            GL.DrawBuffers(this.RenderTargetCount, this._drawBuffers);
 #endif
 
             // Reset the raster state because we flip vertices
@@ -1018,11 +1018,11 @@ namespace Microsoft.Xna.Framework.Graphics
             if (_pixelShader == null)
                 throw new InvalidOperationException("A pixel shader must be set!");
 
-            if (_vertexShaderDirty || _pixelShaderDirty)
+            if (VertexShaderDirty || PixelShaderDirty)
             {
                 ActivateShaderProgram();
 
-                if (_vertexShaderDirty)
+                if (VertexShaderDirty)
                 {
                     unchecked
                     {
@@ -1030,7 +1030,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     }
                 }
 
-                if (_pixelShaderDirty)
+                if (PixelShaderDirty)
                 {
                     unchecked
                     {
@@ -1038,7 +1038,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     }
                 }
 
-                _vertexShaderDirty = _pixelShaderDirty = false;
+                VertexShaderDirty = PixelShaderDirty = false;
             }
 
             _vertexConstantBuffers.SetConstantBuffers(this, _shaderProgram);
