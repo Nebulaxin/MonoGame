@@ -14,7 +14,7 @@ namespace Microsoft.Xna.Framework.Media
     public sealed class PlaylistCollection : ICollection<Playlist>, IEnumerable<Playlist>, IEnumerable, IDisposable
     {
 		private bool isReadOnly = false;
-		private List<Playlist> innerlist = new List<Playlist>();
+        private List<Playlist> innerlist = new();
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
         public void Dispose()
@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <inheritdoc cref="ICloneable.Clone"/>
         public PlaylistCollection Clone()
         {
-            PlaylistCollection plc = new PlaylistCollection();
+            PlaylistCollection plc = new();
             foreach (Playlist playlist in this.innerlist)
                 plc.Add(playlist);
             return plc;

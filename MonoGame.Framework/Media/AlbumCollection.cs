@@ -29,7 +29,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Returns an AlbumCollection with no contents.
         /// </summary>
-        public static readonly AlbumCollection Empty = new AlbumCollection(new List<Album>());
+        public static readonly AlbumCollection Empty = new(new List<Album>());
 
         private List<Album> albumCollection;
 

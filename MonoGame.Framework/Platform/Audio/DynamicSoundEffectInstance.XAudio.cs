@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework.Audio
     {
         private Queue<AudioBuffer> _queuedBuffers;
         private Queue<byte[]> _pooledBuffers;
-        private static ByteBufferPool _bufferPool = new ByteBufferPool();
+        private static ByteBufferPool _bufferPool = new();
 
         private void PlatformCreate()
         {

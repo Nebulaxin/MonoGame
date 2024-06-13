@@ -48,8 +48,8 @@ namespace Microsoft.Xna.Framework.Graphics
 				return (b);
 			}
 
-			static public readonly CharComparer Default = new CharComparer();
-		}
+            static public readonly CharComparer Default = new();
+        }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="SpriteFont" /> class.
@@ -384,7 +384,7 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Returns an empty glyph.
             /// </summary>
-            public static readonly Glyph Empty = new Glyph();
+            public static readonly Glyph Empty = new();
 
             /// <summary>
             /// Returns a string representation of this <see cref="Glyph"/>.

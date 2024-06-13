@@ -7,9 +7,9 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public class EffectAnnotationCollection : IEnumerable<EffectAnnotation>
 	{
-        internal static readonly EffectAnnotationCollection Empty = new EffectAnnotationCollection(new EffectAnnotation[0]);
+        internal static readonly EffectAnnotationCollection Empty = new(new EffectAnnotation[0]);
 
-	    private readonly EffectAnnotation[] _annotations;
+        private readonly EffectAnnotation[] _annotations;
 
         internal EffectAnnotationCollection(EffectAnnotation[] annotations)
         {

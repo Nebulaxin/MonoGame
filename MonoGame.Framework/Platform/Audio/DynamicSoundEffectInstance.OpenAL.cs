@@ -73,7 +73,7 @@ namespace Microsoft.Xna.Framework.Audio
         private void PlatformSubmitBuffer(byte[] buffer, int offset, int count)
         {
             // Get a buffer
-            OALSoundBuffer oalBuffer = new OALSoundBuffer();
+            OALSoundBuffer oalBuffer = new();
 
             // Bind the data
             if (offset == 0)

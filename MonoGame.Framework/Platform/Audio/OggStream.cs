@@ -20,8 +20,8 @@ namespace Microsoft.Xna.Framework.Audio
     {
         const int DefaultBufferCount = 3;
 
-        internal readonly object stopMutex = new object();
-        internal readonly object prepareMutex = new object();
+        internal readonly object stopMutex = new();
+        internal readonly object prepareMutex = new();
 
         internal readonly int alSourceId;
         internal readonly int[] alBufferIds;
@@ -282,21 +282,21 @@ namespace Microsoft.Xna.Framework.Audio
 
     internal class OggStreamer : IDisposable
     {
-        public readonly XRamExtension XRam = new XRamExtension();
+        public readonly XRamExtension XRam = new();
 
         const float DefaultUpdateRate = 10;
         const int DefaultBufferSize = 44100;
 
-        static readonly object singletonMutex = new object();
+        static readonly object singletonMutex = new();
 
-        readonly object iterationMutex = new object();
-        readonly object readMutex = new object();
+        readonly object iterationMutex = new();
+        readonly object readMutex = new();
 
         readonly float[] readSampleBuffer;
         readonly short[] castBuffer;
 
-        readonly HashSet<OggStream> streams = new HashSet<OggStream>();
-        readonly List<OggStream> threadLocalStreams = new List<OggStream>();
+        readonly HashSet<OggStream> streams = new();
+        readonly List<OggStream> threadLocalStreams = new();
 
         readonly Thread underlyingThread;
         volatile bool cancelled;

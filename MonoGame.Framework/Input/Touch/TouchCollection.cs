@@ -28,9 +28,9 @@ namespace Microsoft.Xna.Framework.Input.Touch
         public bool IsConnected { get { return TouchPanel.GetCapabilities().IsConnected; } }
 
         private static readonly TouchLocation[] EmptyLocationArray = new TouchLocation[0];
-        internal static readonly TouchCollection Empty = new TouchCollection(EmptyLocationArray);
+        internal static readonly TouchCollection Empty = new(EmptyLocationArray);
 
-		#endregion
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TouchCollection"/> with a pre-determined set of touch locations.

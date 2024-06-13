@@ -1426,7 +1426,7 @@ namespace MonoGame.OpenGL
             LoadExtensions ();
         }
 
-        internal static List<string> Extensions = new List<string> ();
+        internal static List<string> Extensions = new();
 
         //[Conditional("DEBUG")]
         //[DebuggerHidden]

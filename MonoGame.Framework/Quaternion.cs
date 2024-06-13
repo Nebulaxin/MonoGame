@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Quaternion _identity = new Quaternion(0, 0, 0, 1);
+        private static readonly Quaternion _identity = new(0, 0, 0, 1);
 
         #endregion
 
@@ -657,8 +657,8 @@ namespace Microsoft.Xna.Framework
         {
             float num = amount;
 		    float num2 = 1f - num;
-		    Quaternion quaternion = new Quaternion();
-		    float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Quaternion quaternion = new();
+            float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
 		    if (num5 >= 0f)
 		    {
 		        quaternion.X = (num2 * quaternion1.X) + (num * quaternion2.X);

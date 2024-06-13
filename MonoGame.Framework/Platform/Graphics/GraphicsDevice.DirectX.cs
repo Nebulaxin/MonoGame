@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework.Graphics
         // The active depth view.
         SharpDX.Direct3D11.DepthStencilView _currentDepthStencilView;
 
-        private readonly Dictionary<VertexDeclaration, DynamicVertexBuffer> _userVertexBuffers = new Dictionary<VertexDeclaration, DynamicVertexBuffer>();
+        private readonly Dictionary<VertexDeclaration, DynamicVertexBuffer> _userVertexBuffers = new();
         private DynamicIndexBuffer _userIndexBuffer16;
         private DynamicIndexBuffer _userIndexBuffer32;
 

@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Graphics
             adapters = new ReadOnlyCollection<GraphicsAdapter>(adapterList);
         }
 
-        private static readonly Dictionary<SharpDX.DXGI.Format, SurfaceFormat> FormatTranslations = new Dictionary<SharpDX.DXGI.Format, SurfaceFormat>
+        private static readonly Dictionary<SharpDX.DXGI.Format, SurfaceFormat> FormatTranslations = new()
         {
             { SharpDX.DXGI.Format.R8G8B8A8_UNorm, SurfaceFormat.Color },
             { SharpDX.DXGI.Format.B8G8R8A8_UNorm, SurfaceFormat.Color },

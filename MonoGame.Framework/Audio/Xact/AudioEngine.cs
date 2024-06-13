@@ -15,10 +15,10 @@ namespace Microsoft.Xna.Framework.Audio
     public class AudioEngine : IDisposable
     {
         private readonly AudioCategory[] _categories;
-        private readonly Dictionary<string, int> _categoryLookup = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _categoryLookup = new();
 
         private readonly RpcVariable[] _variables;
-        private readonly Dictionary<string, int> _variableLookup = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _variableLookup = new();
 
         private readonly RpcVariable[] _cueVariables;
 
@@ -28,15 +28,15 @@ namespace Microsoft.Xna.Framework.Audio
         private readonly ReverbSettings _reverbSettings;
         private readonly RpcCurve[] _reverbCurves;
 
-        internal List<Cue> ActiveCues = new List<Cue>();
+        internal List<Cue> ActiveCues = new();
 
         internal AudioCategory[] Categories { get { return _categories; } }
 
-        internal Dictionary<string, WaveBank> Wavebanks = new Dictionary<string, WaveBank>();
+        internal Dictionary<string, WaveBank> Wavebanks = new();
 
         internal readonly RpcCurve[] RpcCurves;
 
-        internal readonly object UpdateLock = new object();
+        internal readonly object UpdateLock = new();
 
         internal RpcVariable[] CreateCueVariables()
         {

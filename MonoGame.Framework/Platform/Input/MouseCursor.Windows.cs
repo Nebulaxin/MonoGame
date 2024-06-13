@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Input
             {
                 using (var bitmap = new Bitmap(w, h, h * 4, PixelFormat.Format32bppArgb, gcHandle.AddrOfPinnedObject()))
                 {
-                    IconInfo iconInfo = new IconInfo();
+                    IconInfo iconInfo = new();
                     GetIconInfo(bitmap.GetHicon(), ref iconInfo);
                     iconInfo.xHotspot = originx;
                     iconInfo.yHotspot = originy;

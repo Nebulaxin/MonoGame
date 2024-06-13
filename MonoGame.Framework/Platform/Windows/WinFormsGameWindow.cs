@@ -26,8 +26,8 @@ namespace MonoGame.Framework
     {
         internal WinFormsGameForm Form;
 
-        static private ReaderWriterLockSlim _allWindowsReaderWriterLockSlim = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
-        static private List<WinFormsGameWindow> _allWindows = new List<WinFormsGameWindow>();
+        static private ReaderWriterLockSlim _allWindowsReaderWriterLockSlim = new(LockRecursionPolicy.NoRecursion);
+        static private List<WinFormsGameWindow> _allWindows = new();
 
         private WinFormsGamePlatform _platform;
 

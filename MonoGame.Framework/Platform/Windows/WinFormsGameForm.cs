@@ -222,7 +222,7 @@ namespace Microsoft.Xna.Framework.Windows
             for (uint i = 0; i < count; i++)
             {
                 uint buffSize = DragQueryFile(hdrop, i, null, int.MaxValue);
-                StringBuilder builder = new StringBuilder((int)buffSize);
+                StringBuilder builder = new((int)buffSize);
                 DragQueryFile(hdrop, i, builder, buffSize);
                 files[i] = builder.ToString();
             }

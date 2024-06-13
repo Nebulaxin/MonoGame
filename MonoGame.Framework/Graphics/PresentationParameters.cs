@@ -223,7 +223,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns></returns>
         public PresentationParameters Clone()
         {
-            PresentationParameters clone = new PresentationParameters();
+            PresentationParameters clone = new();
             clone.backBufferFormat = this.backBufferFormat;
             clone.backBufferHeight = this.backBufferHeight;
             clone.backBufferWidth = this.backBufferWidth;

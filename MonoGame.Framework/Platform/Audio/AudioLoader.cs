@@ -90,7 +90,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             byte[] audioData = null;
 
-            using (BinaryReader reader = new BinaryReader(stream))
+            using (BinaryReader reader = new(stream))
             {
                 // for now we'll only support wave files
                 audioData = LoadWave(reader, out format, out frequency, out channels, out blockAlignment, out bitsPerSample, out samplesPerBlock, out sampleCount);
@@ -104,12 +104,12 @@ namespace Microsoft.Xna.Framework.Audio
             byte[] audioData = null;
 
             //header
-            string signature = new string(reader.ReadChars(4));
+            string signature = new(reader.ReadChars(4));
             if (signature != "RIFF")
                 throw new ArgumentException("Specified stream is not a wave file.");
             reader.ReadInt32(); // riff_chunk_size
 
-            string wformat = new string(reader.ReadChars(4));
+            string wformat = new(reader.ReadChars(4));
             if (wformat != "WAVE")
                 throw new ArgumentException("Specified stream is not a wave file.");
 
@@ -125,7 +125,7 @@ namespace Microsoft.Xna.Framework.Audio
             // WAVE header
             while (audioData == null)
             {
-                string chunkType = new string(reader.ReadChars(4));
+                string chunkType = new(reader.ReadChars(4));
                 int chunkSize = reader.ReadInt32();
                 switch (chunkType)
                 {
@@ -340,8 +340,8 @@ namespace Microsoft.Xna.Framework.Audio
         // Convert buffer containing IMA/ADPCM wav data to a 16-bit signed PCM buffer
         internal static byte[] ConvertIma4ToPcm(byte[] buffer, int offset, int count, int channels, int blockAlignment)
         {
-            ImaState channel0 = new ImaState();
-            ImaState channel1 = new ImaState();
+            ImaState channel0 = new();
+            ImaState channel1 = new();
 
             int sampleCountFullBlock = ((blockAlignment / channels) - 4) / 4 * 8 + 1;
             int sampleCountLastBlock = 0;
@@ -496,8 +496,8 @@ namespace Microsoft.Xna.Framework.Audio
         // Convert buffer containing MS-ADPCM wav data to a 16-bit signed PCM buffer
         internal static byte[] ConvertMsAdpcmToPcm(byte[] buffer, int offset, int count, int channels, int blockAlignment)
         {
-            MsAdpcmState channel0 = new MsAdpcmState();
-            MsAdpcmState channel1 = new MsAdpcmState();
+            MsAdpcmState channel0 = new();
+            MsAdpcmState channel1 = new();
             int blockPredictor;
 
             int sampleCountFullBlock = ((blockAlignment / channels) - 7) * 2 + 2;

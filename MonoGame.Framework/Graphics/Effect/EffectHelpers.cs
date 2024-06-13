@@ -130,7 +130,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 
                 float scale = 1f / (fogStart - fogEnd);
 
-                Vector4 fogVector = new Vector4();
+                Vector4 fogVector = new();
 
                 fogVector.X = worldView.M13 * scale;
                 fogVector.Y = worldView.M23 * scale;
@@ -210,9 +210,9 @@ namespace Microsoft.Xna.Framework.Graphics
             
             if (lightingEnabled)
             {
-                Vector4 diffuse = new Vector4();
-                Vector3 emissive = new Vector3();
-                
+                Vector4 diffuse = new();
+                Vector3 emissive = new();
+
                 diffuse.X = diffuseColor.X * alpha;
                 diffuse.Y = diffuseColor.Y * alpha;
                 diffuse.Z = diffuseColor.Z * alpha;
@@ -227,8 +227,8 @@ namespace Microsoft.Xna.Framework.Graphics
             }
             else
             {
-                Vector4 diffuse = new Vector4();
-                
+                Vector4 diffuse = new();
+
                 diffuse.X = (diffuseColor.X + emissiveColor.X) * alpha;
                 diffuse.Y = (diffuseColor.Y + emissiveColor.Y) * alpha;
                 diffuse.Z = (diffuseColor.Z + emissiveColor.Z) * alpha;

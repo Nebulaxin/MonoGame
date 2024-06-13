@@ -17,8 +17,8 @@ namespace Microsoft.Xna.Framework.Input
             public int PacketNumber;
         }
 
-        private static readonly Dictionary<int, GamePadInfo> Gamepads = new Dictionary<int, GamePadInfo>();
-        private static readonly Dictionary<int, int> _translationTable = new Dictionary<int, int>();
+        private static readonly Dictionary<int, GamePadInfo> Gamepads = new();
+        private static readonly Dictionary<int, int> _translationTable = new();
 
         /// <summary>
         /// Initialies the internal database of gamepad mappings for an SDL context

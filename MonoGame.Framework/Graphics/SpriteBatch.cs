@@ -26,9 +26,9 @@ namespace Microsoft.Xna.Framework.Graphics
 		SpriteEffect _spriteEffect;
         readonly EffectPass _spritePass;
 
-		Rectangle _tempRect = new Rectangle (0,0,0,0);
-		Vector2 _texCoordTL = new Vector2 (0,0);
-		Vector2 _texCoordBR = new Vector2 (0,0);
+        Rectangle _tempRect = new(0, 0, 0, 0);
+        Vector2 _texCoordTL = new(0, 0);
+        Vector2 _texCoordBR = new(0, 0);
         #endregion
 
         /// <summary>

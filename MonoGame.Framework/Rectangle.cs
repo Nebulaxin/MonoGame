@@ -17,7 +17,7 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static Rectangle emptyRectangle = new Rectangle();
+        private static Rectangle emptyRectangle = new();
 
         #endregion
 

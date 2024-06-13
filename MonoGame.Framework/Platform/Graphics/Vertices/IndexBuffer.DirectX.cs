@@ -89,7 +89,7 @@ namespace Microsoft.Xna.Framework.Graphics
                     {
                         var startBytes = startIndex * TsizeInBytes;
                         var dataPtr = (IntPtr)(dataHandle.AddrOfPinnedObject().ToInt64() + startBytes);
-                        SharpDX.DataPointer DataPointer = new SharpDX.DataPointer(dataPtr, elementCount * TsizeInBytes);
+                        SharpDX.DataPointer DataPointer = new(dataPtr, elementCount * TsizeInBytes);
 
                         lock (GraphicsDevice._d3dContext)
                         {

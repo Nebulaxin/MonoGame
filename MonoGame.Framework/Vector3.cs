@@ -21,17 +21,17 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector3 zero = new Vector3(0f, 0f, 0f);
-        private static readonly Vector3 one = new Vector3(1f, 1f, 1f);
-        private static readonly Vector3 unitX = new Vector3(1f, 0f, 0f);
-        private static readonly Vector3 unitY = new Vector3(0f, 1f, 0f);
-        private static readonly Vector3 unitZ = new Vector3(0f, 0f, 1f);
-        private static readonly Vector3 up = new Vector3(0f, 1f, 0f);
-        private static readonly Vector3 down = new Vector3(0f, -1f, 0f);
-        private static readonly Vector3 right = new Vector3(1f, 0f, 0f);
-        private static readonly Vector3 left = new Vector3(-1f, 0f, 0f);
-        private static readonly Vector3 forward = new Vector3(0f, 0f, -1f);
-        private static readonly Vector3 backward = new Vector3(0f, 0f, 1f);
+        private static readonly Vector3 zero = new(0f, 0f, 0f);
+        private static readonly Vector3 one = new(1f, 1f, 1f);
+        private static readonly Vector3 unitX = new(1f, 0f, 0f);
+        private static readonly Vector3 unitY = new(0f, 1f, 0f);
+        private static readonly Vector3 unitZ = new(0f, 0f, 1f);
+        private static readonly Vector3 up = new(0f, 1f, 0f);
+        private static readonly Vector3 down = new(0f, -1f, 0f);
+        private static readonly Vector3 right = new(1f, 0f, 0f);
+        private static readonly Vector3 left = new(-1f, 0f, 0f);
+        private static readonly Vector3 forward = new(0f, 0f, -1f);
+        private static readonly Vector3 backward = new(0f, 0f, 1f);
 
         #endregion
 
@@ -1021,7 +1021,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Vector3"/>.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder(32);
+            StringBuilder sb = new(32);
             sb.Append("{X:");
             sb.Append(this.X);
             sb.Append(" Y:");

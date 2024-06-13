@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework.Content
             uint boneCount = reader.ReadUInt32();
             //Debug.WriteLine("Bone count: {0}", boneCount);
 
-            List<ModelBone> bones = new List<ModelBone>((int)boneCount);
+            List<ModelBone> bones = new((int)boneCount);
 
             for (uint i = 0; i < boneCount; i++)
             {
@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework.Content
                 }
             }
 
-            List<ModelMesh> meshes = new List<ModelMesh>();
+            List<ModelMesh> meshes = new();
 
             //// Read the mesh data.
             int meshCount = reader.ReadInt32();
@@ -120,7 +120,7 @@ namespace Microsoft.Xna.Framework.Content
                 int partCount = reader.ReadInt32();
                 //Debug.WriteLine("Mesh part count: {0}", partCount);
 
-                List<ModelMeshPart> parts = new List<ModelMeshPart>(partCount);
+                List<ModelMeshPart> parts = new(partCount);
 
                 for (uint j = 0; j < partCount; j++)
                 {
@@ -160,7 +160,7 @@ namespace Microsoft.Xna.Framework.Content
                 if (existingInstance != null)
                     continue;
 
-				ModelMesh mesh = new ModelMesh(reader.GetGraphicsDevice(), parts);
+                ModelMesh mesh = new(reader.GetGraphicsDevice(), parts);
 
                 // Tag reassignment
                 mesh.Tag = meshTag;
@@ -183,7 +183,7 @@ namespace Microsoft.Xna.Framework.Content
             // Read the final pieces of model data.
             var rootBoneIndex = ReadBoneReference(reader, boneCount);
 
-            Model model = new Model(reader.GetGraphicsDevice(), bones, meshes);
+            Model model = new(reader.GetGraphicsDevice(), bones, meshes);
 
             model.Root = bones[rootBoneIndex];
 		

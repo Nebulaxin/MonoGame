@@ -270,8 +270,8 @@ namespace Microsoft.Xna.Framework
         #endregion
 
         #region Private Members
-        private static Matrix identity = new Matrix(1f, 0f, 0f, 0f, 
-		                                            0f, 1f, 0f, 0f, 
+        private static Matrix identity = new(1f, 0f, 0f, 0f,
+                                                    0f, 1f, 0f, 0f, 
 		                                            0f, 0f, 1f, 0f, 
 		                                            0f, 0f, 0f, 1f);
         #endregion
@@ -1493,7 +1493,7 @@ namespace Microsoft.Xna.Framework
                 return false;
             }
 
-            Matrix m1 = new Matrix(this.M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
+            Matrix m1 = new(this.M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
                                    this.M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
                                    this.M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
                                    0, 0, 0, 1);

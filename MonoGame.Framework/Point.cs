@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Point zeroPoint = new Point();
+        private static readonly Point zeroPoint = new();
 
         #endregion
 

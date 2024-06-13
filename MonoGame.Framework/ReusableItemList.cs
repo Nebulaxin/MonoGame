@@ -9,7 +9,7 @@ namespace Microsoft.Xna.Framework
 {
     internal class ReusableItemList<T> : ICollection<T>, IEnumerator<T>
     {
-        private readonly List<T> _list = new List<T>();
+        private readonly List<T> _list = new();
         private int _listTop = 0;
         private int _iteratorIndex;
 

@@ -243,7 +243,7 @@ namespace Microsoft.Xna.Framework.Content
         }
 
         // Static map of type names to creation functions. Required as iOS requires all types at compile time
-        private static Dictionary<string, Func<ContentTypeReader>> typeCreators = new Dictionary<string, Func<ContentTypeReader>>();
+        private static Dictionary<string, Func<ContentTypeReader>> typeCreators = new();
 
         /// <summary>
         /// Registers a function to create a <see cref="ContentTypeReader"/> instance used to read an object of the

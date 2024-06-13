@@ -14,7 +14,7 @@ namespace Microsoft.Xna.Framework.Media
     {
         private static MediaSession _session;
         private static AudioStreamVolume _volumeController;
-        private static readonly object _volumeLock = new object();
+        private static readonly object _volumeLock = new();
         private static PresentationClock _clock;
 
         private static Song _nextSong;
@@ -29,8 +29,8 @@ namespace Microsoft.Xna.Framework.Media
 
         private static Guid AudioStreamVolumeGuid;
 
-        private static readonly Variant PositionCurrent = new Variant();
-        private static readonly Variant PositionBeginning = new Variant { ElementType = VariantElementType.Long, Value = 0L };
+        private static readonly Variant PositionCurrent = new();
+        private static readonly Variant PositionBeginning = new() { ElementType = VariantElementType.Long, Value = 0L };
 
         private static Callback _callback;
 

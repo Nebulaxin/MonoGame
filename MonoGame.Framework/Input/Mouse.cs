@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Input
     {
         internal static GameWindow PrimaryWindow;
 
-        private static readonly MouseState _defaultState = new MouseState();
+        private static readonly MouseState _defaultState = new();
 
         /// <summary>
         /// Gets or sets the window handle for current mouse processing.
