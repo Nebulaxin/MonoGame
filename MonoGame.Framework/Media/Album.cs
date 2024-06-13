@@ -65,12 +65,12 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public bool HasArt =>
 #if WINDOWS_UAP
-                return this.thumbnail != null;
+                this.thumbnail != null;
 #elif IOS && !TVOS
                 // If album art is missing the bounds will be: Infinity, Infinity, 0, 0
-                return this.thumbnail != null && this.thumbnail.Bounds.Width != 0;
+                this.thumbnail != null && this.thumbnail.Bounds.Width != 0;
 #elif ANDROID
-                return this.thumbnail != null;
+                this.thumbnail != null;
 #else
                 false;
 #endif
