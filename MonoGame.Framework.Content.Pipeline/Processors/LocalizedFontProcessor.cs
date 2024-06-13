@@ -63,7 +63,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
                 }
 
                 // Load the .resx data.
-                XmlDocument xmlDocument = new XmlDocument();
+                XmlDocument xmlDocument = new();
 
                 xmlDocument.Load(absolutePath);
 

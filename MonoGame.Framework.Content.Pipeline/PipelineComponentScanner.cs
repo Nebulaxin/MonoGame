@@ -12,13 +12,13 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
     /// </summary>
     public sealed class PipelineComponentScanner
     {
-        List<string> errors = new List<string>();
-        Dictionary<string, ContentImporterAttribute> importerAttributes = new Dictionary<string, ContentImporterAttribute>();
-        Dictionary<string, ContentProcessorAttribute> processorAttributes = new Dictionary<string, ContentProcessorAttribute>();
-        Dictionary<string, string> importerOutputTypes = new Dictionary<string, string>();
-        Dictionary<string, string> processorInputTypes = new Dictionary<string, string>();
-        Dictionary<string, string> processorOutputTypes = new Dictionary<string, string>();
-        Dictionary<string, ProcessorParameterCollection> processorParameters = new Dictionary<string, ProcessorParameterCollection>();
+        List<string> errors = new();
+        Dictionary<string, ContentImporterAttribute> importerAttributes = new();
+        Dictionary<string, ContentProcessorAttribute> processorAttributes = new();
+        Dictionary<string, string> importerOutputTypes = new();
+        Dictionary<string, string> processorInputTypes = new();
+        Dictionary<string, string> processorOutputTypes = new();
+        Dictionary<string, ProcessorParameterCollection> processorParameters = new();
 
         /// <summary>
         /// Gets the list of error messages produced by the last call to Update.

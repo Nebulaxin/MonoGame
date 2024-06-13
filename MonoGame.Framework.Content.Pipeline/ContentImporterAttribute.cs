@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
     /// </summary>
     public class ContentImporterAttribute : Attribute
     {
-        List<string> extensions = new List<string>();
+        List<string> extensions = new();
 
         /// <summary>
         /// Gets and sets the caching of the content during importation.

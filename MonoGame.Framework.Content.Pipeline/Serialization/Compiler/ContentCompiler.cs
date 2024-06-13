@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
     /// </summary>
     public sealed class ContentCompiler
     {
-        readonly Dictionary<Type, Type> typeWriterMap = new Dictionary<Type, Type>();
+        readonly Dictionary<Type, Type> typeWriterMap = new();
 
         /// <summary>
         /// Initializes a new instance of ContentCompiler.

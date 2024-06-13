@@ -14,7 +14,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
     /// </summary>
     public abstract class ContentBuildLogger
     {
-        Stack<string> filenames = new Stack<string>();
+        Stack<string> filenames = new();
         private int indentCount = 0;
 
         protected string IndentString { get { return String.Empty.PadLeft(Math.Max(0, indentCount), '\t'); } }

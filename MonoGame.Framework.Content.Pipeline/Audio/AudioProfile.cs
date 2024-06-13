@@ -11,7 +11,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
 {
     public abstract class AudioProfile
     {
-        private static readonly LoadedTypeCollection<AudioProfile> _profiles = new LoadedTypeCollection<AudioProfile>();
+        private static readonly LoadedTypeCollection<AudioProfile> _profiles = new();
 
         /// <summary>
         /// Find the profile for this target platform.

@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
 
         private string _runtimeType;
         private ContentCompiler _compiler;
-        private static HashSet<MemberInfo> _sharedResources = new HashSet<MemberInfo>();
+        private static HashSet<MemberInfo> _sharedResources = new();
 
         public ReflectiveWriter()
             : base(typeof(T))

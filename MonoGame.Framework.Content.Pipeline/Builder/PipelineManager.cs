@@ -240,7 +240,7 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
             if (_importers == null)
                 ResolveAssemblies();
 
-            List<Type> types = new List<Type>();
+            List<Type> types = new();
 
             foreach (var item in _importers) 
             {
@@ -254,9 +254,9 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
         {
             if (_processors == null)
                 ResolveAssemblies();
-            
-            List<Type> types = new List<Type>();
-            
+
+            List<Type> types = new();
+
             foreach (var item in _processors) 
             {
                 types.Add(item.type);

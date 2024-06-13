@@ -31,19 +31,19 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 
         public float FontSize;
 
-        public Texture2DContent Texture = new Texture2DContent();
+        public Texture2DContent Texture = new();
 
-        public List<Rectangle> Glyphs = new List<Rectangle>();
+        public List<Rectangle> Glyphs = new();
 
-        public List<Rectangle> Cropping = new List<Rectangle>();
+        public List<Rectangle> Cropping = new();
 
-        public List<Char> CharacterMap = new List<Char>();
+        public List<Char> CharacterMap = new();
 
         public int VerticalLineSpacing;
 
         public float HorizontalSpacing;
 
-        public List<Vector3> Kerning = new List<Vector3>();
+        public List<Vector3> Kerning = new();
 
         public Nullable<Char> DefaultCharacter;	 
 

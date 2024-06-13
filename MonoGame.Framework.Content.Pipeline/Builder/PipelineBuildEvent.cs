@@ -16,7 +16,7 @@ namespace MonoGame.Framework.Content.Pipeline.Builder
 {
     public class PipelineBuildEvent
     {
-        private static readonly OpaqueDataDictionary EmptyParameters = new OpaqueDataDictionary();
+        private static readonly OpaqueDataDictionary EmptyParameters = new();
         public static readonly string Extension = ".mgcontent";
 
         public PipelineBuildEvent()

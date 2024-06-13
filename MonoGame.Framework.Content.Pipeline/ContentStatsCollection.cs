@@ -17,10 +17,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
     public class ContentStatsCollection
     {
         private static readonly string _header = "Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds";
-        private static readonly Regex _split = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+        private static readonly Regex _split = new(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
 
-        private readonly object _locker = new object();
-        private readonly Dictionary<string, ContentStats> _statsBySource = new Dictionary<string, ContentStats>(1024);
+        private readonly object _locker = new();
+        private readonly Dictionary<string, ContentStats> _statsBySource = new(1024);
 
         /// <summary>
         /// The file extension used by the content pipeline after building to store the content statistics.

@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             public Func<object, object> Getter;
         };
 
-        private readonly List<ElementInfo> _elements = new List<ElementInfo>();
+        private readonly List<ElementInfo> _elements = new();
 
         private ContentTypeSerializer _baseSerializer;
         private GenericCollectionHelper _collectionHelper;

@@ -9,7 +9,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
     /// </summary>
     public class ContentItem
     {
-        OpaqueDataDictionary opaqueData = new OpaqueDataDictionary();
+        OpaqueDataDictionary opaqueData = new();
 
         /// <summary>
         /// Gets or sets the identity of the content item.

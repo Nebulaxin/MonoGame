@@ -30,11 +30,11 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         string referenceRelocationPath;
         bool compressContent;
         bool disposed;
-        List<ContentTypeWriter> typeWriters = new List<ContentTypeWriter>();
-        Dictionary<Type, int> typeWriterMap = new Dictionary<Type, int>();
-        Dictionary<Type, ContentTypeWriter> typeMap = new Dictionary<Type, ContentTypeWriter>();
-        List<object> sharedResources = new List<object>();
-        Dictionary<object, int> sharedResourceMap = new Dictionary<object, int>();
+        List<ContentTypeWriter> typeWriters = new();
+        Dictionary<Type, int> typeWriterMap = new();
+        Dictionary<Type, ContentTypeWriter> typeMap = new();
+        List<object> sharedResources = new();
+        Dictionary<object, int> sharedResourceMap = new();
         Stream outputStream;
         Stream bodyStream;
 

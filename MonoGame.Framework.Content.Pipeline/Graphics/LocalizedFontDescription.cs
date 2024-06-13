@@ -48,6 +48,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             get { return resourceFiles; }
         }
 
-        List<string> resourceFiles = new List<string>();
+        List<string> resourceFiles = new();
     }
 }
