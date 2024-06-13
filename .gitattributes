@@ -6,3 +6,4 @@
 # This forces the 3-way merge on the changelog to take lines
 # from both versions instead of leaving conflicts to resolve.
 CHANGELOG.md -text merge=union
+*.cs text diff=csharp eol=lf
