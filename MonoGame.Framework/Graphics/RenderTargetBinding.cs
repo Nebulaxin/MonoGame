@@ -37,8 +37,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
         public RenderTargetBinding(RenderTarget2D renderTarget)
         {
-			if (renderTarget == null)
-                throw new ArgumentNullException(nameof(renderTarget));
+            ArgumentNullException.ThrowIfNull(renderTarget);
 
             RenderTarget = renderTarget;
             ArraySlice = (int)CubeMapFace.PositiveX;
@@ -57,8 +56,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace)
         {
-            if (renderTarget == null)
-                throw new ArgumentNullException(nameof(renderTarget));
+            ArgumentNullException.ThrowIfNull(renderTarget);
             if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
                 throw new ArgumentOutOfRangeException(nameof(cubeMapFace));
 

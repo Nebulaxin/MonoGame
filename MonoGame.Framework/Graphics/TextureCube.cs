@@ -87,8 +87,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(CubeMapFace cubeMapFace, T[] data) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             GetData(cubeMapFace, 0, null, data, 0, data.Length);
         }
 
@@ -203,8 +202,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void SetData<T> (CubeMapFace face, T[] data) where T : struct
 		{
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             SetData(face, 0, null, data, 0, data.Length);
 		}
 
@@ -304,8 +302,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new ArgumentException("level must be smaller than the number of levels in this texture.");
             if (!textureBounds.Contains(checkedRect) || checkedRect.Width <= 0 || checkedRect.Height <= 0)
                 throw new ArgumentException("Rectangle must be inside the texture bounds", nameof(rect));
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             var tSize = ReflectionHelpers.SizeOf<T>.Get();
             var fSize = Format.GetSize();
             if (tSize > fSize || fSize % tSize != 0)

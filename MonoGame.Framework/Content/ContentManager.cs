@@ -161,10 +161,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="ArgumentNullException">The <paramref name="serviceProvider"/> parameter is null.</exception>
 		public ContentManager(IServiceProvider serviceProvider)
 		{
-			if (serviceProvider == null)
-			{
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
+            ArgumentNullException.ThrowIfNull(serviceProvider);
             this.ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
@@ -174,15 +171,9 @@ namespace Microsoft.Xna.Framework.Content
         /// <param name="rootDirectory">The root directory the ContentManager will search for content in.</param>
         public ContentManager(IServiceProvider serviceProvider, string rootDirectory)
 		{
-			if (serviceProvider == null)
-			{
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-			if (rootDirectory == null)
-			{
-                throw new ArgumentNullException(nameof(rootDirectory));
-            }
-			this.RootDirectory = rootDirectory;
+            ArgumentNullException.ThrowIfNull(serviceProvider);
+            ArgumentNullException.ThrowIfNull(rootDirectory);
+            this.RootDirectory = rootDirectory;
             this.ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
@@ -634,10 +625,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="ObjectDisposedException">This was called after the ContentManger was disposed.</exception>
         public virtual void UnloadAssets(IList<string> assetNames)
         {
-            if (assetNames == null)
-            {
-                throw new ArgumentNullException(nameof(assetNames));
-            }
+            ArgumentNullException.ThrowIfNull(assetNames);
             if (disposed)
             {
                 throw new ObjectDisposedException("ContentManager");

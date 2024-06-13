@@ -234,10 +234,8 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public void Apply3D(AudioListener listener, AudioEmitter emitter) 
         {
-            if (listener == null)
-                throw new ArgumentNullException(nameof(listener));
-            if (emitter == null)
-                throw new ArgumentNullException(nameof(emitter));
+            ArgumentNullException.ThrowIfNull(listener);
+            ArgumentNullException.ThrowIfNull(emitter);
 
             if (_played && !_applied3D)
                 throw new InvalidOperationException("You must call Apply3D on a Cue before calling Play to be able to call Apply3D after calling Play.");

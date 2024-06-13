@@ -318,7 +318,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="corners">The array which values will be replaced to corner values of this instance. It must have size of <see cref="BoundingFrustum.CornerCount"/>.</param>
 		public void GetCorners(Vector3[] corners)
         {
-            if (corners == null) throw new ArgumentNullException(nameof(corners));
+            ArgumentNullException.ThrowIfNull(corners);
             if (corners.Length < CornerCount) throw new ArgumentOutOfRangeException(nameof(corners));
 
             this._corners.CopyTo(corners, 0);

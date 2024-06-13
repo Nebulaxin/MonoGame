@@ -138,28 +138,23 @@ namespace Microsoft.Xna.Framework.Graphics
 		
         void CheckValid(Texture2D texture)
         {
-            if (texture == null)
-                throw new ArgumentNullException(nameof(texture));
+            ArgumentNullException.ThrowIfNull(texture);
             if (!_beginCalled)
                 throw new InvalidOperationException("Draw was called, but Begin has not yet been called. Begin must be called successfully before you can call Draw.");
         }
 
         void CheckValid(SpriteFont spriteFont, string text)
         {
-            if (spriteFont == null)
-                throw new ArgumentNullException(nameof(spriteFont));
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
+            ArgumentNullException.ThrowIfNull(spriteFont);
+            ArgumentNullException.ThrowIfNull(text);
             if (!_beginCalled)
                 throw new InvalidOperationException("DrawString was called, but Begin has not yet been called. Begin must be called successfully before you can call DrawString.");
         }
 
         void CheckValid(SpriteFont spriteFont, StringBuilder text)
         {
-            if (spriteFont == null)
-                throw new ArgumentNullException(nameof(spriteFont));
-            if (text == null)
-                throw new ArgumentNullException(nameof(text));
+            ArgumentNullException.ThrowIfNull(spriteFont);
+            ArgumentNullException.ThrowIfNull(text);
             if (!_beginCalled)
                 throw new InvalidOperationException("DrawString was called, but Begin has not yet been called. Begin must be called successfully before you can call DrawString.");
         }

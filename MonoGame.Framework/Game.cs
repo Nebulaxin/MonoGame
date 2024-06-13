@@ -289,8 +289,7 @@ namespace Microsoft.Xna.Framework
             get => _content;
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException();
+                ArgumentNullException.ThrowIfNull(value);
 
                 _content = value;
             }

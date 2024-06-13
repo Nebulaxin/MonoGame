@@ -114,8 +114,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (vertexStride > vertexByteSize)
                 throw new ArgumentOutOfRangeException(nameof(vertexStride), "Vertex stride can not be larger than the vertex buffer size.");
 
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             if (data.Length < (startIndex + elementCount))
                 throw new ArgumentOutOfRangeException(nameof(elementCount), "This parameter must be a valid index within the array.");
             if (BufferUsage == BufferUsage.WriteOnly)
@@ -222,8 +221,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary/>
         protected void SetDataInternal<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, int vertexStride, SetDataOptions options) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
 
             var elementSizeInBytes = ReflectionHelpers.SizeOf<T>.Get();
             var bufferSize = VertexCount * VertexDeclaration.VertexStride;

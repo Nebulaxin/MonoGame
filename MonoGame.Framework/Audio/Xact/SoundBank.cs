@@ -30,8 +30,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <param name="fileName">Path to a .xsb SoundBank file.</param>
         public SoundBank(AudioEngine audioEngine, string fileName)
         {
-            if (audioEngine == null)
-                throw new ArgumentNullException(nameof(audioEngine));
+            ArgumentNullException.ThrowIfNull(audioEngine);
             if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException(nameof(fileName));
 

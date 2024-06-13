@@ -244,12 +244,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public GraphicsDevice(GraphicsAdapter adapter, GraphicsProfile graphicsProfile, PresentationParameters presentationParameters)
         {
-            if (adapter == null)
-                throw new ArgumentNullException(nameof(adapter));
+            ArgumentNullException.ThrowIfNull(adapter);
             if (!adapter.IsProfileSupported(graphicsProfile))
                 throw new NoSuitableGraphicsDeviceException(String.Format("Adapter '{0}' does not support the {1} profile.", adapter.Description, graphicsProfile));
-            if (presentationParameters == null)
-                throw new ArgumentNullException(nameof(presentationParameters));
+            ArgumentNullException.ThrowIfNull(presentationParameters);
             Adapter = adapter;
             PresentationParameters = presentationParameters;
             GraphicsProfile = graphicsProfile;
@@ -272,12 +270,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public GraphicsDevice(GraphicsAdapter adapter, GraphicsProfile graphicsProfile, bool preferHalfPixelOffset, PresentationParameters presentationParameters)
         {
-            if (adapter == null)
-                throw new ArgumentNullException(nameof(adapter));
+            ArgumentNullException.ThrowIfNull(adapter);
             if (!adapter.IsProfileSupported(graphicsProfile))
                 throw new NoSuitableGraphicsDeviceException(String.Format("Adapter '{0}' does not support the {1} profile.", adapter.Description, graphicsProfile));
-            if (presentationParameters == null)
-                throw new ArgumentNullException(nameof(presentationParameters));
+            ArgumentNullException.ThrowIfNull(presentationParameters);
 #if DIRECTX
             // TODO we need to figure out how to inject the half pixel offset into DX shaders
             preferHalfPixelOffset = false;
@@ -414,8 +410,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                ArgumentNullException.ThrowIfNull(value);
 
                 // Don't set the same state twice!
                 if (_rasterizerState == value)
@@ -472,8 +467,7 @@ namespace Microsoft.Xna.Framework.Graphics
             get => _blendState;
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                ArgumentNullException.ThrowIfNull(value);
 
                 // Don't set the same state twice!
                 if (_blendState == value)
@@ -517,8 +511,7 @@ namespace Microsoft.Xna.Framework.Graphics
             get => _depthStencilState;
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                ArgumentNullException.ThrowIfNull(value);
 
                 // Don't set the same state twice!
                 if (_depthStencilState == value)
@@ -729,8 +722,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void Reset(PresentationParameters presentationParameters)
         {
-            if (presentationParameters == null)
-                throw new ArgumentNullException(nameof(presentationParameters));
+            ArgumentNullException.ThrowIfNull(presentationParameters);
 
             PresentationParameters = presentationParameters;
             Reset();
@@ -1178,8 +1170,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="vertexDeclaration">The layout of the vertices.</param>
         public void DrawUserPrimitives<T>(PrimitiveType primitiveType, T[] vertexData, int vertexOffset, int primitiveCount, VertexDeclaration vertexDeclaration) where T : struct
         {
-            if (vertexData == null)
-                throw new ArgumentNullException(nameof(vertexData));
+            ArgumentNullException.ThrowIfNull(vertexData);
 
             if (vertexData.Length == 0)
                 throw new ArgumentOutOfRangeException(nameof(vertexData));
@@ -1195,8 +1186,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (vertexOffset + vertexCount > vertexData.Length)
                 throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
-            if (vertexDeclaration == null)
-                throw new ArgumentNullException(nameof(vertexDeclaration));
+            ArgumentNullException.ThrowIfNull(vertexDeclaration);
 
             PlatformDrawUserPrimitives<T>(primitiveType, vertexData, vertexOffset, vertexDeclaration, vertexCount);
 
@@ -1300,8 +1290,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (indexOffset + GetElementCountArray(primitiveType, primitiveCount) > indexData.Length)
                 throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
-            if (vertexDeclaration == null)
-                throw new ArgumentNullException(nameof(vertexDeclaration));
+            ArgumentNullException.ThrowIfNull(vertexDeclaration);
 
             if (vertexDeclaration.VertexStride < ReflectionHelpers.SizeOf<T>.Get())
                 throw new ArgumentOutOfRangeException(nameof(vertexDeclaration), "Vertex stride of vertexDeclaration should be at least as big as the stride of the actual vertices.");
@@ -1380,8 +1369,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (indexOffset + GetElementCountArray(primitiveType, primitiveCount) > indexData.Length)
                 throw new ArgumentOutOfRangeException(nameof(primitiveCount));
 
-            if (vertexDeclaration == null)
-                throw new ArgumentNullException(nameof(vertexDeclaration));
+            ArgumentNullException.ThrowIfNull(vertexDeclaration);
 
             if (vertexDeclaration.VertexStride < ReflectionHelpers.SizeOf<T>.Get())
                 throw new ArgumentOutOfRangeException(nameof(vertexDeclaration), "Vertex stride of vertexDeclaration should be at least as big as the stride of the actual vertices.");
@@ -1468,8 +1456,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="data">Array of data.</param>
         public void GetBackBufferData<T>(T[] data) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
             GetBackBufferData(null, data, 0, data.Length);
         }
 
@@ -1499,8 +1486,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void GetBackBufferData<T>(Rectangle? rect, T[] data, int startIndex, int elementCount)
             where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
+            ArgumentNullException.ThrowIfNull(data);
 
             int width, height;
             if (rect.HasValue)

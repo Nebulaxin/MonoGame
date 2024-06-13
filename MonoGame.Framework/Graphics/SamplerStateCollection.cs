@@ -51,8 +51,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException(nameof(value));
+                ArgumentNullException.ThrowIfNull(value);
 
                 if (_samplers[index] == value)
                     return;
