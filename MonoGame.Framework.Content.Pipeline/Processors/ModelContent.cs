@@ -21,20 +21,11 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
             _meshes = new ModelMeshContentCollection(meshes);
         }
 
-        public ModelBoneContentCollection Bones
-        {
-            get { return _bones; }
-        }
+        public ModelBoneContentCollection Bones => _bones;
 
-        public ModelMeshContentCollection Meshes
-        {
-            get { return _meshes; }
-        }
+        public ModelMeshContentCollection Meshes => _meshes;
 
-        public ModelBoneContent Root
-        {
-            get { return _root; }
-        }
+        public ModelBoneContent Root => _root;
 
         public object Tag { get; set; }
     }

@@ -18,13 +18,13 @@ namespace Microsoft.Xna.Framework
         protected bool _needsToResetElapsedTime = false;
         bool disposed;
         protected bool InFullScreenMode = false;
-        protected bool IsDisposed { get { return disposed; } }
+        protected bool IsDisposed => disposed;
 
         #endregion
 
         #region Construction/Destruction
 
-		protected GamePlatform(Game game)
+        protected GamePlatform(Game game)
         {
             if (game == null)
                 throw new ArgumentNullException("game");

@@ -25,10 +25,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// Number of positions in the collection.
         /// </summary>
         /// <value>Number of positions.</value>
-        public int Count
-        {
-            get { return _positionIndices.Count; }
-        }
+        public int Count => _positionIndices.Count;
 
         /// <summary>
         /// Gets or sets the position at the specified index.
@@ -51,10 +48,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// Gets a value indicating whether this object is read-only.
         /// </summary>
         /// <value>true if this object is read-only; false otherwise.</value>
-        bool ICollection<Vector3>.IsReadOnly
-        {
-            get { return true; }
-        }
+        bool ICollection<Vector3>.IsReadOnly => true;
 
         /// <summary>
         /// Initializes a new instance of IndirectPositionCollection.

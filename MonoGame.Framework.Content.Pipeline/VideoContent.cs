@@ -24,12 +24,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets the bit rate for this video.
         /// </summary>
-        public int BitsPerSecond { get { return _bitsPerSecond; } }
+        public int BitsPerSecond => _bitsPerSecond;
 
         /// <summary>
         /// Gets the duration of this video.
         /// </summary>
-        public TimeSpan Duration { get { return _duration; } }
+        public TimeSpan Duration => _duration;
 
         /// <summary>
         /// Gets or sets the file name for this video.
@@ -40,12 +40,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets the frame rate for this video.
         /// </summary>
-        public float FramesPerSecond { get { return _framesPerSecond; } }
+        public float FramesPerSecond => _framesPerSecond;
 
         /// <summary>
         /// Gets the height of this video.
         /// </summary>
-        public int Height { get { return _height; } }
+        public int Height => _height;
 
         /// <summary>
         /// Gets or sets the type of soundtrack accompanying the video.
@@ -56,7 +56,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets the width of this video.
         /// </summary>
-        public int Width { get { return _width; } }
+        public int Width => _width;
 
         /// <summary>
         /// Initializes a new copy of the VideoContent class for the specified video file.

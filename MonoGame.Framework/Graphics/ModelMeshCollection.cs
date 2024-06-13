@@ -86,7 +86,7 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Gets the current element in the ModelMeshCollection.
             /// </summary>
-            public ModelMesh Current { get { return _collection[_position]; } }
+            public ModelMesh Current => _collection[_position];
 
             /// <summary>
             /// Advances the enumerator to the next element of the ModelMeshCollection.
@@ -110,10 +110,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return _collection[_position]; }
-            }
+            object IEnumerator.Current => _collection[_position];
 
             /// <inheritdoc/>
             public void Reset()

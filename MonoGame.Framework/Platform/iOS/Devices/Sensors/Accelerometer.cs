@@ -14,14 +14,8 @@ namespace Microsoft.Devices.Sensors
 		private static bool started = false;
 		private static SensorState state = IsSupported ? SensorState.Initializing : SensorState.NotSupported;
 
-		public static bool IsSupported
-		{
-			get { return motionManager.AccelerometerAvailable; }
-		}
-		public SensorState State
-		{
-			get { return state; }
-		}
+		public static bool IsSupported => motionManager.AccelerometerAvailable;
+		public SensorState State => state;
 
 		private static event CMAccelerometerHandler readingChanged;
 

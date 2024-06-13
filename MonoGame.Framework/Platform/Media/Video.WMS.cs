@@ -7,7 +7,7 @@ namespace Microsoft.Xna.Framework.Media
     public sealed partial class Video : IDisposable
     {
         private Topology _topology;
-        internal Topology Topology { get { return _topology; } }
+        internal Topology Topology => _topology;
 
         internal VideoSampleGrabber SampleGrabber { get; private set; }
 

@@ -20,13 +20,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the time offset from the start of the animation to the position described by this keyframe.
         /// </summary>
-        public TimeSpan Time
-        {
-            get
-            {
-                return time;
-            }
-        }
+        public TimeSpan Time => time;
 
         /// <summary>
         /// Gets or sets the position described by this keyframe.

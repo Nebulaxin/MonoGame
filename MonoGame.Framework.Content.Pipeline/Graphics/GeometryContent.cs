@@ -17,13 +17,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the list of triangle indices for this geometry batch. Geometry is stored as an indexed triangle list, where each group of three indices defines a single triangle.
         /// </summary>
-        public IndexCollection Indices
-        {
-            get
-            {
-                return indices;
-            }
-        }
+        public IndexCollection Indices => indices;
 
         /// <summary>
         /// Gets or sets the material of the parent mesh.
@@ -58,13 +52,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the set of vertex batches for the geometry batch.
         /// </summary>
-        public VertexContent Vertices
-        {
-            get
-            {
-                return vertices;
-            }
-        }
+        public VertexContent Vertices => vertices;
 
         /// <summary>
         /// Creates an instance of GeometryContent.

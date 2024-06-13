@@ -142,10 +142,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Returns the subset of the viewport that is guaranteed to be visible on a lower quality display.
         /// </summary>
-		public Rectangle TitleSafeArea 
-		{
-			get { return GraphicsDevice.GetTitleSafeArea(x, y, width, height); }
-		}
+		public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(x, y, width, height);
 
         /// <summary>
         /// Constructs a viewport from the given values. The <see cref="MinDepth"/> will be 0.0 and <see cref="MaxDepth"/> will be 1.0.

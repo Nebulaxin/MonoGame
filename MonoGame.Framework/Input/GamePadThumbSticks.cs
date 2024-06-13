@@ -28,19 +28,13 @@ namespace Microsoft.Xna.Framework.Input
         /// Gets a value indicating the position of the left stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the left stick (thumbstick).</value>
-        public Vector2 Left
-        {
-            get { return _left; }
-        }
+        public Vector2 Left => _left;
 
         /// <summary>
         /// Gets a value indicating the position of the right stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the right stick (thumbstick).</value>
-        public Vector2 Right
-        {
-            get { return _right; }
-        }
+        public Vector2 Right => _right;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GamePadThumbSticks"/> struct,

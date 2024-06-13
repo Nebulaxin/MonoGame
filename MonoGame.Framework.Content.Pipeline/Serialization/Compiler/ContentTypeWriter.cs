@@ -18,22 +18,19 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         /// Determines if deserialization into an existing object is possible.
         /// </summary>
         /// <value>true if the object can be deserialized into; false otherwise.</value>
-        public virtual bool CanDeserializeIntoExistingObject
-        {
-            get { return false; }
-        }
+        public virtual bool CanDeserializeIntoExistingObject => false;
 
         /// <summary>
         /// Gets the type handled by this compiler component.
         /// </summary>
         /// <value>The type handled by this compiler component.</value>
-        public Type TargetType { get { return _targetType; } }
+        public Type TargetType => _targetType;
 
         /// <summary>
         /// Gets a format version number for this type.
         /// </summary>
         /// <value>A format version number for this type.</value>
-        public virtual int TypeVersion { get { return _typeVersion; } }
+        public virtual int TypeVersion => _typeVersion;
 
         /// <summary>
         /// Initializes a new instance of the ContentTypeWriter class.

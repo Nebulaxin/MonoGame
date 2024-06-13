@@ -7,10 +7,7 @@ namespace MonoGame.Framework.Utilities
         private readonly int _minBufferSize;
         private readonly int _maxBuffers;
 
-        public int FreeAmount
-        {
-            get { return _freeBuffers.Count; }
-        }
+        public int FreeAmount => _freeBuffers.Count;
 
         private readonly List<byte[]> _freeBuffers;
 

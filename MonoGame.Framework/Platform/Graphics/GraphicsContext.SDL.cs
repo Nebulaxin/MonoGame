@@ -25,15 +25,9 @@ namespace MonoGame.OpenGL
             }
         }
 
-        public bool IsDisposed
-        {
-            get { return _disposed; }
-        }
+        public bool IsDisposed => _disposed;
 
-		public bool IsCurrent
-		{
-			get { return true; }
-		}
+        public bool IsCurrent => true;
 
         public GraphicsContext(IWindowInfo info)
         {

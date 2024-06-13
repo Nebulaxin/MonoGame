@@ -43,25 +43,16 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Point"/> with coordinates 0, 0.
         /// </summary>
-        public static Point Zero
-        {
-            get { return zeroPoint; }
-        }
+        public static Point Zero => zeroPoint;
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     this.X.ToString(), "  ",
                     this.Y.ToString()
                 );
-            }
-        }
 
         #endregion
 

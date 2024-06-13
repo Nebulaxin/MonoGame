@@ -17,14 +17,8 @@ namespace Microsoft.Devices.Sensors
 
         public event EventHandler<CalibrationEventArgs> Calibrate;
 
-        public static bool IsSupported
-        {
-            get { return motionManager.DeviceMotionAvailable; }
-        }
-        public SensorState State
-        {
-            get { return state; }
-        }
+        public static bool IsSupported => motionManager.DeviceMotionAvailable;
+        public SensorState State => state;
 
         private static event CMDeviceMotionHandler readingChanged;
 

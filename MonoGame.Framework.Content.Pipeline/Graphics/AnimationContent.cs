@@ -17,13 +17,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the collection of animation data channels. Each channel describes the movement of a single bone or rigid object.
         /// </summary>
-        public AnimationChannelDictionary Channels
-        {
-            get
-            {
-                return channels;
-            }
-        }
+        public AnimationChannelDictionary Channels => channels;
 
         /// <summary>
         /// Gets or sets the total length of the animation.

@@ -52,43 +52,22 @@ namespace Microsoft.Xna.Framework.Media
         /// <value>
         /// <see cref="Media.Artist"/> of this Album.
         /// </value>
-        public Artist Artist
-        {
-            get
-            {
-                return this.artist;
-            }
-        }
+        public Artist Artist => this.artist;
 
         /// <summary>
         /// Gets the duration of the Album.
         /// </summary>
-        public TimeSpan Duration
-        {
-            get
-            {
-                return TimeSpan.Zero; // Not implemented
-            }
-        }
+        public TimeSpan Duration => TimeSpan.Zero; // Not implemented
 
         /// <summary>
         /// Gets the <see cref="Media.Genre"/> of the Album.
         /// </summary>
-        public Genre Genre
-        {
-            get
-            {
-                return this.genre;
-            }
-        }
+        public Genre Genre => this.genre;
 
         /// <summary>
         /// Gets a value indicating whether the Album has associated album art.
         /// </summary>
-        public bool HasArt
-        {
-            get
-            {
+        public bool HasArt =>
 #if WINDOWS_UAP
                 return this.thumbnail != null;
 #elif IOS && !TVOS
@@ -97,45 +76,26 @@ namespace Microsoft.Xna.Framework.Media
 #elif ANDROID
                 return this.thumbnail != null;
 #else
-                return false;
+                false;
 #endif
-            }
-        }
+
 
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
         /// </summary>
-        public bool IsDisposed
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsDisposed => false;
 
         /// <summary>
         /// Gets the name of the Album.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this.album;
-            }
-        }
+        public string Name => this.album;
 
         /// <summary>
         /// Gets a <see cref="Media.SongCollection"/> that contains the songs on the Album.
         /// </summary>
-        public SongCollection Songs
-        {
-            get
-            {
-                return this.songCollection;
-            }
-        }
+        public SongCollection Songs => this.songCollection;
 
-       private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
+        private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
         {
             this.songCollection = songCollection;
             this.album = name;

@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         internal List<Cue> ActiveCues = new();
 
-        internal AudioCategory[] Categories { get { return _categories; } }
+        internal AudioCategory[] Categories => _categories;
 
         internal Dictionary<string, WaveBank> Wavebanks = new();
 

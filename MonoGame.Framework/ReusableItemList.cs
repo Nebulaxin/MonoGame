@@ -86,21 +86,9 @@ namespace Microsoft.Xna.Framework
             _list.CopyTo(array,arrayIndex);
         }
 
-        public int Count
-        {
-            get 
-            {
-                return _listTop;
-            }
-        }
+        public int Count => _listTop;
 
-        public bool IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsReadOnly => false;
 
         public bool Remove(T item)
         {
@@ -131,13 +119,7 @@ namespace Microsoft.Xna.Framework
 
         #region IEnumerator<T> Members
 
-        public T Current
-        {
-            get
-            {
-                return _list[_iteratorIndex];
-            }
-        }
+        public T Current => _list[_iteratorIndex];
 
         #endregion
 
@@ -151,13 +133,7 @@ namespace Microsoft.Xna.Framework
 
         #region IEnumerator Members
 
-        object System.Collections.IEnumerator.Current
-        {
-            get
-            {
-                return _list[_iteratorIndex];
-            }
-        }
+        object System.Collections.IEnumerator.Current => _list[_iteratorIndex];
 
         public bool MoveNext()
         {

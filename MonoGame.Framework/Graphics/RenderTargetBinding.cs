@@ -21,34 +21,25 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the the render target texture
         /// </summary>
-		public Texture RenderTarget
-        {
-			get { return _renderTarget; }
-		}
+		public Texture RenderTarget => _renderTarget;
 
         /// <summary>
         ///
         /// </summary>
-        public int ArraySlice
-        {
-            get { return _arraySlice; }
-        }
+        public int ArraySlice => _arraySlice;
 
         /// <summary>
         /// Gets the depth format specified for the render target
         /// </summary>
-        internal DepthFormat DepthFormat
-        {
-            get { return _depthFormat; }
-        }
+        internal DepthFormat DepthFormat => _depthFormat;
 
         /// <summary>
         /// Creates a new <b>RenderTargetBinding</b> for the specified render target.
         /// </summary>
         /// <param name="renderTarget">The render target to create the binding for.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
-		public RenderTargetBinding(RenderTarget2D renderTarget)
-		{
+        public RenderTargetBinding(RenderTarget2D renderTarget)
+        {
 			if (renderTarget == null)
 				throw new ArgumentNullException("renderTarget");
 

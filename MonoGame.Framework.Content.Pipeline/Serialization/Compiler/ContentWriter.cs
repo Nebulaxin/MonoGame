@@ -62,12 +62,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         /// <summary>
         /// Gets the content build target platform.
         /// </summary>
-        public TargetPlatform TargetPlatform { get { return targetPlatform; } }
+        public TargetPlatform TargetPlatform => targetPlatform;
 
         /// <summary>
         /// Gets or sets the target graphics profile.
         /// </summary>
-        public GraphicsProfile TargetProfile { get { return targetProfile; } }
+        public GraphicsProfile TargetProfile => targetProfile;
 
         /// <summary>
         /// Creates a new instance of ContentWriter.

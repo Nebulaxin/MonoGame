@@ -26,10 +26,7 @@ namespace MonoGame.Framework
             Window = _window;
         }
 
-        public override GameRunBehavior DefaultRunBehavior
-        {
-            get { return GameRunBehavior.Synchronous; }
-        }
+        public override GameRunBehavior DefaultRunBehavior => GameRunBehavior.Synchronous;
 
         protected override void OnIsMouseVisibleChanged()
         {

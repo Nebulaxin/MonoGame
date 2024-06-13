@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-        public int Count { get { return _techniques.Length; } }
+        public int Count => _techniques.Length;
 
         internal EffectTechniqueCollection(EffectTechnique[] techniques)
         {
@@ -31,10 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Retrieves the <see cref="EffectTechnique"/> at the specified index in the collection.
         /// </summary>
-        public EffectTechnique this[int index]
-        {
-            get { return _techniques [index]; }
-        }
+        public EffectTechnique this[int index] => _techniques[index];
 
         /// <summary>
         /// Retrieves a <see cref="EffectTechnique"/> from the collection, given the name of the technique.

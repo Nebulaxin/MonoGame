@@ -28,13 +28,7 @@ namespace Microsoft.Xna.Framework.Graphics
             this.TextureCoordinate = textureCoordinate;
         }
 
-        VertexDeclaration IVertexType.VertexDeclaration
-        {
-            get
-            {
-                return VertexDeclaration;
-            }
-        }
+        VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
         /// <inheritdoc cref="VertexPosition.GetHashCode()"/>
         public override int GetHashCode()

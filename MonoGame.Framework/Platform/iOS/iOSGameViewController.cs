@@ -75,11 +75,8 @@ namespace Microsoft.Xna.Framework
             #endif
         }
 
-        public new iOSGameView View
-        {
-            get { return (iOSGameView)base.View; }
-        }
-        #if !TVOS
+        public new iOSGameView View => (iOSGameView)base.View;
+#if !TVOS
 
         #region Autorotation for iOS 5 or older
         public override bool ShouldAutorotateToInterfaceOrientation(UIInterfaceOrientation toInterfaceOrientation)
@@ -151,19 +148,13 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Defer system gestures on all screen edges in full screen mode.
         /// </summary>
-        public override UIRectEdge PreferredScreenEdgesDeferringSystemGestures
-        {
-            get
-            {
-                return _platform.Game.graphicsDeviceManager.IsFullScreen ? UIRectEdge.All : base.PreferredScreenEdgesDeferringSystemGestures;
-            }
-        }
+        public override UIRectEdge PreferredScreenEdgesDeferringSystemGestures => _platform.Game.graphicsDeviceManager.IsFullScreen ? UIRectEdge.All : base.PreferredScreenEdgesDeferringSystemGestures;
 
         #endregion
 
-        #endif
+#endif
 
-        #if TVOS
+#if TVOS
 
         public override UIView PreferredFocusedView
         {
@@ -209,6 +200,6 @@ namespace Microsoft.Xna.Framework
             if (ControllerUserInteractionEnabled)
                 base.PressesEnded(presses, evt);
         }
-        #endif
+#endif
     }
 }

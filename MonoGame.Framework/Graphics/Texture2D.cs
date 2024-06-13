@@ -52,13 +52,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the dimensions of the texture
         /// </summary>
-        public Rectangle Bounds
-        {
-            get
-            {
-				return new Rectangle(0, 0, this.width, this.height);
-            }
-        }
+        public Rectangle Bounds => new Rectangle(0, 0, this.width, this.height);
 
         /// <summary>
         /// Creates an uninitialized <b>Texture2D</b> resource with the specified parameters.
@@ -246,24 +240,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the width of the texture in pixels.
         /// </summary>
-        public int Width
-        {
-            get
-            {
-                return width;
-            }
-        }
+        public int Width => width;
 
         /// <summary>
         /// Gets the height of the texture in pixels.
         /// </summary>
-        public int Height
-        {
-            get
-            {
-                return height;
-            }
-        }
+        public int Height => height;
 
         /// <summary>
         /// Copies an array of data to the texture.

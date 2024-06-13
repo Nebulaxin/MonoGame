@@ -14,10 +14,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             XmlTypeName = xmlTypeName;
         }
 
-        public virtual bool CanDeserializeIntoExistingObject
-        {
-            get { return false; }
-        }
+        public virtual bool CanDeserializeIntoExistingObject => false;
 
         public Type TargetType { get; private set; }
 

@@ -42,12 +42,12 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the media playback queue, <see cref="MediaQueue"/>.
         /// </summary>
-        public static MediaQueue Queue { get { return _queue; } }
+        public static MediaQueue Queue => _queue;
 
         /// <summary>
         /// Gets or set the muted setting for the media player.
         /// </summary>
-		public static bool IsMuted
+        public static bool IsMuted
         {
             get { return PlatformGetIsMuted(); }
             set { PlatformSetIsMuted(value); }
@@ -85,18 +85,12 @@ namespace Microsoft.Xna.Framework.Media
         /// <remarks>
         /// Always returns <see langword="false"/>
         /// </remarks>
-        public static bool IsVisualizationEnabled { get { return false; } }
+        public static bool IsVisualizationEnabled => false;
 
         /// <summary>
         /// Gets the play position within the currently playing song.
         /// </summary>
-        public static TimeSpan PlayPosition
-        {
-            get { return PlatformGetPlayPosition(); }
-#if (IOS && !TVOS) || ANDROID
-            set { PlatformSetPlayPosition(value); }
-#endif
-        }
+        public static TimeSpan PlayPosition => PlatformGetPlayPosition();
 
         /// <summary>
         /// Gets the media playback state, <see cref="MediaState"/>
@@ -123,13 +117,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <see cref="Resume()"/>, <see cref="MoveNext()"/>, and <see cref="MovePrevious"/>
         /// might have no effect, depending on the platform.
         /// </remarks>
-        public static bool GameHasControl
-        {
-            get
-            {
-                return PlatformGetGameHasControl();
-            }
-        }
+        public static bool GameHasControl => PlatformGetGameHasControl();
 
         /// <summary>
         /// Gets or sets the media player volume

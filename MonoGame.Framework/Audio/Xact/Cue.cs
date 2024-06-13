@@ -66,21 +66,13 @@ namespace Microsoft.Xna.Framework.Audio
 
         /// <summary>Returns whether the cue is stopping playback.</summary>
         /// <remarks>Current implementation will always return <see langword="false"/>.</remarks>
-        public bool IsStopping
-        {
-            get
-            {
+        public bool IsStopping =>
                 // TODO: Implement me!
-                return false;
-            }
-        }
+                false;
 
         /// <summary>Returns whether the cue is preparing to play.</summary>
         /// <remarks>Current implementation will always return <see langword="false"/>.</remarks>
-        public bool IsPreparing 
-        {
-            get { return false; }
-        }
+        public bool IsPreparing => false;
 
         /// <summary>Returns whether the cue is prepared to play.</summary>
         /// <remarks>
@@ -97,11 +89,8 @@ namespace Microsoft.Xna.Framework.Audio
 
         /// <summary>Gets the friendly name of the cue.</summary>
         /// <remarks>The friendly name is a value set from the designer.</remarks>
-        public string Name
-        {
-            get { return _name; }
-        }
-        
+        public string Name => _name;
+
         internal Cue(AudioEngine engine, string cuename, XactSound sound)
         {
             _engine = engine;

@@ -115,10 +115,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private int _maxMultiSampleCount;
 
-        internal int MaxMultiSampleCount
-        {
-            get { return _maxMultiSampleCount; }
-        }
+        internal int MaxMultiSampleCount => _maxMultiSampleCount;
 
         internal bool SupportsInstancing { get; private set; }
 

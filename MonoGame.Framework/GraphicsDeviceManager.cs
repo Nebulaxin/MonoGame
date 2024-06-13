@@ -434,13 +434,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns the graphics device for this manager.
         /// </summary>
-        public GraphicsDevice GraphicsDevice
-        {
-            get
-            {
-                return _graphicsDevice;
-            }
-        }
+        public GraphicsDevice GraphicsDevice => _graphicsDevice;
 
         /// <summary>
         /// Indicates the desire to switch into fullscreen mode.

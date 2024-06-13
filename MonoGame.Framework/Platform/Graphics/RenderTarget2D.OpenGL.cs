@@ -12,15 +12,9 @@ namespace Microsoft.Xna.Framework.Graphics
         private static Action<RenderTarget2D> DisposeAction =
             (t) => t.GraphicsDevice.PlatformDeleteRenderTarget(t);
 
-        int IRenderTarget.GLTexture
-        {
-            get { return glTexture; }
-        }
+        int IRenderTarget.GLTexture => glTexture;
 
-        TextureTarget IRenderTarget.GLTarget
-        {
-            get { return glTarget; }
-        }
+        TextureTarget IRenderTarget.GLTarget => glTarget;
 
         int IRenderTarget.GLColorBuffer { get; set; }
         int IRenderTarget.GLDepthBuffer { get; set; }

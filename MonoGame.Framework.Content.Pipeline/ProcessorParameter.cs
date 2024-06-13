@@ -35,46 +35,22 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets a value indicating whether the parameter is an enumeration.
         /// </summary>
-        public bool IsEnum
-        {
-            get
-            {
-                return enumValues != null;
-            }
-        }
+        public bool IsEnum => enumValues != null;
 
         /// <summary>
         /// Available options for enumerated type parameters. For parameters of other types, this value is null.
         /// </summary>
-        public ReadOnlyCollection<string> PossibleEnumValues
-        {
-            get
-            {
-                return enumValues;
-            }
-        }
+        public ReadOnlyCollection<string> PossibleEnumValues => enumValues;
 
         /// <summary>
         /// Name of the property, as defined in the C# code.
         /// </summary>
-        public string PropertyName
-        {
-            get
-            {
-                return propInfo.Name;
-            }
-        }
+        public string PropertyName => propInfo.Name;
 
         /// <summary>
         /// Type of the parameter.
         /// </summary>
-        public string PropertyType
-        {
-            get
-            {
-                return propInfo.PropertyType.Name;
-            }
-        }
+        public string PropertyType => propInfo.PropertyType.Name;
 
         /// <summary>
         /// Constructs a ProcessorParameter instance.

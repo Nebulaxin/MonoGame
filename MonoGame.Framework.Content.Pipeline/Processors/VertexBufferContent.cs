@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// Gets the array containing the raw bytes of the packed vertex data. Use this method to get and set the contents of the vertex buffer.
         /// </summary>
         /// <value>Raw data of the packed vertex data.</value>
-        public byte[] VertexData { get { return stream.ToArray(); } }
+        public byte[] VertexData => stream.ToArray();
 
         /// <summary>
         /// Gets and sets the associated VertexDeclarationContent object.

@@ -440,16 +440,10 @@ namespace Microsoft.Xna.Framework
             return PlaneIntersectionType.Intersecting;
         }
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     this.Normal.DebugDisplayString, "  ",
                     this.D.ToString()
                     );
-            }
-        }
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="Plane"/>.

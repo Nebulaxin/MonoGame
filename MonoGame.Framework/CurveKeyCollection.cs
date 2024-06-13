@@ -55,19 +55,13 @@ namespace Microsoft.Xna.Framework
         /// Returns the count of keys in this collection.
         /// </summary>
         [DataMember]
-        public int Count
-        {
-            get { return _keys.Count; }
-        }
+        public int Count => _keys.Count;
 
         /// <summary>
         /// Returns false because it is not a read-only collection.
         /// </summary>
         [DataMember]
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         #endregion
 

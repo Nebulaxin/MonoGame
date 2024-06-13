@@ -15,24 +15,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the list of geometry batches for the mesh.
         /// </summary>
-        public GeometryContentCollection Geometry
-        {
-            get
-            {
-                return geometry;
-            }
-        }
+        public GeometryContentCollection Geometry => geometry;
 
         /// <summary>
         /// Gets the list of vertex position values.
         /// </summary>
-        public PositionCollection Positions
-        {
-            get
-            {
-                return positions;
-            }
-        }
+        public PositionCollection Positions => positions;
 
         /// <summary>
         /// Initializes a new instance of MeshContent.

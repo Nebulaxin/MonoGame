@@ -27,30 +27,15 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
             _meshParts = new ModelMeshPartContentCollection(meshParts);
         }
 
-        public BoundingSphere BoundingSphere
-        {
-            get { return _boundingSphere; }
-        }
+        public BoundingSphere BoundingSphere => _boundingSphere;
 
-        public ModelMeshPartContentCollection MeshParts
-        {
-            get { return _meshParts; }
-        }
+        public ModelMeshPartContentCollection MeshParts => _meshParts;
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name => _name;
 
-        public ModelBoneContent ParentBone
-        {
-            get { return _parentBone; }
-        }
+        public ModelBoneContent ParentBone => _parentBone;
 
-        public MeshContent SourceMesh
-        {
-            get { return _sourceMesh; }
-        }
+        public MeshContent SourceMesh => _sourceMesh;
 
         public object Tag { get; set; }
     }

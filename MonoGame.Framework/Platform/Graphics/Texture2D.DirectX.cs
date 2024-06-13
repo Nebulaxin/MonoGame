@@ -23,11 +23,11 @@ namespace Microsoft.Xna.Framework.Graphics
     public partial class Texture2D : Texture
     {
         /// <summary />
-        protected bool Shared { get { return _shared; } }
+        protected bool Shared => _shared;
         /// <summary />
-        protected bool Mipmap { get { return _mipmap; } }
+        protected bool Mipmap => _mipmap;
         /// <summary />
-        protected SampleDescription SampleDescription { get { return _sampleDescription; } }
+        protected SampleDescription SampleDescription => _sampleDescription;
 
         private bool _shared;
         private bool _mipmap;

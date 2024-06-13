@@ -23,24 +23,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the strongly-typed list for the base class to access.
         /// </summary>
-        internal override IList Items
-        {
-            get
-            {
-                return items;
-            }
-        }
+        internal override IList Items => items;
 
         /// <summary>
         /// Gets the type of data contained in this channel.
         /// </summary>
-        public override Type ElementType
-        {
-            get
-            {
-                return typeof(T);
-            }
-        }
+        public override Type ElementType => typeof(T);
 
         /// <summary>
         /// Gets or sets the element at the specified index.
@@ -60,13 +48,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// true if this object is read-only; false otherwise.
         /// </summary>
-        bool ICollection<T>.IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        bool ICollection<T>.IsReadOnly => false;
 
         /// <summary>
         /// Creates an instance of VertexChannel.

@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// Gets the texture collection of the material.
         /// </summary>
         /// <value>Collection of textures used by the material.</value>
-        public TextureReferenceDictionary Textures { get { return _textures; } }
+        public TextureReferenceDictionary Textures => _textures;
 
         /// <summary>
         /// Initializes a new instance of MaterialContent.

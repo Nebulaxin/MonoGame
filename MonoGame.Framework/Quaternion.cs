@@ -98,10 +98,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a quaternion representing no rotation.
         /// </summary>
-        public static Quaternion Identity
-        {
-            get{ return _identity; }
-        }
+        public static Quaternion Identity => _identity;
 
         #endregion
 

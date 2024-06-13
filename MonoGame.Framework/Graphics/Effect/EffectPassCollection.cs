@@ -27,10 +27,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Retrieves the <see cref="EffectPass"/> at the specified index in the collection.
         /// </summary>
-        public EffectPass this[int index]
-        {
-            get { return _passes[index]; }
-        }
+        public EffectPass this[int index] => _passes[index];
 
         /// <summary>
         /// Retrieves a <see cref="EffectPass"/> from the collection, given the name of the pass.
@@ -53,10 +50,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-        public int Count
-        {
-            get { return _passes.Length; }
-        }
+        public int Count => _passes.Length;
 
         /// <summary>
         /// Returns a <see cref="EffectPassCollection.Enumerator">EffectPassCollection.Enumerator</see>
@@ -108,10 +102,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             /// <inheritdoc/>
-            public EffectPass Current
-            {
-                get { return _current; }
-            }
+            public EffectPass Current => _current;
 
             /// <inheritdoc cref="IDisposable.Dispose()"/>
             public void Dispose()

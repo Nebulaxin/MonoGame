@@ -53,12 +53,12 @@ namespace Microsoft.Xna.Framework.Graphics
                 disposed = false;
 			}
 
-	        /// <inheritdoc/>
-            public Effect Current { get { return enumerator.Current; } }
+			/// <inheritdoc/>
+			public Effect Current => enumerator.Current;
 
-	        /// <inheritdoc cref="IDisposable.Dispose()"/>
-	        public void Dispose()
-            {
+			/// <inheritdoc cref="IDisposable.Dispose()"/>
+			public void Dispose()
+			{
                 if (!disposed)
                 {
                     enumerator.Dispose();
@@ -69,15 +69,12 @@ namespace Microsoft.Xna.Framework.Graphics
 	        /// <inheritdoc/>
 	        public bool MoveNext() { return enumerator.MoveNext(); }
 
-	        #region IEnumerator Members
+			#region IEnumerator Members
 
-	        object IEnumerator.Current
-	        {
-	            get { return Current; }
-	        }
+			object IEnumerator.Current => Current;
 
-	        void IEnumerator.Reset()
-	        {
+			void IEnumerator.Reset()
+			{
 				IEnumerator resetEnumerator = enumerator;
 				resetEnumerator.Reset ();
 				enumerator = (List<Effect>.Enumerator)resetEnumerator;

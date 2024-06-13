@@ -24,13 +24,7 @@ namespace Microsoft.Xna.Framework.Content
 		internal int version;
 		internal int sharedResourceCount;
 
-        internal ContentTypeReader[] TypeReaders
-        {
-            get
-            {
-                return typeReaders;
-            }
-        }
+        internal ContentTypeReader[] TypeReaders => typeReaders;
 
         internal ContentReader(ContentManager manager, Stream stream, string assetName, int version, Action<IDisposable> recordDisposableObject)
             : base(stream)
@@ -44,24 +38,12 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary>
         /// Gets a reference to the <see cref="ContentManager"/> instance that is using this content reader.
         /// </summary>
-        public ContentManager ContentManager
-        {
-            get
-            {
-                return contentManager;
-            }
-        }
+        public ContentManager ContentManager => contentManager;
 
         /// <summary>
         /// Gets the name of the asset currently being read by this content reader.
         /// </summary>
-        public string AssetName
-        {
-            get
-            {
-                return assetName;
-            }
-        }
+        public string AssetName => assetName;
 
         internal object ReadAsset<T>()
         {

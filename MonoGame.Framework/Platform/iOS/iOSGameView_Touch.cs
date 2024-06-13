@@ -18,10 +18,7 @@ namespace Microsoft.Xna.Framework
     partial class iOSGameView
     {
 
-        static GestureType EnabledGestures
-        {
-            get { return TouchPanel.EnabledGestures; }
-        }
+        static GestureType EnabledGestures => TouchPanel.EnabledGestures;
 
         #region Touches
 

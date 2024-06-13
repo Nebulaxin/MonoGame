@@ -27,10 +27,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         {
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return TargetType.IsClass; }
-        }
+        public override bool CanDeserializeIntoExistingObject => TargetType.IsClass;
 
         protected override void Initialize(ContentCompiler compiler)
         {

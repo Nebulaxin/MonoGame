@@ -402,13 +402,7 @@ namespace Microsoft.Xna.Framework
 
         public GraphicsProfile GraphicsProfile { get; set; }
 
-        public GraphicsDevice GraphicsDevice
-        {
-            get
-            {
-                return _graphicsDevice;
-            }
-        }
+        public GraphicsDevice GraphicsDevice => _graphicsDevice;
 
         public bool IsFullScreen
         {

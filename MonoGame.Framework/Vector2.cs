@@ -49,49 +49,31 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector2"/> with components 0, 0.
         /// </summary>
-        public static Vector2 Zero
-        {
-            get { return zeroVector; }
-        }
+        public static Vector2 Zero => zeroVector;
 
         /// <summary>
         /// Returns a <see cref="Vector2"/> with components 1, 1.
         /// </summary>
-        public static Vector2 One
-        {
-            get { return unitVector; }
-        }
+        public static Vector2 One => unitVector;
 
         /// <summary>
         /// Returns a <see cref="Vector2"/> with components 1, 0.
         /// </summary>
-        public static Vector2 UnitX
-        {
-            get { return unitXVector; }
-        }
+        public static Vector2 UnitX => unitXVector;
 
         /// <summary>
         /// Returns a <see cref="Vector2"/> with components 0, 1.
         /// </summary>
-        public static Vector2 UnitY
-        {
-            get { return unitYVector; }
-        }
+        public static Vector2 UnitY => unitYVector;
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     this.X.ToString(), "  ",
                     this.Y.ToString()
                 );
-            }
-        }
 
         #endregion
 

@@ -36,10 +36,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         ///  The internal content statistics dictionary.
         /// </summary>
-        public IReadOnlyDictionary<string, ContentStats> Stats
-        {
-            get { return _statsBySource; }
-        }
+        public IReadOnlyDictionary<string, ContentStats> Stats => _statsBySource;
 
         /// <summary>
         ///  Get the content statistics for a source file and returns true if found.

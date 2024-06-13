@@ -61,25 +61,19 @@ namespace Microsoft.Xna.Framework {
 
 		private bool _isDisposed;
 
-		public bool IsDisposed {
-			get { return _isDisposed; }
-		}
+		public bool IsDisposed => _isDisposed;
 
 		#endregion Properties
 
-		[Export ("layerClass")]
+		[Export("layerClass")]
 		public static Class GetLayerClass ()
 		{
 			return new Class (typeof (CAEAGLLayer));
 		}
 
-		public override bool CanBecomeFirstResponder {
-			get { return true; }
-		}
+		public override bool CanBecomeFirstResponder => true;
 
-		private new CAEAGLLayer Layer {
-			get { return base.Layer as CAEAGLLayer; }
-		}
+		private new CAEAGLLayer Layer => base.Layer as CAEAGLLayer;
 
 		// FIXME: Someday, hopefully it will be possible to move
 		//        GraphicsContext into an iOS-specific GraphicsDevice.

@@ -34,16 +34,10 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
+        internal string DebugDisplayString => string.Concat(
                     "Center( ", this.Center.DebugDisplayString, " )  \r\n",
                     "Radius( ", this.Radius.ToString(), " )"
                     );
-            }
-        }
 
         #endregion
 

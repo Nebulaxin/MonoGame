@@ -19,37 +19,22 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="Album"/> on which the Song appears.
         /// </summary>
-        public Album Album
-        {
-            get { return PlatformGetAlbum(); }
-#if WINDOWS_UAP
-            internal set { PlatformSetAlbum(value); }
-#endif
-        }
+        public Album Album => PlatformGetAlbum();
 
         /// <summary>
         /// Gets the <see cref="Media.Artist"/> of the Song.
         /// </summary>
-        public Artist Artist
-        {
-            get { return PlatformGetArtist(); }
-        }
+        public Artist Artist => PlatformGetArtist();
 
         /// <summary>
         /// Gets the <see cref="Media.Genre"/> of the Song.
         /// </summary>
-        public Genre Genre
-        {
-            get { return PlatformGetGenre(); }
-        }
+        public Genre Genre => PlatformGetGenre();
 
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
         /// </summary>
-        public bool IsDisposed
-        {
-            get { return disposed; }
-        }
+        public bool IsDisposed => disposed;
 
 #if ANDROID || OPENAL || WEB || IOS
         internal delegate void FinishedPlayingHandler(object sender, EventArgs args);
@@ -76,10 +61,7 @@ namespace Microsoft.Xna.Framework.Media
             Dispose(false);
         }
 
-        internal string FilePath
-		{
-			get { return _name; }
-		}
+        internal string FilePath => _name;
 
         /// <summary>
         /// Returns a song that can be played via <see cref="MediaPlayer"/>.
@@ -172,42 +154,27 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the duration of the <see cref="Song"/>.
         /// </summary>
-        public TimeSpan Duration
-        {
-            get { return PlatformGetDuration(); }
-        }
+        public TimeSpan Duration => PlatformGetDuration();
 
         /// <summary>
         /// Gets a value that indicates whether the song is DRM protected content.
         /// </summary>
-        public bool IsProtected
-        {
-            get { return PlatformIsProtected(); }
-        }
+        public bool IsProtected => PlatformIsProtected();
 
         /// <summary>
         /// Gets a value that indicates whether the song has been rated by the user.
         /// </summary>
-        public bool IsRated
-        {
-            get { return PlatformIsRated(); }
-        }
+        public bool IsRated => PlatformIsRated();
 
         /// <summary>
         /// Gets the name of the <see cref="Song"/>.
         /// </summary>
-        public string Name
-        {
-            get { return PlatformGetName(); }
-        }
+        public string Name => PlatformGetName();
 
         /// <summary>
         /// Gets the song play count.
         /// </summary>
-        public int PlayCount
-        {
-            get { return PlatformGetPlayCount(); }
-        }
+        public int PlayCount => PlatformGetPlayCount();
 
         /// <summary>
         /// Gets the user's rating for the <see cref="Song"/>.
@@ -216,10 +183,7 @@ namespace Microsoft.Xna.Framework.Media
         /// User's rating for this <see cref="Song"/>, or 0 if the song is unrated.
         /// Ratings range from 1 (dislike the most) to 10 (like the most).
         /// </value>
-        public int Rating
-        {
-            get { return PlatformGetRating(); }
-        }
+        public int Rating => PlatformGetRating();
 
         /// <summary>
         /// Gets the track number of the song on the song's <see cref="Album"/>.
@@ -227,10 +191,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <value>
         /// Track number of this <see cref="Song"/> on the song's <see cref="Album"/>.
         /// </value>
-        public int TrackNumber
-        {
-            get { return PlatformGetTrackNumber(); }
-        }
+        public int TrackNumber => PlatformGetTrackNumber();
     }
 }
 

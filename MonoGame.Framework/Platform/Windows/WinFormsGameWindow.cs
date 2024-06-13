@@ -54,9 +54,9 @@ namespace MonoGame.Framework
 
         #region Public Properties
 
-        public override IntPtr Handle { get { return Form.Handle; } }
+        public override IntPtr Handle => Form.Handle;
 
-        public override string ScreenDeviceName { get { return String.Empty; } }
+        public override string ScreenDeviceName => String.Empty;
 
         public override Rectangle ClientBounds
         {
@@ -96,10 +96,7 @@ namespace MonoGame.Framework
              }
         }
 
-        public override DisplayOrientation CurrentOrientation
-        {
-            get { return DisplayOrientation.Default; }
-        }
+        public override DisplayOrientation CurrentOrientation => DisplayOrientation.Default;
 
         public override XnaPoint Position
         {

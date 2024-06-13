@@ -24,7 +24,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// Gets the list of named vertex data channels in the VertexContent.
         /// </summary>
         /// <value>Collection of vertex data channels.</value>
-        public VertexChannelCollection Channels { get { return channels; } }
+        public VertexChannelCollection Channels => channels;
 
         /// <summary>
         /// Gets the list of position indices.
@@ -33,20 +33,20 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <remarks>This list adds a level of indirection between the actual triangle indices and the Positions member of the parent. This indirection preserves the topological vertex identity in cases where a single vertex position is used by triangles that straddle a discontinuity in some other data channel.
         /// For example, the following code gets the position of the first vertex of the first triangle in a GeometryContent object:
         /// parent.Positions[Vertices.PositionIndices[Indices[0]]]</remarks>
-        public VertexChannel<int> PositionIndices { get { return positionIndices; } }
+        public VertexChannel<int> PositionIndices => positionIndices;
 
         /// <summary>
         /// Gets position data from the parent mesh object.
         /// </summary>
         /// <value>Collection of vertex positions for the mesh.</value>
         /// <remarks>The collection returned from this call provides a virtualized view of the vertex positions for this batch. The collection uses the contents of the PositionIndices property to index into the parent Positions. This collection is read-only. If you need to modify any contained values, edit the PositionIndices or Positions members directly.</remarks>
-        public IndirectPositionCollection Positions { get { return positions; } }
+        public IndirectPositionCollection Positions => positions;
 
         /// <summary>
         /// Number of vertices for the content.
         /// </summary>
         /// <value>Number of vertices.</value>
-        public int VertexCount { get { return positionIndices.Count; } }
+        public int VertexCount => positionIndices.Count;
 
         /// <summary>
         /// Constructs a VertexContent instance.

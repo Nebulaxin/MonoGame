@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Input
         Cursor _cursor;
         bool _needsDisposing;
 
-        internal Cursor Cursor { get { return _cursor; } }
+        internal Cursor Cursor => _cursor;
 
         private MouseCursor(Cursor cursor, bool needsDisposing = false)
         {

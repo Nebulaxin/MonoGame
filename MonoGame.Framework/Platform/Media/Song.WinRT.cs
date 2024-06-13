@@ -16,10 +16,7 @@ namespace Microsoft.Xna.Framework.Media
         
 		private MusicProperties musicProperties;
 
-        public StorageFile StorageFile
-        {
-            get { return this.musicProperties.File; }
-        }
+        public StorageFile StorageFile => this.musicProperties.File;
         
 		internal Song(Album album, Artist artist, Genre genre, MusicProperties musicProperties)
 		{

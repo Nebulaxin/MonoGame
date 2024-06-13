@@ -50,7 +50,7 @@ namespace Microsoft.Devices.Sensors
 
 		public event EventHandler<SensorReadingEventArgs<TSensorReading>> CurrentValueChanged;
 		protected event EventHandler<EventArgs> TimeBetweenUpdatesChanged;
-        protected bool IsDisposed { get { return disposed; } }
+		protected bool IsDisposed => disposed;
 
 		public SensorBase()
 		{

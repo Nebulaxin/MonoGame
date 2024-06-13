@@ -27,7 +27,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// Gets the opaque data of the content item.
         /// </summary>
         [ContentSerializer(Optional = true)]
-        public OpaqueDataDictionary OpaqueData { get { return opaqueData; } }
+        public OpaqueDataDictionary OpaqueData => opaqueData;
 
         /// <summary>
         /// Initializes a new instance of ContentItem.

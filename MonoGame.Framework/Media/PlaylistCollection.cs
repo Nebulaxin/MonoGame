@@ -35,32 +35,17 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the number of <see cref="Playlist"/> objects in the <see cref="PlaylistCollection"/>.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-				return innerlist.Count;
-            }
-        }
+        public int Count => innerlist.Count;
 
         /// <summary>
         /// Gets whether this collection is read-only,
         /// </summary>
-		public bool IsReadOnly
-        {
-            get { return this.isReadOnly; }
-        }
+		public bool IsReadOnly => this.isReadOnly;
 
         /// <summary>
         /// Gets the <see cref="Playlist"/> at the specified index in the <see cref="PlaylistCollection"/>.
         /// </summary>
-        public Playlist this[int index]
-        {
-            get
-            {
-				return this.innerlist[index];
-            }
-        }
+        public Playlist this[int index] => this.innerlist[index];
 
         /// <summary>
         /// Adds a <see cref="Playlist"/> to this <see cref="PlaylistCollection"/>.

@@ -228,15 +228,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
 
         /// <inheritdoc/>
-        public DirectionalLight DirectionalLight0 { get { return light0; } }
+        public DirectionalLight DirectionalLight0 => light0;
 
 
         /// <inheritdoc/>
-        public DirectionalLight DirectionalLight1 { get { return light1; } }
+        public DirectionalLight DirectionalLight1 => light1;
 
 
         /// <inheritdoc/>
-        public DirectionalLight DirectionalLight2 { get { return light2; } }
+        public DirectionalLight DirectionalLight2 => light2;
 
 
         /// <inheritdoc/>

@@ -26,12 +26,9 @@ namespace Microsoft.Xna.Framework.Media
         private NSUrl assetUrl;
         private NSObject playToEndObserver;
 
-        public NSUrl AssetUrl
-        {
-            get { return this.assetUrl; }
-        }
+        public NSUrl AssetUrl => this.assetUrl;
 
-        #if !TVOS
+#if !TVOS
         internal Song(Album album, Artist artist, Genre genre, string title, TimeSpan duration, MPMediaItem mediaItem, NSUrl assetUrl)
         #else
         internal Song(Album album, Artist artist, Genre genre, string title, TimeSpan duration, object mediaItem, NSUrl assetUrl)

@@ -16,15 +16,9 @@ namespace Microsoft.Xna.Framework.Graphics
         // Caches the DirectX input layouts for this vertex shader.
         private InputLayoutCache _inputLayouts;
 
-        internal byte[] Bytecode
-        {
-            get { return _shaderBytecode; }
-        }
+        internal byte[] Bytecode => _shaderBytecode;
 
-        internal InputLayoutCache InputLayouts
-        {
-            get { return _inputLayouts; }
-        }
+        internal InputLayoutCache InputLayouts => _inputLayouts;
 
         internal VertexShader VertexShader
         {

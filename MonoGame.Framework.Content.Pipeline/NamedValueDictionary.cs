@@ -42,10 +42,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets all keys contained in the dictionary.
         /// </summary>
-        public ICollection<string> Keys
-        {
-            get { return dict.Keys; }
-        }
+        public ICollection<string> Keys => dict.Keys;
 
         /// <summary>
         /// Removes the specified key and value from the dictionary.
@@ -71,18 +68,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Specifies the type hint for the intermediate serializer. Values of this type do not store an explicit type attribute in the related XML source.
         /// </summary>
-        protected internal virtual Type DefaultSerializerType
-        {
-            get { return typeof(T); }
-        }
+        protected internal virtual Type DefaultSerializerType => typeof(T);
 
         /// <summary>
         /// Gets all values contained in the dictionary.
         /// </summary>
-        public ICollection<T> Values
-        {
-            get { return dict.Values; }
-        }
+        public ICollection<T> Values => dict.Values;
 
         /// <summary>
         /// Gets or sets the specified item.
@@ -140,18 +131,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets the number of items in the dictionary.
         /// </summary>
-        public int Count
-        {
-            get { return dict.Count; }
-        }
+        public int Count => dict.Count;
 
         /// <summary>
         /// Gets a value indicating if this object is read-only.
         /// </summary>
-        bool ICollection<KeyValuePair<string, T>>.IsReadOnly
-        {
-            get { return false; }
-        }
+        bool ICollection<KeyValuePair<string, T>>.IsReadOnly => false;
 
         /// <summary>
         /// Removes the first occurrence of the specified object from the collection.

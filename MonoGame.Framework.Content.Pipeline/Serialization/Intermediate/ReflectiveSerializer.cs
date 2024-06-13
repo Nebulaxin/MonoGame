@@ -138,10 +138,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
                 _collectionHelper = serializer.GetCollectionHelper(TargetType);
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return TargetType.IsClass && TargetType.BaseType != null; }
-        }
+        public override bool CanDeserializeIntoExistingObject => TargetType.IsClass && TargetType.BaseType != null;
 
         protected internal override object Deserialize(IntermediateReader input, ContentSerializerAttribute format, object existingInstance)
         {

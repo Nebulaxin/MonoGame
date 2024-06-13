@@ -68,36 +68,18 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the count of songs in the MediaQueue.
         /// </summary>
-        internal int Count
-        {
-            get
-            {
-                return songs.Count;
-            }
-        }
+        internal int Count => songs.Count;
 
         /// <summary>
         /// Gets the <see cref="Song"/> at the specified index in the MediaQueue
         /// </summary>
-        public Song this[int index]
-        {
-            get
-            {
-                return songs[index];
-            }
-        }
+        public Song this[int index] => songs[index];
 
-        internal IEnumerable<Song> Songs
-        {
-            get
-            {
-                return songs;
-            }
-        }
+        internal IEnumerable<Song> Songs => songs;
 
-		internal Song GetNextSong(int direction, bool shuffle)
-		{
-			if (shuffle)
+        internal Song GetNextSong(int direction, bool shuffle)
+        {
+            if (shuffle)
 				_activeSongIndex = random.Next(songs.Count);
 			else
 				_activeSongIndex = (int)MathHelper.Clamp(_activeSongIndex + direction, 0, songs.Count - 1);

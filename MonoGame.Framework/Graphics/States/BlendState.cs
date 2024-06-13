@@ -43,10 +43,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         /// <param name="index">The 0 to 3 target blend state index.</param>
         /// <returns>A target blend state.</returns>
-        public TargetBlendState this[int index]
-        {
-            get { return _targetBlendState[index]; }
-        }
+        public TargetBlendState this[int index] => _targetBlendState[index];
 
         /// <summary>
         /// Gets or sets the arithmetic operation when blending alpha values.
@@ -55,8 +52,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <value>
         /// A value from the <see cref="BlendFunction"/> enumeration.
         /// </value>
-	    public BlendFunction AlphaBlendFunction
-	    {
+        public BlendFunction AlphaBlendFunction
+        {
 	        get { return _targetBlendState[0].AlphaBlendFunction; }
             set
             {

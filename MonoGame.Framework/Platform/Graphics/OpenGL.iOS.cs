@@ -46,17 +46,9 @@ namespace MonoGame.OpenGL
             }
         }
 
-        public bool IsCurrent {
-            get {
-                return EAGLContext.CurrentContext == this.Context;
-            }
-        }
+        public bool IsCurrent => EAGLContext.CurrentContext == this.Context;
 
-        public bool IsDisposed {
-            get {
-                return this.Context == null;
-            }
-        }
+        public bool IsDisposed => this.Context == null;
 
         public int SwapInterval {
             get {

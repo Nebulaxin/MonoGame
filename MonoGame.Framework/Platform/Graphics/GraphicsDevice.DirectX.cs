@@ -94,13 +94,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Returns a handle to internal device object. Valid only on DirectX platforms.
         /// For usage, convert this to SharpDX.Direct3D11.Device.
         /// </summary>
-        public object Handle
-        {
-            get
-            {
-                return _d3dDevice;
-            }
-        }
+        public object Handle => _d3dDevice;
 
         private void PlatformSetup()
         {

@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Media
     {
         private Topology _topology;
 
-        internal Topology Topology { get { return _topology; } }
+        internal Topology Topology => _topology;
 
         private void PlatformInitialize(string fileName)
         {

@@ -180,7 +180,7 @@ namespace Microsoft.Xna.Framework
         public static AndroidGameActivity Activity { get; internal set; }
 #endif
         private static Game _instance = null;
-        internal static Game Instance { get { return Game._instance; } }
+        internal static Game Instance => Game._instance;
 
         /// <summary>
         /// The start up parameters for this <see cref="Game"/>.
@@ -190,10 +190,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// A collection of game components attached to this <see cref="Game"/>.
         /// </summary>
-        public GameComponentCollection Components
-        {
-            get { return _components; }
-        }
+        public GameComponentCollection Components => _components;
 
         /// <summary>
         /// Gets or sets time to sleep between frames when the game is not active
@@ -234,10 +231,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Indicates if the game is the focused application.
         /// </summary>
-        public bool IsActive
-        {
-            get { return Platform.IsActive; }
-        }
+        public bool IsActive => Platform.IsActive;
 
         /// <summary>
         /// Indicates if the mouse cursor is visible on the game screen.
@@ -293,9 +287,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Get a container holding service providers attached to this <see cref="Game"/>.
         /// </summary>
-        public GameServiceContainer Services {
-            get { return _services; }
-        }
+        public GameServiceContainer Services => _services;
 
 
         /// <summary>
@@ -339,10 +331,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// The system window that this game is displayed on.
         /// </summary>
-        public GameWindow Window
-        {
-            get { return Platform.Window; }
-        }
+        public GameWindow Window => Platform.Window;
 
         #endregion Properties
 
@@ -352,10 +341,7 @@ namespace Microsoft.Xna.Framework
         // Currently Game.Initialized is used by the Mac game window class to
         // determine whether to raise DeviceResetting and DeviceReset on
         // GraphicsDeviceManager.
-        internal bool Initialized
-        {
-            get { return _initialized; }
-        }
+        internal bool Initialized => _initialized;
 
         #endregion Internal Properties
 
@@ -1068,15 +1054,9 @@ namespace Microsoft.Xna.Framework
                 _items.CopyTo(array, arrayIndex);
             }
 
-            public int Count
-            {
-                get { return _items.Count; }
-            }
+            public int Count => _items.Count;
 
-            public bool IsReadOnly
-            {
-                get { return false; }
-            }
+            public bool IsReadOnly => false;
 
             public IEnumerator<T> GetEnumerator()
             {

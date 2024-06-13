@@ -141,17 +141,17 @@ namespace Microsoft.Xna.Framework
 		/// </remarks>
 		public event EventHandler<TextInputEventArgs> TextInput;
 
-        internal bool IsTextInputHandled { get { return TextInput != null; } }
+		internal bool IsTextInputHandled => TextInput != null;
 
-        /// <summary>
-        /// Buffered keyboard KeyDown event.
-        /// </summary>
+		/// <summary>
+		/// Buffered keyboard KeyDown event.
+		/// </summary>
 		public event EventHandler<InputKeyEventArgs> KeyDown;
 
-        /// <summary>
-        /// Buffered keyboard KeyUp event.
-        /// </summary>
-        public event EventHandler<InputKeyEventArgs> KeyUp;
+		/// <summary>
+		/// Buffered keyboard KeyUp event.
+		/// </summary>
+		public event EventHandler<InputKeyEventArgs> KeyUp;
 
 #endif
 

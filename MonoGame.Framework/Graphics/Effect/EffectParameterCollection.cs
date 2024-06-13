@@ -45,18 +45,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-        public int Count
-        {
-            get { return _parameters.Length; }
-        }
+        public int Count => _parameters.Length;
 
         /// <summary>
         /// Retrieves the <see cref="EffectParameter"/> at the specified index in the collection.
         /// </summary>
-        public EffectParameter this[int index]
-		{
-			get { return _parameters[index]; }
-		}
+        public EffectParameter this[int index] => _parameters[index];
 
         /// <summary>
         /// Retrieves a <see cref="EffectParameter"/> from the collection, given the name of the parameter.
