@@ -26,7 +26,7 @@ namespace Microsoft.Xna.Framework
         protected GamePlatform(Game game)
         {
             if (game == null)
-                throw new ArgumentNullException("game");
+                throw new ArgumentNullException(nameof(game));
             Game = game;
         }
 

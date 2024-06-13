@@ -510,11 +510,11 @@ namespace Microsoft.Xna.Framework
         {
             if (corners == null)
             {
-                throw new ArgumentNullException("corners");
+                throw new ArgumentNullException(nameof(corners));
             }
             if (corners.Length < 8)
             {
-                throw new ArgumentOutOfRangeException("corners", "Not Enought Corners");
+                throw new ArgumentOutOfRangeException(nameof(corners), "Not Enought Corners");
             }
             corners[0].X = this.Min.X;
             corners[0].Y = this.Max.Y;

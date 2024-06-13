@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Audio
             set
             {
                 if (value < 0.0f)
-                    throw new ArgumentOutOfRangeException("value", "AudioEmitter.DopplerScale must be greater than or equal to 0.0f");
+                    throw new ArgumentOutOfRangeException(nameof(value), "AudioEmitter.DopplerScale must be greater than or equal to 0.0f");
 
                 _dopplerScale = value;
             }

@@ -163,8 +163,8 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			if (serviceProvider == null)
 			{
-				throw new ArgumentNullException("serviceProvider");
-			}
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
             this.ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
@@ -176,12 +176,12 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			if (serviceProvider == null)
 			{
-				throw new ArgumentNullException("serviceProvider");
-			}
+                throw new ArgumentNullException(nameof(serviceProvider));
+            }
 			if (rootDirectory == null)
 			{
-				throw new ArgumentNullException("rootDirectory");
-			}
+                throw new ArgumentNullException(nameof(rootDirectory));
+            }
 			this.RootDirectory = rootDirectory;
             this.ServiceProvider = serviceProvider;
             AddContentManager(this);
@@ -339,7 +339,7 @@ namespace Microsoft.Xna.Framework.Content
 		{
             if (string.IsNullOrEmpty(assetName))
             {
-                throw new ArgumentNullException("assetName");
+                throw new ArgumentNullException(nameof(assetName));
             }
             if (disposed)
             {
@@ -422,8 +422,8 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			if (string.IsNullOrEmpty(assetName))
 			{
-				throw new ArgumentNullException("assetName");
-			}
+                throw new ArgumentNullException(nameof(assetName));
+            }
 			if (disposed)
 			{
 				throw new ObjectDisposedException("ContentManager");
@@ -592,7 +592,7 @@ namespace Microsoft.Xna.Framework.Content
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                throw new ArgumentNullException("assetName");
+                throw new ArgumentNullException(nameof(assetName));
             }
             if (disposed)
             {
@@ -636,7 +636,7 @@ namespace Microsoft.Xna.Framework.Content
         {
             if (assetNames == null)
             {
-                throw new ArgumentNullException("assetNames");
+                throw new ArgumentNullException(nameof(assetNames));
             }
             if (disposed)
             {

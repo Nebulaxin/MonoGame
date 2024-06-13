@@ -1054,9 +1054,9 @@ namespace Microsoft.Xna.Framework
         public static void Transform(Vector3[] sourceArray, int sourceIndex, ref Matrix matrix, Vector3[] destinationArray, int destinationIndex, int length)
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1087,9 +1087,9 @@ namespace Microsoft.Xna.Framework
         public static void Transform(Vector3[] sourceArray, int sourceIndex, ref Quaternion rotation, Vector3[] destinationArray, int destinationIndex, int length)
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1122,9 +1122,9 @@ namespace Microsoft.Xna.Framework
         public static void Transform(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1150,9 +1150,9 @@ namespace Microsoft.Xna.Framework
         public static void Transform(Vector3[] sourceArray, ref Quaternion rotation, Vector3[] destinationArray)
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1223,10 +1223,10 @@ namespace Microsoft.Xna.Framework
          int length)
         {
             if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
-            if(sourceArray.Length < sourceIndex + length)
+                throw new ArgumentNullException(nameof(destinationArray));
+            if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
                 throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
@@ -1252,9 +1252,9 @@ namespace Microsoft.Xna.Framework
         public static void TransformNormal(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
             if(sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
+                throw new ArgumentNullException(nameof(sourceArray));
             if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+                throw new ArgumentNullException(nameof(destinationArray));
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 

@@ -79,9 +79,9 @@ namespace Microsoft.Xna.Framework.Audio
                 throw new NoAudioHardwareException("Audio has failed to initialize. Call SoundEffect.Initialize() before sound operation to get more specific errors.");
 
             if ((sampleRate < 8000) || (sampleRate > 48000))
-                throw new ArgumentOutOfRangeException("sampleRate");
+                throw new ArgumentOutOfRangeException(nameof(sampleRate));
             if ((channels != AudioChannels.Mono) && (channels != AudioChannels.Stereo))
-                throw new ArgumentOutOfRangeException("channels");
+                throw new ArgumentOutOfRangeException(nameof(channels));
 
             _sampleRate = sampleRate;
             _channels = channels;

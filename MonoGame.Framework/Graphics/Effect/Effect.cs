@@ -67,7 +67,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		{
             if (graphicsDevice == null)
             {
-                throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
             this.GraphicsDevice = graphicsDevice;
 		}
@@ -137,9 +137,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 // Check file tail to ensure we parsed the content correctly.
                     var tail = reader.ReadInt32();
-                    if (tail != MGFXHeader.MGFXSignature) throw new ArgumentException("The MGFX effect code was not parsed correctly.", "effectCode");                    
+                    if (tail != MGFXHeader.MGFXSignature) throw new ArgumentException("The MGFX effect code was not parsed correctly.", nameof(effectCode));
 
-                // Cache the effect for later in its original unmodified state.
+                    // Cache the effect for later in its original unmodified state.
                     graphicsDevice.EffectCache.Add(effectKey, cloneSource);
                 }
             }

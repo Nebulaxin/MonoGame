@@ -50,8 +50,8 @@ namespace Microsoft.Xna.Framework.Graphics
 		{
 			if (graphicsDevice == null)
             {
-				throw new ArgumentNullException ("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
-			}	
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
+            }	
 
 			this.GraphicsDevice = graphicsDevice;
 
@@ -139,7 +139,7 @@ namespace Microsoft.Xna.Framework.Graphics
         void CheckValid(Texture2D texture)
         {
             if (texture == null)
-                throw new ArgumentNullException("texture");
+                throw new ArgumentNullException(nameof(texture));
             if (!_beginCalled)
                 throw new InvalidOperationException("Draw was called, but Begin has not yet been called. Begin must be called successfully before you can call Draw.");
         }
@@ -147,9 +147,9 @@ namespace Microsoft.Xna.Framework.Graphics
         void CheckValid(SpriteFont spriteFont, string text)
         {
             if (spriteFont == null)
-                throw new ArgumentNullException("spriteFont");
+                throw new ArgumentNullException(nameof(spriteFont));
             if (text == null)
-                throw new ArgumentNullException("text");
+                throw new ArgumentNullException(nameof(text));
             if (!_beginCalled)
                 throw new InvalidOperationException("DrawString was called, but Begin has not yet been called. Begin must be called successfully before you can call DrawString.");
         }
@@ -157,9 +157,9 @@ namespace Microsoft.Xna.Framework.Graphics
         void CheckValid(SpriteFont spriteFont, StringBuilder text)
         {
             if (spriteFont == null)
-                throw new ArgumentNullException("spriteFont");
+                throw new ArgumentNullException(nameof(spriteFont));
             if (text == null)
-                throw new ArgumentNullException("text");
+                throw new ArgumentNullException(nameof(text));
             if (!_beginCalled)
                 throw new InvalidOperationException("DrawString was called, but Begin has not yet been called. Begin must be called successfully before you can call DrawString.");
         }

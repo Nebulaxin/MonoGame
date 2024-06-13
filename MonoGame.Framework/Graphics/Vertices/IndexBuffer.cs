@@ -84,7 +84,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
 			if (graphicsDevice == null)
             {
-                throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
 			this.GraphicsDevice = graphicsDevice;
 			this.IndexElementSize = indexElementSize;
@@ -167,7 +167,7 @@ namespace Microsoft.Xna.Framework.Graphics
                         throw new NotSupportedException("The profile does not support an elementSize of IndexElementSize.ThirtyTwoBits; use IndexElementSize.SixteenBits or a type that has a size of two bytes.");
                     return IndexElementSize.ThirtyTwoBits;
                 default:
-                    throw new ArgumentOutOfRangeException("type","Index buffers can only be created for types that are sixteen or thirty two bits in length");
+                    throw new ArgumentOutOfRangeException(nameof(type), "Index buffers can only be created for types that are sixteen or thirty two bits in length");
             }
         }
 
@@ -195,7 +195,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void GetData<T>(int offsetInBytes, T[] data, int startIndex, int elementCount) where T : struct
         {
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             if (data.Length < (startIndex + elementCount))
                 throw new InvalidOperationException("The array specified in the data parameter is not the correct size for the amount of data requested.");
             if (BufferUsage == BufferUsage.WriteOnly)
@@ -289,7 +289,7 @@ namespace Microsoft.Xna.Framework.Graphics
         protected void SetDataInternal<T>(int offsetInBytes, T[] data, int startIndex, int elementCount, SetDataOptions options) where T : struct
         {
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             if (data.Length < (startIndex + elementCount))
                 throw new InvalidOperationException("The array specified in the data parameter is not the correct size for the amount of data requested.");
 

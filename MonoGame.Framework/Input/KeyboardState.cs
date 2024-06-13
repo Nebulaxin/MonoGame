@@ -258,13 +258,13 @@ namespace Microsoft.Xna.Framework.Input
         public void GetPressedKeys(Keys[] keys)
         {
             if (keys == null)
-                throw new System.ArgumentNullException("keys");
+                throw new System.ArgumentNullException(nameof(keys));
 
             uint count = CountBits(_keys0) + CountBits(_keys1) + CountBits(_keys2) + CountBits(_keys3)
                     + CountBits(_keys4) + CountBits(_keys5) + CountBits(_keys6) + CountBits(_keys7);
             if (count > keys.Length)
             {
-                throw new System.ArgumentOutOfRangeException("keys",
+                throw new System.ArgumentOutOfRangeException(nameof(keys),
                     "The supplied array cannot fit the number of pressed keys. Call GetPressedKeyCount() to get the number of pressed keys.");
             }
 

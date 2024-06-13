@@ -81,15 +81,15 @@ namespace Microsoft.Xna.Framework.Graphics
 		protected Texture3D (GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat format, bool renderTarget)
 		{
 		    if (graphicsDevice == null)
-		        throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             if (width <= 0)
-                throw new ArgumentOutOfRangeException("width","Texture width must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(width), "Texture width must be greater than zero");
             if (height <= 0)
-                throw new ArgumentOutOfRangeException("height","Texture height must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(height), "Texture height must be greater than zero");
             if (depth <= 0)
-                throw new ArgumentOutOfRangeException("depth","Texture depth must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(depth), "Texture depth must be greater than zero");
 
-		    this.GraphicsDevice = graphicsDevice;
+            this.GraphicsDevice = graphicsDevice;
             this.Width = width;
             this.Height = height;
             this.Depth = depth;
@@ -123,8 +123,8 @@ namespace Microsoft.Xna.Framework.Graphics
         public void SetData<T>(T[] data) where T : struct
 		{
             if (data == null)
-                throw new ArgumentNullException("data");
-			SetData(data, 0, data.Length);
+                throw new ArgumentNullException(nameof(data));
+            SetData(data, 0, data.Length);
 		}
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void GetData<T>(T[] data) where T : struct
         {
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             GetData(data, 0, data.Length);
         }
 
@@ -400,13 +400,13 @@ namespace Microsoft.Xna.Framework.Graphics
             if (level < 0 || level >= LevelCount)
                 throw new ArgumentException("level must be smaller than the number of levels in this texture.");
             if (data == null)
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(nameof(data));
             var tSize = ReflectionHelpers.SizeOf<T>.Get();
             var fSize = Format.GetSize();
             if (tSize > fSize || fSize % tSize != 0)
                 throw new ArgumentException("Type T is of an invalid size for the format of this texture.", "T");
             if (startIndex < 0 || startIndex >= data.Length)
-                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", "startIndex");
+                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", nameof(startIndex));
             if (data.Length < startIndex + elementCount)
                 throw new ArgumentException("The data array is too small.");
 
@@ -414,7 +414,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (elementCount * tSize != dataByteSize)
                 throw new ArgumentException(string.Format("elementCount is not the right size, " +
                                             "elementCount * sizeof(T) is {0}, but data size is {1}.",
-                                            elementCount * tSize, (object)dataByteSize), "elementCount");
+                                            elementCount * tSize, (object)dataByteSize), nameof(elementCount));
         }
 	}
 }

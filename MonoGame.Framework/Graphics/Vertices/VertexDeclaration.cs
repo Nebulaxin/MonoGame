@@ -155,7 +155,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public VertexDeclaration(int vertexStride, params VertexElement[] elements)
         {
             if ((elements == null) || (elements.Length == 0))
-                throw new ArgumentNullException("elements", "Elements cannot be empty");
+                throw new ArgumentNullException(nameof(elements), "Elements cannot be empty");
 
             lock (_vertexDeclarationCache)
             {
@@ -201,12 +201,12 @@ namespace Microsoft.Xna.Framework.Graphics
 		internal static VertexDeclaration FromType(Type vertexType)
 		{
 			if (vertexType == null)
-				throw new ArgumentNullException("vertexType", "Cannot be null");
+                throw new ArgumentNullException(nameof(vertexType), "Cannot be null");
 
             if (!ReflectionHelpers.IsValueType(vertexType))
             {
-				throw new ArgumentException("Must be value type", "vertexType");
-			}
+                throw new ArgumentException("Must be value type", nameof(vertexType));
+            }
 
             var type = Activator.CreateInstance(vertexType) as IVertexType;
 			if (type == null)

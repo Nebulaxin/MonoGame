@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public RenderTargetBinding(RenderTarget2D renderTarget)
         {
 			if (renderTarget == null)
-				throw new ArgumentNullException("renderTarget");
+                throw new ArgumentNullException(nameof(renderTarget));
 
             RenderTarget = renderTarget;
             ArraySlice = (int)CubeMapFace.PositiveX;
@@ -58,9 +58,9 @@ namespace Microsoft.Xna.Framework.Graphics
         public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace)
         {
             if (renderTarget == null)
-                throw new ArgumentNullException("renderTarget");
+                throw new ArgumentNullException(nameof(renderTarget));
             if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
-                throw new ArgumentOutOfRangeException("cubeMapFace");
+                throw new ArgumentOutOfRangeException(nameof(cubeMapFace));
 
             RenderTarget = renderTarget;
             ArraySlice = (int)cubeMapFace;
