@@ -24,7 +24,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            return $"{typeof(ContentTypeReader).Namespace}MultiArrayReader`1[[{_elementWriter.GetRuntimeType(targetPlatform)}]]";
+            return $"{typeof(ContentTypeReader).Namespace}.MultiArrayReader`1[[{_elementWriter.GetRuntimeType(targetPlatform)}]]";
         }
 
         protected internal override void Write(ContentWriter output, Array value)
