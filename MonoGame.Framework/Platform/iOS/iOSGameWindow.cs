@@ -69,25 +69,21 @@ namespace Microsoft.Xna.Framework {
 			}
 		}
 
-		public override DisplayOrientation CurrentOrientation {
-			get {
-                #if TVOS
-                return DisplayOrientation.LandscapeLeft;
-                #else
-				return OrientationConverter.ToDisplayOrientation(_viewController.InterfaceOrientation);
-                #endif
-			}
-		}
+		public override DisplayOrientation CurrentOrientation =>
+#if TVOS
+                DisplayOrientation.LandscapeLeft;
+#else
+				OrientationConverter.ToDisplayOrientation(_viewController.InterfaceOrientation);
+#endif
 
-		public override IntPtr Handle {
-			get {
+
+		public override IntPtr Handle =>
 				// TODO: Verify that View.Handle is a sensible
 				//       value to return here.
-				return _viewController.View.Handle;
-			}
-		}
+				_viewController.View.Handle;
 
-		public override string ScreenDeviceName {
+		public override string ScreenDeviceName
+		{
 			get {
 				var screen = _viewController.View.Window.Screen;
 				if (screen == UIScreen.MainScreen)

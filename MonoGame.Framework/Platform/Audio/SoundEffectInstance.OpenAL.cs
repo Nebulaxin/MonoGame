@@ -21,8 +21,8 @@ namespace Microsoft.Xna.Framework.Audio
         float frequency;
         int pauseCount;
 
-        internal readonly object sourceMutex = new object();
-        
+        internal readonly object sourceMutex = new();
+
         internal OpenALSoundController controller;
         
         internal bool HasSourceId = false;
@@ -62,8 +62,7 @@ namespace Microsoft.Xna.Framework.Audio
             if (!HasSourceId)
                 return;
             // get AL's listener position
-            float x, y, z;
-            AL.GetListener(ALListener3f.Position, out x, out y, out z);
+            AL.GetListener(ALListener3f.Position, out float x, out float y, out float z);
             ALHelper.CheckError("Failed to get source position.");
 
             // get the emitter offset from origin
@@ -71,7 +70,7 @@ namespace Microsoft.Xna.Framework.Audio
             // set up matrix to transform world space coordinates to listener space coordinates
             Matrix worldSpaceToListenerSpace = Matrix.Transpose(Matrix.CreateWorld(Vector3.Zero, listener.Forward, listener.Up));
             // set up our final position and velocity according to orientation of listener
-            Vector3 finalPos = new Vector3(x + posOffset.X, y + posOffset.Y, z + posOffset.Z);
+            Vector3 finalPos = new(x + posOffset.X, y + posOffset.Y, z + posOffset.Z);
             finalPos = Vector3.Transform(finalPos, worldSpaceToListenerSpace);
             Vector3 finalVel = emitter.Velocity - listener.Velocity;
             finalVel = Vector3.Transform(finalVel, worldSpaceToListenerSpace);

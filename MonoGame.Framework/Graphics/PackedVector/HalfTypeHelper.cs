@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 
         internal static UInt16 Convert(float f)
         {
-            UIF uif = new UIF();
+            UIF uif = new();
             uif.f = f;
             return Convert(uif.i);
         }

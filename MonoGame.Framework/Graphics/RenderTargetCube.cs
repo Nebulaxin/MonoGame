@@ -30,16 +30,10 @@ namespace Microsoft.Xna.Framework.Graphics
         public RenderTargetUsage RenderTargetUsage { get; private set; }
 
         /// <inheritdoc/>
-        int IRenderTarget.Width
-        {
-            get { return size; }
-        }
+        int IRenderTarget.Width => size;
 
         /// <inheritdoc/>
-        int IRenderTarget.Height
-        {
-            get { return size; }
-        }
+        int IRenderTarget.Height => size;
 
         /// <summary>
         /// Gets a value that indicates whether the contents of this <b>RenderTargetCube</b> has been lost due to a lost
@@ -49,7 +43,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// This property will always return <b>false</b>.  It is included for XNA compatibility.
         /// </remarks>
         [Obsolete("This is provided for XNA compatibility only and will always return false")]
-		public bool IsContentLost { get { return false; } }
+        public bool IsContentLost => false;
 
         /// <summary>
         /// Occurs when a graphics device lost event is triggered.
@@ -96,14 +90,12 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary />
         protected static SurfaceFormat QuerySelectedFormat(GraphicsDevice graphicsDevice, SurfaceFormat preferredFormat)
         {
-			SurfaceFormat selectedFormat = preferredFormat;
-			DepthFormat selectedDepthFormat;
-			int selectedMultiSampleCount;
+            SurfaceFormat selectedFormat = preferredFormat;
 
             if (graphicsDevice != null)
             {
                 graphicsDevice.Adapter.QueryRenderTargetFormat(graphicsDevice.GraphicsProfile, preferredFormat, DepthFormat.None, 0,
-                    out selectedFormat, out selectedDepthFormat, out selectedMultiSampleCount);
+                    out selectedFormat, out DepthFormat selectedDepthFormat, out int selectedMultiSampleCount);
             }
 
             return selectedFormat;

@@ -35,7 +35,7 @@ namespace Microsoft.Xna.Framework
 
         public virtual void Callback()
         {
-            this.Game.Tick();
+            Game.Tick();
         }
         
         public override void Exit()

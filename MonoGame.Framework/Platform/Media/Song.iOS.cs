@@ -4,10 +4,10 @@
 
 using System;
 using System.IO;
-using Foundation;
 using AVFoundation;
-using MediaPlayer;
 using CoreMedia;
+using Foundation;
+using MediaPlayer;
 
 namespace Microsoft.Xna.Framework.Media
 {
@@ -26,12 +26,9 @@ namespace Microsoft.Xna.Framework.Media
         private NSUrl assetUrl;
         private NSObject playToEndObserver;
 
-        public NSUrl AssetUrl
-        {
-            get { return this.assetUrl; }
-        }
+        public NSUrl AssetUrl => assetUrl;
 
-        #if !TVOS
+#if !TVOS
         internal Song(Album album, Artist artist, Genre genre, string title, TimeSpan duration, MPMediaItem mediaItem, NSUrl assetUrl)
         #else
         internal Song(Album album, Artist artist, Genre genre, string title, TimeSpan duration, object mediaItem, NSUrl assetUrl)
@@ -50,7 +47,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private void PlatformInitialize(string fileName)
         {
-            this.PlatformInitialize(NSUrl.FromFilename(fileName));
+            PlatformInitialize(NSUrl.FromFilename(fileName));
         }
 
         private void PlatformInitialize(NSUrl url)
@@ -98,7 +95,7 @@ namespace Microsoft.Xna.Framework.Media
             {
                 // MediaLibrary items are lazy loaded
                 if (assetUrl != null)
-                    this.PlatformInitialize (assetUrl);
+                    PlatformInitialize(assetUrl);
                 else
                     return;
             }
@@ -180,25 +177,25 @@ namespace Microsoft.Xna.Framework.Media
 
         private Album PlatformGetAlbum()
         {
-            return this.album;
+            return album;
         }
 
         private Artist PlatformGetArtist()
         {
-            return this.artist;
+            return artist;
         }
 
         private Genre PlatformGetGenre()
         {
-            return this.genre;
+            return genre;
         }
 
         private TimeSpan PlatformGetDuration()
         {
-            #if !TVOS
-            if (this.mediaItem != null)
-                return this.duration;
-            #endif
+#if !TVOS
+            if (mediaItem != null)
+                return duration;
+#endif
             return _duration;
         }
 
@@ -214,7 +211,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private string PlatformGetName()
         {
-            return this.title ?? Path.GetFileNameWithoutExtension(_name);
+            return title ?? Path.GetFileNameWithoutExtension(Name);
         }
 
         private int PlatformGetPlayCount()

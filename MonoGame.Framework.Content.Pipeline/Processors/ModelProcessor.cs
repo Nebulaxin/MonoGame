@@ -20,17 +20,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
     {
         private ContentIdentity _identity;
 
-        #region Fields for default values
-
-        private bool _colorKeyEnabled = true;
-        private bool _generateMipmaps = true;
-        private bool _premultiplyTextureAlpha = true;
-        private bool _premultiplyVertexColors = true;
-        private float _scale = 1.0f;
-        private TextureProcessorOutputFormat _textureFormat = TextureProcessorOutputFormat.Compressed;
-
-        #endregion
-
         /// <summary>
         /// Initializes a new instance of <b>ModelProcessor</b>.
         /// </summary>
@@ -48,11 +37,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// marked as transparent (Alpha 0).  The default value is <b>false</b>.
         /// </summary>
         [DefaultValue(true)]
-        public virtual bool ColorKeyEnabled
-        {
-            get { return _colorKeyEnabled; }
-            set { _colorKeyEnabled = value; }
-        }
+        public virtual bool ColorKeyEnabled { get; set; } = true;
 
         /// <summary>
         /// Gets or Sets the default effect class to apply to this model. The default value is <b>BasicEffect</b>
@@ -64,11 +49,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// value is <b>false</b>.
         /// </summary>
         [DefaultValue(true)]
-        public virtual bool GenerateMipmaps
-        {
-            get { return _generateMipmaps; }
-            set { _generateMipmaps = value; }
-        }
+        public virtual bool GenerateMipmaps { get; set; } = true;
 
         /// <summary>
         /// Gets or Sets a value that indicates whether model tangents should be generated for use in Normal Mapping.
@@ -81,22 +62,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// The default value is <b>true</b>.
         /// </summary>
         [DefaultValue(true)]
-        public virtual bool PremultiplyTextureAlpha
-        {
-            get { return _premultiplyTextureAlpha; }
-            set { _premultiplyTextureAlpha = value; }
-        }
+        public virtual bool PremultiplyTextureAlpha { get; set; } = true;
 
         /// <summary>
         /// Gets or Sets a value that indicates whether the selected texture will be treated as an Vertex Color Mask.
         /// The default value is <b>true</b>.
         /// </summary>
         [DefaultValue(true)]
-        public virtual bool PremultiplyVertexColors
-        {
-            get { return _premultiplyVertexColors; }
-            set { _premultiplyVertexColors = value; }
-        }
+        public virtual bool PremultiplyVertexColors { get; set; } = true;
 
         /// <summary>
         /// Gets or Sets a value that indicates if the model texture(s) dimensions should be resized to the next largest
@@ -123,11 +96,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// Gets or Sets the default model scale.  The default value is <b>1.0f</b>.
         /// </summary>
         [DefaultValue(1.0f)]
-        public virtual float Scale
-        {
-            get { return _scale; }
-            set { _scale = value; }
-        }
+        public virtual float Scale { get; set; } = 1;
 
         /// <summary>
         /// Gets or Sets a value indicating whether the winding order is swapped.  This is useful for models that appear
@@ -139,11 +108,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// Gets or Sets the format of the texture to process (e.g. raw color, DXT).  The default value is <b>compressed</b>.
         /// </summary>
 		[DefaultValue(typeof(TextureProcessorOutputFormat), "Compressed")]
-        public virtual TextureProcessorOutputFormat TextureFormat
-        {
-            get { return _textureFormat; }
-            set { _textureFormat = value; }
-        }
+        public virtual TextureProcessorOutputFormat TextureFormat { get; set; } = TextureProcessorOutputFormat.Compressed;
 
         #endregion
 

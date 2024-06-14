@@ -14,11 +14,10 @@ namespace Microsoft.Xna.Framework.Audio
     /// </summary> 
     public class AudioEngine : IDisposable
     {
-        private readonly AudioCategory[] _categories;
-        private readonly Dictionary<string, int> _categoryLookup = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _categoryLookup = new();
 
         private readonly RpcVariable[] _variables;
-        private readonly Dictionary<string, int> _variableLookup = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _variableLookup = new();
 
         private readonly RpcVariable[] _cueVariables;
 
@@ -28,15 +27,15 @@ namespace Microsoft.Xna.Framework.Audio
         private readonly ReverbSettings _reverbSettings;
         private readonly RpcCurve[] _reverbCurves;
 
-        internal List<Cue> ActiveCues = new List<Cue>();
+        internal List<Cue> ActiveCues = new();
 
-        internal AudioCategory[] Categories { get { return _categories; } }
+        internal AudioCategory[] Categories { get; }
 
-        internal Dictionary<string, WaveBank> Wavebanks = new Dictionary<string, WaveBank>();
+        internal Dictionary<string, WaveBank> Wavebanks = new();
 
         internal readonly RpcCurve[] RpcCurves;
 
-        internal readonly object UpdateLock = new object();
+        internal readonly object UpdateLock = new();
 
         internal RpcVariable[] CreateCueVariables()
         {
@@ -85,7 +84,7 @@ namespace Microsoft.Xna.Framework.Audio
         public AudioEngine(string settingsFile, TimeSpan lookAheadTime, string rendererId)
         {
             if (string.IsNullOrEmpty(settingsFile))
-                throw new ArgumentNullException("settingsFile");
+                throw new ArgumentNullException(nameof(settingsFile));
 
             // Read the xact settings file
             // Credits to alisci01 for initial format documentation
@@ -99,7 +98,7 @@ namespace Microsoft.Xna.Framework.Audio
                 reader.ReadUInt16 (); // toolVersion
                 uint formatVersion = reader.ReadUInt16();
                 if (formatVersion != 42)
-                    Debug.WriteLine("Warning: XGS format " + formatVersion + " not supported!");
+                    Debug.WriteLine($"Warning: XGS format {formatVersion} not supported!");
 
                 reader.ReadUInt16 (); // crc
                 reader.ReadUInt32 (); // lastModifiedLow
@@ -133,11 +132,11 @@ namespace Microsoft.Xna.Framework.Audio
                 reader.BaseStream.Seek (catNamesOffset, SeekOrigin.Begin);
                 string[] categoryNames = ReadNullTerminatedStrings(numCats, reader);
 
-                _categories = new AudioCategory[numCats];
+                Categories = new AudioCategory[numCats];
                 reader.BaseStream.Seek (catsOffset, SeekOrigin.Begin);
                 for (int i=0; i<numCats; i++) 
                 {
-                    _categories [i] = new AudioCategory (this, categoryNames [i], reader);
+                    Categories[i] = new AudioCategory(this, categoryNames[i], reader);
                     _categoryLookup.Add (categoryNames [i], i);
                 }
 
@@ -314,13 +313,12 @@ namespace Microsoft.Xna.Framework.Audio
         public AudioCategory GetCategory(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
-            int i;
-            if (!_categoryLookup.TryGetValue(name, out i))
+            if (!_categoryLookup.TryGetValue(name, out int i))
                 throw new InvalidOperationException("This resource could not be created.");
 
-            return _categories[i];
+            return Categories[i];
         }
 
         /// <summary>Gets the value of a global variable.</summary>
@@ -330,10 +328,9 @@ namespace Microsoft.Xna.Framework.Audio
         public float GetGlobalVariable(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
-            int i;
-            if (!_variableLookup.TryGetValue(name, out i) || !_variables[i].IsPublic)
+            if (!_variableLookup.TryGetValue(name, out int i) || !_variables[i].IsPublic)
                 throw new IndexOutOfRangeException("The specified variable index is invalid.");
 
             lock (UpdateLock)
@@ -352,10 +349,9 @@ namespace Microsoft.Xna.Framework.Audio
         public void SetGlobalVariable(string name, float value)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
-            int i;
-            if (!_variableLookup.TryGetValue(name, out i) || !_variables[i].IsPublic)
+            if (!_variableLookup.TryGetValue(name, out int i) || !_variables[i].IsPublic)
                 throw new IndexOutOfRangeException("The specified variable index is invalid.");
 
             lock (UpdateLock)

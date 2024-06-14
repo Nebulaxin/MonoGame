@@ -11,8 +11,6 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
     public struct Byte4 : IPackedVector<uint>, IEquatable<Byte4>, IPackedVector
     {
-        uint packedValue;
-
         /// <summary>
         /// Initializes a new instance of this structure.
         /// </summary>
@@ -21,7 +19,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public Byte4(Vector4 vector)
         {
-            packedValue = Pack(ref vector);
+            PackedValue = Pack(ref vector);
         }
 
         /// <summary>
@@ -34,7 +32,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         public Byte4(float x, float y, float z, float w)
         {
             var vector = new Vector4(x, y, z, w);
-            packedValue = Pack(ref vector);
+            PackedValue = Pack(ref vector);
         }
 
         /// <summary>
@@ -60,17 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         }
 
         /// <inheritdoc />
-        public uint PackedValue
-        {
-            get
-            {
-                return packedValue;
-            }
-            set
-            {
-                packedValue = value;
-            }
-        }
+        public uint PackedValue { get; set; }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
@@ -89,13 +77,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return packedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return packedValue.ToString("x8");
+            return PackedValue.ToString("x8");
         }
 
         static uint Pack(ref Vector4 vector)
@@ -115,17 +103,17 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            packedValue = Pack(ref vector);
+            PackedValue = Pack(ref vector);
         }
 
         /// <inheritdoc />
         public Vector4 ToVector4()
         {
             return new Vector4(
-                (float)(packedValue & 0xFF),
-                (float)((packedValue >> 0x8) & 0xFF),
-                (float)((packedValue >> 0x10) & 0xFF),
-                (float)((packedValue >> 0x18) & 0xFF));
+                (float)(PackedValue & 0xFF),
+                (float)((PackedValue >> 0x8) & 0xFF),
+                (float)((PackedValue >> 0x10) & 0xFF),
+                (float)((PackedValue >> 0x18) & 0xFF));
         }
     }
 }

@@ -9,8 +9,7 @@ namespace Microsoft.Xna.Framework.Input
 {
     static partial class Joystick
     {
-        internal static Dictionary<int, IntPtr> Joysticks = new Dictionary<int, IntPtr>();
-        private static int _lastConnectedIndex = -1;
+        internal static Dictionary<int, IntPtr> Joysticks = new();
 
         internal static void AddDevices()
         {
@@ -29,8 +28,8 @@ namespace Microsoft.Xna.Framework.Input
             while (Joysticks.ContainsKey(id))
                 id++;
 
-            if (id > _lastConnectedIndex)
-                _lastConnectedIndex = id;
+            if (id > _platformLastConnectedIndex)
+                _platformLastConnectedIndex = id;
 
             Joysticks.Add(id, jdevice);
 
@@ -49,7 +48,7 @@ namespace Microsoft.Xna.Framework.Input
                     Sdl.Joystick.Close(Joysticks[entry.Key]);
                     Joysticks.Remove(entry.Key);
 
-                    if (key == _lastConnectedIndex)
+                    if (key == _platformLastConnectedIndex)
                         RecalculateLastConnectedIndex();
 
                     break;
@@ -69,18 +68,15 @@ namespace Microsoft.Xna.Framework.Input
 
         private static void RecalculateLastConnectedIndex()
         {
-            _lastConnectedIndex = -1;
+            _platformLastConnectedIndex = -1;
             foreach (var entry in Joysticks)
             {
-                if (entry.Key > _lastConnectedIndex)
-                    _lastConnectedIndex = entry.Key;
+                if (entry.Key > _platformLastConnectedIndex)
+                    _platformLastConnectedIndex = entry.Key;
             }
         }
 
-        private static int PlatformLastConnectedIndex
-        {
-            get { return _lastConnectedIndex; }
-        }
+        private static int _platformLastConnectedIndex = -1;
 
         private const bool PlatformIsSupported = true;
 

@@ -35,19 +35,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 				split[i] = ConvertCharacter(splitStr[i]);
 			}
 
-			switch (split.Length)
+			return split.Length switch
 			{
-				case 1:
-				// Only a single character (eg. "a").
-				return new CharacterRegion(split[0], split[0]);
-
-				case 2:
-				// Range of characters (eg. "a-z").
-				return new CharacterRegion(split[0], split[1]);
-
-				default:
-				throw new ArgumentException();
-			}
+				1 => new CharacterRegion(split[0], split[0]),// Only a single character (eg. "a").
+				2 => (object)new CharacterRegion(split[0], split[1]),// Range of characters (eg. "a-z").
+				_ => throw new ArgumentException(),
+			};
 		}
 
 

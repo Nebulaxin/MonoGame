@@ -17,14 +17,8 @@ namespace Microsoft.Devices.Sensors
 
         public event EventHandler<CalibrationEventArgs> Calibrate;
 
-        public static bool IsSupported
-        {
-            get { return motionManager.DeviceMotionAvailable; }
-        }
-        public SensorState State
-        {
-            get { return state; }
-        }
+        public static bool IsSupported => motionManager.DeviceMotionAvailable;
+        public SensorState State => state;
 
         private static event CMDeviceMotionHandler readingChanged;
 
@@ -37,7 +31,7 @@ namespace Microsoft.Devices.Sensors
 
             ++instanceCount;
 
-            this.TimeBetweenUpdatesChanged += this.UpdateInterval;
+            TimeBetweenUpdatesChanged += UpdateInterval;
             readingChanged += ReadingChangedHandler;
         }
 
@@ -83,8 +77,8 @@ namespace Microsoft.Devices.Sensors
         private void ReadingChangedHandler(CMDeviceMotion data, NSError error)
         {
             CompassReading reading = new CompassReading();
-            this.IsDataValid = error == null;
-            if (this.IsDataValid)
+            IsDataValid = error == null;
+            if (IsDataValid)
             {
                 reading.MagnetometerReading = new Vector3((float)data.MagneticField.Field.Y, (float)-data.MagneticField.Field.X, (float)data.MagneticField.Field.Z);
                 reading.TrueHeading = Math.Atan2(reading.MagnetometerReading.Y, reading.MagnetometerReading.X) / Math.PI * 180;
@@ -105,21 +99,21 @@ namespace Microsoft.Devices.Sensors
                 // Send calibrate event if needed
                 if (data.MagneticField.Accuracy == CMMagneticFieldCalibrationAccuracy.Uncalibrated)
                 {
-                    if (this.calibrate == false)
+                    if (calibrate == false)
                         EventHelpers.Raise(this, Calibrate, new CalibrationEventArgs());
-                    this.calibrate = true;
+                    calibrate = true;
                 }
-                else if (this.calibrate == true)
-                    this.calibrate = false;
+                else if (calibrate == true)
+                    calibrate = false;
 
                 reading.Timestamp = DateTime.UtcNow;
-                this.CurrentValue = reading;
+                CurrentValue = reading;
             }
         }
 
         private void UpdateInterval(object sender, EventArgs args)
         {
-            motionManager.MagnetometerUpdateInterval = this.TimeBetweenUpdates.TotalSeconds;
+            motionManager.MagnetometerUpdateInterval = TimeBetweenUpdates.TotalSeconds;
         }
     }
 }

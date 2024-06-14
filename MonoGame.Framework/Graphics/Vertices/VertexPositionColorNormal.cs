@@ -31,13 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
             Normal = normal;
         }
 
-        VertexDeclaration IVertexType.VertexDeclaration
-        {
-            get
-            {
-                return VertexDeclaration;
-            }
-        }
+        VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
         /// <inheritdoc/>
         public override int GetHashCode()
@@ -54,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + this.Position + " Color:" + this.Color + " Normal:" + this.Normal + "}}";
+            return $"{{Position:{Position} Color:{Color} Normal:{Normal}}}";
         }
 
         /// <summary>
@@ -99,9 +93,9 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             var elements = new VertexElement[]
             {
-                new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-                new VertexElement(12, VertexElementFormat.Color, VertexElementUsage.Color, 0),
-                new VertexElement(16, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)
+                new(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+                new(12, VertexElementFormat.Color, VertexElementUsage.Color, 0),
+                new(16, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0)
             };
             VertexDeclaration = new VertexDeclaration(elements);
         }

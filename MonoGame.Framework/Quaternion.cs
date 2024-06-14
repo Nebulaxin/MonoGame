@@ -17,7 +17,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Quaternion _identity = new Quaternion(0, 0, 0, 1);
 
         #endregion
 
@@ -60,10 +59,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The rotation component.</param>
         public Quaternion(float x, float y, float z, float w)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            X = x;
+            Y = y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
@@ -73,10 +72,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The rotation component.</param>
         public Quaternion(Vector3 value, float w)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = value.Z;
-            this.W = w;
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = w;
         }
 
         /// <summary>
@@ -85,10 +84,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y, z coordinates in 3d-space and the rotation component.</param>
         public Quaternion(Vector4 value)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = value.Z;
-            this.W = value.W;
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = value.W;
         }
 
         #endregion
@@ -98,10 +97,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a quaternion representing no rotation.
         /// </summary>
-        public static Quaternion Identity
-        {
-            get{ return _identity; }
-        }
+        public static Quaternion Identity { get; } = new(0, 0, 0, 1);
 
         #endregion
 
@@ -111,17 +107,12 @@ namespace Microsoft.Xna.Framework
         {
             get
             {
-                if (this == Quaternion._identity)
+                if (this == Quaternion.Identity)
                 {
                     return "Identity";
                 }
 
-                return string.Concat(
-                    this.X.ToString(), " ",
-                    this.Y.ToString(), " ",
-                    this.Z.ToString(), " ",
-                    this.W.ToString()
-                );
+                return $"{X} {Y} {Z} {W}";
             }
         }
 
@@ -657,8 +648,8 @@ namespace Microsoft.Xna.Framework
         {
             float num = amount;
 		    float num2 = 1f - num;
-		    Quaternion quaternion = new Quaternion();
-		    float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
+            Quaternion quaternion = new();
+            float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
 		    if (num5 >= 0f)
 		    {
 		        quaternion.X = (num2 * quaternion1.X) + (num * quaternion2.X);
@@ -1001,7 +992,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Quaternion"/>.</returns>
         public override string ToString()
         {
-            return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
+            return $"{{X:{X} Y:{Y} Z:{Z} W:{W}}}";
         }
 
         /// <summary>
@@ -1033,7 +1024,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Quaternion ToNumerics()
         {
-            return new System.Numerics.Quaternion(this.X, this.Y, this.Z, this.W);
+            return new System.Numerics.Quaternion(X, Y, Z, W);
         }
 
         #endregion

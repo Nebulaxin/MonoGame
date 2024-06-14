@@ -22,25 +22,18 @@ namespace Microsoft.Xna.Framework.Input
 #endif
 
         internal readonly Buttons _virtualButtons;
-        private readonly Vector2 _left, _right;
 
         /// <summary>
         /// Gets a value indicating the position of the left stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the left stick (thumbstick).</value>
-        public Vector2 Left
-        {
-            get { return _left; }
-        }
+        public Vector2 Left { get; }
 
         /// <summary>
         /// Gets a value indicating the position of the right stick (thumbstick). 
         /// </summary>
         /// <value>A <see cref="Vector2"/> indicating the current position of the right stick (thumbstick).</value>
-        public Vector2 Right
-        {
-            get { return _right; }
-        }
+        public Vector2 Right { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GamePadThumbSticks"/> struct,
@@ -57,8 +50,8 @@ namespace Microsoft.Xna.Framework.Input
         internal GamePadThumbSticks(Vector2 leftPosition, Vector2 rightPosition, GamePadDeadZone leftDeadZoneMode, GamePadDeadZone rightDeadZoneMode) : this()
         {
             // Apply dead zone
-            _left = ApplyDeadZone(leftDeadZoneMode, leftThumbDeadZone, leftPosition);
-            _right = ApplyDeadZone(rightDeadZoneMode, rightThumbDeadZone, rightPosition);
+            Left = ApplyDeadZone(leftDeadZoneMode, leftThumbDeadZone, leftPosition);
+            Right = ApplyDeadZone(rightDeadZoneMode, rightThumbDeadZone, rightPosition);
 
             // VirtualButtons should always behave like deadzone is IndependentAxes. 
             // This is consistent with XNA behaviour and generally most convenient (e.g. for menu navigation)
@@ -192,7 +185,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadThumbSticks"/>.</returns>
         public override string ToString()
         {
-            return "[GamePadThumbSticks: Left=" + Left + ", Right=" + Right + "]";
+            return $"[GamePadThumbSticks: Left={Left}, Right={Right}]";
         }
     }
 }

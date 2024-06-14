@@ -21,51 +21,25 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
     public sealed class Genre : IDisposable
     {
-        private string genre;
-
         /// <summary>
         /// Gets the <see cref="AlbumCollection"/> for the Genre.
         /// </summary>
-        public AlbumCollection Albums
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public AlbumCollection Albums => throw new NotImplementedException();
 
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
         /// </summary>
-        public bool IsDisposed
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public bool IsDisposed => true;
 
         /// <summary>
         /// Gets the name of the Genre.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this.genre;
-            }
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets the <see cref="SongCollection"/> for the Genre.
         /// </summary>
-        public SongCollection Songs
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public SongCollection Songs => throw new NotImplementedException();
 
         /// <summary>
         /// Creates a new instance of Genre class.
@@ -73,7 +47,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <param name="genre">Name of the genre.</param>
         public Genre(string genre)
         {
-            this.genre = genre;
+            Name = genre;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -86,7 +60,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.genre;
+            return Name;
         }
 
         /// <summary>
@@ -94,7 +68,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.genre.GetHashCode();
+            return Name.GetHashCode();
         }
     }
 }

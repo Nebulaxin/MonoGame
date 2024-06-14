@@ -13,12 +13,12 @@ namespace Microsoft.Xna.Framework.Graphics
 		public int MultiSampleCount { get; private set; }
 		
 		public RenderTargetUsage RenderTargetUsage { get; private set; }
-		
-		public bool IsContentLost { get { return false; } }
-		
+
+		public bool IsContentLost => false;
+
 		public event EventHandler<EventArgs> ContentLost;
 
-        private bool SuppressEventHandlerWarningsUntilEventsAreProperlyImplemented()
+		private bool SuppressEventHandlerWarningsUntilEventsAreProperlyImplemented()
         {
             return ContentLost != null;
         }
@@ -40,16 +40,14 @@ namespace Microsoft.Xna.Framework.Graphics
         protected static SurfaceFormat QuerySelectedFormat(GraphicsDevice graphicsDevice, SurfaceFormat preferredFormat)
         {
 			SurfaceFormat selectedFormat = preferredFormat;
-			DepthFormat selectedDepthFormat;
-			int selectedMultiSampleCount;
 
-            if (graphicsDevice != null)
+			if (graphicsDevice != null)
             {
-                graphicsDevice.Adapter.QueryRenderTargetFormat(graphicsDevice.GraphicsProfile, preferredFormat, DepthFormat.None, 0, 
-                   out selectedFormat, out selectedDepthFormat, out selectedMultiSampleCount);
-            }
-            
-            return selectedFormat;
+				graphicsDevice.Adapter.QueryRenderTargetFormat(graphicsDevice.GraphicsProfile, preferredFormat, DepthFormat.None, 0,
+				   out selectedFormat, out DepthFormat selectedDepthFormat, out int selectedMultiSampleCount);
+			}
+
+			return selectedFormat;
         }
 
 		public RenderTarget3D(GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat preferredFormat, DepthFormat preferredDepthFormat)

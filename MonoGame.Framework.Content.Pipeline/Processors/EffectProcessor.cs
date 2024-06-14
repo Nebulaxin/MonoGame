@@ -26,13 +26,13 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// The debug mode for compiling effects.
         /// </summary>
         /// <value>The debug mode to use when compiling effects.</value>
-        public virtual EffectProcessorDebugMode DebugMode { get { return debugMode; } set { debugMode = value; } }
+        public virtual EffectProcessorDebugMode DebugMode { get => debugMode; set => debugMode = value; }
 
         /// <summary>
         /// Define assignments for the effect.
         /// </summary>
         /// <value>A list of define assignments delimited by semicolons.</value>
-        public virtual string Defines { get { return defines; } set { defines = value; } }
+        public virtual string Defines { get => defines; set => defines = value; }
 
         /// <summary>
         /// Initializes a new instance of EffectProcessor.
@@ -84,22 +84,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 
         private string GetProfileForPlatform(TargetPlatform platform)
         {
-            switch (platform)
+            return platform switch
             {
-                case TargetPlatform.Windows:
-                case TargetPlatform.WindowsPhone8:
-                case TargetPlatform.WindowsStoreApp:
-                    return "DirectX_11";
-                case TargetPlatform.iOS:
-                case TargetPlatform.Android:
-                case TargetPlatform.DesktopGL:
-                case TargetPlatform.MacOSX:
-                case TargetPlatform.RaspberryPi:
-                case TargetPlatform.Web:
-                    return "OpenGL";
-            }
-
-            return platform.ToString();
+                TargetPlatform.Windows or TargetPlatform.WindowsPhone8 or TargetPlatform.WindowsStoreApp => "DirectX_11",
+                TargetPlatform.iOS or TargetPlatform.Android or TargetPlatform.DesktopGL or TargetPlatform.MacOSX or TargetPlatform.RaspberryPi or TargetPlatform.Web => "OpenGL",
+                _ => platform.ToString(),
+            };
         }
 
         private static void ProcessErrorsAndWarnings(bool buildFailed, string shaderErrorsAndWarnings, EffectContent input, ContentProcessorContext context)

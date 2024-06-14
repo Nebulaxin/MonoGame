@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </summary>
         public TimeSpan BufferDuration
         {
-            get { return _bufferDuration; }
+            get => _bufferDuration;
             set
             {
                 if (value.TotalMilliseconds < 100 || value.TotalMilliseconds > 1000)
@@ -82,31 +82,18 @@ namespace Microsoft.Xna.Framework.Audio
         /// Note: XNA could know if a headset microphone was plugged in an Xbox 360 controller but MonoGame can't.
         /// Hence, this is always true on mobile platforms, and always false otherwise.
         /// </summary>
-        public bool IsHeadset
-        {
-            get { return _isHeadset; }
-        }
-
-        private int _sampleRate = 44100; // XNA default is 44100, don't know if it supports any other rates
+        public bool IsHeadset => _isHeadset;
 
         /// <summary>
         /// Returns the sample rate of the captured audio.
         /// Note: default value is 44100hz
         /// </summary>
-        public int SampleRate
-        {
-            get { return _sampleRate; }
-        }
-
-        private MicrophoneState _state = MicrophoneState.Stopped;
+        public int SampleRate { get; } = 44100;
 
         /// <summary>
         /// Returns the state of the Microphone. 
         /// </summary>
-        public MicrophoneState State
-        {
-            get { return _state; }
-        }
+        public MicrophoneState State { get; private set; } = MicrophoneState.Stopped;
 
         #endregion
 
@@ -151,7 +138,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             // this should be 10ms aligned
             // this assumes 16bit mono data
-            return SoundEffect.GetSampleDuration(sizeInBytes, _sampleRate, AudioChannels.Mono);
+            return SoundEffect.GetSampleDuration(sizeInBytes, SampleRate, AudioChannels.Mono);
         }
 
         /// <summary>
@@ -163,7 +150,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             // this should be 10ms aligned
             // this assumes 16bit mono data
-            return SoundEffect.GetSampleSizeInBytes(duration, _sampleRate, AudioChannels.Mono);
+            return SoundEffect.GetSampleSizeInBytes(duration, SampleRate, AudioChannels.Mono);
         }
 
         /// <summary>

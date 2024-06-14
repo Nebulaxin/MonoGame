@@ -30,18 +30,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <summary>
         /// Gets the expected object type of the input parameter to IContentProcessor.Process.
         /// </summary>
-        Type IContentProcessor.InputType
-        {
-            get { return typeof(TInput); }
-        }
+        Type IContentProcessor.InputType => typeof(TInput);
 
         /// <summary>
         /// Gets the object type returned by IContentProcessor.Process.
         /// </summary>
-        Type IContentProcessor.OutputType
-        {
-            get { return typeof(TOutput); }
-        }
+        Type IContentProcessor.OutputType => typeof(TOutput);
 
         /// <summary>
         /// Processes the specified input data and returns the result.

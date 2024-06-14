@@ -32,9 +32,9 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 //GLExt.Oes.GenVertexArrays(1, out this.vao);
                 //GLExt.Oes.BindVertexArray(this.vao);
-                GL.GenBuffers(1, out this.vbo);
+                GL.GenBuffers(1, out vbo);
                 GraphicsExtensions.CheckGLError();
-                GL.BindBuffer(BufferTarget.ArrayBuffer, this.vbo);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, vbo);
                 GraphicsExtensions.CheckGLError();
                 GL.BufferData(BufferTarget.ArrayBuffer,
                               new IntPtr(VertexDeclaration.VertexStride * VertexCount), IntPtr.Zero,

@@ -16,7 +16,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// The default initialized gamepad state.
         /// </summary>
-        public static readonly GamePadState Default = new GamePadState();
+        public static readonly GamePadState Default = new();
 
         /// <summary>
         /// Gets a value indicating if the controller is connected.
@@ -216,13 +216,10 @@ namespace Microsoft.Xna.Framework.Input
             if (!IsConnected)
                 return "[GamePadState: IsConnected = 0]";
 
-            return "[GamePadState: IsConnected=" + (IsConnected ? "1" : "0") +
-                   ", PacketNumber=" + PacketNumber.ToString("00000") +
-                   ", Buttons=" + Buttons +
-                   ", DPad=" + DPad +
-                   ", ThumbSticks=" + ThumbSticks +
-                   ", Triggers=" + Triggers +
-                   "]";
+            return $"[GamePadState: IsConnected={(IsConnected ? "1" : "0")}" +
+                   $"PacketNumber={PacketNumber:00000}" +
+                   $"Buttons={Buttons}, DPad={DPad}" +
+                   $"ThumbSticks={ThumbSticks}, Triggers={Triggers}]";
         }
     }
 }

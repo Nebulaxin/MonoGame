@@ -11,8 +11,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
             base("Keys")
         { }
 
-        public override bool CanDeserializeIntoExistingObject
-        { get { return true; } }
+        public override bool CanDeserializeIntoExistingObject => true;
 
         protected internal override CurveKeyCollection Deserialize(
             IntermediateReader input,

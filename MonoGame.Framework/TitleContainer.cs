@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework
         public static Stream OpenStream(string name)
         {
             if (string.IsNullOrEmpty(name))
-                throw new ArgumentNullException("name");
+                throw new ArgumentNullException(nameof(name));
 
             // We do not accept absolute paths here.
             if (Path.IsPathRooted(name))
@@ -63,12 +63,12 @@ namespace Microsoft.Xna.Framework
 
         private static Exception FileNotFoundException(string name, Exception inner)
         {
-            return new FileNotFoundException("Error loading \"" + name + "\". File not found.", inner);
+            return new FileNotFoundException($"Error loading \"{name}\". File not found.", inner);
         }
 
         internal static string NormalizeRelativePath(string name)
         {
-            var uri = new Uri("file:///" + FileHelpers.UrlEncode(name));
+            var uri = new Uri($"file:///{FileHelpers.UrlEncode(name)}");
             var path = uri.LocalPath;
             path = path.Substring(1);
             return path.Replace(FileHelpers.NotSeparator, FileHelpers.Separator);

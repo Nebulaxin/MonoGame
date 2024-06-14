@@ -47,8 +47,7 @@ namespace Microsoft.Xna.Framework.Content
             if (targetType.IsArray && targetType.GetArrayRank() > 1)
                 targetType = typeof(Array);
 
-            ContentTypeReader reader;
-            if (_contentReaders.TryGetValue(targetType, out reader))
+            if (_contentReaders.TryGetValue(targetType, out ContentTypeReader reader))
                 return reader;
 
             return null;
@@ -136,8 +135,7 @@ namespace Microsoft.Xna.Framework.Content
                     // string readerTypeString = reader.ReadString();
                     string originalReaderTypeString = reader.ReadString();
 
-                    Func<ContentTypeReader> readerFunc;
-                    if (typeCreators.TryGetValue(originalReaderTypeString, out readerFunc))
+                    if (typeCreators.TryGetValue(originalReaderTypeString, out Func<ContentTypeReader> readerFunc))
                     {
                         contentReaders[i] = readerFunc();
                         needsInitialize[i] = true;
@@ -154,8 +152,7 @@ namespace Microsoft.Xna.Framework.Content
                         var l_readerType = Type.GetType(readerTypeString);
                         if (l_readerType != null)
                         {
-                            ContentTypeReader typeReader;
-                            if (!_contentReadersCache.TryGetValue(l_readerType, out typeReader))
+                            if (!_contentReadersCache.TryGetValue(l_readerType, out ContentTypeReader typeReader))
                             {
                                 try
                                 {
@@ -230,9 +227,9 @@ namespace Microsoft.Xna.Framework.Content
                 preparedType = Regex.Replace(preparedType, @"(.+?), Version=.+?$", "$1");
 
             // TODO: For WinRT this is most likely broken!
-            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Graphics", string.Format(", {0}", _assemblyName));
-            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Video", string.Format(", {0}", _assemblyName));
-            preparedType = preparedType.Replace(", Microsoft.Xna.Framework", string.Format(", {0}", _assemblyName));
+            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Graphics", $", {_assemblyName}");
+            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Video", $", {_assemblyName}");
+            preparedType = preparedType.Replace(", Microsoft.Xna.Framework", $", {_assemblyName}");
 
             if (_isRunningOnNetCore)
                 preparedType = preparedType.Replace("mscorlib", "System.Private.CoreLib");
@@ -243,7 +240,7 @@ namespace Microsoft.Xna.Framework.Content
         }
 
         // Static map of type names to creation functions. Required as iOS requires all types at compile time
-        private static Dictionary<string, Func<ContentTypeReader>> typeCreators = new Dictionary<string, Func<ContentTypeReader>>();
+        private static Dictionary<string, Func<ContentTypeReader>> typeCreators = new();
 
         /// <summary>
         /// Registers a function to create a <see cref="ContentTypeReader"/> instance used to read an object of the

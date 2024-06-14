@@ -31,34 +31,21 @@ namespace Microsoft.Xna.Framework.Graphics
     ///     </para>
     /// </remarks>
 	public partial class Texture3D : Texture
-	{
-        private int _width;
-        private int _height;
-        private int _depth;
-
+    {
         /// <summary>
         /// Gets the width, in pixels, of this texture resource.
         /// </summary>
-        public int Width
-        {
-            get { return _width; }
-        }
+        public int Width { get; }
 
         /// <summary>
         /// Gets the height, in pixels, of this texture resource.
         /// </summary>
-        public int Height
-        {
-            get { return _height; }
-        }
+        public int Height { get; }
 
         /// <summary>
         /// Gets the depth, in pixels, of this texture resource.
         /// </summary>
-        public int Depth
-        {
-            get { return _depth; }
-        }
+        public int Depth { get; }
 
         /// <summary>
         /// Creates an uninitialized <b>Texture3D</b> resource with the specified parameters.
@@ -85,7 +72,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// The <paramref name="width"/>, <paramref name="height"/>, and/or <paramref name="depth"/> parameters are less
         /// than or equal to zero.
         /// </exception>
-		public Texture3D(GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat format)
+        public Texture3D(GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat format)
             : this(graphicsDevice, width, height, depth, mipMap, format, false)
 		{
 		}
@@ -94,20 +81,20 @@ namespace Microsoft.Xna.Framework.Graphics
 		protected Texture3D (GraphicsDevice graphicsDevice, int width, int height, int depth, bool mipMap, SurfaceFormat format, bool renderTarget)
 		{
 		    if (graphicsDevice == null)
-		        throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             if (width <= 0)
-                throw new ArgumentOutOfRangeException("width","Texture width must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(width), "Texture width must be greater than zero");
             if (height <= 0)
-                throw new ArgumentOutOfRangeException("height","Texture height must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(height), "Texture height must be greater than zero");
             if (depth <= 0)
-                throw new ArgumentOutOfRangeException("depth","Texture depth must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(depth), "Texture depth must be greater than zero");
 
-		    this.GraphicsDevice = graphicsDevice;
-            this._width = width;
-            this._height = height;
-            this._depth = depth;
-            this._levelCount = 1;
-		    this._format = format;
+            GraphicsDevice = graphicsDevice;
+            Width = width;
+            Height = height;
+            Depth = depth;
+            LevelCount = 1;
+            Format = format;
 
             PlatformConstruct(graphicsDevice, width, height, depth, mipMap, format, renderTarget);
         }
@@ -135,9 +122,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(T[] data) where T : struct
 		{
-            if (data == null)
-                throw new ArgumentNullException("data");
-			SetData(data, 0, data.Length);
+            ArgumentNullException.ThrowIfNull(data);
+            SetData(data, 0, data.Length);
 		}
 
         /// <summary>
@@ -363,7 +349,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            GetData(0, 0, 0, _width, _height, 0, _depth, data, startIndex, elementCount);
+            GetData(0, 0, 0, Width, Height, 0, Depth, data, startIndex, elementCount);
         }
 
         /// <summary>
@@ -389,8 +375,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(T[] data) where T : struct
         {
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
             GetData(data, 0, data.Length);
         }
 
@@ -412,22 +397,21 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new ArgumentException("Neither box size nor box position can be negative");
             if (level < 0 || level >= LevelCount)
                 throw new ArgumentException("level must be smaller than the number of levels in this texture.");
-            if (data == null)
-                throw new ArgumentNullException("data");
+            ArgumentNullException.ThrowIfNull(data);
             var tSize = ReflectionHelpers.SizeOf<T>.Get();
             var fSize = Format.GetSize();
             if (tSize > fSize || fSize % tSize != 0)
                 throw new ArgumentException("Type T is of an invalid size for the format of this texture.", "T");
             if (startIndex < 0 || startIndex >= data.Length)
-                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", "startIndex");
+                throw new ArgumentException("startIndex must be at least zero and smaller than data.Length.", nameof(startIndex));
             if (data.Length < startIndex + elementCount)
                 throw new ArgumentException("The data array is too small.");
 
             var dataByteSize = width*height*depth*fSize;
             if (elementCount * tSize != dataByteSize)
-                throw new ArgumentException(string.Format("elementCount is not the right size, " +
-                                            "elementCount * sizeof(T) is {0}, but data size is {1}.",
-                                            elementCount * tSize, dataByteSize), "elementCount");
+                throw new ArgumentException(
+                    $"elementCount is not the right size, elementCount * sizeof(T) is {elementCount * tSize}, but data size is {dataByteSize} bytes.",
+                    nameof(elementCount));
         }
 	}
 }

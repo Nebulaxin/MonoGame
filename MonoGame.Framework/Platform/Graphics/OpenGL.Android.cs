@@ -82,7 +82,7 @@ namespace MonoGame.OpenGL
 
         public override string ToString()
         {
-            return string.Format("{0}.{1}", Major, Minor == -1 ? 0 : Minor);
+            return $"{Major}.{(Minor == -1 ? 0 : Minor)}";
         }
 
         internal static IEnumerable<GLESVersion> GetSupportedGLESVersions()

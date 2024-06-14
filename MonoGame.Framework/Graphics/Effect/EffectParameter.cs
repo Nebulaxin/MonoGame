@@ -155,10 +155,10 @@ namespace Microsoft.Xna.Framework.Graphics
             get
             {
                 var semanticStr = string.Empty;
-                if (!string.IsNullOrEmpty(Semantic))                
-                    semanticStr = string.Concat(" <", Semantic, ">");
+                if (!string.IsNullOrEmpty(Semantic))
+                    semanticStr = $" <{Semantic}>";
 
-                return string.Concat("[", ParameterClass, " ", ParameterType, "]", semanticStr, " ", Name, " : ", GetDataValueString());
+                return $"[{ParameterClass} {ParameterType}]{semanticStr} {Name} : {GetDataValueString()}";
             }
         }
 
@@ -168,10 +168,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (Data == null)
             {
-                if (Elements == null)
-                    valueStr = "(null)";
-                else                
-                    valueStr = string.Join(", ", Elements.Select(e => e.GetDataValueString()));                
+                valueStr = Elements == null ? "(null)" : string.Join(", ", Elements.Select(e => e.GetDataValueString()));
             }
             else
             {
@@ -217,7 +214,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 }
             }
 
-            return string.Concat("{", valueStr, "}");                
+            return $"{{{valueStr}}}";
         }
 
         /// <summary>
@@ -285,13 +282,11 @@ namespace Microsoft.Xna.Framework.Graphics
                 return ret;
             }
 
-            switch (ParameterClass)
+            return ParameterClass switch
             {
-                case EffectParameterClass.Scalar:
-                    return new int[] { GetValueInt32() };
-                default:
-                    throw new NotImplementedException();
-            }
+                EffectParameterClass.Scalar => new int[] { GetValueInt32() },
+                _ => throw new NotImplementedException(),
+            };
         }
 
         /// <summary>
@@ -1068,11 +1063,11 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="SetValue(bool)"/>
         public void SetValue (Texture value)
 		{
-            if (this.ParameterType != EffectParameterType.Texture && 
-                this.ParameterType != EffectParameterType.Texture1D &&
-                this.ParameterType != EffectParameterType.Texture2D &&
-                this.ParameterType != EffectParameterType.Texture3D &&
-                this.ParameterType != EffectParameterType.TextureCube) 
+            if (ParameterType != EffectParameterType.Texture &&
+                ParameterType != EffectParameterType.Texture1D &&
+                ParameterType != EffectParameterType.Texture2D &&
+                ParameterType != EffectParameterType.Texture3D &&
+                ParameterType != EffectParameterType.TextureCube)
             {
                 throw new InvalidCastException();
             }

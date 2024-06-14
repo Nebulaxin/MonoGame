@@ -11,40 +11,24 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public partial struct VertexElement : IEquatable<VertexElement>
     {
-        private int _offset;
-        private VertexElementFormat _format;
-        private VertexElementUsage _usage;
-        private int _usageIndex;
 
         /// <summary>
         /// Gets or sets the offset in bytes from the beginning of the stream to the vertex element.
         /// </summary>
         /// <value>The offset in bytes.</value>
-        public int Offset
-        {
-            get { return _offset; }
-            set { _offset = value; }
-        }
+        public int Offset { get; set; }
 
         /// <summary>
         /// Gets or sets the data format.
         /// </summary>
         /// <value>The data format.</value>
-        public VertexElementFormat VertexElementFormat
-        {
-            get { return _format; }
-            set { _format = value; }
-        }
+        public VertexElementFormat VertexElementFormat { get; set; }
 
         /// <summary>
         /// Gets or sets the HLSL semantic of the element in the vertex shader input.
         /// </summary>
         /// <value>The HLSL semantic of the element in the vertex shader input.</value>
-        public VertexElementUsage VertexElementUsage
-        {
-            get { return _usage; }
-            set { _usage = value; }
-        }
+        public VertexElementUsage VertexElementUsage { get; set; }
 
         /// <summary>
         /// Gets or sets the semantic index.
@@ -59,11 +43,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// MonoGame internally adjusts the usage indices based on the order in which the vertex
         /// buffers are bound.
         /// </remarks>
-        public int UsageIndex
-        {
-            get { return _usageIndex; }
-            set { _usageIndex = value; }
-        }
+        public int UsageIndex { get; set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VertexElement"/> struct.
@@ -74,10 +54,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="usageIndex">The semantic index, which is required if the semantic is used for more than one vertex element.</param>
         public VertexElement(int offset, VertexElementFormat elementFormat, VertexElementUsage elementUsage, int usageIndex)
         {
-            _offset = offset;
-            _format = elementFormat;
-            _usageIndex = usageIndex;
-            _usage = elementUsage;
+            Offset = offset;
+            VertexElementFormat = elementFormat;
+            UsageIndex = usageIndex;
+            VertexElementUsage = elementUsage;
         }
 
         /// <summary>
@@ -99,10 +79,10 @@ namespace Microsoft.Xna.Framework.Graphics
             // - DirectX 11 has max 32 registers. --> _usageIndex needs 6 bit.
             // (Note: If these assumptions are correct we get a unique hash code. If these 
             // assumptions are not correct, we still get a useful hash code because we use XOR.)
-            int hashCode = _offset;
-            hashCode ^= (int)_format << 9;
-            hashCode ^= (int)_usage << (9 + 4);
-            hashCode ^= _usageIndex << (9 + 4 + 4);
+            int hashCode = Offset;
+            hashCode ^= (int)VertexElementFormat << 9;
+            hashCode ^= (int)VertexElementUsage << (9 + 4);
+            hashCode ^= UsageIndex << (9 + 4 + 4);
             return hashCode;
             // ReSharper restore NonReadonlyMemberInGetHashCode
         }
@@ -113,7 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return "{Offset:" + _offset + " Format:" + _format + " Usage:" + _usage + " UsageIndex: " + _usageIndex + "}";
+            return $"{{Offset:{Offset} Format:{VertexElementFormat} Usage:{VertexElementUsage} UsageIndex:{UsageIndex}}}";
         }
 
         /// <summary>
@@ -140,10 +120,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </returns>
         public bool Equals(VertexElement other)
         {
-            return _offset == other._offset
-                   && _format == other._format
-                   && _usage == other._usage
-                   && _usageIndex == other._usageIndex;
+            return Offset == other.Offset
+                   && VertexElementFormat == other.VertexElementFormat
+                   && VertexElementUsage == other.VertexElementUsage
+                   && UsageIndex == other.UsageIndex;
         }
 
         /// <summary>

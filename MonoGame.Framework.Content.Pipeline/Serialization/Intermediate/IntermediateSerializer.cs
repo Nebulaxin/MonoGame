@@ -28,7 +28,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         /// can also specify the type aliases from C#. This maps those names
         /// to the actual .NET framework types for parsing.
         /// </summary>
-        private static readonly Dictionary<string, Type> _typeAliases = new Dictionary<string, Type>
+        private static readonly Dictionary<string, Type> _typeAliases = new()
         {
             { "bool",   typeof(bool) },
             { "byte",   typeof(byte) },

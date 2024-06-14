@@ -12,7 +12,6 @@ namespace Microsoft.Xna.Framework.Audio
     /// </remarks>
     public partial class SoundEffectInstance : IDisposable
     {
-        private bool _isDisposed = false;
         internal bool _isPooled = true;
         internal bool _isXAct;
         internal bool _isDynamic;
@@ -24,16 +23,16 @@ namespace Microsoft.Xna.Framework.Audio
         /// <summary>Enables or Disables whether the SoundEffectInstance should repeat after playback.</summary>
         /// <remarks>This value has no effect on an already playing sound.</remarks>
         public virtual bool IsLooped
-        { 
-            get { return PlatformGetIsLooped(); }
-            set { PlatformSetIsLooped(value); }
+        {
+            get => PlatformGetIsLooped();
+            set => PlatformSetIsLooped(value);
         }
 
         /// <summary>Gets or sets the pan, or speaker balance..</summary>
         /// <value>Pan value ranging from -1.0 (left speaker) to 0.0 (centered), 1.0 (right speaker). Values outside of this range will throw an exception.</value>
         public float Pan
         {
-            get { return _pan; } 
+            get => _pan;
             set
             {
                 if (value < -1.0f || value > 1.0f)
@@ -48,7 +47,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <value>Pitch adjustment, ranging from -1.0 (down an octave) to 0.0 (no change) to 1.0 (up an octave). Values outside of this range will throw an Exception.</value>
         public float Pitch
         {
-            get { return _pitch; }
+            get => _pitch;
             set
             {
                 // XAct sounds effects don't have pitch limits
@@ -67,7 +66,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </remarks>
         public float Volume
         {
-            get { return _volume; }
+            get => _volume;
             set
             {
                 // XAct sound effects don't have volume limits.
@@ -85,10 +84,10 @@ namespace Microsoft.Xna.Framework.Audio
         }
 
         /// <summary>Gets the SoundEffectInstance's current playback state.</summary>
-        public virtual SoundState State { get { return PlatformGetState(); } }
+        public virtual SoundState State => PlatformGetState();
 
         /// <summary>Indicates whether the object is disposed.</summary>
-        public bool IsDisposed { get { return _isDisposed; } }
+        public bool IsDisposed { get; private set; } = false;
 
         internal SoundEffectInstance()
         {
@@ -140,7 +139,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// <remarks>Throws an exception if more sounds are playing than the platform allows.</remarks>
         public virtual void Play()
         {
-            if (_isDisposed)
+            if (IsDisposed)
                 throw new ObjectDisposedException("SoundEffectInstance");
 
             if (State == SoundState.Playing)
@@ -208,10 +207,10 @@ namespace Microsoft.Xna.Framework.Audio
         /// not at that time.  Unmanaged resources should always be released.</remarks>
         protected virtual void Dispose(bool disposing)
         {
-            if (!_isDisposed)
+            if (!IsDisposed)
             {
                 PlatformDispose(disposing);
-                _isDisposed = true;
+                IsDisposed = true;
             }
         }
     }

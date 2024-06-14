@@ -1426,7 +1426,7 @@ namespace MonoGame.OpenGL
             LoadExtensions ();
         }
 
-        internal static List<string> Extensions = new List<string> ();
+        internal static List<string> Extensions = new();
 
         //[Conditional("DEBUG")]
         //[DebuggerHidden]
@@ -1435,7 +1435,7 @@ namespace MonoGame.OpenGL
 #if __ANDROID__
             Android.Util.Log.Verbose("GL","Supported Extensions");
             foreach (var ext in Extensions)
-                Android.Util.Log.Verbose("GL", "   " + ext);
+                Android.Util.Log.Verbose("GL", $"   {ext}");
 #endif
         }
 
@@ -1588,16 +1588,14 @@ namespace MonoGame.OpenGL
 
         internal static string GetProgramInfoLog (int programId)
         {
-            int length = 0;
-            GetProgram(programId, GetProgramParameterName.LogLength, out length);
+            GetProgram(programId, GetProgramParameterName.LogLength, out int length);
             var sb = new StringBuilder(length, length);
             GetProgramInfoLogInternal (programId, length, IntPtr.Zero, sb);
             return sb.ToString();
         }
 
         internal static string GetShaderInfoLog (int shaderId) {
-            int length = 0;
-            GetShader(shaderId, ShaderParameter.LogLength, out length);
+            GetShader(shaderId, ShaderParameter.LogLength, out int length);
             var sb = new StringBuilder(length, length);
             GetShaderInfoLogInternal (shaderId, length, IntPtr.Zero, sb);
             return sb.ToString();

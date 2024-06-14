@@ -11,7 +11,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 {
     public abstract class TextureProfile
     {
-        private static readonly LoadedTypeCollection<TextureProfile> _profiles = new LoadedTypeCollection<TextureProfile>();
+        private static readonly LoadedTypeCollection<TextureProfile> _profiles = new();
 
         /// <summary>
         /// Find the profile for this target platform.

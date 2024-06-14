@@ -108,7 +108,7 @@ namespace Microsoft.Xna.Framework.Input
         public override string ToString()
         {
             var ret = new StringBuilder(54 - 2 + Axes.Length * 7 + Buttons.Length + Hats.Length * 5);
-            ret.Append("[JoystickState: IsConnected=" + (IsConnected ? 1 : 0));
+            ret.Append($"[JoystickState: IsConnected={(IsConnected ? 1 : 0)}");
 
             if (IsConnected)
             {

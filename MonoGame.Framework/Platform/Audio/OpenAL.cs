@@ -313,8 +313,7 @@ namespace MonoGame.OpenAL
 
         internal static int[] GenBuffers(int count)
         {
-            int[] ret;
-            GenBuffers(count, out ret);
+            GenBuffers(count, out int[] ret);
             return ret;
         }
 
@@ -428,8 +427,7 @@ namespace MonoGame.OpenAL
 
         internal static ALSourceState GetSourceState(int sourceId)
         {
-            int state;
-            GetSource(sourceId, ALGetSourcei.SourceState, out state);
+            GetSource(sourceId, ALGetSourcei.SourceState, out int state);
             return (ALSourceState)state;
         }
 
@@ -474,7 +472,7 @@ namespace MonoGame.OpenAL
         {
             if (numEntries <= 0)
             {
-                throw new ArgumentOutOfRangeException("numEntries", "Must be greater than zero.");
+                throw new ArgumentOutOfRangeException(nameof(numEntries), "Must be greater than zero.");
             }
             int[] array = new int[numEntries];
             fixed (int* ptr = &array[0])
@@ -783,13 +781,13 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
 
         internal void GenAuxiliaryEffectSlots(int count, out uint slot)
         {
-            this.alGenAuxiliaryEffectSlots(count, out slot);
+            alGenAuxiliaryEffectSlots(count, out slot);
             ALHelper.CheckError("Failed to Genereate Aux slot");
         }
 
         internal void GenEffect(out uint effect)
         {
-            this.alGenEffects(1, out effect);
+            alGenEffects(1, out effect);
             ALHelper.CheckError("Failed to Generate Effect.");
         }
 
@@ -812,7 +810,7 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
         internal void AuxiliaryEffectSlot(uint slot, EfxEffectSlotf param, float value)
         {
             alAuxiliaryEffectSlotf(slot, param, value);
-            ALHelper.CheckError("Failes to set " + param + " " + value);
+            ALHelper.CheckError($"Failes to set {param} {value}");
         }
 
         internal void BindSourceToAuxiliarySlot(int SourceId, int slot, int slotnumber, int filter)
@@ -823,28 +821,28 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
         internal void Effect(uint effect, EfxEffectf param, float value)
         {
             alEffectf(effect, param, value);
-            ALHelper.CheckError("Failed to set " + param + " " + value);
+            ALHelper.CheckError($"Failed to set {param} {value}");
         }
 
         internal void Effect(uint effect, EfxEffecti param, int value)
         {
             alEffecti(effect, param, value);
-            ALHelper.CheckError("Failed to set " + param + " " + value);
+            ALHelper.CheckError($"Failed to set {param} {value}");
         }
 
         internal unsafe int GenFilter()
         {
             uint filter = 0;
-            this.alGenFilters(1, &filter);
+            alGenFilters(1, &filter);
             return (int)filter;
         }
         internal void Filter(int sourceId, EfxFilteri filter, int EfxFilterType)
         {
-            this.alFilteri((uint)sourceId, filter, EfxFilterType);
+            alFilteri((uint)sourceId, filter, EfxFilterType);
         }
         internal void Filter(int sourceId, EfxFilterf filter, float EfxFilterType)
         {
-            this.alFilterf((uint)sourceId, filter, EfxFilterType);
+            alFilterf((uint)sourceId, filter, EfxFilterType);
         }
         internal void BindFilterToSource(int sourceId, int filterId)
         {

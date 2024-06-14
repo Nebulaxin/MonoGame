@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         [DataMember]
         public Vector3 Direction;
-      
+
         /// <summary>
         /// The origin of this <see cref="Ray"/>.
         /// </summary>
@@ -41,8 +41,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="direction">The direction of the <see cref="Ray"/>.</param>
         public Ray(Vector3 position, Vector3 direction)
         {
-            this.Position = position;
-            this.Direction = direction;
+            Position = position;
+            Direction = direction;
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public override bool Equals(object obj)
         {
-            return (obj is Ray) && this.Equals((Ray)obj);
+            return (obj is Ray) && Equals((Ray)obj);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public bool Equals(Ray other)
         {
-            return this.Position.Equals(other.Position) && this.Direction.Equals(other.Direction);
+            return Position.Equals(other.Position) && Direction.Equals(other.Direction);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void Intersects(ref BoundingBox box, out float? result)
         {
-			result = Intersects(box);
+            result = Intersects(box);
         }
 
         /*
@@ -212,8 +212,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public float? Intersects(BoundingSphere sphere)
         {
-            float? result;
-            Intersects(ref sphere, out result);
+            Intersects(ref sphere, out float? result);
             return result;
         }
 
@@ -227,8 +226,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public float? Intersects(Plane plane)
         {
-            float? result;
-            Intersects(ref plane, out result);
+            Intersects(ref plane, out float? result);
             return result;
         }
 
@@ -274,12 +272,11 @@ namespace Microsoft.Xna.Framework
         public void Intersects(ref BoundingSphere sphere, out float? result)
         {
             // Find the vector between where the ray starts the the sphere's centre
-            Vector3 difference = sphere.Center - this.Position;
+            Vector3 difference = sphere.Center - Position;
 
             float differenceLengthSquared = difference.LengthSquared();
             float sphereRadiusSquared = sphere.Radius * sphere.Radius;
 
-            float distanceAlongRay;
 
             // If the distance between the ray start and the sphere's centre is less than
             // the radius of the sphere, it means we've intersected. N.B. checking the LengthSquared is faster.
@@ -289,7 +286,7 @@ namespace Microsoft.Xna.Framework
                 return;
             }
 
-            Vector3.Dot(ref this.Direction, ref difference, out distanceAlongRay);
+            Vector3.Dot(ref Direction, ref difference, out float distanceAlongRay);
             // If the ray is pointing away from the sphere then we don't ever intersect
             if (distanceAlongRay < 0)
             {
@@ -329,16 +326,7 @@ namespace Microsoft.Xna.Framework
             return a.Equals(b);
         }
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    "Pos( ", this.Position.DebugDisplayString, " )  \r\n",
-                    "Dir( ", this.Direction.DebugDisplayString, " )"
-                );
-            }
-        }
+        internal string DebugDisplayString => $"Pos( {Position.DebugDisplayString} ); Dir( {Direction.DebugDisplayString} )";
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="Ray"/>.
@@ -346,7 +334,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Ray"/>.</returns>
         public override string ToString()
         {
-            return "{{Position:" + Position.ToString() + " Direction:" + Direction.ToString() + "}}";
+            return $"{{Position:{Position} Direction:{Direction}}}";
         }
 
         /// <summary>

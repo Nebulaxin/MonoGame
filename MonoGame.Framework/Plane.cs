@@ -140,7 +140,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The dot product of the specified <see cref="Vector4"/> and this <see cref="Plane"/>.</returns>
         public float Dot(Vector4 value)
         {
-            return ((((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + (this.D * value.W));
+            return ((((Normal.X * value.X) + (Normal.Y * value.Y)) + (Normal.Z * value.Z)) + (D * value.W));
         }
 
         /// <summary>
@@ -152,7 +152,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void Dot(ref Vector4 value, out float result)
         {
-            result = (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + (this.D * value.W);
+            result = (((Normal.X * value.X) + (Normal.Y * value.Y)) + (Normal.Z * value.Z)) + (D * value.W);
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public float DotCoordinate(Vector3 value)
         {
-            return ((((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + this.D);
+            return ((((Normal.X * value.X) + (Normal.Y * value.Y)) + (Normal.Z * value.Z)) + D);
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void DotCoordinate(ref Vector3 value, out float result)
         {
-            result = (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z)) + this.D;
+            result = (((Normal.X * value.X) + (Normal.Y * value.Y)) + (Normal.Z * value.Z)) + D;
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public float DotNormal(Vector3 value)
         {
-            return (((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z));
+            return (((Normal.X * value.X) + (Normal.Y * value.Y)) + (Normal.Z * value.Z));
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void DotNormal(ref Vector3 value, out float result)
         {
-            result = ((this.Normal.X * value.X) + (this.Normal.Y * value.Y)) + (this.Normal.Z * value.Z);
+            result = ((Normal.X * value.X) + (Normal.Y * value.Y)) + (Normal.Z * value.Z);
         }
 
         /// <summary>
@@ -219,8 +219,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The transformed plane.</returns>
         public static Plane Transform(Plane plane, Matrix matrix)
         {
-            Plane result;
-            Transform(ref plane, ref matrix, out result);
+            Transform(ref plane, ref matrix, out Plane result);
             return result;
         }
 
@@ -235,14 +234,12 @@ namespace Microsoft.Xna.Framework
             // See "Transforming Normals" in http://www.glprogramming.com/red/appendixf.html
             // for an explanation of how this works.
 
-            Matrix transformedMatrix;
-            Matrix.Invert(ref matrix, out transformedMatrix);
+            Matrix.Invert(ref matrix, out Matrix transformedMatrix);
             Matrix.Transpose(ref transformedMatrix, out transformedMatrix);
 
             var vector = new Vector4(plane.Normal, plane.D);
 
-            Vector4 transformedVector;
-            Vector4.Transform(ref vector, ref transformedMatrix, out transformedVector);
+            Vector4.Transform(ref vector, ref transformedMatrix, out Vector4 transformedVector);
 
             result = new Plane(transformedVector);
         }
@@ -255,8 +252,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The transformed plane.</returns>
         public static Plane Transform(Plane plane, Quaternion rotation)
         {
-            Plane result;
-            Transform(ref plane, ref rotation, out result);
+            Transform(ref plane, ref rotation, out Plane result);
             return result;
         }
 
@@ -290,9 +286,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>A normalized version of the specified <see cref="Plane"/>.</returns>
         public static Plane Normalize(Plane value)
         {
-			Plane ret;
-			Normalize(ref value, out ret);
-			return ret;
+            Normalize(ref value, out Plane ret);
+            return ret;
         }
 
         /// <summary>
@@ -340,7 +335,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public override bool Equals(object other)
         {
-            return (other is Plane) ? this.Equals((Plane)other) : false;
+            return (other is Plane) ? Equals((Plane)other) : false;
         }
 
         /// <summary>
@@ -428,8 +423,7 @@ namespace Microsoft.Xna.Framework
 
         internal PlaneIntersectionType Intersects(ref Vector3 point)
         {
-            float distance;
-            DotCoordinate(ref point, out distance);
+            DotCoordinate(ref point, out float distance);
 
             if (distance > 0)
                 return PlaneIntersectionType.Front;
@@ -440,16 +434,7 @@ namespace Microsoft.Xna.Framework
             return PlaneIntersectionType.Intersecting;
         }
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    this.Normal.DebugDisplayString, "  ",
-                    this.D.ToString()
-                    );
-            }
-        }
+        internal string DebugDisplayString => $"{Normal.DebugDisplayString}  {D}";
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="Plane"/>.
@@ -457,7 +442,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Plane"/>.</returns>
         public override string ToString()
         {
-            return "{Normal:" + Normal + " D:" + D + "}";
+            return $"{{Normal:{Normal} D:{D}}}";
         }
 
         /// <summary>
@@ -476,7 +461,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Plane ToNumerics()
         {
-            return new System.Numerics.Plane(this.Normal.X, this.Normal.Y, this.Normal.Z, this.D);
+            return new System.Numerics.Plane(Normal.X, Normal.Y, Normal.Z, D);
         }
 
         #endregion

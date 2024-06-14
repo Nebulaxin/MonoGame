@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             if (ibo == 0)
             {
-                var sizeInBytes = IndexCount * (this.IndexElementSize == IndexElementSize.SixteenBits ? 2 : 4);
+                var sizeInBytes = IndexCount * (IndexElementSize == IndexElementSize.SixteenBits ? 2 : 4);
 
                 GL.GenBuffers(1, out ibo);
                 GraphicsExtensions.CheckGLError();

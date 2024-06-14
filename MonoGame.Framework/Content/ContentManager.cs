@@ -27,19 +27,16 @@ namespace Microsoft.Xna.Framework.Content
 	{
         const byte ContentCompressedLzx = 0x80;
         const byte ContentCompressedLz4 = 0x40;
-
-		private string _rootDirectory = string.Empty;
-		private IServiceProvider serviceProvider;
-        private Dictionary<string, object> loadedAssets = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-		private List<IDisposable> disposableAssets = new List<IDisposable>();
+        private Dictionary<string, object> loadedAssets = new(StringComparer.OrdinalIgnoreCase);
+        private List<IDisposable> disposableAssets = new();
         private bool disposed;
 
-		private static object ContentManagerLock = new object();
-        private static List<WeakReference> ContentManagers = new List<WeakReference>();
+        private static object ContentManagerLock = new();
+        private static List<WeakReference> ContentManagers = new();
 
-        internal static readonly ByteBufferPool ScratchBufferPool = new ByteBufferPool(1024 * 1024, Environment.ProcessorCount);
+        internal static readonly ByteBufferPool ScratchBufferPool = new(1024 * 1024, Environment.ProcessorCount);
 
-        private static readonly List<char> targetPlatformIdentifiers = new List<char>()
+        private static readonly List<char> targetPlatformIdentifiers = new()
         {
             'w', // Windows (XNA & DirectX)
             'x', // Xbox360 (XNA)
@@ -164,11 +161,8 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="ArgumentNullException">The <paramref name="serviceProvider"/> parameter is null.</exception>
 		public ContentManager(IServiceProvider serviceProvider)
 		{
-			if (serviceProvider == null)
-			{
-				throw new ArgumentNullException("serviceProvider");
-			}
-			this.serviceProvider = serviceProvider;
+            ArgumentNullException.ThrowIfNull(serviceProvider);
+            ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
 
@@ -177,16 +171,10 @@ namespace Microsoft.Xna.Framework.Content
         /// <param name="rootDirectory">The root directory the ContentManager will search for content in.</param>
         public ContentManager(IServiceProvider serviceProvider, string rootDirectory)
 		{
-			if (serviceProvider == null)
-			{
-				throw new ArgumentNullException("serviceProvider");
-			}
-			if (rootDirectory == null)
-			{
-				throw new ArgumentNullException("rootDirectory");
-			}
-			this.RootDirectory = rootDirectory;
-			this.serviceProvider = serviceProvider;
+            ArgumentNullException.ThrowIfNull(serviceProvider);
+            ArgumentNullException.ThrowIfNull(rootDirectory);
+            RootDirectory = rootDirectory;
+            ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
 
@@ -342,7 +330,7 @@ namespace Microsoft.Xna.Framework.Content
 		{
             if (string.IsNullOrEmpty(assetName))
             {
-                throw new ArgumentNullException("assetName");
+                throw new ArgumentNullException(nameof(assetName));
             }
             if (disposed)
             {
@@ -360,8 +348,7 @@ namespace Microsoft.Xna.Framework.Content
             var key = assetName.Replace('\\', '/');
 
             // Check for a previously loaded asset first
-            object asset = null;
-            if (loadedAssets.TryGetValue(key, out asset))
+            if (loadedAssets.TryGetValue(key, out object asset))
             {
                 if (asset is T)
                 {
@@ -425,8 +412,8 @@ namespace Microsoft.Xna.Framework.Content
 		{
 			if (string.IsNullOrEmpty(assetName))
 			{
-				throw new ArgumentNullException("assetName");
-			}
+                throw new ArgumentNullException(nameof(assetName));
+            }
 			if (disposed)
 			{
 				throw new ObjectDisposedException("ContentManager");
@@ -448,9 +435,9 @@ namespace Microsoft.Xna.Framework.Content
             }
             
 			if (result == null)
-				throw new ContentLoadException("Could not load " + originalAssetName + " asset!");
+                throw new ContentLoadException($"Could not load {originalAssetName} asset!");
 
-			return (T)result;
+            return (T)result;
 		}
 
         private ContentReader GetContentReaderFromXnb(string originalAssetName, Stream stream, BinaryReader xnbReader, Action<IDisposable> recordDisposableObject)
@@ -518,13 +505,10 @@ namespace Microsoft.Xna.Framework.Content
         }
 
         /// <summary />
-        protected virtual Dictionary<string, object> LoadedAssets
-        {
-            get { return loadedAssets; }
-        }
+        protected virtual Dictionary<string, object> LoadedAssets => loadedAssets;
 
         /// <summary />
-		protected virtual void ReloadGraphicsAssets()
+        protected virtual void ReloadGraphicsAssets()
         {
             foreach (var asset in LoadedAssets)
             {
@@ -598,7 +582,7 @@ namespace Microsoft.Xna.Framework.Content
         {
             if (string.IsNullOrEmpty(assetName))
             {
-                throw new ArgumentNullException("assetName");
+                throw new ArgumentNullException(nameof(assetName));
             }
             if (disposed)
             {
@@ -606,8 +590,7 @@ namespace Microsoft.Xna.Framework.Content
             }
 
             //Check if the asset exists
-            object asset;
-            if (loadedAssets.TryGetValue(assetName, out asset))
+            if (loadedAssets.TryGetValue(assetName, out object asset))
             {
                 //Check if it's disposable and remove it from the disposable list if so
                 var disposable = asset as IDisposable;
@@ -640,10 +623,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="ObjectDisposedException">This was called after the ContentManger was disposed.</exception>
         public virtual void UnloadAssets(IList<string> assetNames)
         {
-            if (assetNames == null)
-            {
-                throw new ArgumentNullException("assetNames");
-            }
+            ArgumentNullException.ThrowIfNull(assetNames);
             if (disposed)
             {
                 throw new ObjectDisposedException("ContentManager");
@@ -658,35 +638,13 @@ namespace Microsoft.Xna.Framework.Content
         /// <summary>
         /// Gets or Sets the root directory that this ContentManager will search for assets in.
         /// </summary>
-		public string RootDirectory
-		{
-			get
-			{
-				return _rootDirectory;
-			}
-			set
-			{
-				_rootDirectory = value;
-			}
-		}
+		public string RootDirectory { get; set; } = string.Empty;
 
-        internal string RootDirectoryFullPath
-        {
-            get
-            {
-                return Path.Combine(TitleContainer.Location, RootDirectory);
-            }
-        }
+        internal string RootDirectoryFullPath => Path.Combine(TitleContainer.Location, RootDirectory);
 
         /// <summary>
         /// Gets the service provider instance used by this ContentManager.
         /// </summary>
-		public IServiceProvider ServiceProvider
-		{
-			get
-			{
-				return this.serviceProvider;
-			}
-		}
+		public IServiceProvider ServiceProvider { get; }
     }
 }

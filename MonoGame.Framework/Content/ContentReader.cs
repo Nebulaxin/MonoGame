@@ -15,53 +15,32 @@ namespace Microsoft.Xna.Framework.Content
     /// </summary>
     public sealed class ContentReader : BinaryReader
     {
-        private ContentManager contentManager;
         private Action<IDisposable> recordDisposableObject;
         private ContentTypeReaderManager typeReaderManager;
-        private string assetName;
         private List<KeyValuePair<int, Action<object>>> sharedResourceFixups;
-        private ContentTypeReader[] typeReaders;
-		internal int version;
-		internal int sharedResourceCount;
+        internal int version;
+        internal int sharedResourceCount;
 
-        internal ContentTypeReader[] TypeReaders
-        {
-            get
-            {
-                return typeReaders;
-            }
-        }
+        internal ContentTypeReader[] TypeReaders { get; private set; }
 
         internal ContentReader(ContentManager manager, Stream stream, string assetName, int version, Action<IDisposable> recordDisposableObject)
             : base(stream)
         {
             this.recordDisposableObject = recordDisposableObject;
-            this.contentManager = manager;
-            this.assetName = assetName;
-			this.version = version;
+            ContentManager = manager;
+            AssetName = assetName;
+            this.version = version;
         }
 
         /// <summary>
         /// Gets a reference to the <see cref="ContentManager"/> instance that is using this content reader.
         /// </summary>
-        public ContentManager ContentManager
-        {
-            get
-            {
-                return contentManager;
-            }
-        }
+        public ContentManager ContentManager { get; }
 
         /// <summary>
         /// Gets the name of the asset currently being read by this content reader.
         /// </summary>
-        public string AssetName
-        {
-            get
-            {
-                return assetName;
-            }
-        }
+        public string AssetName { get; }
 
         internal object ReadAsset<T>()
         {
@@ -92,7 +71,7 @@ namespace Microsoft.Xna.Framework.Content
         internal void InitializeTypeReaders()
         {
             typeReaderManager = new ContentTypeReaderManager();
-            typeReaders = typeReaderManager.LoadAssetReaders(this);
+            TypeReaders = typeReaderManager.LoadAssetReaders(this);
             sharedResourceCount = Read7BitEncodedInt();
             sharedResourceFixups = new List<KeyValuePair<int, Action<object>>>();
         }
@@ -153,7 +132,7 @@ namespace Microsoft.Xna.Framework.Content
 
             if (!String.IsNullOrEmpty(externalReference))
             {
-                return contentManager.Load<T>(FileHelpers.ResolveRelativePath(assetName, externalReference));
+                return ContentManager.Load<T>(FileHelpers.ResolveRelativePath(AssetName, externalReference));
             }
 
             return default(T);
@@ -168,7 +147,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Matrix ReadMatrix()
         {
-            Matrix result = new Matrix();
+            Matrix result = new();
             result.M11 = ReadSingle();
             result.M12 = ReadSingle();
             result.M13 = ReadSingle();
@@ -197,7 +176,7 @@ namespace Microsoft.Xna.Framework.Content
             if (recordDisposableObject != null)
                 recordDisposableObject(disposable);
             else
-                contentManager.RecordDisposable(disposable);
+                ContentManager.RecordDisposable(disposable);
         }
 
         /// <summary>
@@ -255,10 +234,10 @@ namespace Microsoft.Xna.Framework.Content
             if (typeReaderIndex == 0)
                 return existingInstance;
 
-            if (typeReaderIndex > typeReaders.Length)
+            if (typeReaderIndex > TypeReaders.Length)
                 throw new ContentLoadException("Incorrect type reader index found!");
 
-            var typeReader = typeReaders[typeReaderIndex - 1];
+            var typeReader = TypeReaders[typeReaderIndex - 1];
             var result = (T)typeReader.Read(this, existingInstance);
 
             RecordDisposable(result);
@@ -299,7 +278,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Quaternion ReadQuaternion()
         {
-            Quaternion result = new Quaternion();
+            Quaternion result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             result.Z = ReadSingle();
@@ -349,7 +328,7 @@ namespace Microsoft.Xna.Framework.Content
         public T ReadRawObject<T>(T existingInstance)
         {
             Type objectType = typeof(T);
-            foreach(ContentTypeReader typeReader in typeReaders)
+            foreach (ContentTypeReader typeReader in TypeReaders)
             {
                 if(typeReader.TargetType == objectType)
                     return (T)ReadRawObject<T>(typeReader,existingInstance);
@@ -393,7 +372,7 @@ namespace Microsoft.Xna.Framework.Content
                     {
                         if (!(v is T))
                         {
-                            throw new ContentLoadException(String.Format("Error loading shared resource. Expected type {0}, received type {1}", typeof(T).Name, v.GetType().Name));
+                            throw new ContentLoadException($"Error loading shared resource. Expected type {typeof(T).Name}, received type {v.GetType().Name}");
                         }
                         fixup((T)v);
                     }));
@@ -409,7 +388,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector2 ReadVector2()
         {
-            Vector2 result = new Vector2();
+            Vector2 result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             return result;
@@ -424,7 +403,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector3 ReadVector3()
         {
-            Vector3 result = new Vector3();
+            Vector3 result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             result.Z = ReadSingle();
@@ -440,7 +419,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Vector4 ReadVector4()
         {
-            Vector4 result = new Vector4();
+            Vector4 result = new();
             result.X = ReadSingle();
             result.Y = ReadSingle();
             result.Z = ReadSingle();
@@ -457,7 +436,7 @@ namespace Microsoft.Xna.Framework.Content
         /// <exception cref="IOException">An I/O error occurred.</exception>
         public Color ReadColor()
         {
-            Color result = new Color();
+            Color result = new();
             result.R = ReadByte();
             result.G = ReadByte();
             result.B = ReadByte();

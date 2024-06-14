@@ -11,8 +11,6 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
     public struct HalfVector4 : IPackedVector<ulong>, IPackedVector, IEquatable<HalfVector4>
     {
-        ulong packedValue;
-
         /// <summary>
         /// Initializes a new instance of this structure.
         /// </summary>
@@ -23,7 +21,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         public HalfVector4(float x, float y, float z, float w)
         {
             var vector = new Vector4(x, y, z, w);
-            packedValue = PackHelper(ref vector);
+            PackedValue = PackHelper(ref vector);
         }
 
         /// <summary>
@@ -34,13 +32,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public HalfVector4(Vector4 vector)
         {
-            packedValue = PackHelper(ref vector);
+            PackedValue = PackHelper(ref vector);
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            packedValue = PackHelper(ref vector);
+            PackedValue = PackHelper(ref vector);
         }
 
         static ulong PackHelper(ref Vector4 vector)
@@ -56,24 +54,14 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         public Vector4 ToVector4()
         {
             return new Vector4(
-                HalfTypeHelper.Convert((ushort)packedValue),
-                HalfTypeHelper.Convert((ushort)(packedValue >> 0x10)),
-                HalfTypeHelper.Convert((ushort)(packedValue >> 0x20)),
-                HalfTypeHelper.Convert((ushort)(packedValue >> 0x30)));
+                HalfTypeHelper.Convert((ushort)PackedValue),
+                HalfTypeHelper.Convert((ushort)(PackedValue >> 0x10)),
+                HalfTypeHelper.Convert((ushort)(PackedValue >> 0x20)),
+                HalfTypeHelper.Convert((ushort)(PackedValue >> 0x30)));
         }
 
         /// <inheritdoc />
-        public ulong PackedValue
-        {
-            get
-            {
-                return packedValue;
-            }
-            set
-            {
-                packedValue = value;
-            }
-        }
+        public ulong PackedValue { get; set; }
 
         /// <inheritdoc />
         public override string ToString()
@@ -84,7 +72,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return packedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 
         /// <inheritdoc />
@@ -96,7 +84,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(HalfVector4 other)
         {
-            return packedValue.Equals(other.packedValue);
+            return PackedValue.Equals(other.PackedValue);
         }
 
         /// <summary>

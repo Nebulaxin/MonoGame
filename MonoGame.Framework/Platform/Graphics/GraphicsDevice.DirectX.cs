@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework.Graphics
         // The active depth view.
         SharpDX.Direct3D11.DepthStencilView _currentDepthStencilView;
 
-        private readonly Dictionary<VertexDeclaration, DynamicVertexBuffer> _userVertexBuffers = new Dictionary<VertexDeclaration, DynamicVertexBuffer>();
+        private readonly Dictionary<VertexDeclaration, DynamicVertexBuffer> _userVertexBuffers = new();
         private DynamicIndexBuffer _userIndexBuffer16;
         private DynamicIndexBuffer _userIndexBuffer32;
 
@@ -94,13 +94,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Returns a handle to internal device object. Valid only on DirectX platforms.
         /// For usage, convert this to SharpDX.Direct3D11.Device.
         /// </summary>
-        public object Handle
-        {
-            get
-            {
-                return _d3dDevice;
-            }
-        }
+        public object Handle => _d3dDevice;
 
         private void PlatformSetup()
         {
@@ -278,7 +272,7 @@ namespace Microsoft.Xna.Framework.Graphics
             _currentDepthStencilView = null;
             Array.Clear(_currentRenderTargets, 0, _currentRenderTargets.Length);
             Array.Clear(_currentRenderTargetBindings, 0, _currentRenderTargetBindings.Length);
-            _currentRenderTargetCount = 0;
+            RenderTargetCount = 0;
 
             // Make sure all pending rendering commands are flushed.
             _d3dContext.Flush();
@@ -619,7 +613,7 @@ namespace Microsoft.Xna.Framework.Graphics
             _d3dContext = _d3dDevice.ImmediateContext.QueryInterface<SharpDX.Direct3D11.DeviceContext>();
             
             // Create a new instance of GraphicsDebug because we support it on Windows platforms.
-            _graphicsDebug = new GraphicsDebug(this);
+            GraphicsDebug = new GraphicsDebug(this);
         }
 
         internal void SetHardwareFullscreen()
@@ -689,8 +683,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
             else
             {
-                ModeDescription closest;
-                output.GetClosestMatchingMode(_d3dDevice, target, out closest);
+                output.GetClosestMatchingMode(_d3dDevice, target, out ModeDescription closest);
                 width = closest.Width;
                 height = closest.Height;
                 output.Dispose();
@@ -727,7 +720,7 @@ namespace Microsoft.Xna.Framework.Graphics
             _currentDepthStencilView = null;
             Array.Clear(_currentRenderTargets, 0, _currentRenderTargets.Length);
             Array.Clear(_currentRenderTargetBindings, 0, _currentRenderTargetBindings.Length);
-            _currentRenderTargetCount = 0;
+            RenderTargetCount = 0;
 
             // Make sure all pending rendering commands are flushed.
             _d3dContext.Flush();
@@ -1061,7 +1054,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 // must completely reinitialize the renderer.
                 if (    ex.ResultCode == SharpDX.DXGI.DXGIError.DeviceRemoved ||
                         ex.ResultCode == SharpDX.DXGI.DXGIError.DeviceReset)
-                    this.Initialize();
+                    Initialize();
                 else
                     throw;
                 */
@@ -1143,7 +1136,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal void PlatformResolveRenderTargets()
         {
-            for (var i = 0; i < _currentRenderTargetCount; i++)
+            for (var i = 0; i < RenderTargetCount; i++)
             {
                 var renderTargetBinding = _currentRenderTargetBindings[i];
 
@@ -1175,7 +1168,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 Textures.ClearTargets(this, _currentRenderTargetBindings);
             }
 
-            for (var i = 0; i < _currentRenderTargetCount; i++)
+            for (var i = 0; i < RenderTargetCount; i++)
             {
                 var binding = _currentRenderTargetBindings[i];
                 var target = (IRenderTarget)binding.RenderTarget;
@@ -1229,21 +1222,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private static PrimitiveTopology ToPrimitiveTopology(PrimitiveType primitiveType)
         {
-            switch (primitiveType)
+            return primitiveType switch
             {
-                case PrimitiveType.LineList:
-                    return PrimitiveTopology.LineList;
-                case PrimitiveType.LineStrip:
-                    return PrimitiveTopology.LineStrip;
-                case PrimitiveType.TriangleList:
-                    return PrimitiveTopology.TriangleList;
-                case PrimitiveType.TriangleStrip:
-                    return PrimitiveTopology.TriangleStrip;
-                case PrimitiveType.PointList:
-                    return PrimitiveTopology.PointList;
-            }
-
-            throw new ArgumentException();
+                PrimitiveType.LineList => PrimitiveTopology.LineList,
+                PrimitiveType.LineStrip => PrimitiveTopology.LineStrip,
+                PrimitiveType.TriangleList => PrimitiveTopology.TriangleList,
+                PrimitiveType.TriangleStrip => PrimitiveTopology.TriangleStrip,
+                PrimitiveType.PointList => PrimitiveTopology.PointList,
+                _ => throw new ArgumentException(),
+            };
         }
 
         internal void PlatformBeginApplyState()
@@ -1372,9 +1359,8 @@ namespace Microsoft.Xna.Framework.Graphics
         private int SetUserVertexBuffer<T>(T[] vertexData, int vertexOffset, int vertexCount, VertexDeclaration vertexDecl)
             where T : struct
         {
-            DynamicVertexBuffer buffer;
 
-            if (!_userVertexBuffers.TryGetValue(vertexDecl, out buffer) || buffer.VertexCount < vertexCount)
+            if (!_userVertexBuffers.TryGetValue(vertexDecl, out DynamicVertexBuffer buffer) || buffer.VertexCount < vertexCount)
             {
                 // Dispose the previous buffer if we have one.
                 if (buffer != null)

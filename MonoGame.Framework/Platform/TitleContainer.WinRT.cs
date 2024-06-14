@@ -26,7 +26,7 @@ namespace Microsoft.Xna.Framework
         {
             try
             {
-                var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///" + name));
+                var file = await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri($"ms-appx:///{name)}");
                 var randomAccessStream = await file.OpenReadAsync();
                 return randomAccessStream.AsStreamForRead();
             }

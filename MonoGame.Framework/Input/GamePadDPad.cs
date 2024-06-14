@@ -117,7 +117,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadDPad"/>.</returns>
         public override string ToString()
         {
-            return "" + (int)Left + (int)Up + (int)Right + (int)Down;
+            return $"{(int)Left}{(int)Up}{(int)Right}{(int)Down}";
         }
 
         private void ConvertButtonToDirection(Buttons button)

@@ -12,8 +12,6 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
     public struct NormalizedByte2 : IPackedVector<ushort>, IEquatable<NormalizedByte2>
     {
-        private ushort _packed;
-
         /// <summary>
         /// Initializes a new instance of this structure.
         /// </summary>
@@ -22,7 +20,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public NormalizedByte2(Vector2 vector)
         {
-            _packed = Pack(vector.X, vector.Y);
+            PackedValue = Pack(vector.X, vector.Y);
         }
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="y">The initial y-component value for this structure.</param>
         public NormalizedByte2(float x, float y)
         {
-            _packed = Pack(x, y);
+            PackedValue = Pack(x, y);
         }
 
         /// <summary>
@@ -43,7 +41,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two value are not equal; otherwise, false.</returns>
         public static bool operator !=(NormalizedByte2 a, NormalizedByte2 b)
         {
-            return a._packed != b._packed;
+            return a.PackedValue != b.PackedValue;
         }
 
         /// <summary>
@@ -54,45 +52,35 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two values are equal; otherwise, false.</returns>
         public static bool operator ==(NormalizedByte2 a, NormalizedByte2 b)
         {
-            return a._packed == b._packed;
+            return a.PackedValue == b.PackedValue;
         }
 
         /// <inheritdoc />
-        public ushort PackedValue
-        {
-            get
-            {
-                return _packed;
-            }
-            set
-            {
-                _packed = value;
-            }
-        }
+        public ushort PackedValue { get; set; }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
             return (obj is NormalizedByte2) &&
-                    ((NormalizedByte2)obj)._packed == _packed;
+                    ((NormalizedByte2)obj).PackedValue == PackedValue;
         }
 
         /// <inheritdoc />
         public bool Equals(NormalizedByte2 other)
         {
-            return _packed == other._packed;
+            return PackedValue == other.PackedValue;
         }
 
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return _packed.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return _packed.ToString("X");
+            return PackedValue.ToString("X");
         }
 
         private static ushort Pack(float x, float y)
@@ -105,7 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            _packed = Pack(vector.X, vector.Y);
+            PackedValue = Pack(vector.X, vector.Y);
         }
 
         /// <inheritdoc />
@@ -121,8 +109,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         public Vector2 ToVector2()
         {
             return new Vector2(
-                ((sbyte) ((_packed >> 0) & 0xFF)) / 127.0f,
-                ((sbyte) ((_packed >> 8) & 0xFF)) / 127.0f);
+                ((sbyte)((PackedValue >> 0) & 0xFF)) / 127.0f,
+                ((sbyte)((PackedValue >> 8) & 0xFF)) / 127.0f);
         }
     }
 }

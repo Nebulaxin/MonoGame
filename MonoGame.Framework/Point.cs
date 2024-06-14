@@ -18,7 +18,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Point zeroPoint = new Point();
 
         #endregion
 
@@ -43,25 +42,13 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Point"/> with coordinates 0, 0.
         /// </summary>
-        public static Point Zero
-        {
-            get { return zeroPoint; }
-        }
+        public static Point Zero { get; } = new();
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString()
-                );
-            }
-        }
+        internal string DebugDisplayString => $"{X}  {Y}";
 
         #endregion
 
@@ -74,8 +61,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="y">The y coordinate in 2d-space.</param>
         public Point(int x, int y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
@@ -84,8 +71,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x and y coordinates in 2d-space.</param>
         public Point(int value)
         {
-            this.X = value;
-            this.Y = value;
+            X = value;
+            Y = value;
         }
 
         #endregion
@@ -205,7 +192,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><see cref="String"/> representation of this <see cref="Point"/>.</returns>
         public override string ToString()
         {
-            return "{X:" + X + " Y:" + Y + "}";
+            return $"{{X:{X} Y:{Y}}}";
         }
 
         /// <summary>

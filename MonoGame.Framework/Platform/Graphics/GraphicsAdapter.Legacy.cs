@@ -107,8 +107,7 @@ namespace Microsoft.Xna.Framework.Graphics
 #elif DESKTOPGL
                 var displayIndex = Sdl.Display.GetWindowDisplayIndex(SdlGameWindow.Instance.Handle);
 
-                Sdl.Display.Mode mode;
-                Sdl.Display.GetCurrentDisplayMode(displayIndex, out mode);
+                Sdl.Display.GetCurrentDisplayMode(displayIndex, out Sdl.Display.Mode mode);
 
                 return new DisplayMode(mode.Width, mode.Height, SurfaceFormat.Color);
 #elif WINDOWS
@@ -129,10 +128,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the default adapter.
         /// </summary>
-        public static GraphicsAdapter DefaultAdapter
-        {
-            get { return Adapters[0]; }
-        }
+        public static GraphicsAdapter DefaultAdapter => Adapters[0];
 
         /// <summary>
         /// Gets a read-only collection of available adapters on the system.
@@ -166,8 +162,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </remarks>
         public static bool UseReferenceDevice
         {
-            get { return UseDriverType == DriverType.Reference; }
-            set { UseDriverType = value ? DriverType.Reference : DriverType.Hardware; }
+            get => UseDriverType == DriverType.Reference;
+            set => UseDriverType = value ? DriverType.Reference : DriverType.Hardware;
         }
 
         /// <summary>
@@ -343,8 +339,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     for (int i = 0;i < modeCount;i++)
                     {
-                        Sdl.Display.Mode mode;
-                        Sdl.Display.GetDisplayMode(displayIndex, i, out mode);
+                        Sdl.Display.GetDisplayMode(displayIndex, i, out Sdl.Display.Mode mode);
 
                         // We are only using one format, Color
                         // mode.Format gets the Color format from SDL

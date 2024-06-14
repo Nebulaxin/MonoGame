@@ -17,61 +17,48 @@ namespace Microsoft.Xna.Framework.Audio
 
         public static ALFormat GetSoundFormat(int format, int channels, int bits)
         {
-            switch (format)
+            return format switch
             {
-                case FormatPcm:
-                    // PCM
-                    switch (channels)
-                    {
-                        case 1: return bits == 8 ? ALFormat.Mono8 : ALFormat.Mono16;
-                        case 2: return bits == 8 ? ALFormat.Stereo8 : ALFormat.Stereo16;
-                        default: throw new NotSupportedException("The specified channel count is not supported.");
-                    }
-                case FormatMsAdpcm:
-                    // Microsoft ADPCM
-                    switch (channels)
-                    {
-                        case 1: return ALFormat.MonoMSAdpcm;
-                        case 2: return ALFormat.StereoMSAdpcm;
-                        default: throw new NotSupportedException("The specified channel count is not supported.");
-                    }
-                case FormatIeee:
-                    // IEEE Float
-                    switch (channels)
-                    {
-                        case 1: return ALFormat.MonoFloat32;
-                        case 2: return ALFormat.StereoFloat32;
-                        default: throw new NotSupportedException("The specified channel count is not supported.");
-                    }
-                case FormatIma4:
-                    // IMA4 ADPCM
-                    switch (channels)
-                    {
-                        case 1: return ALFormat.MonoIma4;
-                        case 2: return ALFormat.StereoIma4;
-                        default: throw new NotSupportedException("The specified channel count is not supported.");
-                    }
-                default:
-                    throw new NotSupportedException("The specified sound format (" + format.ToString() + ") is not supported.");
-            }
+                FormatPcm => channels switch
+                {
+                    1 => bits == 8 ? ALFormat.Mono8 : ALFormat.Mono16,
+                    2 => bits == 8 ? ALFormat.Stereo8 : ALFormat.Stereo16,
+                    _ => throw new NotSupportedException("The specified channel count is not supported."),
+                },// PCM
+                FormatMsAdpcm => channels switch
+                {
+                    1 => ALFormat.MonoMSAdpcm,
+                    2 => ALFormat.StereoMSAdpcm,
+                    _ => throw new NotSupportedException("The specified channel count is not supported."),
+                },// Microsoft ADPCM
+                FormatIeee => channels switch
+                {
+                    1 => ALFormat.MonoFloat32,
+                    2 => ALFormat.StereoFloat32,
+                    _ => throw new NotSupportedException("The specified channel count is not supported."),
+                },// IEEE Float
+                FormatIma4 => channels switch
+                {
+                    1 => ALFormat.MonoIma4,
+                    2 => ALFormat.StereoIma4,
+                    _ => throw new NotSupportedException("The specified channel count is not supported."),
+                },// IMA4 ADPCM
+                _ => throw new NotSupportedException($"The specified sound format ({format}) is not supported."),
+            };
         }
 
         // Converts block alignment in bytes to sample alignment, primarily for compressed formats
         // Calculation of sample alignment from http://kcat.strangesoft.net/openal-extensions/SOFT_block_alignment.txt
         public static int SampleAlignment(ALFormat format, int blockAlignment)
         {
-            switch (format)
+            return format switch
             {
-                case ALFormat.MonoIma4:
-                    return (blockAlignment - 4) / 4 * 8 + 1;
-                case ALFormat.StereoIma4:
-                    return (blockAlignment / 2 - 4) / 4 * 8 + 1;
-                case ALFormat.MonoMSAdpcm:
-                    return (blockAlignment - 7) * 2 + 2;
-                case ALFormat.StereoMSAdpcm:
-                    return (blockAlignment / 2 - 7) * 2 + 2;
-            }
-            return 0;
+                ALFormat.MonoIma4 => (blockAlignment - 4) / 4 * 8 + 1,
+                ALFormat.StereoIma4 => (blockAlignment / 2 - 4) / 4 * 8 + 1,
+                ALFormat.MonoMSAdpcm => (blockAlignment - 7) * 2 + 2,
+                ALFormat.StereoMSAdpcm => (blockAlignment / 2 - 7) * 2 + 2,
+                _ => 0,
+            };
         }
 
         /// <summary>
@@ -90,7 +77,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             byte[] audioData = null;
 
-            using (BinaryReader reader = new BinaryReader(stream))
+            using (BinaryReader reader = new(stream))
             {
                 // for now we'll only support wave files
                 audioData = LoadWave(reader, out format, out frequency, out channels, out blockAlignment, out bitsPerSample, out samplesPerBlock, out sampleCount);
@@ -104,12 +91,12 @@ namespace Microsoft.Xna.Framework.Audio
             byte[] audioData = null;
 
             //header
-            string signature = new string(reader.ReadChars(4));
+            string signature = new(reader.ReadChars(4));
             if (signature != "RIFF")
                 throw new ArgumentException("Specified stream is not a wave file.");
             reader.ReadInt32(); // riff_chunk_size
 
-            string wformat = new string(reader.ReadChars(4));
+            string wformat = new(reader.ReadChars(4));
             if (wformat != "WAVE")
                 throw new ArgumentException("Specified stream is not a wave file.");
 
@@ -125,7 +112,7 @@ namespace Microsoft.Xna.Framework.Audio
             // WAVE header
             while (audioData == null)
             {
-                string chunkType = new string(reader.ReadChars(4));
+                string chunkType = new(reader.ReadChars(4));
                 int chunkSize = reader.ReadInt32();
                 switch (chunkType)
                 {
@@ -204,19 +191,12 @@ namespace Microsoft.Xna.Framework.Audio
 
             if (sampleCount == 0)
             {
-                switch (audioFormat)
+                sampleCount = audioFormat switch
                 {
-                    case FormatIma4:
-                    case FormatMsAdpcm:
-                        sampleCount = ((audioData.Length / blockAlignment) * samplesPerBlock) + SampleAlignment(format, audioData.Length % blockAlignment);
-                        break;
-                    case FormatPcm:
-                    case FormatIeee:
-                        sampleCount = audioData.Length / ((channels * bitsPerSample) / 8);
-                        break;
-                    default:
-                        throw new InvalidDataException("Unhandled WAV format " + format.ToString());
-                }
+                    FormatIma4 or FormatMsAdpcm => ((audioData.Length / blockAlignment) * samplesPerBlock) + SampleAlignment(format, audioData.Length % blockAlignment),
+                    FormatPcm or FormatIeee => audioData.Length / ((channels * bitsPerSample) / 8),
+                    _ => throw new InvalidDataException($"Unhandled WAV format {format}"),
+                };
             }
 
             return audioData;
@@ -340,8 +320,8 @@ namespace Microsoft.Xna.Framework.Audio
         // Convert buffer containing IMA/ADPCM wav data to a 16-bit signed PCM buffer
         internal static byte[] ConvertIma4ToPcm(byte[] buffer, int offset, int count, int channels, int blockAlignment)
         {
-            ImaState channel0 = new ImaState();
-            ImaState channel1 = new ImaState();
+            ImaState channel0 = new();
+            ImaState channel1 = new();
 
             int sampleCountFullBlock = ((blockAlignment / channels) - 4) / 4 * 8 + 1;
             int sampleCountLastBlock = 0;
@@ -496,8 +476,8 @@ namespace Microsoft.Xna.Framework.Audio
         // Convert buffer containing MS-ADPCM wav data to a 16-bit signed PCM buffer
         internal static byte[] ConvertMsAdpcmToPcm(byte[] buffer, int offset, int count, int channels, int blockAlignment)
         {
-            MsAdpcmState channel0 = new MsAdpcmState();
-            MsAdpcmState channel1 = new MsAdpcmState();
+            MsAdpcmState channel0 = new();
+            MsAdpcmState channel1 = new();
             int blockPredictor;
 
             int sampleCountFullBlock = ((blockAlignment / channels) - 7) * 2 + 2;

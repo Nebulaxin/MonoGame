@@ -30,10 +30,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Texture this[int index]
         {
-            get
-            {
-                return _textures[index];
-            }
+            get => _textures[index];
             set
             {
                 if (_applyToVertexStage && !_graphicsDevice.GraphicsCapabilities.SupportsVertexTextures)

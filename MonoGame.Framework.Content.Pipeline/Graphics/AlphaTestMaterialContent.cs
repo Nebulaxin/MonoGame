@@ -17,38 +17,38 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 
         public float? Alpha
         {
-            get { return GetValueTypeProperty<float>(AlphaKey); }
-            set { SetProperty(AlphaKey, value); }
+            get => GetValueTypeProperty<float>(AlphaKey);
+            set => SetProperty(AlphaKey, value);
         }
-        
+
         public CompareFunction? AlphaFunction
         {
-            get { return GetValueTypeProperty<CompareFunction>(AlphaFunctionKey); }
-            set { SetProperty(AlphaFunctionKey, value); }
+            get => GetValueTypeProperty<CompareFunction>(AlphaFunctionKey);
+            set => SetProperty(AlphaFunctionKey, value);
         }
 
         public Vector3? DiffuseColor
         {
-            get { return GetValueTypeProperty<Vector3>(DiffuseColorKey); }
-            set { SetProperty(DiffuseColorKey, value); }
+            get => GetValueTypeProperty<Vector3>(DiffuseColorKey);
+            set => SetProperty(DiffuseColorKey, value);
         }
 
         public int? ReferenceAlpha
         {
-            get { return GetValueTypeProperty<int>(ReferenceAlphaKey); }
-            set { SetProperty(ReferenceAlphaKey, value); }
+            get => GetValueTypeProperty<int>(ReferenceAlphaKey);
+            set => SetProperty(ReferenceAlphaKey, value);
         }
 
         public ExternalReference<TextureContent> Texture
         {
-            get { return GetTexture(TextureKey); }
-            set { SetTexture(TextureKey, value); }
+            get => GetTexture(TextureKey);
+            set => SetTexture(TextureKey, value);
         }
 
         public bool? VertexColorEnabled
         {
-            get { return GetValueTypeProperty<bool>(VertexColorEnabledKey); }
-            set { SetProperty(VertexColorEnabledKey, value); }
+            get => GetValueTypeProperty<bool>(VertexColorEnabledKey);
+            set => SetProperty(VertexColorEnabledKey, value);
         }
     }
 }

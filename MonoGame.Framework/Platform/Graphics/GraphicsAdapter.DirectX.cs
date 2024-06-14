@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Graphics
             adapters = new ReadOnlyCollection<GraphicsAdapter>(adapterList);
         }
 
-        private static readonly Dictionary<SharpDX.DXGI.Format, SurfaceFormat> FormatTranslations = new Dictionary<SharpDX.DXGI.Format, SurfaceFormat>
+        private static readonly Dictionary<SharpDX.DXGI.Format, SurfaceFormat> FormatTranslations = new()
         {
             { SharpDX.DXGI.Format.R8G8B8A8_UNorm, SurfaceFormat.Color },
             { SharpDX.DXGI.Format.B8G8R8A8_UNorm, SurfaceFormat.Color },
@@ -80,7 +80,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 {
                     var mode = new DisplayMode(desktopWidth, desktopHeight, SurfaceFormat.Color);
                     modes.Add(mode);
-                    adapter._currentDisplayMode = mode;
+                    adapter.CurrentDisplayMode = mode;
                     break;
                 }
 
@@ -95,18 +95,18 @@ namespace Microsoft.Xna.Framework.Graphics
 
                     modes.Add(mode);
 
-                    if (adapter._currentDisplayMode == null)
+                    if (adapter.CurrentDisplayMode == null)
                     {
                         if (mode.Width == desktopWidth && mode.Height == desktopHeight && mode.Format == SurfaceFormat.Color)
-                            adapter._currentDisplayMode = mode;
+                            adapter.CurrentDisplayMode = mode;
                     }
                 }
             }
 
-            adapter._supportedDisplayModes = new DisplayModeCollection(modes);
+            adapter.SupportedDisplayModes = new DisplayModeCollection(modes);
 
-            if (adapter._currentDisplayMode == null) //(i.e. desktop mode wasn't found in the available modes)
-                adapter._currentDisplayMode = new DisplayMode(desktopWidth, desktopHeight, SurfaceFormat.Color);
+            if (adapter.CurrentDisplayMode == null) //(i.e. desktop mode wasn't found in the available modes)
+                adapter.CurrentDisplayMode = new DisplayMode(desktopWidth, desktopHeight, SurfaceFormat.Color);
 
             return adapter;
         }
@@ -128,15 +128,12 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw;
             }
 
-            switch(graphicsProfile)
+            return graphicsProfile switch
             {
-                case GraphicsProfile.Reach:
-                    return (highestSupportedLevel >= FeatureLevel.Level_9_1);
-                case GraphicsProfile.HiDef:
-                    return (highestSupportedLevel >= FeatureLevel.Level_10_0);
-                default:
-                    throw new InvalidOperationException();
-            }
+                GraphicsProfile.Reach => (highestSupportedLevel >= FeatureLevel.Level_9_1),
+                GraphicsProfile.HiDef => (highestSupportedLevel >= FeatureLevel.Level_10_0),
+                _ => throw new InvalidOperationException(),
+            };
         }
     }
 }

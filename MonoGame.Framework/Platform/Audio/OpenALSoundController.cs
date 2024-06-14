@@ -25,14 +25,11 @@ namespace Microsoft.Xna.Framework.Audio
     {
         [System.Diagnostics.Conditional("DEBUG")]
         [System.Diagnostics.DebuggerHidden]
-        internal static void CheckError(string message = "", params object[] args)
+        internal static void CheckError(string message = "")
         {
             ALError error;
             if ((error = AL.GetError()) != ALError.NoError)
             {
-                if (args != null && args.Length > 0)
-                    message = String.Format(message, args);
-                
                 throw new InvalidOperationException(message + " (Reason: " + AL.GetErrorString(error) + ")");
             }
         }
@@ -56,9 +53,6 @@ namespace Microsoft.Xna.Framework.Audio
             AlcError error;
             if ((error = Alc.GetError()) != AlcError.NoError)
             {
-                if (args != null && args.Length > 0)
-                    message = String.Format(message, args);
-
                 throw new InvalidOperationException(message + " (Reason: " + error.ToString() + ")");
             }
         }
@@ -219,7 +213,7 @@ namespace Microsoft.Xna.Framework.Audio
                 {
                     Android.Util.Log.Debug("OAL", "Android 4.2 or higher required for low latency audio playback.");
                 }
-                Android.Util.Log.Debug("OAL", "Using sample rate " + frequency + "Hz and " + updateBuffers + " buffers of " + updateSize + " frames.");
+                Android.Util.Log.Debug($"OAL", "Using sample rate " + frequency + "Hz and " + updateBuffers + " buffers of {updateSize} frames.");
 
                 // These are missing and non-standard ALC constants
                 const int AlcFrequency = 0x1007;
@@ -449,8 +443,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         public double SourceCurrentPosition (int sourceId)
 		{
-            int pos;
-			AL.GetSource (sourceId, ALGetSourcei.SampleOffset, out pos);
+            AL.GetSource(sourceId, ALGetSourcei.SampleOffset, out int pos);
             ALHelper.CheckError("Failed to set source offset.");
 			return pos;
 		}

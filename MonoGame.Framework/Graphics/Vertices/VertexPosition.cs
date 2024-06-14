@@ -31,10 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			Position = position;
 		}
 
-		VertexDeclaration IVertexType.VertexDeclaration
-        {
-			get { return VertexDeclaration; }
-		}
+        VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
 
         /// <inheritdoc/>
         public override int GetHashCode()
@@ -48,8 +45,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns>String representation of this object.</returns>
         public override string ToString()
 		{
-            return "{{Position:" + Position + "}}";
-		}
+            return $"{{Position:{Position}}}";
+        }
 
         /// <summary>
         /// Returns a value that indicates whether two <see cref="VertexPosition"/> are equal
@@ -99,9 +96,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
         static VertexPosition()
 		{
-			VertexElement[] elements = { new VertexElement (0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0) };
-            VertexDeclaration declaration = new VertexDeclaration(elements);
-			VertexDeclaration = declaration;
+            VertexElement[] elements = { new(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0) };
+            VertexDeclaration declaration = new(elements);
+            VertexDeclaration = declaration;
 		}
 	}
 }

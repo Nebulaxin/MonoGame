@@ -21,10 +21,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         {
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return true; }
-        }
+        public override bool CanDeserializeIntoExistingObject => true;
 
         protected internal override void Initialize(IntermediateSerializer serializer)
         {

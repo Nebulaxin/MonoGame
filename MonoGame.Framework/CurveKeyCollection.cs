@@ -32,11 +32,10 @@ namespace Microsoft.Xna.Framework
         [DataMember(Name = "Items")]
         public CurveKey this[int index]
         {
-            get { return _keys[index]; }
+            get => _keys[index];
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException();
+                ArgumentNullException.ThrowIfNull(value);
 
                 if (index >= _keys.Count)
                     throw new IndexOutOfRangeException();
@@ -55,19 +54,13 @@ namespace Microsoft.Xna.Framework
         /// Returns the count of keys in this collection.
         /// </summary>
         [DataMember]
-        public int Count
-        {
-            get { return _keys.Count; }
-        }
+        public int Count => _keys.Count;
 
         /// <summary>
         /// Returns false because it is not a read-only collection.
         /// </summary>
         [DataMember]
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         #endregion
 
@@ -97,25 +90,24 @@ namespace Microsoft.Xna.Framework
         /// <remarks>The new key would be added respectively to a position of that key and the position of other keys.</remarks>
         public void Add(CurveKey item)
         {
-            if (item == null)
-                throw new ArgumentNullException("item");
+            ArgumentNullException.ThrowIfNull(item);
 
             if (_keys.Count == 0)
             {
-                this._keys.Add(item);
+                _keys.Add(item);
                 return;
             }
 
-            for (int i = 0; i < this._keys.Count; i++)
+            for (int i = 0; i < _keys.Count; i++)
             {
-                if (item.Position < this._keys[i].Position)
+                if (item.Position < _keys[i].Position)
                 {
-                    this._keys.Insert(i, item);
+                    _keys.Insert(i, item);
                     return;
                 }
             }
 
-            this._keys.Add(item);
+            _keys.Add(item);
         }
 
         /// <summary>
@@ -132,8 +124,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this collection.</returns>
         public CurveKeyCollection Clone()
         {
-            CurveKeyCollection ckc = new CurveKeyCollection();
-            foreach (CurveKey key in this._keys)
+            CurveKeyCollection ckc = new();
+            foreach (CurveKey key in _keys)
                 ckc.Add(key);
             return ckc;
         }

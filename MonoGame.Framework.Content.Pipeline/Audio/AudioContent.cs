@@ -17,7 +17,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
     public class AudioContent : ContentItem, IDisposable
     {
         private bool _disposed;
-        private readonly string _fileName;
         private readonly AudioFileType _fileType;
         private ReadOnlyCollection<byte> _data;
         private TimeSpan _duration;
@@ -29,12 +28,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// The name of the original source audio file.
         /// </summary>
         [ContentSerializer(AllowNull = false)]
-        public string FileName { get { return _fileName; } }
+        public string FileName { get; }
 
         /// <summary>
         /// The type of the original source audio file.
         /// </summary>
-        public AudioFileType FileType { get { return _fileType; } }
+        public AudioFileType FileType => _fileType;
 
         /// <summary>
         /// The current raw audio data without header information.
@@ -47,8 +46,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         {
             get
             {
-                if (_disposed || _data == null)                
-                    throw new InvalidContentException("Could not read the audio data from file \"" + Path.GetFileName(_fileName) + "\".");
+                if (_disposed || _data == null)
+                    throw new InvalidContentException("Could not read the audio data from file \"" + Path.GetFileName(FileName) + "\".");
                 return _data;
             }
         }
@@ -56,49 +55,25 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// <summary>
         /// The duration of the audio data.
         /// </summary>
-        public TimeSpan Duration
-        {
-            get
-            {
-                return _duration;
-            }
-        }
+        public TimeSpan Duration => _duration;
 
         /// <summary>
         /// The current format of the audio data.
         /// </summary>
         /// <remarks>This changes from the source format to the output format after conversion.</remarks>
-        public AudioFormat Format
-        {
-            get
-            {
-                return _format;
-            }
-        }
+        public AudioFormat Format => _format;
 
         /// <summary>
         /// The current loop length in samples.
         /// </summary>
         /// <remarks>This changes from the source loop length to the output loop length after conversion.</remarks>
-        public int LoopLength
-        {
-            get
-            {
-                return _loopLength;
-            } 
-        }
+        public int LoopLength => _loopLength;
 
         /// <summary>
         /// The current loop start location in samples.
         /// </summary>
         /// <remarks>This changes from the source loop start to the output loop start after conversion.</remarks>
-        public int LoopStart
-        {
-            get
-            {
-                return _loopStart;
-            }
-        }
+        public int LoopStart => _loopStart;
 
         /// <summary>
         /// Initializes a new instance of AudioContent.
@@ -108,7 +83,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         /// <remarks>Constructs the object from the specified source file, in the format specified.</remarks>
         public AudioContent(string audioFileName, AudioFileType audioFileType)
         {
-            _fileName = audioFileName;
+            FileName = audioFileName;
 
             try
             {

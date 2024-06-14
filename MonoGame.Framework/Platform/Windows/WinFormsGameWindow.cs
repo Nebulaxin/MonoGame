@@ -26,8 +26,8 @@ namespace MonoGame.Framework
     {
         internal WinFormsGameForm Form;
 
-        static private ReaderWriterLockSlim _allWindowsReaderWriterLockSlim = new ReaderWriterLockSlim(LockRecursionPolicy.NoRecursion);
-        static private List<WinFormsGameWindow> _allWindows = new List<WinFormsGameWindow>();
+        static private ReaderWriterLockSlim _allWindowsReaderWriterLockSlim = new(LockRecursionPolicy.NoRecursion);
+        static private List<WinFormsGameWindow> _allWindows = new();
 
         private WinFormsGamePlatform _platform;
 
@@ -54,9 +54,9 @@ namespace MonoGame.Framework
 
         #region Public Properties
 
-        public override IntPtr Handle { get { return Form.Handle; } }
+        public override IntPtr Handle => Form.Handle;
 
-        public override string ScreenDeviceName { get { return String.Empty; } }
+        public override string ScreenDeviceName => String.Empty;
 
         public override Rectangle ClientBounds
         {
@@ -96,10 +96,7 @@ namespace MonoGame.Framework
              }
         }
 
-        public override DisplayOrientation CurrentOrientation
-        {
-            get { return DisplayOrientation.Default; }
-        }
+        public override DisplayOrientation CurrentOrientation => DisplayOrientation.Default;
 
         public override XnaPoint Position
         {
@@ -282,8 +279,7 @@ namespace MonoGame.Framework
             if (!Form.Visible)
                 return;
 
-            POINTSTRUCT pos;
-            GetCursorPos(out pos);
+            GetCursorPos(out POINTSTRUCT pos);
             MapWindowPoints(new HandleRef(null, IntPtr.Zero), new HandleRef(Form, Form.Handle), out pos, 1);
             var clientPos = new System.Drawing.Point(pos.X, pos.Y);
             var withinClient = Form.ClientRectangle.Contains(clientPos);
@@ -527,8 +523,8 @@ namespace MonoGame.Framework
             // make sure we don't see the events from this as a user resize
             Form.IsResizing = true;
 
-            if(this.Form.ClientSize != clientBounds)
-                this.Form.ClientSize = clientBounds;
+            if (Form.ClientSize != clientBounds)
+                Form.ClientSize = clientBounds;
 
             // if the window wasn't moved manually and it's resized, it should be centered
             if (!_wasMoved)

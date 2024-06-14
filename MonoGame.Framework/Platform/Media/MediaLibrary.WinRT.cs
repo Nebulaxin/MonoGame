@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework.Media
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("Failed to access Music Library: " + e.Message);
+                        Debug.WriteLine($"Failed to access Music Library: {e.Message}");
                         albumCollection = new AlbumCollection(new List<Album>());
                         songCollection = new SongCollection(new List<Song>());
                         return;
@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Media
                     
             
                 var files = new List<StorageFile>();
-                await this.GetAllFiles(musicFolder, files);
+                await GetAllFiles(musicFolder, files);
 
                 var songList = new List<Song>();
                 var albumList = new List<Album>();
@@ -121,7 +121,7 @@ namespace Microsoft.Xna.Framework.Media
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine("MediaLibrary exception: " + e.Message);
+                            Debug.WriteLine($"MediaLibrary exception: {e.Message}");
                         }
 
                         int progress = 100 * i / files.Count;
@@ -154,7 +154,7 @@ namespace Microsoft.Xna.Framework.Media
                 else
                 {
                     var folder = item as StorageFolder;
-                    await this.GetAllFiles(folder, musicFiles);
+                    await GetAllFiles(folder, musicFiles);
                 }
         }
 

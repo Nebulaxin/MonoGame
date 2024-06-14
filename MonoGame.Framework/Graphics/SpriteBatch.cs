@@ -26,9 +26,9 @@ namespace Microsoft.Xna.Framework.Graphics
 		SpriteEffect _spriteEffect;
         readonly EffectPass _spritePass;
 
-		Rectangle _tempRect = new Rectangle (0,0,0,0);
-		Vector2 _texCoordTL = new Vector2 (0,0);
-		Vector2 _texCoordBR = new Vector2 (0,0);
+        Rectangle _tempRect = new(0, 0, 0, 0);
+        Vector2 _texCoordTL = new(0, 0);
+        Vector2 _texCoordBR = new(0, 0);
         #endregion
 
         /// <summary>
@@ -50,10 +50,10 @@ namespace Microsoft.Xna.Framework.Graphics
 		{
 			if (graphicsDevice == null)
             {
-				throw new ArgumentNullException ("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
-			}	
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
+            }
 
-			this.GraphicsDevice = graphicsDevice;
+            GraphicsDevice = graphicsDevice;
 
             _spriteEffect = new SpriteEffect(graphicsDevice);
             _spritePass = _spriteEffect.CurrentTechnique.Passes[0];
@@ -138,28 +138,23 @@ namespace Microsoft.Xna.Framework.Graphics
 		
         void CheckValid(Texture2D texture)
         {
-            if (texture == null)
-                throw new ArgumentNullException("texture");
+            ArgumentNullException.ThrowIfNull(texture);
             if (!_beginCalled)
                 throw new InvalidOperationException("Draw was called, but Begin has not yet been called. Begin must be called successfully before you can call Draw.");
         }
 
         void CheckValid(SpriteFont spriteFont, string text)
         {
-            if (spriteFont == null)
-                throw new ArgumentNullException("spriteFont");
-            if (text == null)
-                throw new ArgumentNullException("text");
+            ArgumentNullException.ThrowIfNull(spriteFont);
+            ArgumentNullException.ThrowIfNull(text);
             if (!_beginCalled)
                 throw new InvalidOperationException("DrawString was called, but Begin has not yet been called. Begin must be called successfully before you can call DrawString.");
         }
 
         void CheckValid(SpriteFont spriteFont, StringBuilder text)
         {
-            if (spriteFont == null)
-                throw new ArgumentNullException("spriteFont");
-            if (text == null)
-                throw new ArgumentNullException("text");
+            ArgumentNullException.ThrowIfNull(spriteFont);
+            ArgumentNullException.ThrowIfNull(text);
             if (!_beginCalled)
                 throw new InvalidOperationException("DrawString was called, but Begin has not yet been called. Begin must be called successfully before you can call DrawString.");
         }
@@ -705,10 +700,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (flippedVert || flippedHorz)
             {
-                Vector2 size;
-                
+
                 var source = new SpriteFont.CharacterSource(text);
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz)
                 {
@@ -891,10 +885,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (flippedVert || flippedHorz || rtl)
             {
-                Vector2 size;
 
                 var source = new SpriteFont.CharacterSource(text);
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz ^ rtl)
                 {
@@ -1174,8 +1167,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (flippedVert || flippedHorz)
             {
                 var source = new SpriteFont.CharacterSource(text);
-                Vector2 size;
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz)
                 {
@@ -1358,10 +1350,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (flippedVert || flippedHorz || rtl)
             {
-                Vector2 size;
 
                 var source = new SpriteFont.CharacterSource(text);
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz ^ rtl)
                 {

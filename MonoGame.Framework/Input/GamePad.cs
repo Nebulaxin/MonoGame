@@ -165,9 +165,6 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// The maximum number of game pads supported on this system.
         /// </summary>
-        public static int MaximumGamePadCount
-        {
-            get { return PlatformGetMaxNumberOfGamePads(); }
-        }
+        public static int MaximumGamePadCount => PlatformGetMaxNumberOfGamePads();
     }
 }

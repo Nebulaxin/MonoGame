@@ -46,74 +46,38 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// <summary>
         /// Helper for assigning an invalid touch location.
         /// </summary>
-        internal static readonly TouchLocation Invalid = new TouchLocation();
+        internal static readonly TouchLocation Invalid = new();
 
-		#region Properties
+        #region Properties
 
-        internal Vector2 PressPosition
-        {
-            get { return _pressPosition; }
-        }
+        internal Vector2 PressPosition => _pressPosition;
 
-        internal TimeSpan PressTimestamp
-        {
-            get { return _pressTimestamp; }
-        }
+        internal TimeSpan PressTimestamp => _pressTimestamp;
 
-        internal TimeSpan Timestamp
-        {
-            get { return _timestamp; }
-        }
+        internal TimeSpan Timestamp => _timestamp;
 
-        internal Vector2 Velocity
-        {
-            get { return _velocity; }
-        }
+        internal Vector2 Velocity => _velocity;
 
         /// <summary>
         /// Gets the ID of the touch location.
         /// </summary>
-		public int Id 
-		{ 
-			get
-	        {
-	            return _id;
-	        }
-		}
+        public int Id => _id;
 
         /// <summary>
         /// Gets the position of the touch location.
         /// </summary>
-        public Vector2 Position 
-		{ 
-			get
-	        {
-	            return _position;
-	        }
-		}
+        public Vector2 Position => _position;
 
         /// <summary>
         /// Gets the pressure of the touch location.
         /// </summary>
         /// <remarks>Only used in Android devices</remarks>
-		public float Pressure 
-		{ 
-			get
-        	{
-            	return _pressure;
-        	}
-		}
+		public float Pressure => _pressure;
 
         /// <summary>
         /// Gets the current state of the touch location.
         /// </summary>
-        public TouchLocationState State 
-		{ 
-			get
-	        {
-	            return _state;
-	        } 
-		}
+        public TouchLocationState State => _state;
 
         #endregion
 
@@ -288,7 +252,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         public override string ToString()
         {
-            return "Touch id:"+_id+" state:"+_state + " position:" + _position + " pressure:" + _pressure +" prevState:"+_previousState+" prevPosition:"+ _previousPosition + " previousPressure:" + _previousPressure;
+            return $"Touch id:{_id} state:{_state} position:{_position} pressure:{_pressure} prevState:{_previousState} prevPosition:{_previousPosition} previousPressure:{_previousPressure}";
         }
 
         /// <summary>

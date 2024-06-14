@@ -21,10 +21,10 @@ namespace Microsoft.Xna.Framework
     {
         static int _mainThreadId;
 
-        static Stack<ManualResetEventSlim> _resetEventPool = new Stack<ManualResetEventSlim>();
+        static Stack<ManualResetEventSlim> _resetEventPool = new();
 
         // Storing non-generic dequeue actions allows us to preserve invocation order.
-        static List<Action> _queuedActions = new List<Action>();
+        static List<Action> _queuedActions = new();
 
         // Used to share one implementation for both generic and non-generic actions.
         readonly static Action<Action> _metaAction = (a) => a();
@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework
         /// <typeparam name="TState"></typeparam>
         static class StateActionHelper<TState>
         {
-            public static readonly Queue<QueuedAction> Queue = new Queue<QueuedAction>();
+            public static readonly Queue<QueuedAction> Queue = new();
             public static readonly Action DequeueAction = Dequeue;
 
             public static void Dequeue()
@@ -96,8 +96,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="action">The action to be run on the UI thread</param>
         internal static void BlockOnUIThread(Action action)
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
+            ArgumentNullException.ThrowIfNull(action);
 
             BlockOnUIThread(_metaAction, action);
         }
@@ -110,8 +109,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="state">The data to pass to <paramref name="action"/></param>.
         internal static void BlockOnUIThread<TState>(Action<TState> action, TState state)
         {
-            if (action == null)
-                throw new ArgumentNullException("action");
+            ArgumentNullException.ThrowIfNull(action);
 
 #if DIRECTX || PSM
             action(state);

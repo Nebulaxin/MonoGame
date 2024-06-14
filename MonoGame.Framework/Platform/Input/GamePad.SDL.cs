@@ -17,8 +17,8 @@ namespace Microsoft.Xna.Framework.Input
             public int PacketNumber;
         }
 
-        private static readonly Dictionary<int, GamePadInfo> Gamepads = new Dictionary<int, GamePadInfo>();
-        private static readonly Dictionary<int, int> _translationTable = new Dictionary<int, int>();
+        private static readonly Dictionary<int, GamePadInfo> Gamepads = new();
+        private static readonly Dictionary<int, int> _translationTable = new();
 
         /// <summary>
         /// Initialies the internal database of gamepad mappings for an SDL context
@@ -82,11 +82,9 @@ namespace Microsoft.Xna.Framework.Input
 
         internal static void UpdatePacketInfo(int instanceid, uint packetNumber)
         {
-            int index;
-            if (_translationTable.TryGetValue(instanceid, out index))
+            if (_translationTable.TryGetValue(instanceid, out int index))
             {
-                GamePadInfo info = null;
-                if (Gamepads.TryGetValue(index, out info))
+                if (Gamepads.TryGetValue(index, out GamePadInfo info))
                 {
                     info.PacketNumber = packetNumber < int.MaxValue ? (int)packetNumber : (int)(packetNumber - (uint)int.MaxValue);
                 }

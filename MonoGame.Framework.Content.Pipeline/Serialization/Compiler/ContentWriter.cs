@@ -24,17 +24,15 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         const int HeaderSize = 6;
 
         ContentCompiler compiler;
-        TargetPlatform targetPlatform;
-        GraphicsProfile targetProfile;
         string rootDirectory;
         string referenceRelocationPath;
         bool compressContent;
         bool disposed;
-        List<ContentTypeWriter> typeWriters = new List<ContentTypeWriter>();
-        Dictionary<Type, int> typeWriterMap = new Dictionary<Type, int>();
-        Dictionary<Type, ContentTypeWriter> typeMap = new Dictionary<Type, ContentTypeWriter>();
-        List<object> sharedResources = new List<object>();
-        Dictionary<object, int> sharedResourceMap = new Dictionary<object, int>();
+        List<ContentTypeWriter> typeWriters = new();
+        Dictionary<Type, int> typeWriterMap = new();
+        Dictionary<Type, ContentTypeWriter> typeMap = new();
+        List<object> sharedResources = new();
+        Dictionary<object, int> sharedResourceMap = new();
         Stream outputStream;
         Stream bodyStream;
 
@@ -62,12 +60,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         /// <summary>
         /// Gets the content build target platform.
         /// </summary>
-        public TargetPlatform TargetPlatform { get { return targetPlatform; } }
+        public TargetPlatform TargetPlatform { get; }
 
         /// <summary>
         /// Gets or sets the target graphics profile.
         /// </summary>
-        public GraphicsProfile TargetProfile { get { return targetProfile; } }
+        public GraphicsProfile TargetProfile { get; }
 
         /// <summary>
         /// Creates a new instance of ContentWriter.
@@ -83,17 +81,17 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             : base(output)
         {
             this.compiler = compiler;
-            this.targetPlatform = targetPlatform;
-            this.targetProfile = targetProfile;
+            TargetPlatform = targetPlatform;
+            TargetProfile = targetProfile;
             this.compressContent = compressContent;
             this.rootDirectory = rootDirectory;
 
             // Normalize the directory format so PathHelper.GetRelativePath will compute external references correctly.
             this.referenceRelocationPath = PathHelper.NormalizeDirectory(referenceRelocationPath);
 
-            outputStream = this.OutStream;
+            outputStream = OutStream;
             bodyStream = new MemoryStream();
-            this.OutStream = bodyStream;
+            OutStream = bodyStream;
         }
 
         /// <summary>
@@ -107,7 +105,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
                 if (disposing)
                 {
                     // Make sure the binary writer has the original stream back
-                    this.OutStream = outputStream;
+                    OutStream = outputStream;
 
                     // Dispose managed resources we allocated
                     if (bodyStream != null)
@@ -130,7 +128,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
 
             using (var contentStream = new MemoryStream())
             {
-                this.OutStream = contentStream;
+                OutStream = contentStream;
                 WriteTypeWriters();
                 bodyStream.Position = 0;
                 bodyStream.CopyTo(contentStream);
@@ -144,7 +142,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
                     if (compressContent)
                     {
                         compressedStream = new MemoryStream();
-                        this.OutStream = compressedStream;
+                        OutStream = compressedStream;
                         if (!WriteCompressedStream(contentStream))
                         {
                             // The compression failed (sometimes LZ4 does fail, for various reasons), so just write
@@ -155,7 +153,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
                         }
                     }
 
-                    this.OutStream = outputStream;
+                    OutStream = outputStream;
                     WriteHeader();
                     if (compressedStream != null)
                     {
@@ -184,7 +182,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             Write7BitEncodedInt(typeWriters.Count);
             foreach (var typeWriter in typeWriters)
             {
-                Write(typeWriter.GetRuntimeReader(targetPlatform));
+                Write(typeWriter.GetRuntimeReader(TargetPlatform));
                 Write(typeWriter.TypeVersion);
             }
             Write7BitEncodedInt(sharedResources.Count);
@@ -198,10 +196,10 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             Write('X');
             Write('N');
             Write('B');
-            Write(targetPlatformIdentifiers[(int)targetPlatform]);
+            Write(targetPlatformIdentifiers[(int)TargetPlatform]);
             Write(XnbFormatVersion);
             // We cannot use LZX compression, so we use the public domain LZ4 compression. Use one of the spare bits in the flags byte to specify LZ4.
-            byte flags = (byte)((targetProfile == GraphicsProfile.HiDef ? HiDefContent : (byte)0) | (compressContent ? ContentCompressedLz4 : (byte)0));
+            byte flags = (byte)((TargetProfile == GraphicsProfile.HiDef ? HiDefContent : (byte)0) | (compressContent ? ContentCompressedLz4 : (byte)0));
             Write(flags);
         }
 

@@ -21,17 +21,6 @@ namespace Microsoft.Xna.Framework
     {
         #region Private Fields
 
-        private static readonly Vector3 zero = new Vector3(0f, 0f, 0f);
-        private static readonly Vector3 one = new Vector3(1f, 1f, 1f);
-        private static readonly Vector3 unitX = new Vector3(1f, 0f, 0f);
-        private static readonly Vector3 unitY = new Vector3(0f, 1f, 0f);
-        private static readonly Vector3 unitZ = new Vector3(0f, 0f, 1f);
-        private static readonly Vector3 up = new Vector3(0f, 1f, 0f);
-        private static readonly Vector3 down = new Vector3(0f, -1f, 0f);
-        private static readonly Vector3 right = new Vector3(1f, 0f, 0f);
-        private static readonly Vector3 left = new Vector3(-1f, 0f, 0f);
-        private static readonly Vector3 forward = new Vector3(0f, 0f, -1f);
-        private static readonly Vector3 backward = new Vector3(0f, 0f, 1f);
 
         #endregion
 
@@ -62,106 +51,63 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 0.
         /// </summary>
-        public static Vector3 Zero
-        {
-            get { return zero; }
-        }
+        public static Vector3 Zero { get; } = new(0f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 1, 1.
         /// </summary>
-        public static Vector3 One
-        {
-            get { return one; }
-        }
+        public static Vector3 One { get; } = new(1f, 1f, 1f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 0, 0.
         /// </summary>
-        public static Vector3 UnitX
-        {
-            get { return unitX; }
-        }
+        public static Vector3 UnitX { get; } = new(1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 1, 0.
         /// </summary>
-        public static Vector3 UnitY
-        {
-            get { return unitY; }
-        }
+        public static Vector3 UnitY { get; } = new(0f, 1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.
         /// </summary>
-        public static Vector3 UnitZ
-        {
-            get { return unitZ; }
-        }
+        public static Vector3 UnitZ { get; } = new(0f, 0f, 1f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 1, 0.
         /// </summary>
-        public static Vector3 Up
-        {
-            get { return up; }
-        }
+        public static Vector3 Up { get; } = new(0f, 1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, -1, 0.
         /// </summary>
-        public static Vector3 Down
-        {
-            get { return down; }
-        }
+        public static Vector3 Down { get; } = new(0f, -1f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 1, 0, 0.
         /// </summary>
-        public static Vector3 Right
-        {
-            get { return right; }
-        }
+        public static Vector3 Right { get; } = new(1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components -1, 0, 0.
         /// </summary>
-        public static Vector3 Left
-        {
-            get { return left; }
-        }
+        public static Vector3 Left { get; } = new(-1f, 0f, 0f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, -1.
         /// </summary>
-        public static Vector3 Forward
-        {
-            get { return forward; }
-        }
+        public static Vector3 Forward { get; } = new(0f, 0f, -1f);
 
         /// <summary>
         /// Returns a <see cref="Vector3"/> with components 0, 0, 1.
         /// </summary>
-        public static Vector3 Backward
-        {
-            get { return backward; }
-        }
+        public static Vector3 Backward { get; } = new(0f, 0f, 1f);
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString(), "  ",
-                    this.Z.ToString()
-                );
-            }
-        }
+        internal string DebugDisplayString => $"{X}  {Y}  {Z}";
 
         #endregion
 
@@ -175,9 +121,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="z">The z coordinate in 3d-space.</param>
         public Vector3(float x, float y, float z)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            X = x;
+            Y = y;
+            Z = z;
         }
 
         /// <summary>
@@ -186,9 +132,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y and z coordinates in 3d-space.</param>
         public Vector3(float value)
         {
-            this.X = value;
-            this.Y = value;
-            this.Z = value;
+            X = value;
+            Y = value;
+            Z = value;
         }
 
         /// <summary>
@@ -198,9 +144,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="z">The z coordinate in 3d-space.</param>
         public Vector3(Vector2 value, float z)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = z;
+            X = value.X;
+            Y = value.Y;
+            Z = z;
         }
         
         #endregion
@@ -402,8 +348,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The distance between two vectors.</returns>
         public static float Distance(Vector3 value1, Vector3 value2)
         {
-            float result;
-            DistanceSquared(ref value1, ref value2, out result);
+            DistanceSquared(ref value1, ref value2, out float result);
             return MathF.Sqrt(result);
         }
 
@@ -1021,13 +966,13 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Vector3"/>.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder(32);
+            StringBuilder sb = new(32);
             sb.Append("{X:");
-            sb.Append(this.X);
+            sb.Append(X);
             sb.Append(" Y:");
-            sb.Append(this.Y);
+            sb.Append(Y);
             sb.Append(" Z:");
-            sb.Append(this.Z);
+            sb.Append(Z);
             sb.Append("}");
             return sb.ToString();
         }
@@ -1070,8 +1015,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector3"/>.</returns>
         public static Vector3 Transform(Vector3 value, Quaternion rotation)
         {
-            Vector3 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector3 result);
             return result;
         }
 
@@ -1103,10 +1047,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="length">The number of vectors to be transformed.</param>
         public static void Transform(Vector3[] sourceArray, int sourceIndex, ref Matrix matrix, Vector3[] destinationArray, int destinationIndex, int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1136,10 +1078,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="length">The number of vectors to be transformed.</param>
         public static void Transform(Vector3[] sourceArray, int sourceIndex, ref Quaternion rotation, Vector3[] destinationArray, int destinationIndex, int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
@@ -1171,10 +1111,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void Transform(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1199,10 +1137,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void Transform(Vector3[] sourceArray, ref Quaternion rotation, Vector3[] destinationArray)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1272,11 +1208,9 @@ namespace Microsoft.Xna.Framework
          int destinationIndex,
          int length)
         {
-            if (sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
-            if(sourceArray.Length < sourceIndex + length)
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
+            if (sourceArray.Length < sourceIndex + length)
                 throw new ArgumentException("Source array length is lesser than sourceIndex + length");
             if (destinationArray.Length < destinationIndex + length)
                 throw new ArgumentException("Destination array length is lesser than destinationIndex + length");
@@ -1301,10 +1235,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="destinationArray">Destination array.</param>
         public static void TransformNormal(Vector3[] sourceArray, ref Matrix matrix, Vector3[] destinationArray)
         {
-            if(sourceArray == null)
-                throw new ArgumentNullException("sourceArray");
-            if (destinationArray == null)
-                throw new ArgumentNullException("destinationArray");
+            ArgumentNullException.ThrowIfNull(sourceArray);
+            ArgumentNullException.ThrowIfNull(destinationArray);
             if (destinationArray.Length < sourceArray.Length)
                 throw new ArgumentException("Destination array length is lesser than source array length");
 
@@ -1340,7 +1272,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector3 ToNumerics()
         {
-            return new System.Numerics.Vector3(this.X, this.Y, this.Z);
+            return new System.Numerics.Vector3(X, Y, Z);
         }
 
         #endregion

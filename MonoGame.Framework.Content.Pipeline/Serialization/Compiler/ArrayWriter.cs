@@ -24,11 +24,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            return string.Concat(   typeof(ContentTypeReader).Namespace, 
-                                    ".", 
-                                    "ArrayReader`1[[", 
-                                    _elementWriter.GetRuntimeType(targetPlatform), 
-                                    "]]");
+            return $"{typeof(ContentTypeReader).Namespace}.ArrayReader`1[[{_elementWriter.GetRuntimeType(targetPlatform)}]]";
         }
 
         protected internal override void Write(ContentWriter output, T[] value)

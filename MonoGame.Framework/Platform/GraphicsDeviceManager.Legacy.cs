@@ -194,17 +194,17 @@ namespace Microsoft.Xna.Framework
 
 #if WINDOWS_UAP
 			_graphicsDevice.PresentationParameters.DeviceWindowHandle = IntPtr.Zero;
-			_graphicsDevice.PresentationParameters.SwapChainPanel = this.SwapChainPanel;
+			_graphicsDevice.PresentationParameters.SwapChainPanel = SwapChainPanel;
             _graphicsDevice.PresentationParameters.IsFullScreen = _wantFullScreen;
 #else
             _graphicsDevice.PresentationParameters.IsFullScreen = false;
 
 			// The graphics device can use a XAML panel or a window
 			// to created the default swapchain target.
-            if (this.SwapChainBackgroundPanel != null)
+            if (SwapChainBackgroundPanel != null)
             {
                 _graphicsDevice.PresentationParameters.DeviceWindowHandle = IntPtr.Zero;
-                _graphicsDevice.PresentationParameters.SwapChainBackgroundPanel = this.SwapChainBackgroundPanel;
+                _graphicsDevice.PresentationParameters.SwapChainBackgroundPanel = SwapChainBackgroundPanel;
             }
             else
             {
@@ -335,7 +335,7 @@ namespace Microsoft.Xna.Framework
 
 #if WINDOWS_UAP
 			presentationParameters.DeviceWindowHandle = IntPtr.Zero;
-			presentationParameters.SwapChainPanel = this.SwapChainPanel;
+			presentationParameters.SwapChainPanel = SwapChainPanel;
 #else
             presentationParameters.DeviceWindowHandle = _game.Window.Handle;
 #endif
@@ -369,7 +369,7 @@ namespace Microsoft.Xna.Framework
             }
 
             // Needs to be before ApplyChanges()
-            _graphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile, this.PreferHalfPixelOffset, presentationParameters);
+            _graphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter, GraphicsProfile, PreferHalfPixelOffset, presentationParameters);
 
 #if !MONOMAC
             ApplyChanges();
@@ -402,13 +402,7 @@ namespace Microsoft.Xna.Framework
 
         public GraphicsProfile GraphicsProfile { get; set; }
 
-        public GraphicsDevice GraphicsDevice
-        {
-            get
-            {
-                return _graphicsDevice;
-            }
-        }
+        public GraphicsDevice GraphicsDevice => _graphicsDevice;
 
         public bool IsFullScreen
         {
@@ -477,7 +471,7 @@ namespace Microsoft.Xna.Framework
             get { return _preferHalfPixelOffset; }
             set
             {
-                if (this.GraphicsDevice != null)
+                if (GraphicsDevice != null)
                     throw new InvalidOperationException("Setting PreferHalfPixelOffset is not allowed after the creation of GraphicsDevice.");
                 _preferHalfPixelOffset = value;
             }
@@ -650,7 +644,7 @@ namespace Microsoft.Xna.Framework
             TouchPanel.DisplayWidth = newClientBounds.Width;
             TouchPanel.DisplayHeight = newClientBounds.Height;
 
-            Android.Util.Log.Debug("MonoGame", "GraphicsDeviceManager.ResetClientBounds: newClientBounds=" + newClientBounds.ToString());
+            Android.Util.Log.Debug($"MonoGame", "GraphicsDeviceManager.ResetClientBounds: newClientBounds={newClientBounds.ToString()}");
 #endif
         }
 

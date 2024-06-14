@@ -42,11 +42,11 @@ namespace Microsoft.Xna.Framework.Input
                 texture.GetData(bytes);
                 surface = Sdl.CreateRGBSurfaceFrom(bytes, texture.Width, texture.Height, 32, texture.Width * 4, 0x000000ff, 0x0000FF00, 0x00FF0000, 0xFF000000);
                 if (surface == IntPtr.Zero)
-                    throw new InvalidOperationException("Failed to create surface for mouse cursor: " + Sdl.GetError());
+                    throw new InvalidOperationException($"Failed to create surface for mouse cursor: {Sdl.GetError()}");
 
                 handle = Sdl.Mouse.CreateColorCursor(surface, originx, originy);
                 if (handle == IntPtr.Zero)
-                    throw new InvalidOperationException("Failed to set surface for mouse cursor: " + Sdl.GetError());
+                    throw new InvalidOperationException($"Failed to set surface for mouse cursor: {Sdl.GetError()}");
             }
             finally
             {

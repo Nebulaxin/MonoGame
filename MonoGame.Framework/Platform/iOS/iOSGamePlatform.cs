@@ -80,10 +80,7 @@ namespace Microsoft.Xna.Framework
         }
 
 
-        public override GameRunBehavior DefaultRunBehavior
-        {
-            get { return GameRunBehavior.Asynchronous; }
-        }
+        public override GameRunBehavior DefaultRunBehavior => GameRunBehavior.Asynchronous;
 
         [Obsolete(
             "iOSGamePlatform.IsPlayingVideo must be removed when MonoGame " +
@@ -92,10 +89,7 @@ namespace Microsoft.Xna.Framework
 
         // FIXME: VideoPlayer 'needs' this to set up its own movie player view
         //        controller.
-        public iOSGameViewController ViewController
-        {
-            get { return _viewController; }
-        }
+        public iOSGameViewController ViewController => _viewController;
 
         protected override void Dispose(bool disposing)
         {
@@ -254,20 +248,18 @@ namespace Microsoft.Xna.Framework
 
         #region Helper Property
 
-        private DisplayOrientation CurrentOrientation {
-            get {
-                #if TVOS
-                return DisplayOrientation.LandscapeLeft;
-                #else
-                return OrientationConverter.ToDisplayOrientation(_viewController.InterfaceOrientation);
-                #endif
-            }
-        }
+        private DisplayOrientation CurrentOrientation =>
+#if TVOS
+                DisplayOrientation.LandscapeLeft;
+#else
+                OrientationConverter.ToDisplayOrientation(_viewController.InterfaceOrientation);
+#endif
+
 
         #endregion
 
-		private void ViewController_InterfaceOrientationChanged (object sender, EventArgs e)
-		{
+        private void ViewController_InterfaceOrientationChanged(object sender, EventArgs e)
+        {
 			var orientation = CurrentOrientation;
 
 			// FIXME: The presentation parameters for the GraphicsDevice should

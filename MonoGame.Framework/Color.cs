@@ -162,11 +162,6 @@ namespace Microsoft.Xna.Framework
             YellowGreen = new Color(0xff32cd9a);
         }
 
-        // Stored as RGBA with R in the least significant octet:
-        // |-------|-------|-------|-------
-        // A       B       G       R
-        private uint _packedValue;
-	  
         /// <summary>
         /// Constructs an RGBA color from a packed value.
         /// The value is a 32-bit unsigned integer, with R in the least significant octet.
@@ -174,7 +169,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="packedValue">The packed value.</param>
         public Color(uint packedValue)
         {
-            _packedValue = packedValue;
+            PackedValue = packedValue;
         }
 
 
@@ -207,11 +202,11 @@ namespace Microsoft.Xna.Framework
             {
                 var clampedA = (uint)MathHelper.Clamp(alpha, Byte.MinValue, Byte.MaxValue);
 
-                _packedValue = (color._packedValue & 0x00FFFFFF) | (clampedA << 24);
+                PackedValue = (color.PackedValue & 0x00FFFFFF) | (clampedA << 24);
             }
             else
             {
-                _packedValue = (color._packedValue & 0x00FFFFFF) | ((uint)alpha << 24);
+                PackedValue = (color.PackedValue & 0x00FFFFFF) | ((uint)alpha << 24);
             }
         }
 
@@ -256,7 +251,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="b">Blue component value from 0 to 255.</param>
         public Color(int r, int g, int b)
         {
-            _packedValue = 0xFF000000; // A = 255
+            PackedValue = 0xFF000000; // A = 255
 
             if (((r | g | b) & 0xFFFFFF00) != 0)
             {
@@ -264,11 +259,11 @@ namespace Microsoft.Xna.Framework
                 var clampedG = (uint)MathHelper.Clamp(g, Byte.MinValue, Byte.MaxValue);
                 var clampedB = (uint)MathHelper.Clamp(b, Byte.MinValue, Byte.MaxValue);
 
-                _packedValue |= (clampedB << 16) | (clampedG << 8) | (clampedR);
+                PackedValue |= (clampedB << 16) | (clampedG << 8) | (clampedR);
             }
             else
             {
-                _packedValue |= ((uint)b << 16) | ((uint)g << 8) | ((uint)r);
+                PackedValue |= ((uint)b << 16) | ((uint)g << 8) | ((uint)r);
             }
         }
 
@@ -288,11 +283,11 @@ namespace Microsoft.Xna.Framework
                 var clampedB = (uint)MathHelper.Clamp(b, Byte.MinValue, Byte.MaxValue);
                 var clampedA = (uint)MathHelper.Clamp(alpha, Byte.MinValue, Byte.MaxValue);
 
-                _packedValue = (clampedA << 24) | (clampedB << 16) | (clampedG << 8) | (clampedR);
+                PackedValue = (clampedA << 24) | (clampedB << 16) | (clampedG << 8) | (clampedR);
             }
             else
             {
-                _packedValue = ((uint)alpha << 24) | ((uint)b << 16) | ((uint)g << 8) | ((uint)r);
+                PackedValue = ((uint)alpha << 24) | ((uint)b << 16) | ((uint)g << 8) | ((uint)r);
             }
         }
 
@@ -308,7 +303,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="alpha"></param>
         public Color(byte r, byte g, byte b, byte alpha)
         {
-            _packedValue = ((uint)alpha << 24) | ((uint)b << 16) | ((uint)g << 8) | (r);
+            PackedValue = ((uint)alpha << 24) | ((uint)b << 16) | ((uint)g << 8) | (r);
         }
 
         /// <summary>
@@ -321,13 +316,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte) (this._packedValue >> 16);
+                    return (byte)(PackedValue >> 16);
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0xff00ffff) | ((uint)value << 16);
-            }
+            set => PackedValue = (PackedValue & 0xff00ffff) | ((uint)value << 16);
         }
 
         /// <summary>
@@ -340,13 +332,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte)(this._packedValue >> 8);
+                    return (byte)(PackedValue >> 8);
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0xffff00ff) | ((uint)value << 8);
-            }
+            set => PackedValue = (PackedValue & 0xffff00ff) | ((uint)value << 8);
         }
 
         /// <summary>
@@ -359,13 +348,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte) this._packedValue;
+                    return (byte)PackedValue;
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0xffffff00) | value;
-            }
+            set => PackedValue = (PackedValue & 0xffffff00) | value;
         }
 
         /// <summary>
@@ -378,16 +364,13 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte)(this._packedValue >> 24);
+                    return (byte)(PackedValue >> 24);
                 }
             }
-            set
-            {
-                this._packedValue = (this._packedValue & 0x00ffffff) | ((uint)value << 24);
-            }
+            set => PackedValue = (PackedValue & 0x00ffffff) | ((uint)value << 24);
         }
-		
-	/// <summary>
+
+        /// <summary>
         /// Compares whether two <see cref="Color"/> instances are equal.
         /// </summary>
         /// <param name="a"><see cref="Color"/> instance on the left of the equal sign.</param>
@@ -395,7 +378,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public static bool operator ==(Color a, Color b)
         {
-            return (a._packedValue == b._packedValue);
+            return (a.PackedValue == b.PackedValue);
         }
 	
 	/// <summary>
@@ -406,7 +389,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are not equal; <c>false</c> otherwise.</returns>	
         public static bool operator !=(Color a, Color b)
         {
-            return (a._packedValue != b._packedValue);
+            return (a.PackedValue != b.PackedValue);
         }
 
         /// <summary>
@@ -415,7 +398,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Hash code of this <see cref="Color"/>.</returns>
         public override int GetHashCode()
         {
-            return this._packedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 	
         /// <summary>
@@ -425,7 +408,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
-            return ((obj is Color) && this.Equals((Color)obj));
+            return ((obj is Color) && Equals((Color)obj));
         }
 
         #region Color Bank
@@ -1789,40 +1772,23 @@ namespace Microsoft.Xna.Framework
         {
             return new Vector4(R / 255.0f, G / 255.0f, B / 255.0f, A / 255.0f);
         }
-	
+
         /// <summary>
         /// Gets or sets packed value of this <see cref="Color"/>.
         /// </summary>
-        public UInt32 PackedValue
-        {
-            get { return _packedValue; }
-            set { _packedValue = value; }
-        }
+        public UInt32 PackedValue { get; set; }
 
-
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    this.R.ToString(), "  ",
-                    this.G.ToString(), "  ",
-                    this.B.ToString(), "  ",
-                    this.A.ToString()
-                );
-            }
-        }
-
+        internal string DebugDisplayString => $"{R}  {G}  {B}  {A}";
 
         /// <summary>
         /// Returns a <see cref="String"/> representation of this <see cref="Color"/> in the format:
         /// {R:[red] G:[green] B:[blue] A:[alpha]}
         /// </summary>
         /// <returns><see cref="String"/> representation of this <see cref="Color"/>.</returns>
-	public override string ToString ()
-	{
-        StringBuilder sb = new StringBuilder(25);
-        sb.Append("{R:");
+        public override string ToString()
+        {
+            StringBuilder sb = new(25);
+            sb.Append("{R:");
         sb.Append(R);
         sb.Append(" G:");
         sb.Append(G);
@@ -1866,7 +1832,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Color other)
         {
-	    return this.PackedValue == other.PackedValue;
+            return PackedValue == other.PackedValue;
         }
 
         #endregion

@@ -141,7 +141,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         /// <seealso href="http://area.autodesk.com/forum/autodesk-fbx/fbx-sdk/the-makeup-of-the-local-matrix-of-an-kfbxnode/"/>
         private class FbxPivot
         {
-            public static readonly FbxPivot Default = new FbxPivot();
+            public static readonly FbxPivot Default = new();
 
             public Matrix? Translation;
             public Matrix? RotationOffset;
@@ -202,8 +202,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         }
         #endregion
 
-        private static readonly List<VectorKey> EmptyVectorKeys = new List<VectorKey>();
-        private static readonly List<QuaternionKey> EmptyQuaternionKeys = new List<QuaternionKey>();
+        private static readonly List<VectorKey> EmptyVectorKeys = new();
+        private static readonly List<QuaternionKey> EmptyQuaternionKeys = new();
 
         // XNA Content importer
         private ContentImporterContext _context;
@@ -213,7 +213,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
         private Scene _scene;
         private Dictionary<string, Matrix> _deformationBones;   // The names and offset matrices of all deformation bones.
         private Node _rootBone;                                 // The node that represents the root bone.
-        private List<Node> _bones = new List<Node>();           // All nodes attached to the root bone.
+        private List<Node> _bones = new();           // All nodes attached to the root bone.
         private Dictionary<string, FbxPivot> _pivots;              // The transformation pivots.
 
         // XNA content

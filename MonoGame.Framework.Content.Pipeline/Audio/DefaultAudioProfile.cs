@@ -438,14 +438,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
         // Calculation of sample alignment from http://kcat.strangesoft.net/openal-extensions/SOFT_block_alignment.txt
         static int SampleAlignment(AudioFormat format)
         {
-            switch (format.Format)
+            return format.Format switch
             {
-                case 2:     // MS-ADPCM
-                    return (format.BlockAlign / format.ChannelCount - 7) * 2 + 2;
-                case 17:    // IMA/ADPCM
-                    return (format.BlockAlign / format.ChannelCount - 4) / 4 * 8 + 1;
-            }
-            return 0;
+                // MS-ADPCM
+                2 => (format.BlockAlign / format.ChannelCount - 7) * 2 + 2,
+                // IMA/ADPCM
+                17 => (format.BlockAlign / format.ChannelCount - 4) / 4 * 8 + 1,
+                _ => 0,
+            };
         }
     }
 }

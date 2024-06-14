@@ -73,7 +73,7 @@ namespace Microsoft.Xna.Framework.Audio
         private void PlatformSubmitBuffer(byte[] buffer, int offset, int count)
         {
             // Get a buffer
-            OALSoundBuffer oalBuffer = new OALSoundBuffer();
+            OALSoundBuffer oalBuffer = new();
 
             // Bind the data
             if (offset == 0)
@@ -123,8 +123,7 @@ namespace Microsoft.Xna.Framework.Audio
         {
             // Get the completed buffers
             AL.GetError();
-            int numBuffers;
-            AL.GetSource(SourceId, ALGetSourcei.BuffersProcessed, out numBuffers);
+            AL.GetSource(SourceId, ALGetSourcei.BuffersProcessed, out int numBuffers);
             ALHelper.CheckError("Failed to get processed buffer count.");
 
             // Unqueue them

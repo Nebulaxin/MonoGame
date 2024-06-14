@@ -12,11 +12,7 @@ namespace Microsoft.Xna.Framework.Graphics
     /// Represents a texture resource
     /// </summary>
 	public abstract partial class Texture : GraphicsResource
-	{
-		internal SurfaceFormat _format;
-		internal int _levelCount;
-
-        private readonly int _sortingKey = Interlocked.Increment(ref _lastSortingKey);
+    {
         private static int _lastSortingKey;
 
         /// <summary>
@@ -27,26 +23,17 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <para>The value is an implementation detail and may change between application launches or MonoGame versions.
         /// It is only guaranteed to stay consistent during application lifetime.</para>
         /// </remarks>
-        internal int SortingKey
-        {
-            get { return _sortingKey; }
-        }
+        internal int SortingKey { get; } = Interlocked.Increment(ref _lastSortingKey);
 
         /// <summary>
         /// Gets the surface format used by this <b>Texture</b>.
         /// </summary>
-		public SurfaceFormat Format
-		{
-			get { return _format; }
-		}
+        public SurfaceFormat Format { get; internal set; }
 
         /// <summary>
         /// Gets the number of mipmap levels in this <b>Texture</b>.
         /// </summary>
-		public int LevelCount
-		{
-			get { return _levelCount; }
-		}
+        public int LevelCount { get; internal set; }
 
         internal static int CalculateMipLevels(int width, int height = 0, int depth = 0)
         {
@@ -99,33 +86,13 @@ namespace Microsoft.Xna.Framework.Graphics
         internal int GetPitch(int width)
         {
             Debug.Assert(width > 0, "The width is negative!");
-
-            int pitch;
-
-            switch (_format)
+            var pitch = Format switch
             {
-                case SurfaceFormat.Dxt1:
-                case SurfaceFormat.Dxt1SRgb:
-                case SurfaceFormat.Dxt1a:
-                case SurfaceFormat.RgbPvrtc2Bpp:
-                case SurfaceFormat.RgbaPvrtc2Bpp:
-                case SurfaceFormat.RgbEtc1:
-                case SurfaceFormat.Rgb8Etc2:
-                case SurfaceFormat.Srgb8Etc2:
-                case SurfaceFormat.Rgb8A1Etc2:
-                case SurfaceFormat.Srgb8A1Etc2:
-                case SurfaceFormat.Dxt3:
-                case SurfaceFormat.Dxt3SRgb:
-                case SurfaceFormat.Dxt5:
-                case SurfaceFormat.Dxt5SRgb:
-                case SurfaceFormat.RgbPvrtc4Bpp:
-                case SurfaceFormat.RgbaPvrtc4Bpp:
-                    pitch = ((width + 3) / 4) * _format.GetSize();
-                    break;
-
-                default:
-                    pitch = width * _format.GetSize();
-                    break;
+                SurfaceFormat.Dxt1 or SurfaceFormat.Dxt1SRgb or SurfaceFormat.Dxt1a or SurfaceFormat.RgbPvrtc2Bpp or SurfaceFormat.RgbaPvrtc2Bpp or
+                SurfaceFormat.RgbEtc1 or SurfaceFormat.Rgb8Etc2 or SurfaceFormat.Srgb8Etc2 or SurfaceFormat.Rgb8A1Etc2 or SurfaceFormat.Srgb8A1Etc2 or
+                SurfaceFormat.Dxt3 or SurfaceFormat.Dxt3SRgb or SurfaceFormat.Dxt5 or SurfaceFormat.Dxt5SRgb or SurfaceFormat.RgbPvrtc4Bpp or
+                SurfaceFormat.RgbaPvrtc4Bpp => ((width + 3) / 4) * Format.GetSize(),
+                _ => width * Format.GetSize(),
             };
 
             return pitch;

@@ -21,7 +21,6 @@ namespace Microsoft.Xna.Framework.Media
         #region Fields
 
         private MediaState _state;
-        private Video _currentVideo;
         private float _volume = 1.0f;
         private bool _isLooped = false;
         private bool _isMuted = false;
@@ -40,7 +39,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public bool IsLooped
         {
-            get { return _isLooped; }
+            get => _isLooped;
             set
             {
                 if (_isLooped == value)
@@ -56,7 +55,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public bool IsMuted
         {
-            get { return _isMuted; }
+            get => _isMuted;
             set
             {
                 if (_isMuted == value)
@@ -74,7 +73,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             get
             {
-                if (_currentVideo == null || State == MediaState.Stopped)
+                if (Video == null || State == MediaState.Stopped)
                     return TimeSpan.Zero;
 
                 return PlatformGetPlayPosition();
@@ -98,15 +97,15 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="Media.Video"/> that is currently playing.
         /// </summary>
-        public Video Video { get { return _currentVideo; } }
+        public Video Video { get; private set; }
 
         /// <summary>
         /// Video player volume, from 0.0f (silence) to 1.0f (full volume relative to the current device volume).
         /// </summary>
         public float Volume
         {
-            get { return _volume; }
-            
+            get => _volume;
+
             set
             {
                 if (value < 0.0f || value > 1.0f)
@@ -114,7 +113,7 @@ namespace Microsoft.Xna.Framework.Media
 
                 _volume = value;
 
-                if (_currentVideo != null)
+                if (Video != null)
                     PlatformSetVolume();
             }
         }
@@ -142,7 +141,7 @@ namespace Microsoft.Xna.Framework.Media
         /// in a different thread or process. Note: This may be a change from XNA behaviour</exception>
         public Texture2D GetTexture()
         {
-            if (_currentVideo == null)
+            if (Video == null)
                 throw new InvalidOperationException("Operation is not valid due to the current state of the object");
 
             //XNA never returns a null texture
@@ -178,7 +177,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public void Pause()
         {
-            if (_currentVideo == null)
+            if (Video == null)
                 return;
 
             PlatformPause();
@@ -192,10 +191,9 @@ namespace Microsoft.Xna.Framework.Media
         /// <param name="video">Video to play.</param>
         public void Play(Video video)
         {
-            if (video == null)
-                throw new ArgumentNullException("video is null.");
+            ArgumentNullException.ThrowIfNull(video);
 
-            if (_currentVideo == video)
+            if (Video == video)
             {
                 var state = State;
 							
@@ -212,8 +210,8 @@ namespace Microsoft.Xna.Framework.Media
                     return;
                 }
             }
-            
-            _currentVideo = video;
+
+            Video = video;
 
             PlatformPlay();
 
@@ -250,7 +248,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public void Resume()
         {
-            if (_currentVideo == null)
+            if (Video == null)
                 return;
 
             var state = State;
@@ -275,7 +273,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public void Stop()
         {
-            if (_currentVideo == null)
+            if (Video == null)
                 return;
 
             PlatformStop();

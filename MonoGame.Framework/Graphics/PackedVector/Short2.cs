@@ -12,18 +12,15 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// </summary>
 	public struct Short2 : IPackedVector<uint>, IEquatable<Short2>
 	{
-		private uint _short2Packed;
-
-
-        /// <summary>
-        /// Initializes a new instance of this structure.
-        /// </summary>
-        /// <param name="vector">
-        /// A <see cref="Vector2"/> value who's components contain the initial values for this structure.
-        /// </param>
-		public Short2 (Vector2 vector)
+		/// <summary>
+		/// Initializes a new instance of this structure.
+		/// </summary>
+		/// <param name="vector">
+		/// A <see cref="Vector2"/> value who's components contain the initial values for this structure.
+		/// </param>
+		public Short2(Vector2 vector)
 		{
-			_short2Packed = PackInTwo (vector.X, vector.Y);
+			PackedValue = PackInTwo(vector.X, vector.Y);
 		}
 
         /// <summary>
@@ -33,7 +30,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="y">The initial y-component value for this structure.</param>
 		public Short2 (Single x,Single y)
 		{
-			_short2Packed = PackInTwo (x, y);
+			PackedValue = PackInTwo(x, y);
 		}
 
         /// <summary>
@@ -58,21 +55,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 			return a.PackedValue == b.PackedValue;
 		}
 
-        /// <inheritdoc />
-		public uint PackedValue
-        {
-			get
-            {
-				return _short2Packed;
-			}
-			set
-            {
-				_short2Packed = value;
-			}
-		}
+		/// <inheritdoc />
+		public uint PackedValue { get; set; }
 
-        /// <inheritdoc />
-		public override bool Equals (object obj)
+		/// <inheritdoc />
+		public override bool Equals(object obj)
 		{
             if (obj is Short2)
                 return this == (Short2)obj;
@@ -88,13 +75,13 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
 		public override int GetHashCode ()
 		{
-			return _short2Packed.GetHashCode();
+			return PackedValue.GetHashCode();
 		}
 
         /// <inheritdoc />
 		public override string ToString ()
 		{
-            return _short2Packed.ToString("x8");
+			return PackedValue.ToString("x8");
 		}
 
         /// <summary>
@@ -104,8 +91,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		public Vector2 ToVector2 ()
 		{
 			var v2 = new Vector2 ();
-			v2.X = (short)(_short2Packed & 0xFFFF);
-			v2.Y = (short)(_short2Packed >> 0x10);
+			v2.X = (short)(PackedValue & 0xFFFF);
+			v2.Y = (short)(PackedValue >> 0x10);
 			return v2;
 		}
 
@@ -124,15 +111,15 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         void IPackedVector.PackFromVector4 (Vector4 vector)
 		{
-			_short2Packed = Short2.PackInTwo (vector.X, vector.Y);
+			PackedValue = Short2.PackInTwo(vector.X, vector.Y);
 		}
 
         /// <inheritdoc />
 		public Vector4 ToVector4 ()
 		{
 			var v4 = new Vector4 (0,0,0,1);
-			v4.X = (short)(_short2Packed & 0xFFFF);
-			v4.Y = (short)(_short2Packed >> 0x10);
+			v4.X = (short)(PackedValue & 0xFFFF);
+			v4.Y = (short)(PackedValue >> 0x10);
 			return v4;
 		}
 	}

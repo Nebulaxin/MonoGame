@@ -25,10 +25,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Get the <see cref="GraphicsDevice"/> that this <see cref="DrawableGameComponent"/> uses for drawing.
         /// </summary>
-        public Graphics.GraphicsDevice GraphicsDevice
-        {
-            get { return this.Game.GraphicsDevice; }
-        }
+        public Graphics.GraphicsDevice GraphicsDevice => Game.GraphicsDevice;
 
         /// <summary>
         /// Gets the order in which this component should be drawn, relative to other components that are in the
@@ -40,7 +37,7 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public int DrawOrder
         {
-            get { return _drawOrder; }
+            get => _drawOrder;
             set
             {
                 if (_drawOrder != value)
@@ -57,7 +54,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public bool Visible
         {
-            get { return _visible; }
+            get => _visible;
             set
             {
                 if (_visible != value)

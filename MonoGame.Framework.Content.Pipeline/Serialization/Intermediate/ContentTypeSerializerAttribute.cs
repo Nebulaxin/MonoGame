@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         }
 
 
-        private static readonly object _lock = new object();
+        private static readonly object _lock = new();
 
         private static ReadOnlyCollection<Type> _types;
 

@@ -11,31 +11,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 	/// </summary>
 	public struct Rgba64 : IPackedVector<ulong>, IEquatable<Rgba64>, IPackedVector
 	{
-        /// <inheritdoc />
-		public ulong PackedValue
-		{
-			get
-			{
-				return packedValue;
-			}
-			set
-			{
-				packedValue = value;
-			}
-		}
+		/// <inheritdoc />
+		public ulong PackedValue { get; set; }
 
-		private ulong packedValue;
-
-        /// <summary>
-        /// Initializes a new instance of this structure.
-        /// </summary>
-        /// <param name="x">The initial x-component value for this structure.</param>
-        /// <param name="y">The initial y-component value for this structure.</param>
-        /// <param name="z">The initial z-component value for this structure.</param>
-        /// <param name="w">The initial 2-component value for this structure.</param>
+		/// <summary>
+		/// Initializes a new instance of this structure.
+		/// </summary>
+		/// <param name="x">The initial x-component value for this structure.</param>
+		/// <param name="y">The initial y-component value for this structure.</param>
+		/// <param name="z">The initial z-component value for this structure.</param>
+		/// <param name="w">The initial 2-component value for this structure.</param>
 		public Rgba64(float x, float y, float z, float w)
 		{
-			packedValue = Pack(x, y, z, w);
+			PackedValue = Pack(x, y, z, w);
 		}
 
         /// <summary>
@@ -46,24 +34,24 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
 		public Rgba64(Vector4 vector)
 		{
-			packedValue = Pack(vector.X, vector.Y, vector.Z, vector.W);
+			PackedValue = Pack(vector.X, vector.Y, vector.Z, vector.W);
 		}
 
         /// <inheritdoc />
 		public Vector4 ToVector4()
 		{
 			return new Vector4(
-                (float) (((packedValue) & 0xFFFF) / 65535.0f),
-                (float) (((packedValue >> 16) & 0xFFFF) / 65535.0f),
-                (float) (((packedValue >> 32) & 0xFFFF) / 65535.0f),
-                (float) (((packedValue >> 48) & 0xFFFF) / 65535.0f)
-            );
+				(float)(((PackedValue) & 0xFFFF) / 65535.0f),
+				(float)(((PackedValue >> 16) & 0xFFFF) / 65535.0f),
+				(float)(((PackedValue >> 32) & 0xFFFF) / 65535.0f),
+				(float)(((PackedValue >> 48) & 0xFFFF) / 65535.0f)
+			);
 		}
 
         /// <inheritdoc />
 		void IPackedVector.PackFromVector4(Vector4 vector)
 		{
-			packedValue = Pack(vector.X, vector.Y, vector.Z, vector.W);
+			PackedValue = Pack(vector.X, vector.Y, vector.Z, vector.W);
 		}
 
         /// <inheritdoc />
@@ -75,7 +63,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
 		public bool Equals(Rgba64 other)
 		{
-			return packedValue == other.packedValue;
+			return PackedValue == other.PackedValue;
 		}
 
         /// <inheritdoc />
@@ -87,7 +75,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
 		public override int GetHashCode()
 		{
-			return packedValue.GetHashCode();
+			return PackedValue.GetHashCode();
 		}
 
         /// <summary>
@@ -98,7 +86,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two values are equal; otherwise, false.</returns>
 		public static bool operator ==(Rgba64 lhs, Rgba64 rhs)
 		{
-			return lhs.packedValue == rhs.packedValue;
+			return lhs.PackedValue == rhs.PackedValue;
 		}
 
         /// <summary>
@@ -109,7 +97,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>true if the two value are not equal; otherwise, false.</returns>
 		public static bool operator !=(Rgba64 lhs, Rgba64 rhs)
 		{
-			return lhs.packedValue != rhs.packedValue;
+			return lhs.PackedValue != rhs.PackedValue;
 		}
 
 		private static ulong Pack(float x, float y, float z, float w)

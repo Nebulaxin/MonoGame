@@ -17,8 +17,7 @@ namespace Microsoft.Xna.Framework.Input
 
         internal static bool KeyDown(Keycode keyCode)
         {
-            Keys key;
-            if (KeyMap.TryGetValue(keyCode, out key) && key != Keys.None)
+            if (KeyMap.TryGetValue(keyCode, out Keys key) && key != Keys.None)
             {
                 if (!keys.Contains(key))
                     keys.Add(key);
@@ -29,8 +28,7 @@ namespace Microsoft.Xna.Framework.Input
 
         internal static bool KeyUp(Keycode keyCode)
         {
-            Keys key;
-            if (KeyMap.TryGetValue(keyCode, out key) && key != Keys.None)
+            if (KeyMap.TryGetValue(keyCode, out Keys key) && key != Keys.None)
             {
                 if (keys.Contains(key))
                     keys.Remove(key);

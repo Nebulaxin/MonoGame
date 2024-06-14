@@ -18,13 +18,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the number of keyframes in the collection.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return keyframes.Count;
-            }
-        }
+        public int Count => keyframes.Count;
 
         /// <summary>
         /// Gets the keyframe at the specified index position.
@@ -40,13 +34,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Returns a value indicating whether the object is read-only.
         /// </summary>
-        bool ICollection<AnimationKeyframe>.IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        bool ICollection<AnimationKeyframe>.IsReadOnly => false;
 
         /// <summary>
         /// Initializes a new instance of AnimationChannel.

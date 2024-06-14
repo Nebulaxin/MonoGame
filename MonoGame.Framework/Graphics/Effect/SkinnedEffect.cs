@@ -59,11 +59,6 @@ namespace Microsoft.Xna.Framework.Graphics
         Vector3 ambientLightColor = Vector3.Zero;
 
         float alpha = 1;
-
-        DirectionalLight light0;
-        DirectionalLight light1;
-        DirectionalLight light2;
-
         float fogStart = 0;
         float fogEnd = 1;
 
@@ -81,8 +76,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Matrix World
         {
-            get { return world; }
-            
+            get => world;
+
             set
             {
                 world = value;
@@ -96,8 +91,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Matrix View
         {
-            get { return view; }
-            
+            get => view;
+
             set
             {
                 view = value;
@@ -111,8 +106,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Matrix Projection
         {
-            get { return projection; }
-            
+            get => projection;
+
             set
             {
                 projection = value;
@@ -126,8 +121,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 DiffuseColor
         {
-            get { return diffuseColor; }
-            
+            get => diffuseColor;
+
             set
             {
                 diffuseColor = value;
@@ -141,8 +136,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 EmissiveColor
         {
-            get { return emissiveColor; }
-            
+            get => emissiveColor;
+
             set
             {
                 emissiveColor = value;
@@ -156,8 +151,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 SpecularColor
         {
-            get { return specularColorParam.GetValueVector3(); }
-            set { specularColorParam.SetValue(value); }
+            get => specularColorParam.GetValueVector3();
+            set => specularColorParam.SetValue(value);
         }
 
 
@@ -166,8 +161,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public float SpecularPower
         {
-            get { return specularPowerParam.GetValueSingle(); }
-            set { specularPowerParam.SetValue(value); }
+            get => specularPowerParam.GetValueSingle();
+            set => specularPowerParam.SetValue(value);
         }
 
 
@@ -176,8 +171,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public float Alpha
         {
-            get { return alpha; }
-            
+            get => alpha;
+
             set
             {
                 alpha = value;
@@ -191,8 +186,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool PreferPerPixelLighting
         {
-            get { return preferPerPixelLighting; }
-            
+            get => preferPerPixelLighting;
+
             set
             {
                 if (preferPerPixelLighting != value)
@@ -209,8 +204,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 AmbientLightColor
         {
-            get { return ambientLightColor; }
-            
+            get => ambientLightColor;
+
             set
             {
                 ambientLightColor = value;
@@ -222,19 +217,19 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the first directional light.
         /// </summary>
-        public DirectionalLight DirectionalLight0 { get { return light0; } }
+        public DirectionalLight DirectionalLight0 { get; private set; }
 
 
         /// <summary>
         /// Gets the second directional light.
         /// </summary>
-        public DirectionalLight DirectionalLight1 { get { return light1; } }
+        public DirectionalLight DirectionalLight1 { get; private set; }
 
 
         /// <summary>
         /// Gets the third directional light.
         /// </summary>
-        public DirectionalLight DirectionalLight2 { get { return light2; } }
+        public DirectionalLight DirectionalLight2 { get; private set; }
 
 
         /// <summary>
@@ -242,8 +237,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public bool FogEnabled
         {
-            get { return fogEnabled; }
-            
+            get => fogEnabled;
+
             set
             {
                 if (fogEnabled != value)
@@ -260,8 +255,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public float FogStart
         {
-            get { return fogStart; }
-            
+            get => fogStart;
+
             set
             {
                 fogStart = value;
@@ -275,8 +270,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public float FogEnd
         {
-            get { return fogEnd; }
-            
+            get => fogEnd;
+
             set
             {
                 fogEnd = value;
@@ -290,8 +285,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Vector3 FogColor
         {
-            get { return fogColorParam.GetValueVector3(); }
-            set { fogColorParam.SetValue(value); }
+            get => fogColorParam.GetValueVector3();
+            set => fogColorParam.SetValue(value);
         }
 
 
@@ -300,8 +295,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public Texture2D Texture
         {
-            get { return textureParam.GetValueTexture2D(); }
-            set { textureParam.SetValue(value); }
+            get => textureParam.GetValueTexture2D();
+            set => textureParam.SetValue(value);
         }
 
 
@@ -310,15 +305,15 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public int WeightsPerVertex
         {
-            get { return weightsPerVertex; }
-            
+            get => weightsPerVertex;
+
             set
             {
                 if ((value != 1) &&
                     (value != 2) &&
                     (value != 4))
                 {
-                    throw new ArgumentOutOfRangeException("value");
+                    throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
                 weightsPerVertex = value;
@@ -333,7 +328,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public void SetBoneTransforms(Matrix[] boneTransforms)
         {
             if ((boneTransforms == null) || (boneTransforms.Length == 0))
-                throw new ArgumentNullException("boneTransforms");
+                throw new ArgumentNullException(nameof(boneTransforms));
 
             if (boneTransforms.Length > MaxBones)
                 throw new ArgumentException();
@@ -348,7 +343,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public Matrix[] GetBoneTransforms(int count)
         {
             if (count <= 0 || count > MaxBones)
-                throw new ArgumentOutOfRangeException("count");
+                throw new ArgumentOutOfRangeException(nameof(count));
 
             Matrix[] bones = bonesParam.GetValueMatrixArray(count);
             
@@ -368,7 +363,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         bool IEffectLights.LightingEnabled
         {
-            get { return true; }
+            get => true;
             set { if (!value) throw new NotSupportedException("SkinnedEffect does not support setting LightingEnabled to false."); }
         }
 
@@ -444,7 +439,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </summary>
         public void EnableDefaultLighting()
         {
-            AmbientLightColor = EffectHelpers.EnableDefaultLighting(light0, light1, light2);
+            AmbientLightColor = EffectHelpers.EnableDefaultLighting(DirectionalLight0, DirectionalLight1, DirectionalLight2);
         }
 
 
@@ -466,20 +461,20 @@ namespace Microsoft.Xna.Framework.Graphics
             worldViewProjParam          = Parameters["WorldViewProj"];
             bonesParam                  = Parameters["Bones"];
 
-            light0 = new DirectionalLight(Parameters["DirLight0Direction"],
+            DirectionalLight0 = new DirectionalLight(Parameters["DirLight0Direction"],
                                           Parameters["DirLight0DiffuseColor"],
                                           Parameters["DirLight0SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light0 : null);
+                                          (cloneSource != null) ? cloneSource.DirectionalLight0 : null);
 
-            light1 = new DirectionalLight(Parameters["DirLight1Direction"],
+            DirectionalLight1 = new DirectionalLight(Parameters["DirLight1Direction"],
                                           Parameters["DirLight1DiffuseColor"],
                                           Parameters["DirLight1SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light1 : null);
+                                          (cloneSource != null) ? cloneSource.DirectionalLight1 : null);
 
-            light2 = new DirectionalLight(Parameters["DirLight2Direction"],
+            DirectionalLight2 = new DirectionalLight(Parameters["DirLight2Direction"],
                                           Parameters["DirLight2DiffuseColor"],
                                           Parameters["DirLight2SpecularColor"],
-                                          (cloneSource != null) ? cloneSource.light2 : null);
+                                          (cloneSource != null) ? cloneSource.DirectionalLight2 : null);
         }
 
 
@@ -503,8 +498,8 @@ namespace Microsoft.Xna.Framework.Graphics
             }
 
             // Check if we can use the only-bother-with-the-first-light shader optimization.
-            bool newOneLight = !light1.Enabled && !light2.Enabled;
-            
+            bool newOneLight = !DirectionalLight1.Enabled && !DirectionalLight2.Enabled;
+
             if (oneLight != newOneLight)
             {
                 oneLight = newOneLight;

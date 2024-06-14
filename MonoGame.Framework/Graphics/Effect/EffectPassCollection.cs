@@ -27,10 +27,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Retrieves the <see cref="EffectPass"/> at the specified index in the collection.
         /// </summary>
-        public EffectPass this[int index]
-        {
-            get { return _passes[index]; }
-        }
+        public EffectPass this[int index] => _passes[index];
 
         /// <summary>
         /// Retrieves a <see cref="EffectPass"/> from the collection, given the name of the pass.
@@ -53,10 +50,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the number of elements contained in the collection.
         /// </summary>
-        public int Count
-        {
-            get { return _passes.Length; }
-        }
+        public int Count => _passes.Length;
 
         /// <summary>
         /// Returns a <see cref="EffectPassCollection.Enumerator">EffectPassCollection.Enumerator</see>
@@ -84,13 +78,12 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             private readonly EffectPass[] _array;
             private int _index;
-            private EffectPass _current;
 
             internal Enumerator(EffectPass[] array)
             {
                 _array = array;
                 _index = 0;
-                _current = null;
+                Current = null;
             }
 
             /// <inheritdoc/>
@@ -98,20 +91,17 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 if (_index < _array.Length)
                 {
-                    _current = _array[_index];
+                    Current = _array[_index];
                     _index++;
                     return true;
                 }
                 _index = _array.Length + 1;
-                _current = null;
+                Current = null;
                 return false;
             }
 
             /// <inheritdoc/>
-            public EffectPass Current
-            {
-                get { return _current; }
-            }
+            public EffectPass Current { get; private set; }
 
             /// <inheritdoc cref="IDisposable.Dispose()"/>
             public void Dispose()
@@ -132,7 +122,7 @@ namespace Microsoft.Xna.Framework.Graphics
             void System.Collections.IEnumerator.Reset()
             {
                 _index = 0;
-                _current = null;
+                Current = null;
             }
         }
     }

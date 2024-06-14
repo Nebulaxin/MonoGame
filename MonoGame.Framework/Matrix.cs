@@ -39,22 +39,22 @@ namespace Microsoft.Xna.Framework
         public Matrix(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31,
                       float m32, float m33, float m34, float m41, float m42, float m43, float m44)
         {
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M14 = m14;
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M24 = m24;
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
-            this.M34 = m34;
-            this.M41 = m41;
-            this.M42 = m42;
-            this.M43 = m43;
-            this.M44 = m44;
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M14 = m14;
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M24 = m24;
+            M31 = m31;
+            M32 = m32;
+            M33 = m33;
+            M34 = m34;
+            M41 = m41;
+            M42 = m42;
+            M43 = m43;
+            M44 = m44;
         }
 
         /// <summary>
@@ -66,22 +66,22 @@ namespace Microsoft.Xna.Framework
         /// <param name="row4">A fourth row of the created matrix.</param>
         public Matrix(Vector4 row1, Vector4 row2, Vector4 row3, Vector4 row4)
         {
-            this.M11 = row1.X;
-            this.M12 = row1.Y;
-            this.M13 = row1.Z;
-            this.M14 = row1.W;
-            this.M21 = row2.X;
-            this.M22 = row2.Y;
-            this.M23 = row2.Z;
-            this.M24 = row2.W;
-            this.M31 = row3.X;
-            this.M32 = row3.Y;
-            this.M33 = row3.Z;
-            this.M34 = row3.W;
-            this.M41 = row4.X;
-            this.M42 = row4.Y;
-            this.M43 = row4.Z;
-            this.M44 = row4.W;
+            M11 = row1.X;
+            M12 = row1.Y;
+            M13 = row1.Z;
+            M14 = row1.W;
+            M21 = row2.X;
+            M22 = row2.Y;
+            M23 = row2.Z;
+            M24 = row2.W;
+            M31 = row3.X;
+            M32 = row3.Y;
+            M33 = row3.Z;
+            M34 = row3.W;
+            M41 = row4.X;
+            M42 = row4.Y;
+            M43 = row4.Z;
+            M44 = row4.W;
         }
 
         #endregion
@@ -199,26 +199,26 @@ namespace Microsoft.Xna.Framework
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case 0: return M11;
-                    case 1: return M12;
-                    case 2: return M13;
-                    case 3: return M14;
-                    case 4: return M21;
-                    case 5: return M22;
-                    case 6: return M23;
-                    case 7: return M24;
-                    case 8: return M31;
-                    case 9: return M32;
-                    case 10: return M33;
-                    case 11: return M34;
-                    case 12: return M41;
-                    case 13: return M42;
-                    case 14: return M43;
-                    case 15: return M44;
-                }
-                throw new ArgumentOutOfRangeException();
+                    0 => M11,
+                    1 => M12,
+                    2 => M13,
+                    3 => M14,
+                    4 => M21,
+                    5 => M22,
+                    6 => M23,
+                    7 => M24,
+                    8 => M31,
+                    9 => M32,
+                    10 => M33,
+                    11 => M34,
+                    12 => M41,
+                    13 => M42,
+                    14 => M43,
+                    15 => M44,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
             }
 
             set
@@ -256,22 +256,16 @@ namespace Microsoft.Xna.Framework
         /// </exception>
         public float this[int row, int column]
         {
-            get
-            {
-                return this[(row * 4) + column];
-            }
+            get => this[(row * 4) + column];
 
-            set
-            {
-                this[(row * 4) + column] = value;
-            }
+            set => this[(row * 4) + column] = value;
         }
 
         #endregion
 
         #region Private Members
-        private static Matrix identity = new Matrix(1f, 0f, 0f, 0f, 
-		                                            0f, 1f, 0f, 0f, 
+        private static Matrix identity = new(1f, 0f, 0f, 0f,
+                                                    0f, 1f, 0f, 0f, 
 		                                            0f, 0f, 1f, 0f, 
 		                                            0f, 0f, 0f, 1f);
         #endregion
@@ -283,15 +277,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Backward
         {
-            get
-            {
-                return new Vector3(this.M31, this.M32, this.M33);
-            }
+            get => new(M31, M32, M33);
             set
             {
-                this.M31 = value.X;
-                this.M32 = value.Y;
-                this.M33 = value.Z;
+                M31 = value.X;
+                M32 = value.Y;
+                M33 = value.Z;
             }
         }
 
@@ -300,15 +291,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Down
         {
-            get
-            {
-                return new Vector3(-this.M21, -this.M22, -this.M23);
-            }
+            get => new(-M21, -M22, -M23);
             set
             {
-                this.M21 = -value.X;
-                this.M22 = -value.Y;
-                this.M23 = -value.Z;
+                M21 = -value.X;
+                M22 = -value.Y;
+                M23 = -value.Z;
             }
         }
 
@@ -317,40 +305,31 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Forward
         {
-            get
-            {
-                return new Vector3(-this.M31, -this.M32, -this.M33);
-            }
+            get => new(-M31, -M32, -M33);
             set
             {
-                this.M31 = -value.X;
-                this.M32 = -value.Y;
-                this.M33 = -value.Z;
+                M31 = -value.X;
+                M32 = -value.Y;
+                M33 = -value.Z;
             }
         }
 
         /// <summary>
         /// Returns the identity matrix.
         /// </summary>
-        public static Matrix Identity
-        {
-            get { return identity; }
-        }
+        public static Matrix Identity => identity;
 
         /// <summary>
         /// The left vector formed from the first row -M11, -M12, -M13 elements.
         /// </summary>
         public Vector3 Left
         {
-            get
-            {
-                return new Vector3(-this.M11, -this.M12, -this.M13);
-            }
+            get => new(-M11, -M12, -M13);
             set
             {
-                this.M11 = -value.X;
-                this.M12 = -value.Y;
-                this.M13 = -value.Z;
+                M11 = -value.X;
+                M12 = -value.Y;
+                M13 = -value.Z;
             }
         }
 
@@ -359,15 +338,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Right
         {
-            get
-            {
-                return new Vector3(this.M11, this.M12, this.M13);
-            }
+            get => new(M11, M12, M13);
             set
             {
-                this.M11 = value.X;
-                this.M12 = value.Y;
-                this.M13 = value.Z;
+                M11 = value.X;
+                M12 = value.Y;
+                M13 = value.Z;
             }
         }
 
@@ -376,15 +352,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Translation
         {
-            get
-            {
-                return new Vector3(this.M41, this.M42, this.M43);
-            }
+            get => new(M41, M42, M43);
             set
             {
-                this.M41 = value.X;
-                this.M42 = value.Y;
-                this.M43 = value.Z;
+                M41 = value.X;
+                M42 = value.Y;
+                M43 = value.Z;
             }
         }
 
@@ -393,15 +366,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Up
         {
-            get
-            {
-                return new Vector3(this.M21, this.M22, this.M23);
-            }
+            get => new(M21, M22, M23);
             set
             {
-                this.M21 = value.X;
-                this.M22 = value.Y;
-                this.M23 = value.Z;
+                M21 = value.X;
+                M22 = value.Y;
+                M23 = value.Z;
             }
         }
         #endregion
@@ -473,10 +443,9 @@ namespace Microsoft.Xna.Framework
         public static Matrix CreateBillboard(Vector3 objectPosition, Vector3 cameraPosition,
             Vector3 cameraUpVector, Nullable<Vector3> cameraForwardVector)
         {
-            Matrix result;
 
             // Delegate to the other overload of the function to do the work
-            CreateBillboard(ref objectPosition, ref cameraPosition, ref cameraUpVector, cameraForwardVector, out result);
+            CreateBillboard(ref objectPosition, ref cameraPosition, ref cameraUpVector, cameraForwardVector, out Matrix result);
 
             return result;
         }
@@ -493,8 +462,6 @@ namespace Microsoft.Xna.Framework
             ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix result)
         {
             Vector3 vector;
-            Vector3 vector2;
-            Vector3 vector3;
             vector.X = objectPosition.X - cameraPosition.X;
             vector.Y = objectPosition.Y - cameraPosition.Y;
             vector.Z = objectPosition.Z - cameraPosition.Z;
@@ -507,9 +474,9 @@ namespace Microsoft.Xna.Framework
             {
                 Vector3.Multiply(ref vector, 1f / MathF.Sqrt(num), out vector);
             }
-            Vector3.Cross(ref cameraUpVector, ref vector, out vector3);
+            Vector3.Cross(ref cameraUpVector, ref vector, out Vector3 vector3);
             vector3.Normalize();
-            Vector3.Cross(ref vector, ref vector3, out vector2);
+            Vector3.Cross(ref vector, ref vector3, out Vector3 vector2);
             result.M11 = vector3.X;
             result.M12 = vector3.Y;
             result.M13 = vector3.Z;
@@ -540,9 +507,8 @@ namespace Microsoft.Xna.Framework
         public static Matrix CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition,
             Vector3 rotateAxis, Nullable<Vector3> cameraForwardVector, Nullable<Vector3> objectForwardVector)
         {
-            Matrix result;
             CreateConstrainedBillboard(ref objectPosition, ref cameraPosition, ref rotateAxis,
-                cameraForwardVector, objectForwardVector, out result);
+                cameraForwardVector, objectForwardVector, out Matrix result);
             return result;
         }
 
@@ -558,10 +524,9 @@ namespace Microsoft.Xna.Framework
         public static void CreateConstrainedBillboard(ref Vector3 objectPosition, ref Vector3 cameraPosition,
             ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix result)
         {
-            float num;
-		    Vector3 vector;
-		    Vector3 vector2;
-		    Vector3 vector3;
+            Vector3 vector;
+            Vector3 vector2;
+            Vector3 vector3;
 		    vector2.X = objectPosition.X - cameraPosition.X;
 		    vector2.Y = objectPosition.Y - cameraPosition.Y;
 		    vector2.Z = objectPosition.Z - cameraPosition.Z;
@@ -575,8 +540,8 @@ namespace Microsoft.Xna.Framework
 		        Vector3.Multiply(ref vector2, 1f / MathF.Sqrt(num2), out vector2);
 		    }
 		    Vector3 vector4 = rotateAxis;
-		    Vector3.Dot(ref rotateAxis, ref vector2, out num);
-		    if (Math.Abs(num) > 0.9982547f)
+            Vector3.Dot(ref rotateAxis, ref vector2, out float num);
+            if (Math.Abs(num) > 0.9982547f)
 		    {
 		        if (objectForwardVector.HasValue)
 		        {
@@ -632,8 +597,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The rotation <see cref="Matrix"/>.</returns>
         public static Matrix CreateFromAxisAngle(Vector3 axis, float angle)
         {
-            Matrix result;
-            CreateFromAxisAngle(ref axis, angle, out result);
+            CreateFromAxisAngle(ref axis, angle, out Matrix result);
             return result;
         }
 
@@ -681,8 +645,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The rotation <see cref="Matrix"/>.</returns>
         public static Matrix CreateFromQuaternion(Quaternion quaternion)
         {
-            Matrix result;
-            CreateFromQuaternion(ref quaternion, out result);
+            CreateFromQuaternion(ref quaternion, out Matrix result);
             return result;
         }
 
@@ -731,10 +694,9 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
 		public static Matrix CreateFromYawPitchRoll(float yaw, float pitch, float roll)
 		{
-			Matrix matrix;
-            CreateFromYawPitchRoll(yaw, pitch, roll, out matrix);
-		    return matrix;
-		}
+            CreateFromYawPitchRoll(yaw, pitch, roll, out Matrix matrix);
+            return matrix;
+        }
 
         /// <summary>
         /// Creates a new rotation <see cref="Matrix"/> from the specified yaw, pitch and roll values.
@@ -747,10 +709,9 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
 		public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix result)
 		{
-			Quaternion quaternion;
-		    Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out quaternion);
-		    CreateFromQuaternion(ref quaternion, out result);
-		}
+            Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out Quaternion quaternion);
+            CreateFromQuaternion(ref quaternion, out result);
+        }
 
         /// <summary>
         /// Creates a new viewing <see cref="Matrix"/>.
@@ -761,8 +722,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The viewing <see cref="Matrix"/>.</returns>
         public static Matrix CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector)
         {
-            Matrix matrix;
-            CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrix);
+            CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out Matrix matrix);
             return matrix;
         }
 
@@ -806,9 +766,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new projection <see cref="Matrix"/> for orthographic view.</returns>
         public static Matrix CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane)
         {
-            Matrix matrix;
-            CreateOrthographic(width, height, zNearPlane, zFarPlane, out matrix);
-		    return matrix;
+            CreateOrthographic(width, height, zNearPlane, zFarPlane, out Matrix matrix);
+            return matrix;
         }
 
         /// <summary>
@@ -844,9 +803,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new projection <see cref="Matrix"/> for customized orthographic view.</returns>
         public static Matrix CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane)
         {
-			Matrix matrix;
-            CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane, out matrix);
-			return matrix;
+            CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane, out Matrix matrix);
+            return matrix;
         }
 
         /// <summary>
@@ -858,8 +816,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new projection <see cref="Matrix"/> for customized orthographic view.</returns>
         public static Matrix CreateOrthographicOffCenter(Rectangle viewingVolume, float zNearPlane, float zFarPlane)
         {
-            Matrix matrix;
-            CreateOrthographicOffCenter(viewingVolume.Left, viewingVolume.Right, viewingVolume.Bottom, viewingVolume.Top, zNearPlane, zFarPlane, out matrix);
+            CreateOrthographicOffCenter(viewingVolume.Left, viewingVolume.Right, viewingVolume.Bottom, viewingVolume.Top, zNearPlane, zFarPlane, out Matrix matrix);
             return matrix;
         }
 
@@ -903,9 +860,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new projection <see cref="Matrix"/> for perspective view.</returns>
         public static Matrix CreatePerspective(float width, float height, float nearPlaneDistance, float farPlaneDistance)
         {
-            Matrix matrix;
-            CreatePerspective(width, height, nearPlaneDistance, farPlaneDistance, out matrix);
-		    return matrix;
+            CreatePerspective(width, height, nearPlaneDistance, farPlaneDistance, out Matrix matrix);
+            return matrix;
         }
 
         /// <summary>
@@ -954,8 +910,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new projection <see cref="Matrix"/> for perspective view with FOV.</returns>
         public static Matrix CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
         {
-            Matrix result;
-            CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, nearPlaneDistance, farPlaneDistance, out result);
+            CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, nearPlaneDistance, farPlaneDistance, out Matrix result);
             return result;
         }
 
@@ -1013,8 +968,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new <see cref="Matrix"/> for customized perspective view.</returns>
         public static Matrix CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance)
         {
-            Matrix result;
-            CreatePerspectiveOffCenter(left, right, bottom, top, nearPlaneDistance, farPlaneDistance, out result);
+            CreatePerspectiveOffCenter(left, right, bottom, top, nearPlaneDistance, farPlaneDistance, out Matrix result);
             return result;
         }
 
@@ -1027,8 +981,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new <see cref="Matrix"/> for customized perspective view.</returns>
         public static Matrix CreatePerspectiveOffCenter(Rectangle viewingVolume, float nearPlaneDistance, float farPlaneDistance)
         {
-            Matrix result;
-            CreatePerspectiveOffCenter(viewingVolume.Left, viewingVolume.Right, viewingVolume.Bottom, viewingVolume.Top, nearPlaneDistance, farPlaneDistance, out result);
+            CreatePerspectiveOffCenter(viewingVolume.Left, viewingVolume.Right, viewingVolume.Bottom, viewingVolume.Top, nearPlaneDistance, farPlaneDistance, out Matrix result);
             return result;
         }
 
@@ -1075,8 +1028,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The rotation <see cref="Matrix"/> around X axis.</returns>
         public static Matrix CreateRotationX(float radians)
         {
-            Matrix result;
-            CreateRotationX(radians, out result);
+            CreateRotationX(radians, out Matrix result);
             return result;
         }
 
@@ -1105,8 +1057,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The rotation <see cref="Matrix"/> around Y axis.</returns>
         public static Matrix CreateRotationY(float radians)
         {
-            Matrix result;
-            CreateRotationY(radians, out result);
+            CreateRotationY(radians, out Matrix result);
             return result;
         }
 
@@ -1135,8 +1086,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The rotation <see cref="Matrix"/> around Z axis.</returns>
         public static Matrix CreateRotationZ(float radians)
         {
-            Matrix result;
-            CreateRotationZ(radians, out result);
+            CreateRotationZ(radians, out Matrix result);
             return result;
         }
 
@@ -1165,8 +1115,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The scaling <see cref="Matrix"/>.</returns>
         public static Matrix CreateScale(float scale)
         {
-            Matrix result;
-            CreateScale(scale, scale, scale, out result);
+            CreateScale(scale, scale, scale, out Matrix result);
             return result;
         }
 
@@ -1189,8 +1138,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The scaling <see cref="Matrix"/>.</returns>
         public static Matrix CreateScale(float xScale, float yScale, float zScale)
         {
-            Matrix result;
-            CreateScale(xScale, yScale, zScale, out result);
+            CreateScale(xScale, yScale, zScale, out Matrix result);
             return result;
         }
 
@@ -1228,8 +1176,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The scaling <see cref="Matrix"/>.</returns>
         public static Matrix CreateScale(Vector3 scales)
         {
-            Matrix result;
-            CreateScale(ref scales, out result);
+            CreateScale(ref scales, out Matrix result);
             return result;
         }
 
@@ -1267,8 +1214,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="Matrix"/> that can be used to flatten geometry onto the specified plane from the specified direction. </returns>
         public static Matrix CreateShadow(Vector3 lightDirection, Plane plane)
         {
-            Matrix result;
-            CreateShadow(ref lightDirection, ref plane, out result);
+            CreateShadow(ref lightDirection, ref plane, out Matrix result);
             return result;
         }
 
@@ -1314,8 +1260,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The translation <see cref="Matrix"/>.</returns>
         public static Matrix CreateTranslation(float xPosition, float yPosition, float zPosition)
         {
-            Matrix result;
-            CreateTranslation(xPosition, yPosition, zPosition, out result);
+            CreateTranslation(xPosition, yPosition, zPosition, out Matrix result);
             return result;
         }
 
@@ -1351,9 +1296,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>The translation <see cref="Matrix"/>.</returns>
         public static Matrix CreateTranslation(Vector3 position)
         {
-			Matrix result;
-            CreateTranslation(ref position, out result);
-			return result;
+            CreateTranslation(ref position, out Matrix result);
+            return result;
         }
 
         /// <summary>
@@ -1390,8 +1334,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The reflection <see cref="Matrix"/>.</returns>
         public static Matrix CreateReflection(Plane value)
         {
-            Matrix result;
-            CreateReflection(ref value, out result);
+            CreateReflection(ref value, out Matrix result);
             return result;
         }
 
@@ -1402,8 +1345,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">The reflection <see cref="Matrix"/> as an output parameter.</param>
         public static void CreateReflection(ref Plane value, out Matrix result)
         {
-            Plane plane;
-            Plane.Normalize(ref value, out plane);
+            Plane.Normalize(ref value, out Plane plane);
             float x = plane.Normal.X;
             float y = plane.Normal.Y;
             float z = plane.Normal.Z;
@@ -1437,9 +1379,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>The world <see cref="Matrix"/>.</returns>
         public static Matrix CreateWorld(Vector3 position, Vector3 forward, Vector3 up)
         {
-            Matrix ret;
-                        CreateWorld(ref position, ref forward, ref up, out ret);
-                        return ret;
+            CreateWorld(ref position, ref forward, ref up, out Matrix ret);
+            return ret;
         }
 
         /// <summary>
@@ -1451,11 +1392,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">The world <see cref="Matrix"/> as an output parameter.</param>
         public static void CreateWorld(ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix result)
         {
-                        Vector3 x, y, z;
-                        Vector3.Normalize(ref forward, out z);
-                        Vector3.Cross(ref forward, ref up, out x);
-                        Vector3.Cross(ref x, ref forward, out y);
-                        x.Normalize();
+            Vector3.Normalize(ref forward, out Vector3 z);
+            Vector3.Cross(ref forward, ref up, out Vector3 x);
+            Vector3.Cross(ref x, ref forward, out Vector3 y);
+            x.Normalize();
                         y.Normalize();            
                         
                         result = new Matrix();
@@ -1475,17 +1415,17 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if matrix can be decomposed; <c>false</c> otherwise.</returns>
         public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
         {
-            translation.X = this.M41;
-            translation.Y = this.M42;
-            translation.Z = this.M43;
+            translation.X = M41;
+            translation.Y = M42;
+            translation.Z = M43;
 
             float xs = (Math.Sign(M11 * M12 * M13 * M14) < 0) ? -1 : 1;
             float ys = (Math.Sign(M21 * M22 * M23 * M24) < 0) ? -1 : 1;
             float zs = (Math.Sign(M31 * M32 * M33 * M34) < 0) ? -1 : 1;
 
-            scale.X = xs * MathF.Sqrt(this.M11 * this.M11 + this.M12 * this.M12 + this.M13 * this.M13);
-            scale.Y = ys * MathF.Sqrt(this.M21 * this.M21 + this.M22 * this.M22 + this.M23 * this.M23);
-            scale.Z = zs * MathF.Sqrt(this.M31 * this.M31 + this.M32 * this.M32 + this.M33 * this.M33);
+            scale.X = xs * MathF.Sqrt(M11 * M11 + M12 * M12 + M13 * M13);
+            scale.Y = ys * MathF.Sqrt(M21 * M21 + M22 * M22 + M23 * M23);
+            scale.Z = zs * MathF.Sqrt(M31 * M31 + M32 * M32 + M33 * M33);
 
             if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
             {
@@ -1493,9 +1433,9 @@ namespace Microsoft.Xna.Framework
                 return false;
             }
 
-            Matrix m1 = new Matrix(this.M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
-                                   this.M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
-                                   this.M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
+            Matrix m1 = new(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
+                                   M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
+                                   M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
                                    0, 0, 0, 1);
 
             rotation = Quaternion.CreateFromRotationMatrix(m1);
@@ -1510,23 +1450,23 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public float Determinant()
         {
-            float num22 = this.M11;
-		    float num21 = this.M12;
-		    float num20 = this.M13;
-		    float num19 = this.M14;
-		    float num12 = this.M21;
-		    float num11 = this.M22;
-		    float num10 = this.M23;
-		    float num9 = this.M24;
-		    float num8 = this.M31;
-		    float num7 = this.M32;
-		    float num6 = this.M33;
-		    float num5 = this.M34;
-		    float num4 = this.M41;
-		    float num3 = this.M42;
-		    float num2 = this.M43;
-		    float num = this.M44;
-		    float num18 = (num6 * num) - (num5 * num2);
+            float num22 = M11;
+            float num21 = M12;
+            float num20 = M13;
+            float num19 = M14;
+            float num12 = M21;
+            float num11 = M22;
+            float num10 = M23;
+            float num9 = M24;
+            float num8 = M31;
+            float num7 = M32;
+            float num6 = M33;
+            float num5 = M34;
+            float num4 = M41;
+            float num3 = M42;
+            float num2 = M43;
+            float num = M44;
+            float num18 = (num6 * num) - (num5 * num2);
 		    float num17 = (num7 * num) - (num5 * num3);
 		    float num16 = (num7 * num2) - (num6 * num3);
 		    float num15 = (num8 * num) - (num5 * num4);
@@ -1650,7 +1590,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Matrix other)
         {
-            return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
+            return ((((((M11 == other.M11) && (M22 == other.M22)) && ((M33 == other.M33) && (M44 == other.M44))) && (((M12 == other.M12) && (M13 == other.M13)) && ((M14 == other.M14) && (M21 == other.M21)))) && ((((M23 == other.M23) && (M24 == other.M24)) && ((M31 == other.M31) && (M32 == other.M32))) && (((M34 == other.M34) && (M41 == other.M41)) && (M42 == other.M42)))) && (M43 == other.M43));
         }
 
         /// <summary>
@@ -1663,8 +1603,8 @@ namespace Microsoft.Xna.Framework
             bool flag = false;
 		    if (obj is Matrix)
 		    {
-		        flag = this.Equals((Matrix) obj);
-		    }
+                flag = Equals((Matrix)obj);
+            }
 		    return flag;
         }
 
@@ -1674,7 +1614,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Hash code of this <see cref="Matrix"/>.</returns>
         public override int GetHashCode()
         {
-            return (((((((((((((((this.M11.GetHashCode() + this.M12.GetHashCode()) + this.M13.GetHashCode()) + this.M14.GetHashCode()) + this.M21.GetHashCode()) + this.M22.GetHashCode()) + this.M23.GetHashCode()) + this.M24.GetHashCode()) + this.M31.GetHashCode()) + this.M32.GetHashCode()) + this.M33.GetHashCode()) + this.M34.GetHashCode()) + this.M41.GetHashCode()) + this.M42.GetHashCode()) + this.M43.GetHashCode()) + this.M44.GetHashCode());
+            return (((((((((((((((M11.GetHashCode() + M12.GetHashCode()) + M13.GetHashCode()) + M14.GetHashCode()) + M21.GetHashCode()) + M22.GetHashCode()) + M23.GetHashCode()) + M24.GetHashCode()) + M31.GetHashCode()) + M32.GetHashCode()) + M33.GetHashCode()) + M34.GetHashCode()) + M41.GetHashCode()) + M42.GetHashCode()) + M43.GetHashCode()) + M44.GetHashCode());
         }
 
         /// <summary>
@@ -1684,8 +1624,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The inverted matrix.</returns>
         public static Matrix Invert(Matrix matrix)
         {
-            Matrix result;
-            Invert(ref matrix, out result);
+            Invert(ref matrix, out Matrix result);
             return result;
         }
 
@@ -2397,11 +2336,13 @@ namespace Microsoft.Xna.Framework
                     return "Identity";
                 }
 
-                return string.Concat(
-                     "( ", this.M11.ToString(), "  ", this.M12.ToString(), "  ", this.M13.ToString(), "  ", this.M14.ToString(), " )  \r\n",
-                     "( ", this.M21.ToString(), "  ", this.M22.ToString(), "  ", this.M23.ToString(), "  ", this.M24.ToString(), " )  \r\n",
-                     "( ", this.M31.ToString(), "  ", this.M32.ToString(), "  ", this.M33.ToString(), "  ", this.M34.ToString(), " )  \r\n",
-                     "( ", this.M41.ToString(), "  ", this.M42.ToString(), "  ", this.M43.ToString(), "  ", this.M44.ToString(), " )");
+                return
+                    $"""
+                    ( {M11}  {M12}  {M13}  {M14} )
+                    ( {M21}  {M22}  {M23}  {M24} )
+                    ( {M31}  {M32}  {M33}  {M34} )
+                    ( {M41}  {M42}  {M43}  {M44} )
+                    """;
             }
         }
 
@@ -2415,10 +2356,11 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Matrix"/>.</returns>
         public override string ToString()
         {
-            return "{M11:" + M11 + " M12:" + M12 + " M13:" + M13 + " M14:" + M14 + "}"
-                + " {M21:" + M21 + " M22:" + M22 + " M23:" + M23 + " M24:" + M24 + "}"
-                + " {M31:" + M31 + " M32:" + M32 + " M33:" + M33 + " M34:" + M34 + "}"
-                + " {M41:" + M41 + " M42:" + M42 + " M43:" + M43 + " M44:" + M44 + "}";
+            return
+                $"{{M11:{M11} M12:{M12} M13:{M13} M14:{M14}}} " +
+                $"{{M21:{M21} M22:{M22} M23:{M23} M24:{M24}}} " +
+                $"{{M31:{M31} M32:{M32} M33:{M33} M34:{M34}}} " +
+                $"{{M41:{M41} M42:{M42} M43:{M43} M44:{M44}}}";
         }
 
         /// <summary>
@@ -2428,8 +2370,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new <see cref="Matrix"/> which contains the transposing result.</returns>
         public static Matrix Transpose(Matrix matrix)
         {
-            Matrix ret;
-            Transpose(ref matrix, out ret);
+            Transpose(ref matrix, out Matrix ret);
             return ret;
         }
 
@@ -2471,10 +2412,10 @@ namespace Microsoft.Xna.Framework
         public System.Numerics.Matrix4x4 ToNumerics()
         {
             return new System.Numerics.Matrix4x4(
-                this.M11, this.M12, this.M13, this.M14,
-                this.M21, this.M22, this.M23, this.M24,
-                this.M31, this.M32, this.M33, this.M34,
-                this.M41, this.M42, this.M43, this.M44);
+                M11, M12, M13, M14,
+                M21, M22, M23, M24,
+                M31, M32, M33, M34,
+                M41, M42, M43, M44);
         }
 
         #endregion

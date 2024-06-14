@@ -25,10 +25,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             _valueWriter = output.GetTypeWriter(typeof(V));
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return true; }
-        }
+        public override bool CanDeserializeIntoExistingObject => true;
 
         protected internal override void Write(ContentWriter output, Dictionary<K,V> value)
         {

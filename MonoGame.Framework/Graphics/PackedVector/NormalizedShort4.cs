@@ -11,9 +11,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
     /// Packed vector type containing four 16-bit signed normalized values, ranging from −1 to 1.
     /// </summary>
     public struct NormalizedShort4 : IPackedVector<ulong>, IEquatable<NormalizedShort4>
-	{
-		private ulong short4Packed;
-
+    {
         /// <summary>
         /// Initializes a new instance of this structure.
         /// </summary>
@@ -22,8 +20,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// </param>
         public NormalizedShort4(Vector4 vector)
 		{
-            short4Packed = PackInFour(vector.X, vector.Y, vector.Z, vector.W);
-		}
+            PackedValue = PackInFour(vector.X, vector.Y, vector.Z, vector.W);
+        }
 
         /// <summary>
         /// Initializes a new instance of this structure.
@@ -34,8 +32,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <param name="w">The initial 2-component value for this structure.</param>
         public NormalizedShort4(float x, float y, float z, float w)
 		{
-            short4Packed = PackInFour(x, y, z, w);
-		}
+            PackedValue = PackInFour(x, y, z, w);
+        }
 
         /// <summary>
         /// Returns a value that indicates whether the two value are not equal.
@@ -60,17 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 		}
 
         /// <inheritdoc />
-        public ulong PackedValue
-        {
-            get
-            {
-                return short4Packed;
-            }
-            set
-            {
-                short4Packed = value;
-            }
-		}
+        public ulong PackedValue { get; set; }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
@@ -81,20 +69,20 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(NormalizedShort4 other)
         {
-            return short4Packed.Equals(other.short4Packed);
+            return PackedValue.Equals(other.PackedValue);
         }
 
         /// <inheritdoc />
 		public override int GetHashCode ()
 		{
-			return short4Packed.GetHashCode();
-		}
+            return PackedValue.GetHashCode();
+        }
 
         /// <inheritdoc />
 		public override string ToString ()
 		{
-            return short4Packed.ToString("X");
-		}
+            return PackedValue.ToString("X");
+        }
 
         private static ulong PackInFour(float vectorX, float vectorY, float vectorZ, float vectorW)
 		{
@@ -113,8 +101,8 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
 
 		void IPackedVector.PackFromVector4 (Vector4 vector)
 		{
-            short4Packed = PackInFour(vector.X, vector.Y, vector.Z, vector.W);
-		}
+            PackedValue = PackInFour(vector.X, vector.Y, vector.Z, vector.W);
+        }
 
         /// <inheritdoc />
 		public Vector4 ToVector4 ()
@@ -122,11 +110,11 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
             const float maxVal = 0x7FFF;
 
 			var v4 = new Vector4 ();
-            v4.X = ((short)((short4Packed >> 0x00) & 0xFFFF)) / maxVal;
-            v4.Y = ((short)((short4Packed >> 0x10) & 0xFFFF)) / maxVal;
-            v4.Z = ((short)((short4Packed >> 0x20) & 0xFFFF)) / maxVal;
-            v4.W = ((short)((short4Packed >> 0x30) & 0xFFFF)) / maxVal;
-			return v4;
-		}
+            v4.X = ((short)((PackedValue >> 0x00) & 0xFFFF)) / maxVal;
+            v4.Y = ((short)((PackedValue >> 0x10) & 0xFFFF)) / maxVal;
+            v4.Z = ((short)((PackedValue >> 0x20) & 0xFFFF)) / maxVal;
+            v4.W = ((short)((PackedValue >> 0x30) & 0xFFFF)) / maxVal;
+            return v4;
+        }
 	}
 }

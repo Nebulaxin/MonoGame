@@ -59,21 +59,14 @@ namespace Microsoft.Xna.Framework
 
             // Surprisingly 90 degree is landscape right, except on Kindle devices
             var disporientation = DisplayOrientation.Unknown;
-            switch (ort)
+            disporientation = ort switch
             {
-                case 90: disporientation = FlipLandscape ? DisplayOrientation.LandscapeLeft : DisplayOrientation.LandscapeRight;
-                    break;
-                case 270: disporientation = FlipLandscape ? DisplayOrientation.LandscapeRight : DisplayOrientation.LandscapeLeft;
-                    break;
-                case 0: disporientation = DisplayOrientation.Portrait;
-                    break;
-                case 180: disporientation = DisplayOrientation.PortraitDown;
-                    break;
-                default:
-                    disporientation = DisplayOrientation.LandscapeLeft;
-                    break;
-            }
-
+                90 => FlipLandscape ? DisplayOrientation.LandscapeLeft : DisplayOrientation.LandscapeRight,
+                270 => FlipLandscape ? DisplayOrientation.LandscapeRight : DisplayOrientation.LandscapeLeft,
+                0 => DisplayOrientation.Portrait,
+                180 => DisplayOrientation.PortraitDown,
+                _ => DisplayOrientation.LandscapeLeft,
+            };
             return disporientation;
         }
 
@@ -87,23 +80,13 @@ namespace Microsoft.Xna.Framework
 
             // Landscape degrees (provided by the OrientationListener) are swapped by default
             // Since we use the code used by OrientationListener, we have to swap manually
-            int degrees;
-            switch (orientation)
+            System.Int32 degrees = orientation switch
             {
-                case SurfaceOrientation.Rotation90:
-                    degrees = 270;
-                    break;
-                case SurfaceOrientation.Rotation180:
-                    degrees = 180;
-                    break;
-                case SurfaceOrientation.Rotation270:
-                    degrees = 90;
-                    break;
-                default:
-                    degrees = 0;
-                    break;
-            }
-
+                SurfaceOrientation.Rotation90 => 270,
+                SurfaceOrientation.Rotation180 => 180,
+                SurfaceOrientation.Rotation270 => 90,
+                _ => 0,
+            };
             return GetAbsoluteOrientation(degrees);
         }
     }

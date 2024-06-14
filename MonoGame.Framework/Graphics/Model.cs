@@ -66,7 +66,7 @@ namespace Microsoft.Xna.Framework.Graphics
 		{
             if (graphicsDevice == null)
             {
-                throw new ArgumentNullException("graphicsDevice", FrameworkResources.ResourceCreationWhenDeviceIsNull);
+                throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
 
 			// TODO: Complete member initialization
@@ -79,11 +79,11 @@ namespace Microsoft.Xna.Framework.Graphics
         internal void BuildHierarchy()
 		{
 			var globalScale = Matrix.CreateScale(0.01f);
-			
-			foreach(var node in this.Root.Children)
-			{
-				BuildHierarchy(node, this.Root.Transform * globalScale, 0);
-			}
+
+            foreach (var node in Root.Children)
+            {
+                BuildHierarchy(node, Root.Transform * globalScale, 0);
+            }
 		}
 		
 		private void BuildHierarchy(ModelBone node, Matrix parentTransform, int level)
@@ -112,10 +112,10 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="view">The view transform.</param>
         /// <param name="projection">The projection transform.</param>
         public void Draw(Matrix world, Matrix view, Matrix projection) 
-		{       
-            int boneCount = this.Bones.Count;
-			
-			if (sharedDrawBoneMatrices == null ||
+		{
+            int boneCount = Bones.Count;
+
+            if (sharedDrawBoneMatrices == null ||
 				sharedDrawBoneMatrices.Length < boneCount)
 			{
 				sharedDrawBoneMatrices = new Matrix[boneCount];    
@@ -149,15 +149,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="destinationBoneTransforms">The array receiving the transformed bones.</param>
         public void CopyAbsoluteBoneTransformsTo(Matrix[] destinationBoneTransforms)
 		{
-			if (destinationBoneTransforms == null)
-				throw new ArgumentNullException("destinationBoneTransforms");
-            if (destinationBoneTransforms.Length < this.Bones.Count)
-				throw new ArgumentOutOfRangeException("destinationBoneTransforms");
-            int count = this.Bones.Count;
-			for (int index1 = 0; index1 < count; ++index1)
+            ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
+            if (destinationBoneTransforms.Length < Bones.Count)
+                throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
+            int count = Bones.Count;
+            for (int index1 = 0; index1 < count; ++index1)
 			{
-                ModelBone modelBone = (this.Bones)[index1];
-				if (modelBone.Parent == null)
+                ModelBone modelBone = (Bones)[index1];
+                if (modelBone.Parent == null)
 				{
 					destinationBoneTransforms[index1] = modelBone.transform;
 				}
@@ -181,10 +180,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void CopyBoneTransformsFrom(Matrix[] sourceBoneTransforms)
         {
-            if (sourceBoneTransforms == null)
-                throw new ArgumentNullException("sourceBoneTransforms");
+            ArgumentNullException.ThrowIfNull(sourceBoneTransforms);
             if (sourceBoneTransforms.Length < Bones.Count)
-                throw new ArgumentOutOfRangeException("sourceBoneTransforms");
+                throw new ArgumentOutOfRangeException(nameof(sourceBoneTransforms));
 
             int count = Bones.Count;
             for (int i = 0; i < count; i++)
@@ -205,10 +203,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void CopyBoneTransformsTo(Matrix[] destinationBoneTransforms)
         {
-            if (destinationBoneTransforms == null)
-                throw new ArgumentNullException("destinationBoneTransforms");
+            ArgumentNullException.ThrowIfNull(destinationBoneTransforms);
             if (destinationBoneTransforms.Length < Bones.Count)
-                throw new ArgumentOutOfRangeException("destinationBoneTransforms");
+                throw new ArgumentOutOfRangeException(nameof(destinationBoneTransforms));
 
             int count = Bones.Count;
             for (int i = 0; i < count; i++)

@@ -21,18 +21,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         {
             SurfaceFormat format;
             TryGetFormat(out format);
-            switch (format)
+            return format switch
             {
-                case SurfaceFormat.RgbPvrtc2Bpp:
-                case SurfaceFormat.RgbaPvrtc2Bpp:
-                    return (Math.Max(Width, 16) * Math.Max(Height, 8) * 2 + 7) / 8;
-
-                case SurfaceFormat.RgbPvrtc4Bpp:
-                case SurfaceFormat.RgbaPvrtc4Bpp:
-                    return (Math.Max(Width, 8) * Math.Max(Height, 8) * 4 + 7) / 8;
-            }
-
-            return 0;
+                SurfaceFormat.RgbPvrtc2Bpp or SurfaceFormat.RgbaPvrtc2Bpp => (Math.Max(Width, 16) * Math.Max(Height, 8) * 2 + 7) / 8,
+                SurfaceFormat.RgbPvrtc4Bpp or SurfaceFormat.RgbaPvrtc4Bpp => (Math.Max(Width, 8) * Math.Max(Height, 8) * 4 + 7) / 8,
+                _ => 0,
+            };
         }
 
         public override byte[] GetPixelData()

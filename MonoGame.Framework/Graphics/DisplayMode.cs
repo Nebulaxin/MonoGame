@@ -42,9 +42,6 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         #region Fields
 
-        private SurfaceFormat format;
-        private int height;
-        private int width;
 
         #endregion Fields
 
@@ -53,47 +50,37 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets a value indicating the aspect ratio of the display mode
         /// </summary>
-        public float AspectRatio {
-            get { return (float)width / (float)height; }
-        }
+        public float AspectRatio => (float)Width / (float)Height;
 
         /// <summary>
         /// Gets a value indicating the surface format of the display mode.
         /// </summary>
-        public SurfaceFormat Format {
-            get { return format; }
-        }
+        public SurfaceFormat Format { get; }
 
         /// <summary>
         /// Gets a value indicating the screen height, in pixels.
         /// </summary>
-        public int Height {
-            get { return this.height; }
-        }
+        public int Height { get; }
 
         /// <summary>
         /// Gets a value indicating the screen width, in pixels.
         /// </summary>
-        public int Width {
-            get { return this.width; }
-        }
+        public int Width { get; }
 
         /// <summary>
         /// Gets the bounds of the display that is guaranteed to be visible by the users screen.
         /// </summary>
-        public Rectangle TitleSafeArea {
-            get { return GraphicsDevice.GetTitleSafeArea(0, 0, width, height); }
-        }
+        public Rectangle TitleSafeArea => GraphicsDevice.GetTitleSafeArea(0, 0, Width, Height);
 
         #endregion Properties
 
         #region Constructors
-        
+
         internal DisplayMode(int width, int height, SurfaceFormat format)
         {
-            this.width = width;
-            this.height = height;
-            this.format = format;
+            Width = width;
+            Height = height;
+            Format = format;
         }
 
         #endregion Constructors
@@ -129,9 +116,9 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 return false;
             }
-            return (left.format == right.format) &&
-                (left.height == right.height) &&
-                (left.width == right.width);
+            return (left.Format == right.Format) &&
+                (left.Height == right.Height) &&
+                (left.Width == right.Width);
         }
 
         #endregion Operators
@@ -147,13 +134,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return (this.width.GetHashCode() ^ this.height.GetHashCode() ^ this.format.GetHashCode());
+            return (Width.GetHashCode() ^ Height.GetHashCode() ^ Format.GetHashCode());
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return "{Width:" + this.width + " Height:" + this.height + " Format:" + this.Format + " AspectRatio:" + this.AspectRatio + "}";
+            return $"{{Width:{Width} Height:{Height} Format:{Format} AspectRatio:{AspectRatio}}}";
         }
 
         #endregion Public Methods

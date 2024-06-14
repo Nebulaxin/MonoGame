@@ -71,35 +71,18 @@ namespace Microsoft.Xna.Framework.Graphics
 
         static private SharpDX.Direct3D11.StencilOperation GetStencilOp(StencilOperation op)
         {
-            switch (op)
+            return op switch
             {
-                case StencilOperation.Decrement:
-                    return SharpDX.Direct3D11.StencilOperation.Decrement;
-
-                case StencilOperation.DecrementSaturation:
-                    return SharpDX.Direct3D11.StencilOperation.DecrementAndClamp;
-
-                case StencilOperation.Increment:
-                    return SharpDX.Direct3D11.StencilOperation.Increment;
-
-                case StencilOperation.IncrementSaturation:
-                    return SharpDX.Direct3D11.StencilOperation.IncrementAndClamp;
-
-                case StencilOperation.Invert:
-                    return SharpDX.Direct3D11.StencilOperation.Invert;
-
-                case StencilOperation.Keep:
-                    return SharpDX.Direct3D11.StencilOperation.Keep;
-
-                case StencilOperation.Replace:
-                    return SharpDX.Direct3D11.StencilOperation.Replace;
-
-                case StencilOperation.Zero:
-                    return SharpDX.Direct3D11.StencilOperation.Zero;
-
-                default:
-                    throw new ArgumentException("Invalid stencil operation!");
-            }
+                StencilOperation.Decrement => SharpDX.Direct3D11.StencilOperation.Decrement,
+                StencilOperation.DecrementSaturation => SharpDX.Direct3D11.StencilOperation.DecrementAndClamp,
+                StencilOperation.Increment => SharpDX.Direct3D11.StencilOperation.Increment,
+                StencilOperation.IncrementSaturation => SharpDX.Direct3D11.StencilOperation.IncrementAndClamp,
+                StencilOperation.Invert => SharpDX.Direct3D11.StencilOperation.Invert,
+                StencilOperation.Keep => SharpDX.Direct3D11.StencilOperation.Keep,
+                StencilOperation.Replace => SharpDX.Direct3D11.StencilOperation.Replace,
+                StencilOperation.Zero => SharpDX.Direct3D11.StencilOperation.Zero,
+                _ => throw new ArgumentException("Invalid stencil operation!"),
+            };
         }
 
         partial void PlatformDispose()

@@ -13,8 +13,7 @@ namespace Microsoft.Xna.Framework.Media
     /// </summary>
     public sealed class PlaylistCollection : ICollection<Playlist>, IEnumerable<Playlist>, IEnumerable, IDisposable
     {
-		private bool isReadOnly = false;
-		private List<Playlist> innerlist = new List<Playlist>();
+        private List<Playlist> innerlist = new();
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
         public void Dispose()
@@ -35,57 +34,41 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the number of <see cref="Playlist"/> objects in the <see cref="PlaylistCollection"/>.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-				return innerlist.Count;
-            }
-        }
+        public int Count => innerlist.Count;
 
         /// <summary>
         /// Gets whether this collection is read-only,
         /// </summary>
-		public bool IsReadOnly
-        {
-            get { return this.isReadOnly; }
-        }
+		public bool IsReadOnly { get; } = false;
 
         /// <summary>
         /// Gets the <see cref="Playlist"/> at the specified index in the <see cref="PlaylistCollection"/>.
         /// </summary>
-        public Playlist this[int index]
-        {
-            get
-            {
-				return this.innerlist[index];
-            }
-        }
+        public Playlist this[int index] => innerlist[index];
 
         /// <summary>
         /// Adds a <see cref="Playlist"/> to this <see cref="PlaylistCollection"/>.
         /// </summary>
 		public void Add(Playlist item)
         {
-            if (item == null)
-                throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull(item);
 
             if (innerlist.Count == 0)
             {
-                this.innerlist.Add(item);
+                innerlist.Add(item);
                 return;
             }
 
-            for (int i = 0; i < this.innerlist.Count; i++)
+            for (int i = 0; i < innerlist.Count; i++)
             {
-                if (item.Duration < this.innerlist[i].Duration)
+                if (item.Duration < innerlist[i].Duration)
                 {
-                    this.innerlist.Insert(i, item);
+                    innerlist.Insert(i, item);
                     return;
                 }
             }
 
-            this.innerlist.Add(item);
+            innerlist.Add(item);
         }
 
         /// <summary>
@@ -99,8 +82,8 @@ namespace Microsoft.Xna.Framework.Media
         /// <inheritdoc cref="ICloneable.Clone"/>
         public PlaylistCollection Clone()
         {
-            PlaylistCollection plc = new PlaylistCollection();
-            foreach (Playlist playlist in this.innerlist)
+            PlaylistCollection plc = new();
+            foreach (Playlist playlist in innerlist)
                 plc.Add(playlist);
             return plc;
         }

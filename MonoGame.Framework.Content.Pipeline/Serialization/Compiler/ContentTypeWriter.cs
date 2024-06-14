@@ -11,29 +11,25 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
     /// </summary>
     public abstract class ContentTypeWriter
     {
-        private readonly Type _targetType;
         protected int _typeVersion;
 
         /// <summary>
         /// Determines if deserialization into an existing object is possible.
         /// </summary>
         /// <value>true if the object can be deserialized into; false otherwise.</value>
-        public virtual bool CanDeserializeIntoExistingObject
-        {
-            get { return false; }
-        }
+        public virtual bool CanDeserializeIntoExistingObject => false;
 
         /// <summary>
         /// Gets the type handled by this compiler component.
         /// </summary>
         /// <value>The type handled by this compiler component.</value>
-        public Type TargetType { get { return _targetType; } }
+        public Type TargetType { get; }
 
         /// <summary>
         /// Gets a format version number for this type.
         /// </summary>
         /// <value>A format version number for this type.</value>
-        public virtual int TypeVersion { get { return _typeVersion; } }
+        public virtual int TypeVersion => _typeVersion;
 
         /// <summary>
         /// Initializes a new instance of the ContentTypeWriter class.
@@ -44,7 +40,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
             if (targetType == null)
                 throw new ArgumentNullException();
 
-            _targetType = targetType;
+            TargetType = targetType;
         }
         
         /// <summary>
@@ -61,7 +57,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         /// <returns>The qualified name.</returns>
         public virtual string GetRuntimeType(TargetPlatform targetPlatform)
         {
-            return _targetType.FullName + ", " + _targetType.Assembly.FullName;
+            return TargetType.FullName + ", " + TargetType.Assembly.FullName;
         }
 
         /// <summary>

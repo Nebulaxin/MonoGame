@@ -60,60 +60,51 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw new NotImplementedException();
 #endif
 
-            if (force || this.ScissorTestEnable != device._lastRasterizerState.ScissorTestEnable)
-			{
+            if (force || ScissorTestEnable != device._lastRasterizerState.ScissorTestEnable)
+            {
 			    if (ScissorTestEnable)
 				    GL.Enable(EnableCap.ScissorTest);
 			    else
 				    GL.Disable(EnableCap.ScissorTest);
                 GraphicsExtensions.CheckGLError();
-                device._lastRasterizerState.ScissorTestEnable = this.ScissorTestEnable;
+                device._lastRasterizerState.ScissorTestEnable = ScissorTestEnable;
             }
 
-            if (force || 
-                this.DepthBias != device._lastRasterizerState.DepthBias ||
-                this.SlopeScaleDepthBias != device._lastRasterizerState.SlopeScaleDepthBias)
+            if (force ||
+                DepthBias != device._lastRasterizerState.DepthBias ||
+                SlopeScaleDepthBias != device._lastRasterizerState.SlopeScaleDepthBias)
             {
-                if (this.DepthBias != 0 || this.SlopeScaleDepthBias != 0)
+                if (DepthBias != 0 || SlopeScaleDepthBias != 0)
                 {
                     // from the docs it seems this works the same as for Direct3D
                     // https://www.khronos.org/opengles/sdk/docs/man/xhtml/glPolygonOffset.xml
                     // explanation for Direct3D is  in https://github.com/MonoGame/MonoGame/issues/4826
-                    int depthMul;
-                    switch (device.ActiveDepthFormat)
+                    var depthMul = device.ActiveDepthFormat switch
                     {
-                        case DepthFormat.None:
-                            depthMul = 0;
-                            break;
-                        case DepthFormat.Depth16:
-                            depthMul = 1 << 16 - 1;
-                            break;
-                        case DepthFormat.Depth24:
-                        case DepthFormat.Depth24Stencil8:
-                            depthMul = 1 << 24 - 1;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-    }
+                        DepthFormat.None => 0,
+                        DepthFormat.Depth16 => 1 << 16 - 1,
+                        DepthFormat.Depth24 or DepthFormat.Depth24Stencil8 => 1 << 24 - 1,
+                        _ => throw new ArgumentOutOfRangeException(),
+                    };
                     GL.Enable(EnableCap.PolygonOffsetFill);
-                    GL.PolygonOffset(this.SlopeScaleDepthBias, this.DepthBias * depthMul);
+                    GL.PolygonOffset(SlopeScaleDepthBias, DepthBias * depthMul);
                 }
                 else
                     GL.Disable(EnableCap.PolygonOffsetFill);
                 GraphicsExtensions.CheckGLError();
-                device._lastRasterizerState.DepthBias = this.DepthBias;
-                device._lastRasterizerState.SlopeScaleDepthBias = this.SlopeScaleDepthBias;
+                device._lastRasterizerState.DepthBias = DepthBias;
+                device._lastRasterizerState.SlopeScaleDepthBias = SlopeScaleDepthBias;
             }
 
             if (device.GraphicsCapabilities.SupportsDepthClamp &&
-                (force || this.DepthClipEnable != device._lastRasterizerState.DepthClipEnable))
+                (force || DepthClipEnable != device._lastRasterizerState.DepthClipEnable))
             {
                 if (!DepthClipEnable)
                     GL.Enable((EnableCap) 0x864F); // should be EnableCap.DepthClamp, but not available in OpenTK.Graphics.ES20.EnableCap
                 else
                     GL.Disable((EnableCap) 0x864F);
                 GraphicsExtensions.CheckGLError();
-                device._lastRasterizerState.DepthClipEnable = this.DepthClipEnable;
+                device._lastRasterizerState.DepthClipEnable = DepthClipEnable;
             }
 
             // TODO: Implement MultiSampleAntiAlias

@@ -23,33 +23,30 @@ namespace Microsoft.Xna.Framework.Graphics
     public partial class Texture2D : Texture
     {
         /// <summary />
-        protected bool Shared { get { return _shared; } }
+        protected bool Shared { get; private set; }
         /// <summary />
-        protected bool Mipmap { get { return _mipmap; } }
+        protected bool Mipmap { get; private set; }
         /// <summary />
-        protected SampleDescription SampleDescription { get { return _sampleDescription; } }
+        protected SampleDescription SampleDescription => _sampleDescription;
 
-        private bool _shared;
-        private bool _mipmap;
         private SampleDescription _sampleDescription;
 
         private SharpDX.Direct3D11.Texture2D _cachedStagingTexture;
 
         private void PlatformConstruct(int width, int height, bool mipmap, SurfaceFormat format, SurfaceType type, bool shared)
         {
-            _shared = shared;
-            _mipmap = mipmap;
+            Shared = shared;
+            Mipmap = mipmap;
             _sampleDescription = new SampleDescription(1, 0);
         }
 
         private void PlatformSetData<T>(int level, T[] data, int startIndex, int elementCount) where T : struct
         {
-            int w, h;
-            GetSizeForLevel(Width, Height, level, out w, out h);
+            GetSizeForLevel(Width, Height, level, out int w, out int h);
 
             // For DXT compressed formats the width and height must be
             // a multiple of 4 for the complete mip level to be set.
-            if (_format.IsCompressedFormat())
+            if (Format.IsCompressedFormat())
             {
                 w = (w + 3) & ~3;
                 h = (h + 3) & ~3;
@@ -119,7 +116,7 @@ namespace Microsoft.Xna.Framework.Graphics
             // TODO: We should probably be pooling these staging resources
             // and not creating a new one each time.
             //
-            var min = _format.IsCompressedFormat() ? 4 : 1;
+            var min = Format.IsCompressedFormat() ? 4 : 1;
             var levelWidth = Math.Max(width >> level, min);
             var levelHeight = Math.Max(height >> level, min);
 
@@ -130,7 +127,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 desc.Height = levelHeight;
                 desc.MipLevels = 1;
                 desc.ArraySize = 1;
-                desc.Format = SharpDXHelper.ToFormat(_format);
+                desc.Format = SharpDXHelper.ToFormat(Format);
                 desc.BindFlags = BindFlags.None;
                 desc.CpuAccessFlags = CpuAccessFlags.Read;
                 desc.SampleDescription = SampleDescription;
@@ -159,8 +156,8 @@ namespace Microsoft.Xna.Framework.Graphics
                 {
                     var databox = d3dContext.MapSubresource(_cachedStagingTexture, 0, MapMode.Read, MapFlags.None, out stream);
 
-                    var elementSize = _format.GetSize();
-                    if (_format.IsCompressedFormat())
+                    var elementSize = Format.GetSize();
+                    if (Format.IsCompressedFormat())
                     {
                         // for 4x4 block compression formats an element is one block, so elementsInRow
                         // and number of rows are 1/4 of number of pixels in width and height of the rectangle
@@ -213,7 +210,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private int CalculateSubresourceIndex(int arraySlice, int level)
         {
-            return arraySlice * _levelCount + level;
+            return arraySlice * LevelCount + level;
         }
 
         /// <summary />
@@ -222,16 +219,16 @@ namespace Microsoft.Xna.Framework.Graphics
             var desc = new Texture2DDescription();
             desc.Width = width;
             desc.Height = height;
-            desc.MipLevels = _levelCount;
+            desc.MipLevels = LevelCount;
             desc.ArraySize = ArraySize;
-            desc.Format = SharpDXHelper.ToFormat(_format);
+            desc.Format = SharpDXHelper.ToFormat(Format);
             desc.BindFlags = BindFlags.ShaderResource;
             desc.CpuAccessFlags = CpuAccessFlags.None;
             desc.SampleDescription = SampleDescription;
             desc.Usage = ResourceUsage.Default;
             desc.OptionFlags = ResourceOptionFlags.None;
 
-            if (_shared)
+            if (Shared)
                 desc.OptionFlags |= ResourceOptionFlags.Shared;
 
             return desc;

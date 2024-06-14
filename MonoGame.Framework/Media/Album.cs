@@ -34,10 +34,6 @@ namespace Microsoft.Xna.Framework.Media
     /// </remarks>
     public sealed class Album : IDisposable
     {
-        private Artist artist;
-        private Genre genre;
-        private string album;
-        private SongCollection songCollection;
 #if WINDOWS_UAP
         private StorageItemThumbnail thumbnail;
 #elif IOS && !TVOS
@@ -52,95 +48,55 @@ namespace Microsoft.Xna.Framework.Media
         /// <value>
         /// <see cref="Media.Artist"/> of this Album.
         /// </value>
-        public Artist Artist
-        {
-            get
-            {
-                return this.artist;
-            }
-        }
+        public Artist Artist { get; }
 
         /// <summary>
         /// Gets the duration of the Album.
         /// </summary>
-        public TimeSpan Duration
-        {
-            get
-            {
-                return TimeSpan.Zero; // Not implemented
-            }
-        }
+        public TimeSpan Duration => TimeSpan.Zero; // Not implemented
 
         /// <summary>
         /// Gets the <see cref="Media.Genre"/> of the Album.
         /// </summary>
-        public Genre Genre
-        {
-            get
-            {
-                return this.genre;
-            }
-        }
+        public Genre Genre { get; }
 
         /// <summary>
         /// Gets a value indicating whether the Album has associated album art.
         /// </summary>
-        public bool HasArt
-        {
-            get
-            {
+        public bool HasArt =>
 #if WINDOWS_UAP
-                return this.thumbnail != null;
+                thumbnail != null;
 #elif IOS && !TVOS
                 // If album art is missing the bounds will be: Infinity, Infinity, 0, 0
-                return this.thumbnail != null && this.thumbnail.Bounds.Width != 0;
+                thumbnail != null && thumbnail.Bounds.Width != 0;
 #elif ANDROID
-                return this.thumbnail != null;
+                thumbnail != null;
 #else
-                return false;
+                false;
 #endif
-            }
-        }
+
 
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
         /// </summary>
-        public bool IsDisposed
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool IsDisposed => false;
 
         /// <summary>
         /// Gets the name of the Album.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return this.album;
-            }
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Gets a <see cref="Media.SongCollection"/> that contains the songs on the Album.
         /// </summary>
-        public SongCollection Songs
-        {
-            get
-            {
-                return this.songCollection;
-            }
-        }
+        public SongCollection Songs { get; }
 
-       private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
+        private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
         {
-            this.songCollection = songCollection;
-            this.album = name;
-            this.artist = artist;
-            this.genre = genre;
+            Songs = songCollection;
+            Name = name;
+            Artist = artist;
+            Genre = genre;
         }
 #if WINDOWS_UAP
         internal Album(SongCollection songCollection, string name, Artist artist, Genre genre, StorageItemThumbnail thumbnail)
@@ -166,25 +122,25 @@ namespace Microsoft.Xna.Framework.Media
         public void Dispose()
         {
 #if WINDOWS_UAP
-            if (this.thumbnail != null)
-                this.thumbnail.Dispose();
+            if (thumbnail != null)
+                thumbnail.Dispose();
 #endif
         }
-        
+
 #if IOS && !TVOS
         public UIImage GetAlbumArt(int width = 0, int height = 0)
         {
             if (width == 0)
-                width = (int)this.thumbnail.Bounds.Width;
+                width = (int)thumbnail.Bounds.Width;
             if (height == 0)
-                height = (int)this.thumbnail.Bounds.Height;
+                height = (int)thumbnail.Bounds.Height;
 
-			return this.thumbnail.ImageWithSize(new CGSize(width, height));
+			return thumbnail.ImageWithSize(new CGSize(width, height));
         }
 #elif ANDROID
         public Bitmap GetAlbumArt(int width = 0, int height = 0)
         {
-            var albumArt = MediaStore.Images.Media.GetBitmap(MediaLibrary.Context.ContentResolver, this.thumbnail);
+            var albumArt = MediaStore.Images.Media.GetBitmap(MediaLibrary.Context.ContentResolver, thumbnail);
             if (width == 0 || height == 0)
                 return albumArt;
 
@@ -199,8 +155,8 @@ namespace Microsoft.Xna.Framework.Media
         public Stream GetAlbumArt()
         {
 #if WINDOWS_UAP
-            if (this.HasArt)
-                return this.thumbnail.AsStream();
+            if (HasArt)
+                return thumbnail.AsStream();
             return null;
 #else
             throw new NotImplementedException();
@@ -211,12 +167,12 @@ namespace Microsoft.Xna.Framework.Media
 #if IOS && !TVOS
         public UIImage GetThumbnail()
         {
-            return this.GetAlbumArt(220, 220);
+            return GetAlbumArt(220, 220);
         }
 #elif ANDROID
         public Bitmap GetThumbnail()
         {
-            return this.GetAlbumArt(220, 220);
+            return GetAlbumArt(220, 220);
         }
 #else
         /// <summary>
@@ -225,8 +181,8 @@ namespace Microsoft.Xna.Framework.Media
         public Stream GetThumbnail()
         {
 #if WINDOWS_UAP
-            if (this.HasArt)
-                return this.thumbnail.AsStream();
+            if (HasArt)
+                return thumbnail.AsStream();
 
             return null;
 #else
@@ -240,7 +196,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.album.ToString();
+            return Name.ToString();
         }
 
         /// <summary>
@@ -248,7 +204,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.album.GetHashCode();
+            return Name.GetHashCode();
         }
     }
 }

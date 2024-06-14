@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework
             if (SwapChainPanel != null)
             {
                 presentationParameters.DeviceWindowHandle = IntPtr.Zero;
-                presentationParameters.SwapChainPanel = this.SwapChainPanel;
+                presentationParameters.SwapChainPanel = SwapChainPanel;
            }
             else
             {

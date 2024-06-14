@@ -76,11 +76,10 @@ namespace Microsoft.Xna.Framework.Graphics
             // Recompute the world+view+projection matrix?
             if ((dirtyFlags & EffectDirtyFlags.WorldViewProj) != 0)
             {
-                Matrix worldViewProj;
-                
+
                 Matrix.Multiply(ref world, ref view, out worldView);
-                Matrix.Multiply(ref worldView, ref projection, out worldViewProj);
-                
+                Matrix.Multiply(ref worldView, ref projection, out Matrix worldViewProj);
+
                 worldViewProjParam.SetValue(worldViewProj);
                 
                 dirtyFlags &= ~EffectDirtyFlags.WorldViewProj;
@@ -130,7 +129,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 
                 float scale = 1f / (fogStart - fogEnd);
 
-                Vector4 fogVector = new Vector4();
+                Vector4 fogVector = new();
 
                 fogVector.X = worldView.M13 * scale;
                 fogVector.Y = worldView.M23 * scale;
@@ -152,12 +151,10 @@ namespace Microsoft.Xna.Framework.Graphics
             // Set the world and world inverse transpose matrices.
             if ((dirtyFlags & EffectDirtyFlags.World) != 0)
             {
-                Matrix worldTranspose;
-                Matrix worldInverseTranspose;
-                
-                Matrix.Invert(ref world, out worldTranspose);
-                Matrix.Transpose(ref worldTranspose, out worldInverseTranspose);
-                
+
+                Matrix.Invert(ref world, out Matrix worldTranspose);
+                Matrix.Transpose(ref worldTranspose, out Matrix worldInverseTranspose);
+
                 worldParam.SetValue(world);
                 worldInverseTransposeParam.SetValue(worldInverseTranspose);
                 
@@ -167,9 +164,8 @@ namespace Microsoft.Xna.Framework.Graphics
             // Set the eye position.
             if ((dirtyFlags & EffectDirtyFlags.EyePosition) != 0)
             {
-                Matrix viewInverse;
-                
-                Matrix.Invert(ref view, out viewInverse);
+
+                Matrix.Invert(ref view, out Matrix viewInverse);
 
                 eyePositionParam.SetValue(viewInverse.Translation);
 
@@ -210,9 +206,9 @@ namespace Microsoft.Xna.Framework.Graphics
             
             if (lightingEnabled)
             {
-                Vector4 diffuse = new Vector4();
-                Vector3 emissive = new Vector3();
-                
+                Vector4 diffuse = new();
+                Vector3 emissive = new();
+
                 diffuse.X = diffuseColor.X * alpha;
                 diffuse.Y = diffuseColor.Y * alpha;
                 diffuse.Z = diffuseColor.Z * alpha;
@@ -227,8 +223,8 @@ namespace Microsoft.Xna.Framework.Graphics
             }
             else
             {
-                Vector4 diffuse = new Vector4();
-                
+                Vector4 diffuse = new();
+
                 diffuse.X = (diffuseColor.X + emissiveColor.X) * alpha;
                 diffuse.Y = (diffuseColor.Y + emissiveColor.Y) * alpha;
                 diffuse.Z = (diffuseColor.Z + emissiveColor.Z) * alpha;

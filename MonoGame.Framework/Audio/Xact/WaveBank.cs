@@ -78,8 +78,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         private WaveBank(AudioEngine audioEngine, string waveBankFilename, bool streaming, int offset, int packetsize)
         {
-            if (audioEngine == null)
-                throw new ArgumentNullException("audioEngine");
+            ArgumentNullException.ThrowIfNull(audioEngine);
             if (string.IsNullOrEmpty(waveBankFilename))
                 throw new ArgumentNullException("nonStreamingWaveBankFilename");
 
@@ -87,9 +86,9 @@ namespace Microsoft.Xna.Framework.Audio
             if (streaming)
             {
                 if (offset != 0)
-                    throw new ArgumentException("We only support a zero offset in streaming banks.", "offset");
+                    throw new ArgumentException("We only support a zero offset in streaming banks.", nameof(offset));
                 if (packetsize < 2)
-                    throw new ArgumentException("The packet size must be greater than 2.", "packetsize");
+                    throw new ArgumentException("The packet size must be greater than 2.", nameof(packetsize));
 
                 _streaming = true;
                 _offset = offset;
@@ -112,7 +111,7 @@ namespace Microsoft.Xna.Framework.Audio
 
             _waveBankFileName = waveBankFilename;
 
-            BinaryReader reader = new BinaryReader(AudioEngine.OpenStream(waveBankFilename));
+            BinaryReader reader = new(AudioEngine.OpenStream(waveBankFilename));
 
             reader.ReadBytes(4);
 
@@ -268,9 +267,7 @@ namespace Microsoft.Xna.Framework.Audio
                     var audiodata = reader.ReadBytes(info.FileLength);
 
                     // Decode the format information.
-                    MiniFormatTag codec;
-                    int channels, rate, alignment;
-                    DecodeFormat(info.Format, out codec, out channels, out rate, out alignment);
+                    DecodeFormat(info.Format, out MiniFormatTag codec, out int channels, out int rate, out int alignment);
 
                     // Call the special constuctor on SoundEffect to sort it out.
                     _sounds[i] = new SoundEffect(codec, audiodata, channels, rate, alignment, info.LoopStart, info.LoopLength);                

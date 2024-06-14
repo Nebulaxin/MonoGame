@@ -20,17 +20,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
 
         private string _runtimeType;
         private ContentCompiler _compiler;
-        private static HashSet<MemberInfo> _sharedResources = new HashSet<MemberInfo>();
+        private static HashSet<MemberInfo> _sharedResources = new();
 
         public ReflectiveWriter()
             : base(typeof(T))
         {
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return TargetType.IsClass; }
-        }
+        public override bool CanDeserializeIntoExistingObject => TargetType.IsClass;
 
         protected override void Initialize(ContentCompiler compiler)
         {

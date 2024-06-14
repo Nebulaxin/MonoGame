@@ -23,13 +23,11 @@ namespace Microsoft.Xna.Framework
     /// </summary>
     public partial class Game : IDisposable
     {
-        private GameComponentCollection _components;
-        private GameServiceContainer _services;
         private ContentManager _content;
         internal GamePlatform Platform;
 
         private SortingFilteringCollection<IDrawable> _drawables =
-            new SortingFilteringCollection<IDrawable>(
+            new(
                 d => d.Visible,
                 (d, handler) => d.VisibleChanged += handler,
                 (d, handler) => d.VisibleChanged -= handler,
@@ -38,7 +36,7 @@ namespace Microsoft.Xna.Framework
                 (d, handler) => d.DrawOrderChanged -= handler);
 
         private SortingFilteringCollection<IUpdateable> _updateables =
-            new SortingFilteringCollection<IUpdateable>(
+            new(
                 u => u.Enabled,
                 (u, handler) => u.EnabledChanged += handler,
                 (u, handler) => u.EnabledChanged -= handler,
@@ -48,10 +46,6 @@ namespace Microsoft.Xna.Framework
 
         private IGraphicsDeviceManager _graphicsDeviceManager;
         private IGraphicsDeviceService _graphicsDeviceService;
-
-        private bool _initialized = false;
-        private bool _isFixedTimeStep = true;
-
         private TimeSpan _targetElapsedTime = TimeSpan.FromTicks(166667); // 60fps
         private TimeSpan _inactiveSleepTime = TimeSpan.FromSeconds(0.02);
 
@@ -70,14 +64,14 @@ namespace Microsoft.Xna.Framework
             _instance = this;
 
             LaunchParameters = new LaunchParameters();
-            _services = new GameServiceContainer();
-            _components = new GameComponentCollection();
-            _content = new ContentManager(_services);
+            Services = new GameServiceContainer();
+            Components = new GameComponentCollection();
+            _content = new ContentManager(Services);
 
             Platform = GamePlatform.PlatformCreate(this);
             Platform.Activated += OnActivated;
             Platform.Deactivated += OnDeactivated;
-            _services.AddService(typeof(GamePlatform), Platform);
+            Services.AddService(typeof(GamePlatform), Platform);
 
             // Calling Update() for first time initializes some systems
             FrameworkDispatcher.Update();
@@ -118,13 +112,13 @@ namespace Microsoft.Xna.Framework
                 if (disposing)
                 {
                     // Dispose loaded game components
-                    for (int i = 0; i < _components.Count; i++)
+                    for (int i = 0; i < Components.Count; i++)
                     {
-                        var disposable = _components[i] as IDisposable;
+                        var disposable = Components[i] as IDisposable;
                         if (disposable != null)
                             disposable.Dispose();
                     }
-                    _components = null;
+                    Components = null;
 
                     if (_content != null)
                     {
@@ -142,7 +136,7 @@ namespace Microsoft.Xna.Framework
                     {
                         Platform.Activated -= OnActivated;
                         Platform.Deactivated -= OnDeactivated;
-                        _services.RemoveService(typeof(GamePlatform));
+                        Services.RemoveService(typeof(GamePlatform));
 
                         Platform.Dispose();
                         Platform = null;
@@ -168,7 +162,7 @@ namespace Microsoft.Xna.Framework
             {
                 string name = GetType().Name;
                 throw new ObjectDisposedException(
-                    name, string.Format("The {0} object was used after being Disposed.", name));
+                    name, $"The {name} object was used after being Disposed.");
             }
         }
 
@@ -180,7 +174,7 @@ namespace Microsoft.Xna.Framework
         public static AndroidGameActivity Activity { get; internal set; }
 #endif
         private static Game _instance = null;
-        internal static Game Instance { get { return Game._instance; } }
+        internal static Game Instance => Game._instance;
 
         /// <summary>
         /// The start up parameters for this <see cref="Game"/>.
@@ -190,17 +184,14 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// A collection of game components attached to this <see cref="Game"/>.
         /// </summary>
-        public GameComponentCollection Components
-        {
-            get { return _components; }
-        }
+        public GameComponentCollection Components { get; private set; }
 
         /// <summary>
         /// Gets or sets time to sleep between frames when the game is not active
         /// </summary>
         public TimeSpan InactiveSleepTime
         {
-            get { return _inactiveSleepTime; }
+            get => _inactiveSleepTime;
             set
             {
                 if (value < TimeSpan.Zero)
@@ -216,13 +207,13 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public TimeSpan MaxElapsedTime
         {
-            get { return _maxElapsedTime; }
+            get => _maxElapsedTime;
             set
             {
                 if (value < TimeSpan.Zero)
                     throw new ArgumentOutOfRangeException(
                         "The time must be positive.");
-                
+
                 if (value < _targetElapsedTime)
                     throw new ArgumentOutOfRangeException(
                         "The time must be at least TargetElapsedTime");
@@ -234,18 +225,15 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Indicates if the game is the focused application.
         /// </summary>
-        public bool IsActive
-        {
-            get { return Platform.IsActive; }
-        }
+        public bool IsActive => Platform.IsActive;
 
         /// <summary>
         /// Indicates if the mouse cursor is visible on the game screen.
         /// </summary>
         public bool IsMouseVisible
         {
-            get { return Platform.IsMouseVisible; }
-            set { Platform.IsMouseVisible = value; }
+            get => Platform.IsMouseVisible;
+            set => Platform.IsMouseVisible = value;
         }
 
         /// <summary>
@@ -254,7 +242,7 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentOutOfRangeException">Target elapsed time must be strictly larger than zero.</exception>
         public TimeSpan TargetElapsedTime
         {
-            get { return _targetElapsedTime; }
+            get => _targetElapsedTime;
             set
             {
                 // Give GamePlatform implementations an opportunity to override
@@ -284,18 +272,12 @@ namespace Microsoft.Xna.Framework
         /// When set to <code>true</code> the target time between frames is
         /// given by <see cref="TargetElapsedTime"/>.
         /// </summary>
-        public bool IsFixedTimeStep
-        {
-            get { return _isFixedTimeStep; }
-            set { _isFixedTimeStep = value; }
-        }
+        public bool IsFixedTimeStep { get; set; } = true;
 
         /// <summary>
         /// Get a container holding service providers attached to this <see cref="Game"/>.
         /// </summary>
-        public GameServiceContainer Services {
-            get { return _services; }
-        }
+        public GameServiceContainer Services { get; }
 
 
         /// <summary>
@@ -304,11 +286,10 @@ namespace Microsoft.Xna.Framework
         /// <exception cref="ArgumentNullException">If Content is set to <code>null</code>.</exception>
         public ContentManager Content
         {
-            get { return _content; }
+            get => _content;
             set
             {
-                if (value == null)
-                    throw new ArgumentNullException();
+                ArgumentNullException.ThrowIfNull(value);
 
                 _content = value;
             }
@@ -339,10 +320,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// The system window that this game is displayed on.
         /// </summary>
-        public GameWindow Window
-        {
-            get { return Platform.Window; }
-        }
+        public GameWindow Window => Platform.Window;
 
         #endregion Properties
 
@@ -352,10 +330,7 @@ namespace Microsoft.Xna.Framework
         // Currently Game.Initialized is used by the Mac game window class to
         // determine whether to raise DeviceResetting and DeviceReset on
         // GraphicsDeviceManager.
-        internal bool Initialized
-        {
-            get { return _initialized; }
-        }
+        internal bool Initialized { get; private set; } = false;
 
         #endregion Internal Properties
 
@@ -437,11 +412,11 @@ namespace Microsoft.Xna.Framework
             if (!Platform.BeforeRun())
                 return;
 
-            if (!_initialized)
+            if (!Initialized)
             {
                 DoInitialize ();
                 _gameTimer = Stopwatch.StartNew();
-                _initialized = true;
+                Initialized = true;
             }
 
             BeginRun();            
@@ -475,9 +450,10 @@ namespace Microsoft.Xna.Framework
                 return;
             }
 
-            if (!_initialized) {
+            if (!Initialized)
+            {
                 DoInitialize ();
-                _initialized = true;
+                Initialized = true;
             }
 
             BeginRun();
@@ -495,13 +471,12 @@ namespace Microsoft.Xna.Framework
                 Platform.RunLoop();
                 break;
             default:
-                throw new ArgumentException(string.Format(
-                    "Handling for the run behavior {0} is not implemented.", runBehavior));
+                    throw new ArgumentException($"Handling for the run behavior {runBehavior} is not implemented.");
             }
         }
 
         private TimeSpan _accumulatedElapsedTime;
-        private readonly GameTime _gameTime = new GameTime();
+        private readonly GameTime _gameTime = new();
         private Stopwatch _gameTimer;
         private long _previousTicks = 0;
         private int _updateFrameLag;
@@ -871,8 +846,8 @@ namespace Microsoft.Xna.Framework
             //    lists synced and to Initialize future components as they are
             //    added.            
             CategorizeComponents();
-            _components.ComponentAdded += Components_ComponentAdded;
-            _components.ComponentRemoved += Components_ComponentRemoved;
+            Components.ComponentAdded += Components_ComponentAdded;
+            Components.ComponentRemoved += Components_ComponentRemoved;
         }
 
         #endregion Internal Methods
@@ -1068,15 +1043,9 @@ namespace Microsoft.Xna.Framework
                 _items.CopyTo(array, arrayIndex);
             }
 
-            public int Count
-            {
-                get { return _items.Count; }
-            }
+            public int Count => _items.Count;
 
-            public bool IsReadOnly
-            {
-                get { return false; }
-            }
+            public bool IsReadOnly => false;
 
             public IEnumerator<T> GetEnumerator()
             {

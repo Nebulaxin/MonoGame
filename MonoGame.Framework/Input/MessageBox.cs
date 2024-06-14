@@ -37,7 +37,7 @@ namespace Microsoft.Xna.Framework.Input
 
             var buttonsList = buttons.ToList();
             if (buttonsList.Count > 3 || buttonsList.Count == 0)
-                throw new ArgumentException("Invalid number of buttons: one to three required", "buttons");
+                throw new ArgumentException("Invalid number of buttons: one to three required", nameof(buttons));
 
             var result = await PlatformShow(title, description, buttonsList);
 

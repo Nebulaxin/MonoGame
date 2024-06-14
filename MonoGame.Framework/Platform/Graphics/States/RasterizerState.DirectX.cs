@@ -43,23 +43,13 @@ namespace Microsoft.Xna.Framework.Graphics
                 desc.IsMultisampleEnabled = MultiSampleAntiAlias;
 
                 // discussion and explanation in https://github.com/MonoGame/MonoGame/issues/4826
-                int depthMul;
-                switch (device.ActiveDepthFormat)
+                var depthMul = device.ActiveDepthFormat switch
                 {
-                    case DepthFormat.None:
-                        depthMul = 0;
-                        break;
-                    case DepthFormat.Depth16:
-                        depthMul = 1 << 16 - 1;
-                        break;
-                    case DepthFormat.Depth24:
-                    case DepthFormat.Depth24Stencil8:
-                        depthMul = 1 << 24 - 1;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-
+                    DepthFormat.None => 0,
+                    DepthFormat.Depth16 => 1 << 16 - 1,
+                    DepthFormat.Depth24 or DepthFormat.Depth24Stencil8 => 1 << 24 - 1,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
                 desc.DepthBias = (int) (DepthBias * depthMul);
                 desc.SlopeScaledDepthBias = SlopeScaleDepthBias;
 

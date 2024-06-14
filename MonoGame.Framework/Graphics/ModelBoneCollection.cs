@@ -33,8 +33,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             get
             {
-                ModelBone ret;
-                if (!TryGetValue(boneName, out ret))
+                if (!TryGetValue(boneName, out ModelBone ret))
                     throw new KeyNotFoundException();
                 return ret;
             }
@@ -49,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
         public bool TryGetValue(string boneName, out ModelBone value)
         {
             if (string.IsNullOrEmpty(boneName))
-                throw new ArgumentNullException("boneName");
+                throw new ArgumentNullException(nameof(boneName));
 
             foreach (ModelBone bone in this)
             {
@@ -92,7 +91,7 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Gets the current element in the ModelBoneCollection.
             /// </summary>
-            public ModelBone Current { get { return _collection[_position]; } }
+            public ModelBone Current => _collection[_position];
 
             /// <summary>
             /// Advances the enumerator to the next element of the ModelBoneCollection.
@@ -116,10 +115,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             #region IEnumerator Members
 
-            object IEnumerator.Current
-            {
-                get { return _collection[_position]; }
-            }
+            object IEnumerator.Current => _collection[_position];
 
             /// <inheritdoc/>
             public void Reset()

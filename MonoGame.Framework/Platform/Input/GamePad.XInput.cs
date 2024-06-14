@@ -180,9 +180,8 @@ namespace Microsoft.Xna.Framework.Input
             var gamepad = new SharpDX.XInput.Gamepad();
             try
             {
-                SharpDX.XInput.State xistate;
                 var controller = _controllers[index];
-                _connected[index] = controller.GetState(out xistate);
+                _connected[index] = controller.GetState(out SharpDX.XInput.State xistate);
                 packetNumber = xistate.PacketNumber;
                 gamepad = xistate.Gamepad;
             }

@@ -14,7 +14,6 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
     /// </summary>
     public abstract class VertexChannel : IList, ICollection, IEnumerable
     {
-        string name;
 
         /// <summary>
         /// Allows overriding classes to implement the list, and for properties/methods in this class to access it.
@@ -27,13 +26,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the number of elements in the vertex channel
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return Items.Count;
-            }
-        }
+        public int Count => Items.Count;
 
         /// <summary>
         /// Gets the type of data contained in this channel.
@@ -45,74 +38,34 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// </summary>
         public Object this[int index]
         {
-            get
-            {
-                return Items[index];
-            }
-            set
-            {
-                Items[index] = value;
-            }
+            get => Items[index];
+            set => Items[index] = value;
         }
 
         /// <summary>
         /// Gets the name of the vertex channel.
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            internal set
-            {
-                name = value;
-            }
-        }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Gets a value indicating whether access to the collection is synchronized (thread safe).
         /// </summary>
-        bool System.Collections.ICollection.IsSynchronized
-        {
-            get
-            {
-                return false;
-            }
-        }
+        bool System.Collections.ICollection.IsSynchronized => false;
 
         /// <summary>
         /// Gets an object that can be used to synchronize access to the collection.
         /// </summary>
-        Object System.Collections.ICollection.SyncRoot
-        {
-            get
-            {
-                return this;
-            }
-        }
+        Object System.Collections.ICollection.SyncRoot => this;
 
         /// <summary>
         /// Gets a value indicating whether this list has a fixed size.
         /// </summary>
-        bool System.Collections.IList.IsFixedSize
-        {
-            get
-            {
-                return false;
-            }
-        }
+        bool System.Collections.IList.IsFixedSize => false;
 
         /// <summary>
         /// Gets a value indicating whether this object is read-only.
         /// </summary>
-        bool System.Collections.IList.IsReadOnly
-        {
-            get
-            {
-                return false;
-            }
-        }
+        bool System.Collections.IList.IsReadOnly => false;
 
         /// <summary>
         /// Creates an instance of VertexChannel.

@@ -25,15 +25,9 @@ namespace Microsoft.Xna.Framework.Audio
             Dispose(false);
         }
 
-		public int OpenALDataBuffer
-        {
-			get
-            {
-				return openALDataBuffer;
-			}
-		}
+        public int OpenALDataBuffer => openALDataBuffer;
 
-		public double Duration
+        public double Duration
         {
 			get;
 			set;
@@ -48,7 +42,6 @@ namespace Microsoft.Xna.Framework.Audio
 
             openALFormat = format;
             dataSize = size;
-            int unpackedSize = 0;
 
             if (sampleAlignment > 0)
             {
@@ -59,13 +52,12 @@ namespace Microsoft.Xna.Framework.Audio
             AL.BufferData(openALDataBuffer, openALFormat, dataBuffer, size, sampleRate);
             ALHelper.CheckError("Failed to fill buffer.");
 
-            int bits, channels;
             Duration = -1;
-            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Bits, out bits);
+            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Bits, out int bits);
             ALHelper.CheckError("Failed to get buffer bits");
-            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Channels, out channels);
+            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Channels, out int channels);
             ALHelper.CheckError("Failed to get buffer channels");
-            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Size, out unpackedSize);
+            AL.GetBuffer(openALDataBuffer, ALGetBufferi.Size, out int unpackedSize);
             ALHelper.CheckError("Failed to get buffer size");
             Duration = (float)(unpackedSize / ((bits / 8) * channels)) / (float)sampleRate;
         }

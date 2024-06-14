@@ -13,49 +13,36 @@ namespace Microsoft.Xna.Framework.Graphics
     /// render targets on the graphics device.
     /// </summary>
 	public struct RenderTargetBinding
-	{
-        private readonly Texture _renderTarget;
-        private readonly int _arraySlice;
-        private DepthFormat _depthFormat;
+    {
 
         /// <summary>
         /// Gets the the render target texture
         /// </summary>
-		public Texture RenderTarget
-        {
-			get { return _renderTarget; }
-		}
+        public Texture RenderTarget { get; }
 
         /// <summary>
         ///
         /// </summary>
-        public int ArraySlice
-        {
-            get { return _arraySlice; }
-        }
+        public int ArraySlice { get; }
 
         /// <summary>
         /// Gets the depth format specified for the render target
         /// </summary>
-        internal DepthFormat DepthFormat
-        {
-            get { return _depthFormat; }
-        }
+        internal DepthFormat DepthFormat { get; }
 
         /// <summary>
         /// Creates a new <b>RenderTargetBinding</b> for the specified render target.
         /// </summary>
         /// <param name="renderTarget">The render target to create the binding for.</param>
         /// <exception cref="ArgumentNullException">The <paramref name="renderTarget"/> parameter is null.</exception>
-		public RenderTargetBinding(RenderTarget2D renderTarget)
-		{
-			if (renderTarget == null)
-				throw new ArgumentNullException("renderTarget");
+        public RenderTargetBinding(RenderTarget2D renderTarget)
+        {
+            ArgumentNullException.ThrowIfNull(renderTarget);
 
-			_renderTarget = renderTarget;
-            _arraySlice = (int)CubeMapFace.PositiveX;
-            _depthFormat = renderTarget.DepthStencilFormat;
-		}
+            RenderTarget = renderTarget;
+            ArraySlice = (int)CubeMapFace.PositiveX;
+            DepthFormat = renderTarget.DepthStencilFormat;
+        }
 
         /// <summary>
         /// Creates a new <b>RenderTargetBinding</b> with the specified parameters.
@@ -69,14 +56,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public RenderTargetBinding(RenderTargetCube renderTarget, CubeMapFace cubeMapFace)
         {
-            if (renderTarget == null)
-                throw new ArgumentNullException("renderTarget");
+            ArgumentNullException.ThrowIfNull(renderTarget);
             if (cubeMapFace < CubeMapFace.PositiveX || cubeMapFace > CubeMapFace.NegativeZ)
-                throw new ArgumentOutOfRangeException("cubeMapFace");
+                throw new ArgumentOutOfRangeException(nameof(cubeMapFace));
 
-            _renderTarget = renderTarget;
-            _arraySlice = (int)cubeMapFace;
-            _depthFormat = renderTarget.DepthStencilFormat;
+            RenderTarget = renderTarget;
+            ArraySlice = (int)cubeMapFace;
+            DepthFormat = renderTarget.DepthStencilFormat;
         }
 
 #if DIRECTX
@@ -100,9 +86,9 @@ namespace Microsoft.Xna.Framework.Graphics
             if (!renderTarget.GraphicsDevice.GraphicsCapabilities.SupportsTextureArrays)
                 throw new InvalidOperationException("Texture arrays are not supported on this graphics device");
 
-            _renderTarget = renderTarget;
-            _arraySlice = arraySlice;
-            _depthFormat = renderTarget.DepthStencilFormat;
+            RenderTarget = renderTarget;
+            ArraySlice = arraySlice;
+            DepthFormat = renderTarget.DepthStencilFormat;
         }
 
         /// <summary>
@@ -115,9 +101,9 @@ namespace Microsoft.Xna.Framework.Graphics
             if (renderTarget == null)
                 throw new ArgumentNullException("renderTarget");
 
-            _renderTarget = renderTarget;
-            _arraySlice = 0;
-            _depthFormat = renderTarget.DepthStencilFormat;
+            RenderTarget = renderTarget;
+            ArraySlice = 0;
+            DepthFormat = renderTarget.DepthStencilFormat;
         }
 
         /// <summary>
@@ -136,9 +122,9 @@ namespace Microsoft.Xna.Framework.Graphics
             if (arraySlice < 0 || arraySlice >= renderTarget.Depth)
                 throw new ArgumentOutOfRangeException("arraySlice");
 
-            _renderTarget = renderTarget;
-            _arraySlice = arraySlice;
-            _depthFormat = renderTarget.DepthStencilFormat;
+            RenderTarget = renderTarget;
+            ArraySlice = arraySlice;
+            DepthFormat = renderTarget.DepthStencilFormat;
         }
 
 #endif

@@ -26,21 +26,18 @@ namespace Microsoft.Xna.Framework.Input
         bool InternalGetKey(Keys key)
         {
             uint mask = (uint)1 << (((int)key) & 0x1f);
-
-            uint element;
-            switch (((int)key) >> 5)
+            var element = (((int)key) >> 5) switch
             {
-                case 0: element = _keys0; break;
-                case 1: element = _keys1; break;
-                case 2: element = _keys2; break;
-                case 3: element = _keys3; break;
-                case 4: element = _keys4; break;
-                case 5: element = _keys5; break;
-                case 6: element = _keys6; break;
-                case 7: element = _keys7; break;
-                default: element = 0; break;
-            }
-
+                0 => _keys0,
+                1 => _keys1,
+                2 => _keys2,
+                3 => _keys3,
+                4 => _keys4,
+                5 => _keys5,
+                6 => _keys6,
+                7 => _keys7,
+                _ => (uint)0,
+            };
             return (element & mask) != 0;
         }
 
@@ -157,34 +154,19 @@ namespace Microsoft.Xna.Framework.Input
         /// <summary>
         /// Gets the current state of the Caps Lock key.
         /// </summary>
-        public bool CapsLock
-        {
-            get
-            {
-                return (_modifiers & CapsLockModifier) > 0;
-            }
-        }
+        public bool CapsLock => (_modifiers & CapsLockModifier) > 0;
 
         /// <summary>
         /// Gets the current state of the Num Lock key.
         /// </summary>
-        public bool NumLock
-        {
-            get
-            {
-                return (_modifiers & NumLockModifier) > 0;
-            }
-        }
+        public bool NumLock => (_modifiers & NumLockModifier) > 0;
 
         /// <summary>
         /// Returns the state of a specified key.
         /// </summary>
         /// <param name="key">The key to query.</param>
         /// <returns>The state of the key.</returns>
-        public KeyState this[Keys key]
-        {
-            get { return InternalGetKey(key) ? KeyState.Down : KeyState.Up; }
-        }
+        public KeyState this[Keys key] => InternalGetKey(key) ? KeyState.Down : KeyState.Up;
 
         /// <summary>
         /// Gets whether given key is currently being pressed.
@@ -272,14 +254,13 @@ namespace Microsoft.Xna.Framework.Input
         /// This array is not cleared, and it must be equal to or larger than the number of keys pressed.</param>
         public void GetPressedKeys(Keys[] keys)
         {
-            if (keys == null)
-                throw new System.ArgumentNullException("keys");
+            System.ArgumentNullException.ThrowIfNull(keys);
 
             uint count = CountBits(_keys0) + CountBits(_keys1) + CountBits(_keys2) + CountBits(_keys3)
                     + CountBits(_keys4) + CountBits(_keys5) + CountBits(_keys6) + CountBits(_keys7);
             if (count > keys.Length)
             {
-                throw new System.ArgumentOutOfRangeException("keys",
+                throw new System.ArgumentOutOfRangeException(nameof(keys),
                     "The supplied array cannot fit the number of pressed keys. Call GetPressedKeyCount() to get the number of pressed keys.");
             }
 

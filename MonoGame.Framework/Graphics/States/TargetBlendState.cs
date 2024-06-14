@@ -58,14 +58,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public BlendFunction AlphaBlendFunction
-	    {
-	        get { return _alphaBlendFunction; }
-	        set
-	        {
-	            _parent.ThrowIfBound();
-	            _alphaBlendFunction = value;
-	        }
-	    }
+        {
+            get => _alphaBlendFunction;
+            set
+            {
+                _parent.ThrowIfBound();
+                _alphaBlendFunction = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the alpha component of the destination pixel.
@@ -80,14 +80,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend AlphaDestinationBlend
-	    {
-	        get { return _alphaDestinationBlend; }
-	        set
-	        {
+        {
+            get => _alphaDestinationBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _alphaDestinationBlend = value;
-	        }
-	    }
+                _alphaDestinationBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the alpha component of the source pixel.
@@ -102,14 +102,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend AlphaSourceBlend
-	    {
-	        get { return _alphaSourceBlend; }
-	        set
-	        {
+        {
+            get => _alphaSourceBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _alphaSourceBlend = value;
-	        }
-	    }
+                _alphaSourceBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend function for the color components (red, green, and blue).
@@ -124,14 +124,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public BlendFunction ColorBlendFunction
-	    {
-	        get { return _colorBlendFunction; }
-	        set
-	        {
+        {
+            get => _colorBlendFunction;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorBlendFunction = value;
-	        }
-	    }
+                _colorBlendFunction = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the color components (red, green, and blue) of the destination pixel.
@@ -146,14 +146,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend ColorDestinationBlend
-	    {
-	        get { return _colorDestinationBlend; }
-	        set
-	        {
+        {
+            get => _colorDestinationBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorDestinationBlend = value;
-	        }
-	    }
+                _colorDestinationBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets the blend factor for the color components (red, green, and blue) of the source pixel.
@@ -168,14 +168,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public Blend ColorSourceBlend
-	    {
-	        get { return _colorSourceBlend; }
-	        set
-	        {
+        {
+            get => _colorSourceBlend;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorSourceBlend = value;
-	        }
-	    }
+                _colorSourceBlend = value;
+            }
+        }
 
         /// <summary>
         /// Gets or Sets a value that determines which color channels to enable for writing to the render target.
@@ -189,14 +189,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// bound to the graphics device.
         /// </exception>
 	    public ColorWriteChannels ColorWriteChannels
-	    {
-	        get { return _colorWriteChannels; }
-	        set
-	        {
+        {
+            get => _colorWriteChannels;
+            set
+            {
                 _parent.ThrowIfBound();
-	            _colorWriteChannels = value;
-	        }
-	    }
+                _colorWriteChannels = value;
+            }
+        }
 
 #if DIRECTX
 
@@ -221,74 +221,36 @@ namespace Microsoft.Xna.Framework.Graphics
 
         static private SharpDX.Direct3D11.BlendOperation GetBlendOperation(BlendFunction blend)
         {
-            switch (blend)
+            return blend switch
             {
-                case BlendFunction.Add:
-                    return SharpDX.Direct3D11.BlendOperation.Add;
-
-                case BlendFunction.Max:
-                    return SharpDX.Direct3D11.BlendOperation.Maximum;
-
-                case BlendFunction.Min:
-                    return SharpDX.Direct3D11.BlendOperation.Minimum;
-
-                case BlendFunction.ReverseSubtract:
-                    return SharpDX.Direct3D11.BlendOperation.ReverseSubtract;
-
-                case BlendFunction.Subtract:
-                    return SharpDX.Direct3D11.BlendOperation.Subtract;
-
-                default:
-                    throw new ArgumentException("Invalid blend function!");
-            }
+                BlendFunction.Add => SharpDX.Direct3D11.BlendOperation.Add,
+                BlendFunction.Max => SharpDX.Direct3D11.BlendOperation.Maximum,
+                BlendFunction.Min => SharpDX.Direct3D11.BlendOperation.Minimum,
+                BlendFunction.ReverseSubtract => SharpDX.Direct3D11.BlendOperation.ReverseSubtract,
+                BlendFunction.Subtract => SharpDX.Direct3D11.BlendOperation.Subtract,
+                _ => throw new ArgumentException("Invalid blend function!"),
+            };
         }
 
         static private SharpDX.Direct3D11.BlendOption GetBlendOption(Blend blend, bool alpha)
         {
-            switch (blend)
+            return blend switch
             {
-                case Blend.BlendFactor:
-                    return SharpDX.Direct3D11.BlendOption.BlendFactor;
-
-                case Blend.DestinationAlpha:
-                    return SharpDX.Direct3D11.BlendOption.DestinationAlpha;
-
-                case Blend.DestinationColor:
-                    return alpha ? SharpDX.Direct3D11.BlendOption.DestinationAlpha : SharpDX.Direct3D11.BlendOption.DestinationColor;
-
-                case Blend.InverseBlendFactor:
-                    return SharpDX.Direct3D11.BlendOption.InverseBlendFactor;
-
-                case Blend.InverseDestinationAlpha:
-                    return SharpDX.Direct3D11.BlendOption.InverseDestinationAlpha;
-
-                case Blend.InverseDestinationColor:
-                    return alpha ? SharpDX.Direct3D11.BlendOption.InverseDestinationAlpha : SharpDX.Direct3D11.BlendOption.InverseDestinationColor;
-
-                case Blend.InverseSourceAlpha:
-                    return SharpDX.Direct3D11.BlendOption.InverseSourceAlpha;
-
-                case Blend.InverseSourceColor:
-                    return alpha ? SharpDX.Direct3D11.BlendOption.InverseSourceAlpha : SharpDX.Direct3D11.BlendOption.InverseSourceColor;
-
-                case Blend.One:
-                    return SharpDX.Direct3D11.BlendOption.One;
-
-                case Blend.SourceAlpha:
-                    return SharpDX.Direct3D11.BlendOption.SourceAlpha;
-
-                case Blend.SourceAlphaSaturation:
-                    return SharpDX.Direct3D11.BlendOption.SourceAlphaSaturate;
-
-                case Blend.SourceColor:
-                    return alpha ? SharpDX.Direct3D11.BlendOption.SourceAlpha : SharpDX.Direct3D11.BlendOption.SourceColor;
-
-                case Blend.Zero:
-                    return SharpDX.Direct3D11.BlendOption.Zero;
-
-                default:
-                    throw new ArgumentException("Invalid blend!");
-            }
+                Blend.BlendFactor => SharpDX.Direct3D11.BlendOption.BlendFactor,
+                Blend.DestinationAlpha => SharpDX.Direct3D11.BlendOption.DestinationAlpha,
+                Blend.DestinationColor => alpha ? SharpDX.Direct3D11.BlendOption.DestinationAlpha : SharpDX.Direct3D11.BlendOption.DestinationColor,
+                Blend.InverseBlendFactor => SharpDX.Direct3D11.BlendOption.InverseBlendFactor,
+                Blend.InverseDestinationAlpha => SharpDX.Direct3D11.BlendOption.InverseDestinationAlpha,
+                Blend.InverseDestinationColor => alpha ? SharpDX.Direct3D11.BlendOption.InverseDestinationAlpha : SharpDX.Direct3D11.BlendOption.InverseDestinationColor,
+                Blend.InverseSourceAlpha => SharpDX.Direct3D11.BlendOption.InverseSourceAlpha,
+                Blend.InverseSourceColor => alpha ? SharpDX.Direct3D11.BlendOption.InverseSourceAlpha : SharpDX.Direct3D11.BlendOption.InverseSourceColor,
+                Blend.One => SharpDX.Direct3D11.BlendOption.One,
+                Blend.SourceAlpha => SharpDX.Direct3D11.BlendOption.SourceAlpha,
+                Blend.SourceAlphaSaturation => SharpDX.Direct3D11.BlendOption.SourceAlphaSaturate,
+                Blend.SourceColor => alpha ? SharpDX.Direct3D11.BlendOption.SourceAlpha : SharpDX.Direct3D11.BlendOption.SourceColor,
+                Blend.Zero => SharpDX.Direct3D11.BlendOption.Zero,
+                _ => throw new ArgumentException("Invalid blend!"),
+            };
         }
 
         static private SharpDX.Direct3D11.ColorWriteMaskFlags GetColorWriteMask(ColorWriteChannels mask)
@@ -300,6 +262,6 @@ namespace Microsoft.Xna.Framework.Graphics
         }
 #endif
 
-	}
+    }
 }
 

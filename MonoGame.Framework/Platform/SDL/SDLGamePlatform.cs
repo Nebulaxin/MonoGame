@@ -16,10 +16,7 @@ namespace Microsoft.Xna.Framework
 {
     internal class SdlGamePlatform : GamePlatform
     {
-        public override GameRunBehavior DefaultRunBehavior
-        {
-            get { return GameRunBehavior.Synchronous; }
-        }
+        public override GameRunBehavior DefaultRunBehavior => GameRunBehavior.Synchronous;
 
         private readonly Game _game;
         private readonly List<Keys> _keys;
@@ -41,7 +38,7 @@ namespace Microsoft.Xna.Framework
             var minVersion = new Sdl.Version() { Major = 2, Minor = 0, Patch = 5 };
 
             if (Sdl.version < minVersion)
-                Debug.WriteLine("Please use SDL " + minVersion + " or higher.");
+                Debug.WriteLine($"Please use SDL {minVersion} or higher.");
 
             // Needed so VS can debug the project on Windows
             if (Sdl.version >= minVersion && CurrentPlatform.OS == OS.Windows && Debugger.IsAttached)
@@ -116,9 +113,8 @@ namespace Microsoft.Xna.Framework
 
         private void SdlRunLoop()
         {
-            Sdl.Event ev;
 
-            while (Sdl.PollEvent(out ev) == 1)
+            while (Sdl.PollEvent(out Sdl.Event ev) == 1)
             {
                 switch (ev.Type)
                 {
@@ -145,23 +141,23 @@ namespace Microsoft.Xna.Framework
                         Mouse.ScrollX += ev.Wheel.X * wheelDelta;
                         break;
                     case Sdl.EventType.KeyDown:
-                    {
-                        var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
-                        if (!_keys.Contains(key))
-                            _keys.Add(key);
-                        char character = (char)ev.Key.Keysym.Sym;
-                        _view.OnKeyDown(new InputKeyEventArgs(key));
-                        if (char.IsControl(character))
-                            _view.OnTextInput(new TextInputEventArgs(character, key));
-                        break;
-                    }
+                        {
+                            var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
+                            if (!_keys.Contains(key))
+                                _keys.Add(key);
+                            char character = (char)ev.Key.Keysym.Sym;
+                            _view.OnKeyDown(new InputKeyEventArgs(key));
+                            if (char.IsControl(character))
+                                _view.OnTextInput(new TextInputEventArgs(character, key));
+                            break;
+                        }
                     case Sdl.EventType.KeyUp:
-                    {
-                        var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
-                        _keys.Remove(key);
-                        _view.OnKeyUp(new InputKeyEventArgs(key));
-                        break;
-                    }
+                        {
+                            var key = KeyboardUtil.ToXna(ev.Key.Keysym.Sym);
+                            _keys.Remove(key);
+                            _view.OnKeyUp(new InputKeyEventArgs(key));
+                            break;
+                        }
                     case Sdl.EventType.TextInput:
                         if (_view.IsTextInputHandled)
                         {

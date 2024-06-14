@@ -42,81 +42,58 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Matrix Matrix
         {
-            get { return this._matrix; }
+            get => _matrix;
             set
             {
-                this._matrix = value;
-                this.CreatePlanes();    // FIXME: The odds are the planes will be used a lot more often than the matrix
-                this.CreateCorners();   // is updated, so this should help performance. I hope ;)
+                _matrix = value;
+                CreatePlanes();    // FIXME: The odds are the planes will be used a lot more often than the matrix
+                CreateCorners();   // is updated, so this should help performance. I hope ;)
             }
         }
 
         /// <summary>
         /// Gets the near plane of the frustum.
         /// </summary>
-        public Plane Near
-        {
-            get { return this._planes[0]; }
-        }
+        public Plane Near => _planes[0];
 
         /// <summary>
         /// Gets the far plane of the frustum.
         /// </summary>
-        public Plane Far
-        {
-            get { return this._planes[1]; }
-        }
+        public Plane Far => _planes[1];
 
         /// <summary>
         /// Gets the left plane of the frustum.
         /// </summary>
-        public Plane Left
-        {
-            get { return this._planes[2]; }
-        }
+        public Plane Left => _planes[2];
 
         /// <summary>
         /// Gets the right plane of the frustum.
         /// </summary>
-        public Plane Right
-        {
-            get { return this._planes[3]; }
-        }
+        public Plane Right => _planes[3];
 
         /// <summary>
         /// Gets the top plane of the frustum.
         /// </summary>
-        public Plane Top
-        {
-            get { return this._planes[4]; }
-        }
+        public Plane Top => _planes[4];
 
         /// <summary>
         /// Gets the bottom plane of the frustum.
         /// </summary>
-        public Plane Bottom
-        {
-            get { return this._planes[5]; }
-        }
+        public Plane Bottom => _planes[5];
 
         #endregion
 
         #region Internal Properties
 
-        internal string DebugDisplayString
-        {
-            get
-            {
-                return string.Concat(
-                    "Near( ", this._planes[0].DebugDisplayString, " )  \r\n",
-                    "Far( ", this._planes[1].DebugDisplayString, " )  \r\n",
-                    "Left( ", this._planes[2].DebugDisplayString, " )  \r\n",
-                    "Right( ", this._planes[3].DebugDisplayString, " )  \r\n",
-                    "Top( ", this._planes[4].DebugDisplayString, " )  \r\n",
-                    "Bottom( ", this._planes[5].DebugDisplayString, " )  "
-                    );
-            }
-        }
+        internal string DebugDisplayString =>
+            $"""
+            Near( {_planes[0].DebugDisplayString} )
+            Far( {_planes[1].DebugDisplayString} )
+            Left( {_planes[2].DebugDisplayString} )
+            Right( {_planes[3].DebugDisplayString} )
+            Top( {_planes[4].DebugDisplayString} )
+            Bottom( {_planes[5].DebugDisplayString} )
+            """;
 
         #endregion
 
@@ -128,9 +105,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">Combined matrix which usually is (View * Projection).</param>
         public BoundingFrustum(Matrix value)
         {
-            this._matrix = value;
-            this.CreatePlanes();
-            this.CreateCorners();
+            _matrix = value;
+            CreatePlanes();
+            CreateCorners();
         }
 
         #endregion
@@ -178,8 +155,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Result of testing for containment between this <see cref="BoundingFrustum"/> and specified <see cref="BoundingBox"/>.</returns>
         public ContainmentType Contains(BoundingBox box)
         {
-            var result = default(ContainmentType);
-            this.Contains(ref box, out result);
+            Contains(ref box, out ContainmentType result);
             return result;
         }
 
@@ -193,8 +169,7 @@ namespace Microsoft.Xna.Framework
             var intersects = false;
             for (var i = 0; i < PlaneCount; ++i)
             {
-                var planeIntersectionType = default(PlaneIntersectionType);
-                box.Intersects(ref this._planes[i], out planeIntersectionType);
+                box.Intersects(ref _planes[i], out PlaneIntersectionType planeIntersectionType);
                 switch (planeIntersectionType)
                 {
                 case PlaneIntersectionType.Front:
@@ -221,8 +196,7 @@ namespace Microsoft.Xna.Framework
             var intersects = false;
             for (var i = 0; i < PlaneCount; ++i)
             {
-                PlaneIntersectionType planeIntersectionType;
-                frustum.Intersects(ref _planes[i], out planeIntersectionType);
+                frustum.Intersects(ref _planes[i], out PlaneIntersectionType planeIntersectionType);
                 switch (planeIntersectionType)
                 {
                     case PlaneIntersectionType.Front:
@@ -242,8 +216,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Result of testing for containment between this <see cref="BoundingFrustum"/> and specified <see cref="BoundingSphere"/>.</returns>
         public ContainmentType Contains(BoundingSphere sphere)
         {
-            var result = default(ContainmentType);
-            this.Contains(ref sphere, out result);
+            Contains(ref sphere, out ContainmentType result);
             return result;
         }
 
@@ -255,12 +228,11 @@ namespace Microsoft.Xna.Framework
         public void Contains(ref BoundingSphere sphere, out ContainmentType result)
         {
             var intersects = false;
-            for (var i = 0; i < PlaneCount; ++i) 
+            for (var i = 0; i < PlaneCount; ++i)
             {
-                var planeIntersectionType = default(PlaneIntersectionType);
 
                 // TODO: we might want to inline this for performance reasons
-                sphere.Intersects(ref this._planes[i], out planeIntersectionType);
+                sphere.Intersects(ref _planes[i], out PlaneIntersectionType planeIntersectionType);
                 switch (planeIntersectionType)
                 {
                 case PlaneIntersectionType.Front:
@@ -281,8 +253,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Result of testing for containment between this <see cref="BoundingFrustum"/> and specified <see cref="Vector3"/>.</returns>
         public ContainmentType Contains(Vector3 point)
         {
-            var result = default(ContainmentType);
-            this.Contains(ref point, out result);
+            Contains(ref point, out ContainmentType result);
             return result;
         }
 
@@ -296,7 +267,7 @@ namespace Microsoft.Xna.Framework
             for (var i = 0; i < PlaneCount; ++i)
             {
                 // TODO: we might want to inline this for performance reasons
-                if (PlaneHelper.ClassifyPoint(ref point, ref this._planes[i]) > 0)
+                if (PlaneHelper.ClassifyPoint(ref point, ref _planes[i]) > 0)
                 {   
                     result = ContainmentType.Disjoint;
                     return;
@@ -333,7 +304,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The array of corners.</returns>
         public Vector3[] GetCorners()
         {
-            return (Vector3[])this._corners.Clone();
+            return (Vector3[])_corners.Clone();
         }
 
         /// <summary>
@@ -342,10 +313,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="corners">The array which values will be replaced to corner values of this instance. It must have size of <see cref="BoundingFrustum.CornerCount"/>.</param>
 		public void GetCorners(Vector3[] corners)
         {
-			if (corners == null) throw new ArgumentNullException("corners");
-		    if (corners.Length < CornerCount) throw new ArgumentOutOfRangeException("corners");
+            ArgumentNullException.ThrowIfNull(corners);
+            if (corners.Length < CornerCount) throw new ArgumentOutOfRangeException(nameof(corners));
 
-            this._corners.CopyTo(corners, 0);
+            _corners.CopyTo(corners, 0);
         }
 
         /// <summary>
@@ -354,7 +325,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Hash code of this <see cref="BoundingFrustum"/>.</returns>
         public override int GetHashCode()
         {
-            return this._matrix.GetHashCode();
+            return _matrix.GetHashCode();
         }
 
         /// <summary>
@@ -364,9 +335,8 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if specified <see cref="BoundingBox"/> intersects with this <see cref="BoundingFrustum"/>; <c>false</c> otherwise.</returns>
         public bool Intersects(BoundingBox box)
         {
-			var result = false;
-			this.Intersects(ref box, out result);
-			return result;
+            Intersects(ref box, out bool result);
+            return result;
         }
 
         /// <summary>
@@ -376,9 +346,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="result"><c>true</c> if specified <see cref="BoundingBox"/> intersects with this <see cref="BoundingFrustum"/>; <c>false</c> otherwise as an output parameter.</param>
         public void Intersects(ref BoundingBox box, out bool result)
         {
-			var containment = default(ContainmentType);
-			this.Contains(ref box, out containment);
-			result = containment != ContainmentType.Disjoint;
+            Contains(ref box, out ContainmentType containment);
+            result = containment != ContainmentType.Disjoint;
 		}
 
         /// <summary>
@@ -398,8 +367,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if specified <see cref="BoundingSphere"/> intersects with this <see cref="BoundingFrustum"/>; <c>false</c> otherwise.</returns>
         public bool Intersects(BoundingSphere sphere)
         {
-            var result = default(bool);
-            this.Intersects(ref sphere, out result);
+            Intersects(ref sphere, out bool result);
             return result;
         }
 
@@ -410,8 +378,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result"><c>true</c> if specified <see cref="BoundingSphere"/> intersects with this <see cref="BoundingFrustum"/>; <c>false</c> otherwise as an output parameter.</param>
         public void Intersects(ref BoundingSphere sphere, out bool result)
         {
-            var containment = default(ContainmentType);
-            this.Contains(ref sphere, out containment);
+            Contains(ref sphere, out ContainmentType containment);
             result = containment != ContainmentType.Disjoint;
         }
 
@@ -422,8 +389,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A plane intersection type.</returns>
         public PlaneIntersectionType Intersects(Plane plane)
         {
-            PlaneIntersectionType result;
-            Intersects(ref plane, out result);
+            Intersects(ref plane, out PlaneIntersectionType result);
             return result;
         }
 
@@ -447,8 +413,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Distance at which ray intersects with this <see cref="BoundingFrustum"/> or null if no intersection happens.</returns>
         public float? Intersects(Ray ray)
         {
-            float? result;
-            Intersects(ref ray, out result);
+            Intersects(ref ray, out float? result);
             return result;
         }
 
@@ -459,8 +424,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">Distance at which ray intersects with this <see cref="BoundingFrustum"/> or null if no intersection happens as an output parameter.</param>
         public void Intersects(ref Ray ray, out float? result)
         {
-            ContainmentType ctype;
-            this.Contains(ref ray.Position, out ctype);
+            Contains(ref ray.Position, out ContainmentType ctype);
 
             switch (ctype)
             {
@@ -484,13 +448,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><see cref="String"/> representation of this <see cref="BoundingFrustum"/>.</returns>
         public override string ToString()
         {
-            return "{Near: " + this._planes[0] +
-                   " Far:" + this._planes[1] +
-                   " Left:" + this._planes[2] +
-                   " Right:" + this._planes[3] +
-                   " Top:" + this._planes[4] +
-                   " Bottom:" + this._planes[5] +
-                   "}";
+            return $"{{Near: {_planes[0]} Far: {_planes[1]} Left: {_planes[2]} Right: {_planes[3]} Top: {_planes[4]} Bottom: {_planes[5]}}}";
         }
 
         #endregion
@@ -499,31 +457,31 @@ namespace Microsoft.Xna.Framework
 
         private void CreateCorners()
         {
-            IntersectionPoint(ref this._planes[0], ref this._planes[2], ref this._planes[4], out this._corners[0]);
-            IntersectionPoint(ref this._planes[0], ref this._planes[3], ref this._planes[4], out this._corners[1]);
-            IntersectionPoint(ref this._planes[0], ref this._planes[3], ref this._planes[5], out this._corners[2]);
-            IntersectionPoint(ref this._planes[0], ref this._planes[2], ref this._planes[5], out this._corners[3]);
-            IntersectionPoint(ref this._planes[1], ref this._planes[2], ref this._planes[4], out this._corners[4]);
-            IntersectionPoint(ref this._planes[1], ref this._planes[3], ref this._planes[4], out this._corners[5]);
-            IntersectionPoint(ref this._planes[1], ref this._planes[3], ref this._planes[5], out this._corners[6]);
-            IntersectionPoint(ref this._planes[1], ref this._planes[2], ref this._planes[5], out this._corners[7]);
+            IntersectionPoint(ref _planes[0], ref _planes[2], ref _planes[4], out _corners[0]);
+            IntersectionPoint(ref _planes[0], ref _planes[3], ref _planes[4], out _corners[1]);
+            IntersectionPoint(ref _planes[0], ref _planes[3], ref _planes[5], out _corners[2]);
+            IntersectionPoint(ref _planes[0], ref _planes[2], ref _planes[5], out _corners[3]);
+            IntersectionPoint(ref _planes[1], ref _planes[2], ref _planes[4], out _corners[4]);
+            IntersectionPoint(ref _planes[1], ref _planes[3], ref _planes[4], out _corners[5]);
+            IntersectionPoint(ref _planes[1], ref _planes[3], ref _planes[5], out _corners[6]);
+            IntersectionPoint(ref _planes[1], ref _planes[2], ref _planes[5], out _corners[7]);
         }
 
         private void CreatePlanes()
-        {            
-            this._planes[0] = new Plane(-this._matrix.M13, -this._matrix.M23, -this._matrix.M33, -this._matrix.M43);
-            this._planes[1] = new Plane(this._matrix.M13 - this._matrix.M14, this._matrix.M23 - this._matrix.M24, this._matrix.M33 - this._matrix.M34, this._matrix.M43 - this._matrix.M44);
-            this._planes[2] = new Plane(-this._matrix.M14 - this._matrix.M11, -this._matrix.M24 - this._matrix.M21, -this._matrix.M34 - this._matrix.M31, -this._matrix.M44 - this._matrix.M41);
-            this._planes[3] = new Plane(this._matrix.M11 - this._matrix.M14, this._matrix.M21 - this._matrix.M24, this._matrix.M31 - this._matrix.M34, this._matrix.M41 - this._matrix.M44);
-            this._planes[4] = new Plane(this._matrix.M12 - this._matrix.M14, this._matrix.M22 - this._matrix.M24, this._matrix.M32 - this._matrix.M34, this._matrix.M42 - this._matrix.M44);
-            this._planes[5] = new Plane(-this._matrix.M14 - this._matrix.M12, -this._matrix.M24 - this._matrix.M22, -this._matrix.M34 - this._matrix.M32, -this._matrix.M44 - this._matrix.M42);
-            
-            this.NormalizePlane(ref this._planes[0]);
-            this.NormalizePlane(ref this._planes[1]);
-            this.NormalizePlane(ref this._planes[2]);
-            this.NormalizePlane(ref this._planes[3]);
-            this.NormalizePlane(ref this._planes[4]);
-            this.NormalizePlane(ref this._planes[5]);
+        {
+            _planes[0] = new Plane(-_matrix.M13, -_matrix.M23, -_matrix.M33, -_matrix.M43);
+            _planes[1] = new Plane(_matrix.M13 - _matrix.M14, _matrix.M23 - _matrix.M24, _matrix.M33 - _matrix.M34, _matrix.M43 - _matrix.M44);
+            _planes[2] = new Plane(-_matrix.M14 - _matrix.M11, -_matrix.M24 - _matrix.M21, -_matrix.M34 - _matrix.M31, -_matrix.M44 - _matrix.M41);
+            _planes[3] = new Plane(_matrix.M11 - _matrix.M14, _matrix.M21 - _matrix.M24, _matrix.M31 - _matrix.M34, _matrix.M41 - _matrix.M44);
+            _planes[4] = new Plane(_matrix.M12 - _matrix.M14, _matrix.M22 - _matrix.M24, _matrix.M32 - _matrix.M34, _matrix.M42 - _matrix.M44);
+            _planes[5] = new Plane(-_matrix.M14 - _matrix.M12, -_matrix.M24 - _matrix.M22, -_matrix.M34 - _matrix.M32, -_matrix.M44 - _matrix.M42);
+
+            NormalizePlane(ref _planes[0]);
+            NormalizePlane(ref _planes[1]);
+            NormalizePlane(ref _planes[2]);
+            NormalizePlane(ref _planes[3]);
+            NormalizePlane(ref _planes[4]);
+            NormalizePlane(ref _planes[5]);
         }
 
         private static void IntersectionPoint(ref Plane a, ref Plane b, ref Plane c, out Vector3 result)
@@ -534,30 +492,27 @@ namespace Microsoft.Xna.Framework
             //                             N1 . ( N2 * N3 )
             //
             // Note: N refers to the normal, d refers to the displacement. '.' means dot product. '*' means cross product
-            
-            Vector3 v1, v2, v3;
-            Vector3 cross;
-            
-            Vector3.Cross(ref b.Normal, ref c.Normal, out cross);
-            
-            float f;
-            Vector3.Dot(ref a.Normal, ref cross, out f);
+
+
+            Vector3.Cross(ref b.Normal, ref c.Normal, out Vector3 cross);
+
+            Vector3.Dot(ref a.Normal, ref cross, out float f);
             f *= -1.0f;
             
             Vector3.Cross(ref b.Normal, ref c.Normal, out cross);
-            Vector3.Multiply(ref cross, a.D, out v1);
+            Vector3.Multiply(ref cross, a.D, out Vector3 v1);
             //v1 = (a.D * (Vector3.Cross(b.Normal, c.Normal)));
-            
-            
+
+
             Vector3.Cross(ref c.Normal, ref a.Normal, out cross);
-            Vector3.Multiply(ref cross, b.D, out v2);
+            Vector3.Multiply(ref cross, b.D, out Vector3 v2);
             //v2 = (b.D * (Vector3.Cross(c.Normal, a.Normal)));
-            
-            
+
+
             Vector3.Cross(ref a.Normal, ref b.Normal, out cross);
-            Vector3.Multiply(ref cross, c.D, out v3);
+            Vector3.Multiply(ref cross, c.D, out Vector3 v3);
             //v3 = (c.D * (Vector3.Cross(a.Normal, b.Normal)));
-            
+
             result.X = (v1.X + v2.X + v3.X) / f;
             result.Y = (v1.Y + v2.Y + v3.Y) / f;
             result.Z = (v1.Z + v2.Z + v3.Z) / f;

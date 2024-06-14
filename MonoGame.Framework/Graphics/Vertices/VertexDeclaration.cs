@@ -101,8 +101,7 @@ namespace Microsoft.Xna.Framework.Graphics
             lock (_vertexDeclarationCache)
             {
                 var data = new Data(vertexStride, elements);
-                VertexDeclaration vertexDeclaration;
-                if (!_vertexDeclarationCache.TryGetValue(data, out vertexDeclaration))
+                if (!_vertexDeclarationCache.TryGetValue(data, out VertexDeclaration vertexDeclaration))
                 {
                     // Data.Elements have already been set in the Data ctor. However, entries
                     // in the vertex declaration cache must be immutable. Therefore, we create a 
@@ -130,10 +129,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the internal vertex elements array.
         /// </summary>
         /// <value>The internal vertex elements array.</value>
-        internal VertexElement[] InternalVertexElements
-        {
-            get { return _data.Elements; }
-        }
+        internal VertexElement[] InternalVertexElements => _data.Elements;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VertexDeclaration"/> class.
@@ -158,13 +154,12 @@ namespace Microsoft.Xna.Framework.Graphics
         public VertexDeclaration(int vertexStride, params VertexElement[] elements)
         {
             if ((elements == null) || (elements.Length == 0))
-                throw new ArgumentNullException("elements", "Elements cannot be empty");
+                throw new ArgumentNullException(nameof(elements), "Elements cannot be empty");
 
             lock (_vertexDeclarationCache)
             {
                 var data = new Data(vertexStride, elements);
-                VertexDeclaration vertexDeclaration;
-                if (_vertexDeclarationCache.TryGetValue(data, out vertexDeclaration))
+                if (_vertexDeclarationCache.TryGetValue(data, out VertexDeclaration vertexDeclaration))
                 {
                     // Reuse existing data.
                     _data = vertexDeclaration._data;
@@ -204,12 +199,12 @@ namespace Microsoft.Xna.Framework.Graphics
 		internal static VertexDeclaration FromType(Type vertexType)
 		{
 			if (vertexType == null)
-				throw new ArgumentNullException("vertexType", "Cannot be null");
+                throw new ArgumentNullException(nameof(vertexType), "Cannot be null");
 
             if (!ReflectionHelpers.IsValueType(vertexType))
             {
-				throw new ArgumentException("Must be value type", "vertexType");
-			}
+                throw new ArgumentException("Must be value type", nameof(vertexType));
+            }
 
             var type = Activator.CreateInstance(vertexType) as IVertexType;
 			if (type == null)
@@ -239,10 +234,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// Gets the size of a vertex (including padding) in bytes.
         /// </summary>
         /// <value>The size of a vertex (including padding) in bytes.</value>
-        public int VertexStride
-		{
-			get { return _data.VertexStride; }
-		}
+        public int VertexStride => _data.VertexStride;
 
         /// <summary>
         /// Determines whether the specified <see cref="object"/> is equal to this instance.

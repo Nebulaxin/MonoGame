@@ -41,8 +41,8 @@ namespace MonoGame.Framework.Utilities
 
         protected override void Dispose(bool disposing)
 		{
-            this.input = null;
-            base.Dispose(disposing);
+			input = null;
+			base.Dispose(disposing);
 		}
 
 		private long inputLength;
@@ -84,9 +84,8 @@ namespace MonoGame.Framework.Utilities
 		public override int Read( byte[] buffer, int offset, int count )
 		{
 #if CHECK_ARGS
-			if( buffer == null )
-				throw new ArgumentNullException( "buffer" );
-			if( offset < 0 || count < 0 || buffer.Length - count < offset )
+			ArgumentNullException.ThrowIfNull(buffer);
+			if (offset < 0 || count < 0 || buffer.Length - count < offset)
 				throw new ArgumentOutOfRangeException();
 
 			if( input == null )
@@ -499,37 +498,25 @@ namespace MonoGame.Framework.Utilities
 
 		#region Stream internals
 
-		public override bool CanRead
-		{
-			get { return true; }
-		}
+		public override bool CanRead => true;
 
-		public override bool CanSeek
-		{
-			get { return false; }
-		}
+		public override bool CanSeek => false;
 
-		public override bool CanWrite
-		{
-			get { return false; }
-		}
+		public override bool CanWrite => false;
 
 		public override void Flush()
 		{
 		}
 
-		public override long Length
-		{
-			get { throw new NotSupportedException(); }
-		}
+		public override long Length => throw new NotSupportedException();
 
 		public override long Position
 		{
-			get { throw new NotSupportedException(); }
-			set { throw new NotSupportedException(); }
+			get => throw new NotSupportedException();
+			set => throw new NotSupportedException();
 		}
 
-		public override long Seek( long offset, SeekOrigin origin )
+		public override long Seek(long offset, SeekOrigin origin)
 		{
 			throw new NotSupportedException();
 		}

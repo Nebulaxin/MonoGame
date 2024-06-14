@@ -9,26 +9,17 @@ namespace Microsoft.Xna.Framework.Graphics
     /// </summary>
     public sealed class ModelBone
 	{
-		private List<ModelBone> children = new List<ModelBone>();
-		
-		private List<ModelMesh> meshes = new List<ModelMesh>();
+		private List<ModelBone> children = new();
 
-        /// <summary>
-        /// List of the meshes for this bone.
-        /// </summary>
-		public List<ModelMesh> Meshes {
-			get {
-				return this.meshes;
-			}
-			private set {
-				meshes = value;
-			}
-		}
+		/// <summary>
+		/// List of the meshes for this bone.
+		/// </summary>
+		public List<ModelMesh> Meshes { get; private set; } = new();
 
-        /// <summary>
-        /// Gets a collection of bones that are children of this bone.
-        /// </summary>
-        public ModelBoneCollection Children { get; private set; }
+		/// <summary>
+		/// Gets a collection of bones that are children of this bone.
+		/// </summary>
+		public ModelBoneCollection Children { get; private set; }
 
         /// <summary>
         /// Gets the index of this bone in the <see cref="Model.Bones">Model.Bones</see> collection.
@@ -46,19 +37,20 @@ namespace Microsoft.Xna.Framework.Graphics
 		public ModelBone Parent { get; set; }
 
 		internal Matrix transform;
-        /// <summary>
-        /// Gets or sets the matrix used to transform this bone relative to its parent bone.
-        /// </summary>
-		public Matrix Transform 
-		{ 
-			get { return this.transform; } 
-			set { this.transform = value; }
+		/// <summary>
+		/// Gets or sets the matrix used to transform this bone relative to its parent bone.
+		/// </summary>
+		public Matrix Transform
+		{
+			get => transform;
+			set => transform = value;
 		}
-		
+
 		/// <summary>
 		/// Transform of this node from the root of the model not from the parent
 		/// </summary>
-		public Matrix ModelTransform {
+		public Matrix ModelTransform
+		{
 			get;
 			set;
 		}
@@ -77,7 +69,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="mesh"><see cref="ModelMesh"/> to be added</param>
 		public void AddMesh(ModelMesh mesh)
 		{
-			meshes.Add(mesh);
+			Meshes.Add(mesh);
 		}
 
         /// <summary>

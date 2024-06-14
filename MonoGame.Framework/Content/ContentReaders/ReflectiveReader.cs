@@ -27,10 +27,7 @@ namespace Microsoft.Xna.Framework.Content
         {
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return TargetType.IsClass(); }
-        }
+        public override bool CanDeserializeIntoExistingObject => TargetType.IsClass();
 
         protected internal override void Initialize(ContentTypeReaderManager manager)
         {
@@ -149,7 +146,7 @@ namespace Microsoft.Xna.Framework.Content
                 if (elementType == typeof(System.Array))
                     reader = new ArrayReader<Array>();
                 else
-                    throw new ContentLoadException(string.Format("Content reader could not be found for {0} type.", elementType.FullName));
+                    throw new ContentLoadException($"Content reader could not be found for {elementType.FullName} type.");
 
             // We use the construct delegate to pick the correct existing 
             // object to be the target of deserialization.

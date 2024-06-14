@@ -78,10 +78,10 @@ namespace Microsoft.Xna.Framework
             switch (Game.Activity.Resources.Configuration.Orientation)
             {
                 case Android.Content.Res.Orientation.Portrait:
-                    this._gameWindow.SetOrientation(currentOrientation == DisplayOrientation.PortraitDown ? DisplayOrientation.PortraitDown : DisplayOrientation.Portrait, false);
+                    _gameWindow.SetOrientation(currentOrientation == DisplayOrientation.PortraitDown ? DisplayOrientation.PortraitDown : DisplayOrientation.Portrait, false);
                     break;
                 default:
-                    this._gameWindow.SetOrientation(currentOrientation == DisplayOrientation.LandscapeRight ? DisplayOrientation.LandscapeRight : DisplayOrientation.LandscapeLeft, false);
+                    _gameWindow.SetOrientation(currentOrientation == DisplayOrientation.LandscapeRight ? DisplayOrientation.LandscapeRight : DisplayOrientation.LandscapeLeft, false);
                     break;
             }
             base.BeforeInitialize();
@@ -144,10 +144,7 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-        public override GameRunBehavior DefaultRunBehavior
-        {
-            get { return GameRunBehavior.Asynchronous; }
-        }
+        public override GameRunBehavior DefaultRunBehavior => GameRunBehavior.Asynchronous;
 
         public override void Log(string Message)
         {

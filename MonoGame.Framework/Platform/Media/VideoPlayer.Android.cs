@@ -28,28 +28,28 @@ namespace Microsoft.Xna.Framework.Media
 
         private void PlatformPause()
         {
-            _currentVideo.Player.Pause();
+            Video.Player.Pause();
         }
 
         private void PlatformResume()
         {
-            _currentVideo.Player.Start();
+            Video.Player.Start();
         }
 
         private void PlatformPlay()
         {
-            _currentVideo.Player.SetDisplay(((AndroidGameWindow)_game.Window).GameView.Holder);
-            _currentVideo.Player.Start();
+            Video.Player.SetDisplay(((AndroidGameWindow)_game.Window).GameView.Holder);
+            Video.Player.Start();
             
             AndroidGamePlatform.IsPlayingVdeo = true;
         }
 
         private void PlatformStop()
         {
-            _currentVideo.Player.Stop();
+            Video.Player.Stop();
 
             AndroidGamePlatform.IsPlayingVdeo = false;
-            _currentVideo.Player.SetDisplay(null);
+            Video.Player.SetDisplay(null);
         }
 
         private void PlatformSetIsLooped()

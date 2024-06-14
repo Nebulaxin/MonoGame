@@ -8,8 +8,7 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         private readonly ConstantBuffer[] _buffers;
 
-        private ShaderStage _stage;
-        private ShaderStage Stage { get { return this._stage; } }
+        private readonly ShaderStage _stage;
 
         private int _valid;
 
@@ -22,7 +21,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         public ConstantBuffer this[int index]
         {
-            get { return _buffers[index]; }
+            get => _buffers[index];
             set
             {
                 if (_buffers[index] == value)

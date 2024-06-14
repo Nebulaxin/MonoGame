@@ -15,27 +15,15 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <summary>
         /// Gets the name of the bone.
         /// </summary>
-        public string BoneName
-        {
-            get
-            {
-                return boneName;
-            }
-        }
+        public string BoneName => boneName;
 
         /// <summary>
         /// Gets the amount of bone influence, ranging from zero to one. The complete set of weights in a BoneWeightCollection should sum to one.
         /// </summary>
         public float Weight
         {
-            get
-            {
-                return weight;
-            }
-            internal set
-            {
-                weight = value;
-            }
+            get => weight;
+            internal set => weight = value;
         }
 
         /// <summary>

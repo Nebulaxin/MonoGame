@@ -15,7 +15,7 @@ namespace Microsoft.Xna.Framework
     {
         public override bool AllowUserResizing
         {
-            get { return !IsBorderless && _resizable; }
+            get => !IsBorderless && _resizable;
             set
             {
                 var nonResizeableVersion = new Sdl.Version() { Major = 2, Minor = 0, Patch = 4 };
@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework
                 if (Sdl.version > nonResizeableVersion)
                     Sdl.Window.SetResizable(_handle, value);
                 else
-                    throw new Exception("SDL " + nonResizeableVersion + " does not support changing resizable parameter of the window after it's already been created, please use a newer version of it.");
+                    throw new Exception($"SDL {nonResizeableVersion} does not support changing resizable parameter of the window after it's already been created, please use a newer version of it.");
 
                 _resizable = value;
             }
@@ -33,8 +33,7 @@ namespace Microsoft.Xna.Framework
         {
             get
             {
-                int x = 0, y = 0;
-                Sdl.Window.GetPosition(Handle, out x, out y);
+                Sdl.Window.GetPosition(Handle, out int x, out int y);
                 return new Rectangle(x, y, _width, _height);
             }
         }
@@ -57,24 +56,15 @@ namespace Microsoft.Xna.Framework
             }
         }
 
-        public override DisplayOrientation CurrentOrientation
-        {
-            get { return DisplayOrientation.Default; }
-        }
+        public override DisplayOrientation CurrentOrientation => DisplayOrientation.Default;
 
-        public override IntPtr Handle
-        {
-            get { return _handle; }
-        }
+        public override IntPtr Handle => _handle;
 
-        public override string ScreenDeviceName
-        {
-            get { return _screenDeviceName; }
-        }
+        public override string ScreenDeviceName => _screenDeviceName;
 
         public override bool IsBorderless
         {
-            get { return _borderless; }
+            get => _borderless;
             set
             {
                 Sdl.Window.SetBordered(_handle, value ? 0 : 1);
@@ -184,8 +174,7 @@ namespace Microsoft.Xna.Framework
         {
             var rect = new Sdl.Rectangle();
 
-            int x, y;
-            Sdl.Mouse.GetGlobalState(out x, out y);
+            Sdl.Mouse.GetGlobalState(out int x, out int y);
 
             var displayCount = Sdl.Display.GetNumVideoDisplays();
             for (var i = 0; i < displayCount; i++)
@@ -220,8 +209,7 @@ namespace Microsoft.Xna.Framework
             var prevBounds = ClientBounds;
             var displayIndex = Sdl.Window.GetDisplayIndex(Handle);
 
-            Sdl.Rectangle displayRect;
-            Sdl.Display.GetBounds(displayIndex, out displayRect);
+            Sdl.Display.GetBounds(displayIndex, out Sdl.Rectangle displayRect);
 
             if (_willBeFullScreen != IsFullScreen || _hardwareSwitch != _game.graphicsDeviceManager.HardwareModeSwitch)
             {
@@ -247,8 +235,7 @@ namespace Microsoft.Xna.Framework
                 _height = displayRect.Height;
             }
 
-            int ignore, minx = 0, miny = 0;
-            Sdl.Window.GetBorderSize(_handle, out miny, out minx, out ignore, out ignore);
+            Sdl.Window.GetBorderSize(_handle, out int miny, out int minx, out int ignore, out ignore);
 
             var centerX = Math.Max(prevBounds.X + ((prevBounds.Width - clientWidth) / 2), minx);
             var centerY = Math.Max(prevBounds.Y + ((prevBounds.Height - clientHeight) / 2), miny);

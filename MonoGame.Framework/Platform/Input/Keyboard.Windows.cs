@@ -13,7 +13,7 @@ namespace Microsoft.Xna.Framework.Input
         private static readonly byte[] DefinedKeyCodes;
 
         private static readonly byte[] _keyState = new byte[256];
-        private static readonly List<Keys> _keys = new List<Keys>(10);
+        private static readonly List<Keys> _keys = new(10);
 
         private static bool _isActive;
 

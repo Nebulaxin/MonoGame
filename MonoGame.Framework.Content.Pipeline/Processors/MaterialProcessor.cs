@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(typeof(Color), "255, 0, 255, 255")]
         [DisplayName("Color Key Color")]
         [Description("If the texture is color-keyed, pixels of this color are replaced with transparent black.")]
-        public virtual Color ColorKeyColor { get { return colorKeyColor; } set { colorKeyColor = value; } }
+        public virtual Color ColorKeyColor { get => colorKeyColor; set => colorKeyColor = value; }
 
         /// <summary>
         /// Specifies whether color keying of a texture is enabled.
@@ -40,7 +40,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(true)]
         [DisplayName("Color Key Enabled")]
         [Description("If enabled, the source texture is color-keyed. Pixels matching the value of \"Color Key Color\" are replaced with transparent black.")]
-        public virtual bool ColorKeyEnabled { get { return colorKeyEnabled; } set { colorKeyEnabled = value; } }
+        public virtual bool ColorKeyEnabled { get => colorKeyEnabled; set => colorKeyEnabled = value; }
 
         /// <summary>
         /// The default effect type for this instance of MaterialProcessor.
@@ -50,7 +50,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(typeof(MaterialProcessorDefaultEffect), "BasicEffect")]
         [DisplayName("Default Effect")]
         [Description("The default effect type.")]
-        public virtual MaterialProcessorDefaultEffect DefaultEffect { get { return defaultEffect; } set { defaultEffect = value; } }
+        public virtual MaterialProcessorDefaultEffect DefaultEffect { get => defaultEffect; set => defaultEffect = value; }
 
         /// <summary>
         /// Specifies if a full chain of mipmaps are generated from the source material. Existing mipmaps of the material are not replaced.
@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(false)]
         [DisplayName("Generate Mipmaps")]
         [Description("If enabled, a full chain of mipmaps are generated from the source material. Existing mipmaps of the material are not replaced.")]
-        public virtual bool GenerateMipmaps { get { return generateMipmaps; } set { generateMipmaps = value; } }
+        public virtual bool GenerateMipmaps { get => generateMipmaps; set => generateMipmaps = value; }
 
         /// <summary>
         /// Specifies whether alpha premultiply of textures is enabled.
@@ -68,7 +68,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(true)]
         [DisplayName("Premultiply Alpha")]
         [Description("If enabled, the texture is converted to premultiplied alpha format.")]
-        public virtual bool PremultiplyTextureAlpha { get { return premultiplyTextureAlpha; } set { premultiplyTextureAlpha = value; } }
+        public virtual bool PremultiplyTextureAlpha { get => premultiplyTextureAlpha; set => premultiplyTextureAlpha = value; }
 
         /// <summary>
         /// Specifies whether resizing of a material is enabled. Typically used to maximize compatability with a graphics card because many graphics cards do not support a material size that is not a power of two. If ResizeTexturesToPowerOfTwo is enabled, the material is resized to the next largest power of two.
@@ -77,7 +77,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(true)]
         [DisplayName("Resize to Power of Two")]
         [Description("If enabled, the texture is resized to the next largest power of two, maximizing compatibility. Many graphics cards do not support texture sizes that are not a power of two.")]
-        public virtual bool ResizeTexturesToPowerOfTwo { get { return resizeTexturesToPowerOfTwo; } set { resizeTexturesToPowerOfTwo = value; } }
+        public virtual bool ResizeTexturesToPowerOfTwo { get => resizeTexturesToPowerOfTwo; set => resizeTexturesToPowerOfTwo = value; }
 
         /// <summary>
 		/// Specifies the texture format of output materials. Materials can either be left unchanged from the source asset, converted to a corresponding Color, or compressed using the appropriate DxtCompressed format.
@@ -86,7 +86,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         [DefaultValue(typeof(TextureProcessorOutputFormat), "Color")]
         [DisplayName("Texture Format")]
         [Description("Specifies the SurfaceFormat type of processed textures. Textures can either remain unchanged from the source asset, converted to the Color format, or DXT compressed.")]
-        public virtual TextureProcessorOutputFormat TextureFormat { get { return textureFormat; } set { textureFormat = value; } }
+        public virtual TextureProcessorOutputFormat TextureFormat { get => textureFormat; set => textureFormat = value; }
 
         /// <summary>
         /// Initializes a new instance of the MaterialProcessor class.
@@ -200,21 +200,15 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// <returns>A material.</returns>
         public static MaterialContent CreateDefaultMaterial(MaterialProcessorDefaultEffect effect)
         {
-            switch (effect)
+            return effect switch
             {
-                case MaterialProcessorDefaultEffect.BasicEffect:
-                    return new BasicMaterialContent();
-                case MaterialProcessorDefaultEffect.SkinnedEffect:
-                    return new SkinnedMaterialContent();
-                case MaterialProcessorDefaultEffect.EnvironmentMapEffect:
-                    return new EnvironmentMapMaterialContent();
-                case MaterialProcessorDefaultEffect.DualTextureEffect:
-                    return new DualTextureMaterialContent();
-                case MaterialProcessorDefaultEffect.AlphaTestEffect:
-                    return new AlphaTestMaterialContent();
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                MaterialProcessorDefaultEffect.BasicEffect => new BasicMaterialContent(),
+                MaterialProcessorDefaultEffect.SkinnedEffect => new SkinnedMaterialContent(),
+                MaterialProcessorDefaultEffect.EnvironmentMapEffect => new EnvironmentMapMaterialContent(),
+                MaterialProcessorDefaultEffect.DualTextureEffect => new DualTextureMaterialContent(),
+                MaterialProcessorDefaultEffect.AlphaTestEffect => new AlphaTestMaterialContent(),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
 
         /// <summary>

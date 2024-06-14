@@ -14,10 +14,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate
         {
         }
 
-        public override bool CanDeserializeIntoExistingObject
-        {
-            get { return true; }
-        }
+        public override bool CanDeserializeIntoExistingObject => true;
 
         public override bool ObjectIsEmpty(object value)
         {

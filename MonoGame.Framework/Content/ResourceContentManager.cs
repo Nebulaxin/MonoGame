@@ -24,10 +24,7 @@ namespace Microsoft.Xna.Framework.Content
         public ResourceContentManager(IServiceProvider servicesProvider, ResourceManager resource)
             : base(servicesProvider)
         {
-            if (resource == null)
-            {
-                throw new ArgumentNullException("resource");
-            }
+            ArgumentNullException.ThrowIfNull(resource);
             this.resource = resource;
         }
 
@@ -42,7 +39,7 @@ namespace Microsoft.Xna.Framework.Content
         /// </exception>
         protected override System.IO.Stream OpenStream(string assetName)
         {
-            object obj = this.resource.GetObject(assetName);
+            object obj = resource.GetObject(assetName);
             if (obj == null)
             {
                 throw new ContentLoadException("Resource not found");

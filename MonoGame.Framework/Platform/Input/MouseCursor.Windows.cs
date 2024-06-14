@@ -13,14 +13,13 @@ namespace Microsoft.Xna.Framework.Input
 {
     public partial class MouseCursor
     {
-        Cursor _cursor;
         bool _needsDisposing;
 
-        internal Cursor Cursor { get { return _cursor; } }
+        internal Cursor Cursor { get; private set; }
 
         private MouseCursor(Cursor cursor, bool needsDisposing = false)
         {
-            _cursor = cursor;
+            Cursor = cursor;
             _needsDisposing = needsDisposing;
         }
 
@@ -61,7 +60,7 @@ namespace Microsoft.Xna.Framework.Input
             {
                 using (var bitmap = new Bitmap(w, h, h * 4, PixelFormat.Format32bppArgb, gcHandle.AddrOfPinnedObject()))
                 {
-                    IconInfo iconInfo = new IconInfo();
+                    IconInfo iconInfo = new();
                     GetIconInfo(bitmap.GetHicon(), ref iconInfo);
                     iconInfo.xHotspot = originx;
                     iconInfo.yHotspot = originy;
@@ -78,10 +77,10 @@ namespace Microsoft.Xna.Framework.Input
 
         private void PlatformDispose()
         {
-            if (_needsDisposing && _cursor != null)
+            if (_needsDisposing && Cursor != null)
             {
-                _cursor.Dispose();
-                _cursor = null;
+                Cursor.Dispose();
+                Cursor = null;
                 _needsDisposing = false;
             }
         }
