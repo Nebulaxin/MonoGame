@@ -366,7 +366,7 @@ namespace Microsoft.Xna.Framework.Audio
                     throw new NotImplementedException("Marker event");
 
                 default:
-                    throw new NotSupportedException("Unknown event " + eventId);
+                        throw new NotSupportedException($"Unknown event {eventId}");
                 }
             }
             

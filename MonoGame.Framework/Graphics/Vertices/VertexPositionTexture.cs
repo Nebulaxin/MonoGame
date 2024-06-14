@@ -42,7 +42,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + Position + " TextureCoordinate:" + TextureCoordinate + "}}";
+            return $"{{Position:{Position} TextureCoordinate:{TextureCoordinate}}}";
         }
 
         /// <summary>

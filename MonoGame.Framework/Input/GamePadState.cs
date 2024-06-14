@@ -216,13 +216,10 @@ namespace Microsoft.Xna.Framework.Input
             if (!IsConnected)
                 return "[GamePadState: IsConnected = 0]";
 
-            return "[GamePadState: IsConnected=" + (IsConnected ? "1" : "0") +
-                   ", PacketNumber=" + PacketNumber.ToString("00000") +
-                   ", Buttons=" + Buttons +
-                   ", DPad=" + DPad +
-                   ", ThumbSticks=" + ThumbSticks +
-                   ", Triggers=" + Triggers +
-                   "]";
+            return $"[GamePadState: IsConnected={(IsConnected ? "1" : "0")}" +
+                   $"PacketNumber={PacketNumber:00000}" +
+                   $"Buttons={Buttons}, DPad={DPad}" +
+                   $"ThumbSticks={ThumbSticks}, Triggers={Triggers}]";
         }
     }
 }

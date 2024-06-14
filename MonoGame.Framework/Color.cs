@@ -1778,14 +1778,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public UInt32 PackedValue { get; set; }
 
-
-        internal string DebugDisplayString => string.Concat(
-                    R.ToString(), "  ",
-                    G.ToString(), "  ",
-                    B.ToString(), "  ",
-                    A.ToString()
-                );
-
+        internal string DebugDisplayString => $"{R}  {G}  {B}  {A}";
 
         /// <summary>
         /// Returns a <see cref="String"/> representation of this <see cref="Color"/> in the format:

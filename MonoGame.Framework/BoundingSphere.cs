@@ -34,10 +34,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString => string.Concat(
-                    "Center( ", Center.DebugDisplayString, " )  \r\n",
-                    "Radius( ", Radius.ToString(), " )"
-                    );
+        internal string DebugDisplayString => $"Center( {Center.DebugDisplayString} ); Radius( {Radius} )";
 
         #endregion
 
@@ -560,7 +557,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="BoundingSphere"/>.</returns>
         public override string ToString()
         {
-            return "{Center:" + Center + " Radius:" + Radius + "}";
+            return $"{{Center:{Center} Radius:{Radius}}}";
         }
 
         #region Transform

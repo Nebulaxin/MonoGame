@@ -157,7 +157,7 @@ namespace Microsoft.Xna.Framework
 
         protected override void SetTitle(string title)
         {
-            Builtins.Eval("window.title = '" + title + "';");
+            Builtins.Eval($"window.title = '{title}';");
         }
 
         public override bool AllowUserResizing

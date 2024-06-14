@@ -235,8 +235,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns>A <see cref="String"/> representation of this <see cref="Viewport"/>.</returns>
         public override string ToString ()
 	    {
-	        return "{X:" + x + " Y:" + y + " Width:" + width + " Height:" + height + " MinDepth:" + minDepth + " MaxDepth:" + maxDepth + "}";
-	    }
+            return $"{{X:{x} Y:{y} Width:{width} Height:{height} MinDepth:{minDepth} MaxDepth:{maxDepth}}}";
+        }
     }
 }
 

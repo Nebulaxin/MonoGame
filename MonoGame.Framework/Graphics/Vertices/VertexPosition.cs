@@ -45,8 +45,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns>String representation of this object.</returns>
         public override string ToString()
 		{
-            return "{{Position:" + Position + "}}";
-		}
+            return $"{{Position:{Position}}}";
+        }
 
         /// <summary>
         /// Returns a value that indicates whether two <see cref="VertexPosition"/> are equal

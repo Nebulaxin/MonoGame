@@ -436,9 +436,9 @@ namespace Microsoft.Xna.Framework.Content
             }
             
 			if (result == null)
-				throw new ContentLoadException("Could not load " + originalAssetName + " asset!");
+                throw new ContentLoadException($"Could not load {originalAssetName} asset!");
 
-			return (T)result;
+            return (T)result;
 		}
 
         private ContentReader GetContentReaderFromXnb(string originalAssetName, Stream stream, BinaryReader xnbReader, Action<IDisposable> recordDisposableObject)

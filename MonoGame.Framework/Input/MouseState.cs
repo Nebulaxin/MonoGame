@@ -157,46 +157,36 @@ namespace Microsoft.Xna.Framework.Input
                 if ((_buttons & LeftButtonFlag) == LeftButtonFlag)
                 {
                     if (buttons.Length > 0)
-                        buttons += " Left";
-                    else
-                        buttons += "Left";
+                        buttons += " ";
+                    buttons += "Left";
                 }
                 if ((_buttons & RightButtonFlag) == RightButtonFlag)
                 {
                     if (buttons.Length > 0)
-                        buttons += " Right";
-                    else
-                        buttons += "Right";
+                        buttons += " ";
+                    buttons += "Right";
                 }
                 if ((_buttons & MiddleButtonFlag) == MiddleButtonFlag)
                 {
                     if (buttons.Length > 0)
-                        buttons += " Middle";
-                    else
-                        buttons += "Middle";
+                        buttons += " ";
+                    buttons += "Middle";
                 }
                 if ((_buttons & XButton1Flag) == XButton1Flag)
                 {
                     if (buttons.Length > 0)
-                        buttons += " XButton1";
-                    else
-                        buttons += "XButton1";
+                        buttons += " ";
+                    buttons += "XButton1";
                 }
                 if ((_buttons & XButton2Flag) == XButton2Flag)
                 {
                     if (buttons.Length > 0)
-                        buttons += " XButton2";
-                    else
-                        buttons += "XButton2";
+                        buttons += " ";
+                    buttons += "XButton2";
                 }
             }
 
-            return "[MouseState X=" + X +
-                    ", Y=" + Y +
-                    ", Buttons=" + buttons +
-                    ", Wheel=" + ScrollWheelValue +
-                    ", HWheel=" + HorizontalScrollWheelValue +
-                    "]";
+            return $"[MouseState X={X}, Y={Y}, Buttons={buttons}, Wheel={ScrollWheelValue}, HWheel={HorizontalScrollWheelValue}]";
         }
 
         /// <summary>

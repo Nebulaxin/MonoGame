@@ -812,7 +812,7 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
         internal void AuxiliaryEffectSlot(uint slot, EfxEffectSlotf param, float value)
         {
             alAuxiliaryEffectSlotf(slot, param, value);
-            ALHelper.CheckError("Failes to set " + param + " " + value);
+            ALHelper.CheckError($"Failes to set {param} {value}");
         }
 
         internal void BindSourceToAuxiliarySlot(int SourceId, int slot, int slotnumber, int filter)
@@ -823,13 +823,13 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
         internal void Effect(uint effect, EfxEffectf param, float value)
         {
             alEffectf(effect, param, value);
-            ALHelper.CheckError("Failed to set " + param + " " + value);
+            ALHelper.CheckError($"Failed to set {param} {value}");
         }
 
         internal void Effect(uint effect, EfxEffecti param, int value)
         {
             alEffecti(effect, param, value);
-            ALHelper.CheckError("Failed to set " + param + " " + value);
+            ALHelper.CheckError($"Failed to set {param} {value}");
         }
 
         internal unsafe int GenFilter()

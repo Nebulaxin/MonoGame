@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework
                 if (Sdl.version > nonResizeableVersion)
                     Sdl.Window.SetResizable(_handle, value);
                 else
-                    throw new Exception("SDL " + nonResizeableVersion + " does not support changing resizable parameter of the window after it's already been created, please use a newer version of it.");
+                    throw new Exception($"SDL {nonResizeableVersion} does not support changing resizable parameter of the window after it's already been created, please use a newer version of it.");
 
                 _resizable = value;
             }

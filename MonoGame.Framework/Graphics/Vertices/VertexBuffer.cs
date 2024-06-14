@@ -238,7 +238,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (elementCount > 1 && (elementCount * vertexStride > bufferSize))
                 throw new InvalidOperationException("The vertex stride is larger than the vertex buffer.");
             if (vertexStride < elementSizeInBytes)
-                throw new ArgumentOutOfRangeException("The vertex stride must be greater than or equal to the size of the specified data (" + elementSizeInBytes + ").");            
+                throw new ArgumentOutOfRangeException($"The vertex stride must be greater than or equal to the size of the specified data ({elementSizeInBytes}).");            
 
             PlatformSetData<T>(offsetInBytes, data, startIndex, elementCount, vertexStride, options, bufferSize, elementSizeInBytes);
         }

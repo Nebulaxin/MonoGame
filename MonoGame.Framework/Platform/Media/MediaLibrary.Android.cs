@@ -108,7 +108,7 @@ namespace Microsoft.Xna.Framework.Media
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine("MediaLibrary exception: " + e.Message);
+                            Debug.WriteLine($"MediaLibrary exception: {e.Message}");
                         }
                 }
 

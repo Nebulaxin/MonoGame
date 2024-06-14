@@ -148,7 +148,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
 
                 if (CurrentPlatform.OS == OS.Windows)
                 {
-                    var fullExeName = string.Concat(fullName, ".exe");
+                    var fullExeName = $"{fullName}.exe";
                     if (File.Exists(fullExeName))
                         return fullExeName;
                 }

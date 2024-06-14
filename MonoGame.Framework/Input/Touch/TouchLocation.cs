@@ -252,7 +252,7 @@ namespace Microsoft.Xna.Framework.Input.Touch
         /// </summary>
         public override string ToString()
         {
-            return "Touch id:"+_id+" state:"+_state + " position:" + _position + " pressure:" + _pressure +" prevState:"+_previousState+" prevPosition:"+ _previousPosition + " previousPressure:" + _previousPressure;
+            return $"Touch id:{_id} state:{_state} position:{_position} pressure:{_pressure} prevState:{_previousState} prevPosition:{_previousPosition} previousPressure:{_previousPressure}";
         }
 
         /// <summary>

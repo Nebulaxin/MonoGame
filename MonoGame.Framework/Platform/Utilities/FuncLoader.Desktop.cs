@@ -76,7 +76,7 @@ namespace MonoGame.Framework.Utilities
 
             // Welp, all failed, PANIC!!!
             if (ret == IntPtr.Zero)
-                throw new Exception("Failed to load library: " + libname);
+                throw new Exception($"Failed to load library: {libname}");
 
             return ret;
         }

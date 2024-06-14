@@ -22,7 +22,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         [DataMember]
         public Vector3 Direction;
-      
+
         /// <summary>
         /// The origin of this <see cref="Ray"/>.
         /// </summary>
@@ -187,7 +187,7 @@ namespace Microsoft.Xna.Framework
         /// </param>
         public void Intersects(ref BoundingBox box, out float? result)
         {
-			result = Intersects(box);
+            result = Intersects(box);
         }
 
         /*
@@ -329,10 +329,7 @@ namespace Microsoft.Xna.Framework
             return a.Equals(b);
         }
 
-        internal string DebugDisplayString => string.Concat(
-                    "Pos( ", Position.DebugDisplayString, " )  \r\n",
-                    "Dir( ", Direction.DebugDisplayString, " )"
-                );
+        internal string DebugDisplayString => $"Pos( {Position.DebugDisplayString} ); Dir( {Direction.DebugDisplayString} )";
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="Ray"/>.
@@ -340,7 +337,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Ray"/>.</returns>
         public override string ToString()
         {
-            return "{{Position:" + Position.ToString() + " Direction:" + Direction.ToString() + "}}";
+            return $"{{Position:{Position} Direction:{Direction}}}";
         }
 
         /// <summary>

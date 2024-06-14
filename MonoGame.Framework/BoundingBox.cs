@@ -773,10 +773,7 @@ namespace Microsoft.Xna.Framework
             return !a.Equals(b);
         }
 
-        internal string DebugDisplayString => string.Concat(
-                    "Min( ", Min.DebugDisplayString, " )  \r\n",
-                    "Max( ", Max.DebugDisplayString, " )"
-                    );
+        internal string DebugDisplayString => $"Min( {Min.DebugDisplayString} ); Max( {Max.DebugDisplayString} )";
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="BoundingBox"/>.
@@ -784,7 +781,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="BoundingBox"/>.</returns>
         public override string ToString()
         {
-            return "{{Min:" + Min.ToString() + " Max:" + Max.ToString() + "}}";
+            return $"{{Min:{Min} Max:{Max}}}";
         }
 
         /// <summary>

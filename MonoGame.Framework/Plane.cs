@@ -440,10 +440,7 @@ namespace Microsoft.Xna.Framework
             return PlaneIntersectionType.Intersecting;
         }
 
-        internal string DebugDisplayString => string.Concat(
-                    Normal.DebugDisplayString, "  ",
-                    D.ToString()
-                    );
+        internal string DebugDisplayString => $"{Normal.DebugDisplayString}  {D}";
 
         /// <summary>
         /// Get a <see cref="String"/> representation of this <see cref="Plane"/>.
@@ -451,7 +448,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Plane"/>.</returns>
         public override string ToString()
         {
-            return "{Normal:" + Normal + " D:" + D + "}";
+            return $"{{Normal:{Normal} D:{D}}}";
         }
 
         /// <summary>

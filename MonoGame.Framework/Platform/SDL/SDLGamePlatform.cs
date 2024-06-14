@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework
             var minVersion = new Sdl.Version() { Major = 2, Minor = 0, Patch = 5 };
 
             if (Sdl.version < minVersion)
-                Debug.WriteLine("Please use SDL " + minVersion + " or higher.");
+                Debug.WriteLine($"Please use SDL {minVersion} or higher.");
 
             // Needed so VS can debug the project on Windows
             if (Sdl.version >= minVersion && CurrentPlatform.OS == OS.Windows && Debugger.IsAttached)

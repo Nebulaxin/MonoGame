@@ -140,7 +140,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc />
         public override string ToString()
         {
-            return "{Width:" + Width + " Height:" + Height + " Format:" + Format + " AspectRatio:" + AspectRatio + "}";
+            return $"{{Width:{Width} Height:{Height} Format:{Format} AspectRatio:{AspectRatio}}}";
         }
 
         #endregion Public Methods

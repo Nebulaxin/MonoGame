@@ -224,7 +224,7 @@ namespace Microsoft.Xna.Framework.Audio
             {
                 var name = _waveBankNames[waveBankIndex];
                 if (!_audioengine.Wavebanks.TryGetValue(name, out waveBank))
-                    throw new Exception("The wave bank '" + name + "' was not found!");
+                    throw new Exception("The wave bank '{name}' was not found!");
                 _waveBanks[waveBankIndex] = waveBank;                
             }
 

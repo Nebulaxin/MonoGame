@@ -162,7 +162,7 @@ namespace Microsoft.Xna.Framework
             {
                 string name = GetType().Name;
                 throw new ObjectDisposedException(
-                    name, string.Format("The {0} object was used after being Disposed.", name));
+                    name, $"The {name} object was used after being Disposed.");
             }
         }
 
@@ -471,8 +471,7 @@ namespace Microsoft.Xna.Framework
                 Platform.RunLoop();
                 break;
             default:
-                throw new ArgumentException(string.Format(
-                    "Handling for the run behavior {0} is not implemented.", runBehavior));
+                    throw new ArgumentException($"Handling for the run behavior {runBehavior} is not implemented.");
             }
         }
 

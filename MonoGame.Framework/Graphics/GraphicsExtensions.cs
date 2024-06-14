@@ -761,13 +761,13 @@ namespace Microsoft.Xna.Framework.Graphics
 				break;
             case InvalidFormat: 
             default:
-                    throw new NotSupportedException(string.Format("The requested SurfaceFormat `{0}` is not supported.", format));
-			}
-		}
+                    throw new NotSupportedException($"The requested SurfaceFormat `{format}` is not supported.");
+            }
+        }
 
 #endif // OPENGL
 
-                    public static int GetSyncInterval(this PresentInterval interval)
+        public static int GetSyncInterval(this PresentInterval interval)
         {
             switch (interval)
             {
@@ -967,7 +967,7 @@ namespace Microsoft.Xna.Framework.Graphics
            var error = GL.GetError();
             //Console.WriteLine(error);
             if (error != ErrorCode.NoError)
-                throw new MonoGameGLException("GL.GetError() returned " + error.ToString());
+                throw new MonoGameGLException($"GL.GetError() returned {error}");
         }
 #endif
 
@@ -983,9 +983,9 @@ namespace Microsoft.Xna.Framework.Graphics
             {
 #if ANDROID
                 // Todo: Add generic MonoGame logging interface
-                Android.Util.Log.Debug("MonoGame", "MonoGameGLException at " + location + " - " + ex.Message);
+                Android.Util.Log.Debug($"MonoGame", "MonoGameGLException at " + location + " - {ex.Message}");
 #else
-                Debug.WriteLine("MonoGameGLException at " + location + " - " + ex.Message);
+                Debug.WriteLine($"MonoGameGLException at " + location + " - {ex.Message}");
 #endif
             }
         }

@@ -48,10 +48,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString => string.Concat(
-                    X.ToString(), "  ",
-                    Y.ToString()
-                );
+        internal string DebugDisplayString => $"{X}  {Y}";
 
         #endregion
 
@@ -195,7 +192,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><see cref="String"/> representation of this <see cref="Point"/>.</returns>
         public override string ToString()
         {
-            return "{X:" + X + " Y:" + Y + "}";
+            return $"{{X:{X} Y:{Y}}}";
         }
 
         /// <summary>

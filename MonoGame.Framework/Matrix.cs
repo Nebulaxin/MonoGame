@@ -2367,11 +2367,13 @@ namespace Microsoft.Xna.Framework
                     return "Identity";
                 }
 
-                return string.Concat(
-                     "( ", M11.ToString(), "  ", M12.ToString(), "  ", M13.ToString(), "  ", M14.ToString(), " )  \r\n",
-                     "( ", M21.ToString(), "  ", M22.ToString(), "  ", M23.ToString(), "  ", M24.ToString(), " )  \r\n",
-                     "( ", M31.ToString(), "  ", M32.ToString(), "  ", M33.ToString(), "  ", M34.ToString(), " )  \r\n",
-                     "( ", M41.ToString(), "  ", M42.ToString(), "  ", M43.ToString(), "  ", M44.ToString(), " )");
+                return
+                    $"""
+                    ( {M11}  {M12}  {M13}  {M14} )
+                    ( {M21}  {M22}  {M23}  {M24} )
+                    ( {M31}  {M32}  {M33}  {M34} )
+                    ( {M41}  {M42}  {M43}  {M44} )
+                    """;
             }
         }
 
@@ -2385,10 +2387,11 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Matrix"/>.</returns>
         public override string ToString()
         {
-            return "{M11:" + M11 + " M12:" + M12 + " M13:" + M13 + " M14:" + M14 + "}"
-                + " {M21:" + M21 + " M22:" + M22 + " M23:" + M23 + " M24:" + M24 + "}"
-                + " {M31:" + M31 + " M32:" + M32 + " M33:" + M33 + " M34:" + M34 + "}"
-                + " {M41:" + M41 + " M42:" + M42 + " M43:" + M43 + " M44:" + M44 + "}";
+            return
+                $"{{M11:{M11} M12:{M12} M13:{M13} M14:{M14}}} " +
+                $"{{M21:{M21} M22:{M22} M23:{M23} M24:{M24}}} " +
+                $"{{M31:{M31} M32:{M32} M33:{M33} M34:{M34}}} " +
+                $"{{M41:{M41} M42:{M42} M43:{M43} M44:{M44}}}";
         }
 
         /// <summary>

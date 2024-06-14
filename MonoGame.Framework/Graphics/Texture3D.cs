@@ -409,9 +409,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             var dataByteSize = width*height*depth*fSize;
             if (elementCount * tSize != dataByteSize)
-                throw new ArgumentException(string.Format("elementCount is not the right size, " +
-                                            "elementCount * sizeof(T) is {0}, but data size is {1}.",
-                                            elementCount * tSize, (object)dataByteSize), nameof(elementCount));
+                throw new ArgumentException(
+                    $"elementCount is not the right size, elementCount * sizeof(T) is {elementCount * tSize}, but data size is {dataByteSize} bytes.",
+                    nameof(elementCount));
         }
 	}
 }

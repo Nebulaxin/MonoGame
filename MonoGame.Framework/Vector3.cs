@@ -107,11 +107,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString => string.Concat(
-                    X.ToString(), "  ",
-                    Y.ToString(), "  ",
-                    Z.ToString()
-                );
+        internal string DebugDisplayString => $"{X}  {Y}  {Z}";
 
         #endregion
 

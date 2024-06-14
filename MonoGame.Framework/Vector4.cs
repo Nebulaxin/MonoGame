@@ -87,12 +87,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString => string.Concat(
-                    X.ToString(), "  ",
-                    Y.ToString(), "  ",
-                    Z.ToString(), "  ",
-                    W.ToString()
-                );
+        internal string DebugDisplayString => $"{X}  {Y}  {Z}  {W}";
 
         #endregion
 
@@ -1205,7 +1200,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Vector4"/>.</returns>
         public override string ToString()
         {
-            return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
+            return $"{{X:{X} Y:{Y} Z:{Z} W:{W}}}";
         }
 
         /// <summary>

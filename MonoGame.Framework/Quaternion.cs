@@ -112,12 +112,7 @@ namespace Microsoft.Xna.Framework
                     return "Identity";
                 }
 
-                return string.Concat(
-                    X.ToString(), " ",
-                    Y.ToString(), " ",
-                    Z.ToString(), " ",
-                    W.ToString()
-                );
+                return $"{X} {Y} {Z} {W}";
             }
         }
 
@@ -997,7 +992,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="String"/> representation of this <see cref="Quaternion"/>.</returns>
         public override string ToString()
         {
-            return "{X:" + X + " Y:" + Y + " Z:" + Z + " W:" + W + "}";
+            return $"{{X:{X} Y:{Y} Z:{Z} W:{W}}}";
         }
 
         /// <summary>

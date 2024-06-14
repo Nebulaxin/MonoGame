@@ -263,35 +263,22 @@ namespace Microsoft.Xna.Framework.Input
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadCapabilities"/>.</returns>
         public override string ToString()
         {
-            return "[GamePadCapabilities: IsConnected=" + IsConnected +
-                ", DisplayName=" + DisplayName +
-                ", Identifier=" + Identifier +
-                ", HasAButton=" + HasAButton +
-                ", HasBackButton=" + HasBackButton +
-                ", HasBButton=" + HasBButton +
-                ", HasDPadDownButton=" + HasDPadDownButton +
-                ", HasDPadLeftButton=" + HasDPadLeftButton +
-                ", HasDPadRightButton=" + HasDPadRightButton +
-                ", HasDPadUpButton=" + HasDPadUpButton +
-                ", HasLeftShoulderButton=" + HasLeftShoulderButton +
-                ", HasLeftStickButton=" + HasLeftStickButton +
-                ", HasRightShoulderButton=" + HasRightShoulderButton +
-                ", HasRightStickButton=" + HasRightStickButton +
-                ", HasStartButton=" + HasStartButton +
-                ", HasXButton=" + HasXButton +
-                ", HasYButton=" + HasYButton +
-                ", HasBigButton=" + HasBigButton +
-                ", HasLeftXThumbStick=" + HasLeftXThumbStick +
-                ", HasLeftYThumbStick=" + HasLeftYThumbStick +
-                ", HasRightXThumbStick=" + HasRightXThumbStick +
-                ", HasRightYThumbStick=" + HasRightYThumbStick +
-                ", HasLeftTrigger=" + HasLeftTrigger +
-                ", HasRightTrigger=" + HasRightTrigger +
-                ", HasLeftVibrationMotor=" + HasLeftVibrationMotor +
-                ", HasRightVibrationMotor=" + HasRightVibrationMotor +
-                ", HasVoiceSupport=" + HasVoiceSupport +
-                ", GamePadType=" + GamePadType +
-                "]";
+            return
+                $"[GamePadCapabilities: IsConnected={IsConnected}, " +
+                $"DisplayName={DisplayName}, Identifier={Identifier}, " +
+                $"HasAButton={HasAButton}, HasBackButton={HasBackButton}, HasBButton={HasBButton}, " +
+                $"HasDPadDownButton={HasDPadDownButton}, HasDPadLeftButton={HasDPadLeftButton}, " +
+                $"HasDPadRightButton={HasDPadRightButton}, HasDPadUpButton={HasDPadUpButton}, " +
+                $"HasLeftShoulderButton={HasLeftShoulderButton}, HasLeftStickButton={HasLeftStickButton}, " +
+                $"HasRightShoulderButton={HasRightShoulderButton}, HasRightStickButton={HasRightStickButton}, " +
+                $"HasStartButton={HasStartButton}, " +
+                $"HasXButton={HasXButton}, HasYButton={HasYButton}, " +
+                $"HasBigButton={HasBigButton}, " +
+                $"HasLeftXThumbStick={HasLeftXThumbStick}, HasLeftYThumbStick={HasLeftYThumbStick}, " +
+                $"HasRightXThumbStick={HasRightXThumbStick}, HasRightYThumbStick={HasRightYThumbStick}, " +
+                $"HasLeftTrigger={HasLeftTrigger}, HasRightTrigger={HasRightTrigger}, " +
+                $"HasLeftVibrationMotor={HasLeftVibrationMotor}, HasRightVibrationMotor={HasRightVibrationMotor}, " +
+                $"HasVoiceSupport={HasVoiceSupport}, GamePadType={GamePadType}]";
         }
     }
 }

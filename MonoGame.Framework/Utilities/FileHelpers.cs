@@ -53,7 +53,7 @@ namespace MonoGame.Framework.Utilities
                 filePath = ForwardSlashString + filePath;
 
             // Get a uri for filePath using the file:// schema and no host.
-            var src = new Uri("file://" + UrlEncode(filePath));
+            var src = new Uri($"file://{UrlEncode(filePath)}");
 
             var dst = new Uri(src, UrlEncode(relativeFile));
             // The uri now contains the path to the relativeFile with 

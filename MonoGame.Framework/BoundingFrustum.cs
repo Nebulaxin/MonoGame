@@ -85,14 +85,15 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString => string.Concat(
-                    "Near( ", _planes[0].DebugDisplayString, " )  \r\n",
-                    "Far( ", _planes[1].DebugDisplayString, " )  \r\n",
-                    "Left( ", _planes[2].DebugDisplayString, " )  \r\n",
-                    "Right( ", _planes[3].DebugDisplayString, " )  \r\n",
-                    "Top( ", _planes[4].DebugDisplayString, " )  \r\n",
-                    "Bottom( ", _planes[5].DebugDisplayString, " )  "
-                    );
+        internal string DebugDisplayString =>
+            $"""
+            Near( {_planes[0].DebugDisplayString} )
+            Far( {_planes[1].DebugDisplayString} )
+            Left( {_planes[2].DebugDisplayString} )
+            Right( {_planes[3].DebugDisplayString} )
+            Top( {_planes[4].DebugDisplayString} )
+            Bottom( {_planes[5].DebugDisplayString} )
+            """;
 
         #endregion
 
@@ -460,13 +461,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><see cref="String"/> representation of this <see cref="BoundingFrustum"/>.</returns>
         public override string ToString()
         {
-            return "{Near: " + _planes[0] +
-                   " Far:" + _planes[1] +
-                   " Left:" + _planes[2] +
-                   " Right:" + _planes[3] +
-                   " Top:" + _planes[4] +
-                   " Bottom:" + _planes[5] +
-                   "}";
+            return $"{{Near: {_planes[0]} Far: {_planes[1]} Left: {_planes[2]} Right: {_planes[3]} Top: {_planes[4]} Bottom: {_planes[5]}}}";
         }
 
         #endregion

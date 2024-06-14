@@ -1435,7 +1435,7 @@ namespace MonoGame.OpenGL
 #if __ANDROID__
             Android.Util.Log.Verbose("GL","Supported Extensions");
             foreach (var ext in Extensions)
-                Android.Util.Log.Verbose("GL", "   " + ext);
+                Android.Util.Log.Verbose("GL", $"   {ext}");
 #endif
         }
 

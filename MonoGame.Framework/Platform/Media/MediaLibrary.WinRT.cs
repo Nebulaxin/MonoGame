@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework.Media
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine("Failed to access Music Library: " + e.Message);
+                        Debug.WriteLine($"Failed to access Music Library: {e.Message}");
                         albumCollection = new AlbumCollection(new List<Album>());
                         songCollection = new SongCollection(new List<Song>());
                         return;
@@ -121,7 +121,7 @@ namespace Microsoft.Xna.Framework.Media
                         }
                         catch (Exception e)
                         {
-                            Debug.WriteLine("MediaLibrary exception: " + e.Message);
+                            Debug.WriteLine($"MediaLibrary exception: {e.Message}");
                         }
 
                         int progress = 100 * i / files.Count;

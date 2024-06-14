@@ -386,10 +386,10 @@ namespace Microsoft.Xna.Framework.Graphics
             /// <summary>
             /// Returns a string representation of this <see cref="Glyph"/>.
             /// </summary>
-			public override string ToString ()
-			{
-                return "CharacterIndex=" + Character + ", Glyph=" + BoundsInTexture + ", Cropping=" + Cropping + ", Kerning=" + LeftSideBearing + "," + Width + "," + RightSideBearing;
-			}
+			public override string ToString()
+            {
+                return $"CharacterIndex={Character}, Glyph={BoundsInTexture}, Cropping={Cropping}, Kerning={LeftSideBearing},{Width},{RightSideBearing}";
+            }
 		}
 
         private struct CharacterRegion

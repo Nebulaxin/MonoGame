@@ -121,12 +121,7 @@ namespace Microsoft.Xna.Framework
 
         #region Internal Properties
 
-        internal string DebugDisplayString => string.Concat(
-                    X, "  ",
-                    Y, "  ",
-                    Width, "  ",
-                    Height
-                    );
+        internal string DebugDisplayString => $"{X}  {Y}  {Width}  {Height}";
 
         #endregion
 
@@ -448,7 +443,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><see cref="String"/> representation of this <see cref="Rectangle"/>.</returns>
         public override string ToString()
         {
-            return "{X:" + X + " Y:" + Y + " Width:" + Width + " Height:" + Height + "}";
+            return $"{{X:{X} Y:{Y} Width:{Width} Height:{Height}}}";
         }
 
         /// <summary>

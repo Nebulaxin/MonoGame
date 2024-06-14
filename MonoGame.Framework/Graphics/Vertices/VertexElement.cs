@@ -93,7 +93,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
-            return "{Offset:" + Offset + " Format:" + VertexElementFormat + " Usage:" + VertexElementUsage + " UsageIndex: " + UsageIndex + "}";
+            return $"{{Offset:{Offset} Format:{VertexElementFormat} Usage:{VertexElementUsage} UsageIndex:{UsageIndex}}}";
         }
 
         /// <summary>

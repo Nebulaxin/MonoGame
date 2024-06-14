@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Audio
 
         public override string ToString()
         {
-            return "Value:" + Value + " MinValue:" + MinValue + " MaxValue:" + MaxValue;
+            return $"Value:{Value} MinValue:{MinValue} MaxValue:{MaxValue}";
         }
     }
 }

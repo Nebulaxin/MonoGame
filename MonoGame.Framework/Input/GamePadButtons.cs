@@ -141,19 +141,12 @@ namespace Microsoft.Xna.Framework.Input
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadButtons"/>.</returns>
         public override string ToString()
         {
-            return "[GamePadButtons:" +
-                " A=" + (int)A +
-                ", B=" + (int)B +
-                ", Back=" + (int)Back +
-                ", X=" + (int)X +
-                ", Y=" + (int)Y +
-                ", Start=" + (int)Start +
-                ", LeftShoulder=" + (int)LeftShoulder +
-                ", LeftStick=" + (int)LeftStick +
-                ", RightShoulder=" + (int)RightShoulder +
-                ", RightStick=" + (int)RightStick +
-                ", BigButton=" + (int)BigButton +
-                "]";
+            return "[GamePadButtons: " +
+                $"A={(int)A}, B={(int)B}, Back={(int)Back}, " +
+                $"X={(int)X}, Y={(int)Y}, Start={(int)Start}, " +
+                $"LeftShoulder={(int)LeftShoulder}, LeftStick={(int)LeftStick}, " +
+                $"RightShoulder={(int)RightShoulder}, RightStick={(int)RightStick}, " +
+                $"BigButton={(int)BigButton} ]";
         }
     }
 }

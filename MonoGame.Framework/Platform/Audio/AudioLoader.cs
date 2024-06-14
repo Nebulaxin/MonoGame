@@ -52,7 +52,7 @@ namespace Microsoft.Xna.Framework.Audio
                         default: throw new NotSupportedException("The specified channel count is not supported.");
                     }
                 default:
-                    throw new NotSupportedException("The specified sound format (" + format.ToString() + ") is not supported.");
+                    throw new NotSupportedException($"The specified sound format ({format}) is not supported.");
             }
         }
 
@@ -215,7 +215,7 @@ namespace Microsoft.Xna.Framework.Audio
                         sampleCount = audioData.Length / ((channels * bitsPerSample) / 8);
                         break;
                     default:
-                        throw new InvalidDataException("Unhandled WAV format " + format.ToString());
+                        throw new InvalidDataException($"Unhandled WAV format {format}");
                 }
             }
 

@@ -230,9 +230,9 @@ namespace Microsoft.Xna.Framework.Content
                 preparedType = Regex.Replace(preparedType, @"(.+?), Version=.+?$", "$1");
 
             // TODO: For WinRT this is most likely broken!
-            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Graphics", string.Format(", {0}", _assemblyName));
-            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Video", string.Format(", {0}", _assemblyName));
-            preparedType = preparedType.Replace(", Microsoft.Xna.Framework", string.Format(", {0}", _assemblyName));
+            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Graphics", $", {_assemblyName}");
+            preparedType = preparedType.Replace(", Microsoft.Xna.Framework.Video", $", {_assemblyName}");
+            preparedType = preparedType.Replace(", Microsoft.Xna.Framework", $", {_assemblyName}");
 
             if (_isRunningOnNetCore)
                 preparedType = preparedType.Replace("mscorlib", "System.Private.CoreLib");

@@ -193,8 +193,8 @@ namespace Microsoft.Xna.Framework.Graphics
         return (int)TextureWrapMode.ClampToBorder;
 #endif
       default:
-        throw new ArgumentException("No support for " + textureAddressMode);
-      }
+                    throw new ArgumentException($"No support for {textureAddressMode}");
+            }
     }
   }
 }

@@ -83,7 +83,7 @@ namespace Microsoft.Xna.Framework.Input
         /// <returns>A <see cref="T:System.String"/> that represents the current <see cref="T:Microsoft.Xna.Framework.Input.GamePadTriggers"/>.</returns>
         public override string ToString()
         {
-            return "[GamePadTriggers: Left=" + Left + ", Right=" + Right + "]";
+            return $"[GamePadTriggers: Left={Left}, Right={Right}]";
         }
     }
 }

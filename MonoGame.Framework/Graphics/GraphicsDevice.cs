@@ -246,7 +246,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             ArgumentNullException.ThrowIfNull(adapter);
             if (!adapter.IsProfileSupported(graphicsProfile))
-                throw new NoSuitableGraphicsDeviceException(String.Format("Adapter '{0}' does not support the {1} profile.", adapter.Description, graphicsProfile));
+                throw new NoSuitableGraphicsDeviceException($"Adapter '{adapter.Description}' does not support the {graphicsProfile} profile.");
             ArgumentNullException.ThrowIfNull(presentationParameters);
             Adapter = adapter;
             PresentationParameters = presentationParameters;
@@ -272,7 +272,7 @@ namespace Microsoft.Xna.Framework.Graphics
         {
             ArgumentNullException.ThrowIfNull(adapter);
             if (!adapter.IsProfileSupported(graphicsProfile))
-                throw new NoSuitableGraphicsDeviceException(String.Format("Adapter '{0}' does not support the {1} profile.", adapter.Description, graphicsProfile));
+                throw new NoSuitableGraphicsDeviceException($"Adapter '{adapter.Description}' does not support the {graphicsProfile} profile.");
             ArgumentNullException.ThrowIfNull(presentationParameters);
 #if DIRECTX
             // TODO we need to figure out how to inject the half pixel offset into DX shaders
@@ -1033,8 +1033,7 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 if (vertexBuffers.Length > _maxVertexBufferSlots)
                 {
-                    var message = string.Format(CultureInfo.InvariantCulture, "Max number of vertex buffers is {0}.", _maxVertexBufferSlots);
-                    throw new ArgumentOutOfRangeException(nameof(vertexBuffers), message);
+                    throw new ArgumentOutOfRangeException(nameof(vertexBuffers), $"Max number of vertex buffers is {_maxVertexBufferSlots}.");
                 }
 
                 _vertexBuffersDirty |= _vertexBuffers.Set(vertexBuffers);
@@ -1516,9 +1515,9 @@ namespace Microsoft.Xna.Framework.Graphics
             var dataByteSize = width * height * fSize;
 
             if (elementCount * tSize != dataByteSize)
-                throw new ArgumentException(string.Format("elementCount is not the right size, " +
-                                            "elementCount * sizeof(T) is {0}, but data size is {1} bytes.",
-                                            elementCount * tSize, dataByteSize), nameof(elementCount));
+                throw new ArgumentException(
+                    $"elementCount is not the right size, elementCount * sizeof(T) is {elementCount * tSize}, but data size is {dataByteSize} bytes.",
+                    nameof(elementCount));
 
             PlatformGetBackBufferData(rect, data, startIndex, elementCount);
         }
