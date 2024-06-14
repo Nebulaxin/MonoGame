@@ -17,7 +17,7 @@ namespace MonoGame.Framework
 
         public GameFrameworkViewSource(Action<T, IActivatedEventArgs> gameConstructorCustomizationDelegate = null)
         {
-            this._gameConstructorCustomizationDelegate = gameConstructorCustomizationDelegate;
+            _gameConstructorCustomizationDelegate = gameConstructorCustomizationDelegate;
         }
 
         public IFrameworkView CreateView()

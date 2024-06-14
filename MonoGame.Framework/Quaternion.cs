@@ -59,10 +59,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The rotation component.</param>
         public Quaternion(float x, float y, float z, float w)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            X = x;
+            Y = y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
@@ -72,10 +72,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The rotation component.</param>
         public Quaternion(Vector3 value, float w)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = value.Z;
-            this.W = w;
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = w;
         }
 
         /// <summary>
@@ -84,10 +84,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y, z coordinates in 3d-space and the rotation component.</param>
         public Quaternion(Vector4 value)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = value.Z;
-            this.W = value.W;
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = value.W;
         }
 
         #endregion
@@ -113,10 +113,10 @@ namespace Microsoft.Xna.Framework
                 }
 
                 return string.Concat(
-                    this.X.ToString(), " ",
-                    this.Y.ToString(), " ",
-                    this.Z.ToString(), " ",
-                    this.W.ToString()
+                    X.ToString(), " ",
+                    Y.ToString(), " ",
+                    Z.ToString(), " ",
+                    W.ToString()
                 );
             }
         }
@@ -1029,7 +1029,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Quaternion ToNumerics()
         {
-            return new System.Numerics.Quaternion(this.X, this.Y, this.Z, this.W);
+            return new System.Numerics.Quaternion(X, Y, Z, W);
         }
 
         #endregion

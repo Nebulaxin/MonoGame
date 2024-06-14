@@ -41,8 +41,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="direction">The direction of the <see cref="Ray"/>.</param>
         public Ray(Vector3 position, Vector3 direction)
         {
-            this.Position = position;
-            this.Direction = direction;
+            Position = position;
+            Direction = direction;
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public override bool Equals(object obj)
         {
-            return (obj is Ray) && this.Equals((Ray)obj);
+            return (obj is Ray) && Equals((Ray)obj);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public bool Equals(Ray other)
         {
-            return this.Position.Equals(other.Position) && this.Direction.Equals(other.Direction);
+            return Position.Equals(other.Position) && Direction.Equals(other.Direction);
         }
 
         /// <summary>
@@ -274,7 +274,7 @@ namespace Microsoft.Xna.Framework
         public void Intersects(ref BoundingSphere sphere, out float? result)
         {
             // Find the vector between where the ray starts the the sphere's centre
-            Vector3 difference = sphere.Center - this.Position;
+            Vector3 difference = sphere.Center - Position;
 
             float differenceLengthSquared = difference.LengthSquared();
             float sphereRadiusSquared = sphere.Radius * sphere.Radius;
@@ -289,7 +289,7 @@ namespace Microsoft.Xna.Framework
                 return;
             }
 
-            Vector3.Dot(ref this.Direction, ref difference, out distanceAlongRay);
+            Vector3.Dot(ref Direction, ref difference, out distanceAlongRay);
             // If the ray is pointing away from the sphere then we don't ever intersect
             if (distanceAlongRay < 0)
             {
@@ -330,8 +330,8 @@ namespace Microsoft.Xna.Framework
         }
 
         internal string DebugDisplayString => string.Concat(
-                    "Pos( ", this.Position.DebugDisplayString, " )  \r\n",
-                    "Dir( ", this.Direction.DebugDisplayString, " )"
+                    "Pos( ", Position.DebugDisplayString, " )  \r\n",
+                    "Dir( ", Direction.DebugDisplayString, " )"
                 );
 
         /// <summary>

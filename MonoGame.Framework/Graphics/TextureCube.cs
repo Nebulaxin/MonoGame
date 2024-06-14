@@ -55,10 +55,10 @@ namespace Microsoft.Xna.Framework.Graphics
             if (size <= 0)
                 throw new ArgumentOutOfRangeException(nameof(size), "Cube size must be greater than zero");
 
-            this.GraphicsDevice = graphicsDevice;
-			this.size = size;
-            this.Format = format;
-            this.LevelCount = mipMap ? CalculateMipLevels(size) : 1;
+            GraphicsDevice = graphicsDevice;
+            this.size = size;
+            Format = format;
+            LevelCount = mipMap ? CalculateMipLevels(size) : 1;
 
             PlatformConstruct(graphicsDevice, size, mipMap, format, renderTarget);
         }

@@ -46,9 +46,9 @@ namespace MonoGame.OpenGL
             }
         }
 
-        public bool IsCurrent => EAGLContext.CurrentContext == this.Context;
+        public bool IsCurrent => EAGLContext.CurrentContext == Context;
 
-        public bool IsDisposed => this.Context == null;
+        public bool IsDisposed => Context == null;
 
         public int SwapInterval {
             get {
@@ -62,22 +62,25 @@ namespace MonoGame.OpenGL
 
         public void Dispose ()
         {
-            if (this.Context != null) {
-                this.Context.Dispose ();
+            if (Context != null)
+            {
+                Context.Dispose();
             }
-            this.Context = null;
+            Context = null;
         }
 
         public void MakeCurrent (IWindowInfo info)
         {
-            if (!EAGLContext.SetCurrentContext (this.Context)) {
+            if (!EAGLContext.SetCurrentContext(Context))
+            {
                 throw new InvalidOperationException ("Unable to change current EAGLContext.");
             }
         }
 
         public void SwapBuffers ()
         {
-            if (!this.Context.PresentRenderBuffer (36161u)) {
+            if (!Context.PresentRenderBuffer(36161u))
+            {
                 throw new InvalidOperationException ("EAGLContext.PresentRenderbuffer failed.");
             }
         }

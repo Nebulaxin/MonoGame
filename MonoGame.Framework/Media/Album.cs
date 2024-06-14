@@ -65,12 +65,12 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public bool HasArt =>
 #if WINDOWS_UAP
-                this.thumbnail != null;
+                thumbnail != null;
 #elif IOS && !TVOS
                 // If album art is missing the bounds will be: Infinity, Infinity, 0, 0
-                this.thumbnail != null && this.thumbnail.Bounds.Width != 0;
+                thumbnail != null && thumbnail.Bounds.Width != 0;
 #elif ANDROID
-                this.thumbnail != null;
+                thumbnail != null;
 #else
                 false;
 #endif
@@ -93,10 +93,10 @@ namespace Microsoft.Xna.Framework.Media
 
         private Album(SongCollection songCollection, string name, Artist artist, Genre genre)
         {
-            this.Songs = songCollection;
-            this.Name = name;
-            this.Artist = artist;
-            this.Genre = genre;
+            Songs = songCollection;
+            Name = name;
+            Artist = artist;
+            Genre = genre;
         }
 #if WINDOWS_UAP
         internal Album(SongCollection songCollection, string name, Artist artist, Genre genre, StorageItemThumbnail thumbnail)
@@ -122,25 +122,25 @@ namespace Microsoft.Xna.Framework.Media
         public void Dispose()
         {
 #if WINDOWS_UAP
-            if (this.thumbnail != null)
-                this.thumbnail.Dispose();
+            if (thumbnail != null)
+                thumbnail.Dispose();
 #endif
         }
-        
+
 #if IOS && !TVOS
         public UIImage GetAlbumArt(int width = 0, int height = 0)
         {
             if (width == 0)
-                width = (int)this.thumbnail.Bounds.Width;
+                width = (int)thumbnail.Bounds.Width;
             if (height == 0)
-                height = (int)this.thumbnail.Bounds.Height;
+                height = (int)thumbnail.Bounds.Height;
 
-			return this.thumbnail.ImageWithSize(new CGSize(width, height));
+			return thumbnail.ImageWithSize(new CGSize(width, height));
         }
 #elif ANDROID
         public Bitmap GetAlbumArt(int width = 0, int height = 0)
         {
-            var albumArt = MediaStore.Images.Media.GetBitmap(MediaLibrary.Context.ContentResolver, this.thumbnail);
+            var albumArt = MediaStore.Images.Media.GetBitmap(MediaLibrary.Context.ContentResolver, thumbnail);
             if (width == 0 || height == 0)
                 return albumArt;
 
@@ -155,8 +155,8 @@ namespace Microsoft.Xna.Framework.Media
         public Stream GetAlbumArt()
         {
 #if WINDOWS_UAP
-            if (this.HasArt)
-                return this.thumbnail.AsStream();
+            if (HasArt)
+                return thumbnail.AsStream();
             return null;
 #else
             throw new NotImplementedException();
@@ -167,12 +167,12 @@ namespace Microsoft.Xna.Framework.Media
 #if IOS && !TVOS
         public UIImage GetThumbnail()
         {
-            return this.GetAlbumArt(220, 220);
+            return GetAlbumArt(220, 220);
         }
 #elif ANDROID
         public Bitmap GetThumbnail()
         {
-            return this.GetAlbumArt(220, 220);
+            return GetAlbumArt(220, 220);
         }
 #else
         /// <summary>
@@ -181,8 +181,8 @@ namespace Microsoft.Xna.Framework.Media
         public Stream GetThumbnail()
         {
 #if WINDOWS_UAP
-            if (this.HasArt)
-                return this.thumbnail.AsStream();
+            if (HasArt)
+                return thumbnail.AsStream();
 
             return null;
 #else
@@ -196,7 +196,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.Name.ToString();
+            return Name.ToString();
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
     }
 }

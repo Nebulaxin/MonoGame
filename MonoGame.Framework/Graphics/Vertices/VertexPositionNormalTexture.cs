@@ -28,9 +28,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="textureCoordinate">Texture coordinate of the vertex.</param>
         public VertexPositionNormalTexture(Vector3 position, Vector3 normal, Vector2 textureCoordinate)
         {
-            this.Position = position;
-            this.Normal = normal;
-            this.TextureCoordinate = textureCoordinate;
+            Position = position;
+            Normal = normal;
+            TextureCoordinate = textureCoordinate;
         }
 
         VertexDeclaration IVertexType.VertexDeclaration => VertexDeclaration;
@@ -50,7 +50,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + this.Position + " Normal:" + this.Normal + " TextureCoordinate:" + this.TextureCoordinate + "}}";
+            return "{{Position:" + Position + " Normal:" + Normal + " TextureCoordinate:" + TextureCoordinate + "}}";
         }
 
         /// <summary>

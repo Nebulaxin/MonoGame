@@ -88,10 +88,10 @@ namespace Microsoft.Xna.Framework
         #region Internal Properties
 
         internal string DebugDisplayString => string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString(), "  ",
-                    this.Z.ToString(), "  ",
-                    this.W.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString(), "  ",
+                    Z.ToString(), "  ",
+                    W.ToString()
                 );
 
         #endregion
@@ -107,10 +107,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(float x, float y, float z, float w)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
-            this.W = w;
+            X = x;
+            Y = y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
@@ -121,10 +121,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(Vector2 value, float z, float w)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = z;
-            this.W = w;
+            X = value.X;
+            Y = value.Y;
+            Z = z;
+            W = w;
         }
 
         /// <summary>
@@ -134,10 +134,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="w">The w coordinate in 4d-space.</param>
         public Vector4(Vector3 value, float w)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = value.Z;
-            this.W = w;
+            X = value.X;
+            Y = value.Y;
+            Z = value.Z;
+            W = w;
         }
 
         /// <summary>
@@ -146,10 +146,10 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y, z and w coordinates in 4d-space.</param>
         public Vector4(float value)
         {
-            this.X = value;
-            this.Y = value;
-            this.Z = value;
-            this.W = value;
+            X = value;
+            Y = value;
+            Z = value;
+            W = value;
         }
 
         #endregion
@@ -475,10 +475,10 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Vector4 other)
         {
-            return this.W == other.W
-                && this.X == other.X
-                && this.Y == other.Y
-                && this.Z == other.Z;
+            return W == other.W
+                && X == other.X
+                && Y == other.Y
+                && Z == other.Z;
         }
 
         /// <summary>
@@ -1228,7 +1228,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector4 ToNumerics()
         {
-            return new System.Numerics.Vector4(this.X, this.Y, this.Z, this.W);
+            return new System.Numerics.Vector4(X, Y, Z, W);
         }
 
         #endregion

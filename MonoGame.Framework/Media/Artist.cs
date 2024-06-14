@@ -46,7 +46,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <param name="artist">Name of the artist.</param>
         public Artist(string artist)
         {
-            this.Name = artist;
+            Name = artist;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.Name.ToString();
+            return Name.ToString();
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
     }
 }

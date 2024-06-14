@@ -26,7 +26,7 @@ namespace Microsoft.Xna.Framework
         /// Returns <c>true</c> if this curve is constant (has zero or one points); <c>false</c> otherwise.
         /// </summary>
         [DataMember]
-        public bool IsConstant => this.Keys.Count <= 1;
+        public bool IsConstant => Keys.Count <= 1;
 
         /// <summary>
         /// Defines how to handle weighting values that are less than the first control point in the curve.
@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Curve()
         {
-            this.Keys = new CurveKeyCollection();
+            Keys = new CurveKeyCollection();
         }
 
         #endregion
@@ -70,9 +70,9 @@ namespace Microsoft.Xna.Framework
         {
             Curve curve = new();
 
-            curve.Keys = this.Keys.Clone();
-            curve.PreLoop = this.PreLoop;
-            curve.PostLoop = this.PostLoop;
+            curve.Keys = Keys.Clone();
+            curve.PreLoop = PreLoop;
+            curve.PostLoop = PostLoop;
 
             return curve;
         }
@@ -99,7 +99,7 @@ namespace Microsoft.Xna.Framework
 
             if (position < first.Position)
             {
-                switch (this.PreLoop)
+                switch (PreLoop)
                 {
                     case CurveLoopType.Constant:
                         //constant
@@ -135,7 +135,7 @@ namespace Microsoft.Xna.Framework
             else if (position > last.Position)
             {
                 int cycle;
-                switch (this.PostLoop)
+                switch (PostLoop)
                 {
                     case CurveLoopType.Constant:
                         //constant
@@ -286,7 +286,7 @@ namespace Microsoft.Xna.Framework
         private float GetCurvePosition(float position)
         {
             //only for position in curve
-            int nextIndex = this.Keys.IndexAtPosition(position);
+            int nextIndex = Keys.IndexAtPosition(position);
             if (nextIndex < 0)
                 nextIndex = ~nextIndex;
             nextIndex = Math.Max(nextIndex, 1);

@@ -97,11 +97,11 @@ namespace Microsoft.Xna.Framework
         /// <param name="continuity">Indicates whether the curve is discrete or continuous.</param>
         public CurveKey(float position, float value, float tangentIn, float tangentOut, CurveContinuity continuity)
         {
-            this.Position = position;
-            this.Value = value;
-            this.TangentIn = tangentIn;
-            this.TangentOut = tangentOut;
-            this.Continuity = continuity;
+            Position = position;
+            Value = value;
+            TangentIn = tangentIn;
+            TangentOut = tangentOut;
+            Continuity = continuity;
         }
 
         #endregion
@@ -145,7 +145,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A copy of this key.</returns>
         public CurveKey Clone()
         {
-            return new CurveKey(this.Position, this.Value, this.TangentIn, this.TangentOut, this.Continuity);
+            return new CurveKey(Position, Value, TangentIn, TangentOut, Continuity);
         }
 
         #region Inherited Methods
@@ -153,7 +153,7 @@ namespace Microsoft.Xna.Framework
         /// <inheritdoc/>
         public int CompareTo(CurveKey other)
         {
-            return this.Position.CompareTo(other.Position);
+            return Position.CompareTo(other.Position);
         }
 
         /// <inheritdoc/>
@@ -171,8 +171,8 @@ namespace Microsoft.Xna.Framework
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return this.Position.GetHashCode() ^ this.Value.GetHashCode() ^ this.TangentIn.GetHashCode() ^
-                this.TangentOut.GetHashCode() ^ this.Continuity.GetHashCode();
+            return Position.GetHashCode() ^ Value.GetHashCode() ^ TangentIn.GetHashCode() ^
+                TangentOut.GetHashCode() ^ Continuity.GetHashCode();
         } 
 
         #endregion

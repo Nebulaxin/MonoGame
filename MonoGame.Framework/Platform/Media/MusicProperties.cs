@@ -27,9 +27,9 @@ namespace Microsoft.Xna.Framework.Media
 
         public MusicProperties(StorageFile file)
         {
-            this.File = file;
-            this.Path = this.File.Path;
-            this.DateCreated = this.File.DateCreated;
+            File = file;
+            Path = File.Path;
+            DateCreated = File.DateCreated;
 
             var properties = Task.Run(async () => await file.Properties.RetrievePropertiesAsync(new String[]
                 {
@@ -45,22 +45,22 @@ namespace Microsoft.Xna.Framework.Media
                 })).Result;
 
             object property;
-            this.Album = (properties.TryGetValue("System.Music.AlbumTitle", out property) ? (string)property : (string)null) ?? "";
-            this.Artist = (properties.TryGetValue("System.Music.Artist", out property) ? ((string[])property)[0] : (string)null) ?? "Unknown Artist";
-            this.AlbumArtist = (properties.TryGetValue("System.Music.AlbumArtist", out property) ? (string)property : (string)null) ?? this.Artist;
-            this.Duration = properties.TryGetValue("System.Media.Duration", out property) ? new TimeSpan((long)(ulong)property) : TimeSpan.Zero;
-            this.Genre = (properties.TryGetValue("System.Music.Genre", out property) ? ((string[])property)[0] : (string)null) ?? "";
-            this.IsProtected = properties.TryGetValue("System.DRM.IsProtected", out property) ? (bool)property : false;
-            this.Rating = properties.TryGetValue("System.Rating", out property) ? (int)(uint)property : 0;
-            this.Title = (properties.TryGetValue("System.Title", out property) ? (string)property : (string)null) ?? "";
-            this.TrackNumber = properties.TryGetValue("System.Music.TrackNumber", out property) ? (int)(uint)property : 0;
+            Album = (properties.TryGetValue("System.Music.AlbumTitle", out property) ? (string)property : (string)null) ?? "";
+            Artist = (properties.TryGetValue("System.Music.Artist", out property) ? ((string[])property)[0] : (string)null) ?? "Unknown Artist";
+            AlbumArtist = (properties.TryGetValue("System.Music.AlbumArtist", out property) ? (string)property : (string)null) ?? Artist;
+            Duration = properties.TryGetValue("System.Media.Duration", out property) ? new TimeSpan((long)(ulong)property) : TimeSpan.Zero;
+            Genre = (properties.TryGetValue("System.Music.Genre", out property) ? ((string[])property)[0] : (string)null) ?? "";
+            IsProtected = properties.TryGetValue("System.DRM.IsProtected", out property) ? (bool)property : false;
+            Rating = properties.TryGetValue("System.Rating", out property) ? (int)(uint)property : 0;
+            Title = (properties.TryGetValue("System.Title", out property) ? (string)property : (string)null) ?? "";
+            TrackNumber = properties.TryGetValue("System.Music.TrackNumber", out property) ? (int)(uint)property : 0;
         }
 
         public bool TryMatch(StorageFile file)
         {
-            if (file != null && file.Path == this.Path && file.DateCreated == this.DateCreated)
+            if (file != null && file.Path == Path && file.DateCreated == DateCreated)
             {
-                this.File = file;
+                File = file;
                 return true;
             }
 
@@ -88,19 +88,19 @@ namespace Microsoft.Xna.Framework.Media
 
         public void Serialize(BinaryWriter stream)
         {
-            stream.Write(this.Path);
-            stream.Write(this.DateCreated.Ticks);
-            stream.Write(this.DateCreated.Offset.Ticks);
+            stream.Write(Path);
+            stream.Write(DateCreated.Ticks);
+            stream.Write(DateCreated.Offset.Ticks);
 
-            stream.Write(this.Album);
-            stream.Write(this.AlbumArtist);
-            stream.Write(this.Artist);
-            stream.Write(this.Duration.Ticks);
-            stream.Write(this.Genre);
-            stream.Write(this.IsProtected);
-            stream.Write(this.Rating);
-            stream.Write(this.Title);
-            stream.Write(this.TrackNumber);
+            stream.Write(Album);
+            stream.Write(AlbumArtist);
+            stream.Write(Artist);
+            stream.Write(Duration.Ticks);
+            stream.Write(Genre);
+            stream.Write(IsProtected);
+            stream.Write(Rating);
+            stream.Write(Title);
+            stream.Write(TrackNumber);
         }
     }
 }

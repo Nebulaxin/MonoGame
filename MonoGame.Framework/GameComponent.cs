@@ -67,7 +67,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="game">The game that this component will belong to.</param>
         public GameComponent(Game game)
         {
-            this.Game = game;
+            Game = game;
         }
 
         /// <summary/>

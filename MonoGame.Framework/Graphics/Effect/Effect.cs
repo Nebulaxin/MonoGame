@@ -69,8 +69,8 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
-            this.GraphicsDevice = graphicsDevice;
-		}
+            GraphicsDevice = graphicsDevice;
+        }
 
         /// <summary>
         /// Creates a clone of the <see cref="Effect"/>.

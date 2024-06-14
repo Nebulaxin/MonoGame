@@ -44,7 +44,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="Playlist"/> at the specified index in the <see cref="PlaylistCollection"/>.
         /// </summary>
-        public Playlist this[int index] => this.innerlist[index];
+        public Playlist this[int index] => innerlist[index];
 
         /// <summary>
         /// Adds a <see cref="Playlist"/> to this <see cref="PlaylistCollection"/>.
@@ -55,20 +55,20 @@ namespace Microsoft.Xna.Framework.Media
 
             if (innerlist.Count == 0)
             {
-                this.innerlist.Add(item);
+                innerlist.Add(item);
                 return;
             }
 
-            for (int i = 0; i < this.innerlist.Count; i++)
+            for (int i = 0; i < innerlist.Count; i++)
             {
-                if (item.Duration < this.innerlist[i].Duration)
+                if (item.Duration < innerlist[i].Duration)
                 {
-                    this.innerlist.Insert(i, item);
+                    innerlist.Insert(i, item);
                     return;
                 }
             }
 
-            this.innerlist.Add(item);
+            innerlist.Add(item);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Microsoft.Xna.Framework.Media
         public PlaylistCollection Clone()
         {
             PlaylistCollection plc = new();
-            foreach (Playlist playlist in this.innerlist)
+            foreach (Playlist playlist in innerlist)
                 plc.Add(playlist);
             return plc;
         }

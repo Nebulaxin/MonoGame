@@ -25,7 +25,7 @@ namespace Microsoft.Xna.Framework
         /// <summary>
         /// Get the <see cref="GraphicsDevice"/> that this <see cref="DrawableGameComponent"/> uses for drawing.
         /// </summary>
-        public Graphics.GraphicsDevice GraphicsDevice => this.Game.GraphicsDevice;
+        public Graphics.GraphicsDevice GraphicsDevice => Game.GraphicsDevice;
 
         /// <summary>
         /// Gets the order in which this component should be drawn, relative to other components that are in the

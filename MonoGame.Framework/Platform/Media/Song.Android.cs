@@ -20,7 +20,7 @@ namespace Microsoft.Xna.Framework.Media
         private TimeSpan position;
         private Android.Net.Uri assetUri;
 
-        public Android.Net.Uri AssetUri => this.assetUri;
+        public Android.Net.Uri AssetUri => assetUri;
 
         static Song()
         {
@@ -74,7 +74,7 @@ namespace Microsoft.Xna.Framework.Media
 
             if (assetUri != null)
             {
-                _androidPlayer.SetDataSource(MediaLibrary.Context, this.assetUri);
+                _androidPlayer.SetDataSource(MediaLibrary.Context, assetUri);
             }
             else
             {
@@ -145,22 +145,22 @@ namespace Microsoft.Xna.Framework.Media
 
         private Album PlatformGetAlbum()
         {
-            return this.album;
+            return album;
         }
 
         private Artist PlatformGetArtist()
         {
-            return this.artist;
+            return artist;
         }
 
         private Genre PlatformGetGenre()
         {
-            return this.genre;
+            return genre;
         }
 
         private TimeSpan PlatformGetDuration()
         {
-            return this.assetUri != null ? this.duration : _duration;
+            return assetUri != null ? duration : _duration;
         }
 
         private bool PlatformIsProtected()
@@ -175,7 +175,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private string PlatformGetName()
         {
-            return this.assetUri != null ? this.name : Path.GetFileNameWithoutExtension(Name);
+            return assetUri != null ? name : Path.GetFileNameWithoutExtension(Name);
         }
 
         private int PlatformGetPlayCount()

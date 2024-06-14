@@ -130,7 +130,7 @@ namespace Microsoft.Xna.Framework
             if (GraphicsDevice != null)
                 return;
 
-            GraphicsDevice = new GraphicsDevice(gdi.Adapter, gdi.GraphicsProfile, this.PreferHalfPixelOffset, gdi.PresentationParameters);
+            GraphicsDevice = new GraphicsDevice(gdi.Adapter, gdi.GraphicsProfile, PreferHalfPixelOffset, gdi.PresentationParameters);
             _shouldApplyChanges = false;
 
             // hook up reset events
@@ -484,7 +484,7 @@ namespace Microsoft.Xna.Framework
             get => _preferHalfPixelOffset;
             set
             {
-                if (this.GraphicsDevice != null)
+                if (GraphicsDevice != null)
                     throw new InvalidOperationException("Setting PreferHalfPixelOffset is not allowed after the creation of GraphicsDevice.");
                 _preferHalfPixelOffset = value;
             }

@@ -304,7 +304,7 @@ namespace Microsoft.Xna.Framework.Input
 
             _virtualKeyboardSlideStoryboard = GetTemplateChild(VirtualKeyboardSlideStoryBoardName) as Storyboard;
             _virtualKeyboardSlideAnimation = GetTemplateChild(VirtualKeyboardAnimationName) as DoubleAnimation;
-            _blackStripeTransform = this.GetTemplateChild(BlackStripeTransformName) as TranslateTransform;
+            _blackStripeTransform = GetTemplateChild(BlackStripeTransformName) as TranslateTransform;
 
             if (_layoutRoot != null)
                 _layoutRoot.Tapped += OnLayoutRootTapped;

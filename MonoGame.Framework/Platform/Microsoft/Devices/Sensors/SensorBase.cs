@@ -37,12 +37,12 @@ namespace Microsoft.Devices.Sensors
 		public bool IsDataValid { get; protected set; }
 		public TimeSpan TimeBetweenUpdates
 		{
-			get { return this.timeBetweenUpdates; }
+			get { return timeBetweenUpdates; }
 			set
 			{
-				if (this.timeBetweenUpdates != value)
+				if (timeBetweenUpdates != value)
 				{
-					this.timeBetweenUpdates = value;
+					timeBetweenUpdates = value;
 					EventHelpers.Raise(this, TimeBetweenUpdatesChanged, EventArgs.Empty);
 				}
 			}
@@ -54,7 +54,7 @@ namespace Microsoft.Devices.Sensors
 
 		public SensorBase()
 		{
-			this.TimeBetweenUpdates = TimeSpan.FromMilliseconds(2);
+			TimeBetweenUpdates = TimeSpan.FromMilliseconds(2);
 		}
 
         ~SensorBase()

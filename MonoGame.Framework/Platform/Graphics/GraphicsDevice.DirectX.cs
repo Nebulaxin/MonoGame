@@ -1055,7 +1055,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 // must completely reinitialize the renderer.
                 if (    ex.ResultCode == SharpDX.DXGI.DXGIError.DeviceRemoved ||
                         ex.ResultCode == SharpDX.DXGI.DXGIError.DeviceReset)
-                    this.Initialize();
+                    Initialize();
                 else
                     throw;
                 */

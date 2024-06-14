@@ -39,22 +39,22 @@ namespace Microsoft.Xna.Framework
         public Matrix(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31,
                       float m32, float m33, float m34, float m41, float m42, float m43, float m44)
         {
-            this.M11 = m11;
-            this.M12 = m12;
-            this.M13 = m13;
-            this.M14 = m14;
-            this.M21 = m21;
-            this.M22 = m22;
-            this.M23 = m23;
-            this.M24 = m24;
-            this.M31 = m31;
-            this.M32 = m32;
-            this.M33 = m33;
-            this.M34 = m34;
-            this.M41 = m41;
-            this.M42 = m42;
-            this.M43 = m43;
-            this.M44 = m44;
+            M11 = m11;
+            M12 = m12;
+            M13 = m13;
+            M14 = m14;
+            M21 = m21;
+            M22 = m22;
+            M23 = m23;
+            M24 = m24;
+            M31 = m31;
+            M32 = m32;
+            M33 = m33;
+            M34 = m34;
+            M41 = m41;
+            M42 = m42;
+            M43 = m43;
+            M44 = m44;
         }
 
         /// <summary>
@@ -66,22 +66,22 @@ namespace Microsoft.Xna.Framework
         /// <param name="row4">A fourth row of the created matrix.</param>
         public Matrix(Vector4 row1, Vector4 row2, Vector4 row3, Vector4 row4)
         {
-            this.M11 = row1.X;
-            this.M12 = row1.Y;
-            this.M13 = row1.Z;
-            this.M14 = row1.W;
-            this.M21 = row2.X;
-            this.M22 = row2.Y;
-            this.M23 = row2.Z;
-            this.M24 = row2.W;
-            this.M31 = row3.X;
-            this.M32 = row3.Y;
-            this.M33 = row3.Z;
-            this.M34 = row3.W;
-            this.M41 = row4.X;
-            this.M42 = row4.Y;
-            this.M43 = row4.Z;
-            this.M44 = row4.W;
+            M11 = row1.X;
+            M12 = row1.Y;
+            M13 = row1.Z;
+            M14 = row1.W;
+            M21 = row2.X;
+            M22 = row2.Y;
+            M23 = row2.Z;
+            M24 = row2.W;
+            M31 = row3.X;
+            M32 = row3.Y;
+            M33 = row3.Z;
+            M34 = row3.W;
+            M41 = row4.X;
+            M42 = row4.Y;
+            M43 = row4.Z;
+            M44 = row4.W;
         }
 
         #endregion
@@ -277,12 +277,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Backward
         {
-            get => new(this.M31, this.M32, this.M33);
+            get => new(M31, M32, M33);
             set
             {
-                this.M31 = value.X;
-                this.M32 = value.Y;
-                this.M33 = value.Z;
+                M31 = value.X;
+                M32 = value.Y;
+                M33 = value.Z;
             }
         }
 
@@ -291,12 +291,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Down
         {
-            get => new(-this.M21, -this.M22, -this.M23);
+            get => new(-M21, -M22, -M23);
             set
             {
-                this.M21 = -value.X;
-                this.M22 = -value.Y;
-                this.M23 = -value.Z;
+                M21 = -value.X;
+                M22 = -value.Y;
+                M23 = -value.Z;
             }
         }
 
@@ -305,12 +305,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Forward
         {
-            get => new(-this.M31, -this.M32, -this.M33);
+            get => new(-M31, -M32, -M33);
             set
             {
-                this.M31 = -value.X;
-                this.M32 = -value.Y;
-                this.M33 = -value.Z;
+                M31 = -value.X;
+                M32 = -value.Y;
+                M33 = -value.Z;
             }
         }
 
@@ -324,12 +324,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Left
         {
-            get => new(-this.M11, -this.M12, -this.M13);
+            get => new(-M11, -M12, -M13);
             set
             {
-                this.M11 = -value.X;
-                this.M12 = -value.Y;
-                this.M13 = -value.Z;
+                M11 = -value.X;
+                M12 = -value.Y;
+                M13 = -value.Z;
             }
         }
 
@@ -338,12 +338,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Right
         {
-            get => new(this.M11, this.M12, this.M13);
+            get => new(M11, M12, M13);
             set
             {
-                this.M11 = value.X;
-                this.M12 = value.Y;
-                this.M13 = value.Z;
+                M11 = value.X;
+                M12 = value.Y;
+                M13 = value.Z;
             }
         }
 
@@ -352,12 +352,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Translation
         {
-            get => new(this.M41, this.M42, this.M43);
+            get => new(M41, M42, M43);
             set
             {
-                this.M41 = value.X;
-                this.M42 = value.Y;
-                this.M43 = value.Z;
+                M41 = value.X;
+                M42 = value.Y;
+                M43 = value.Z;
             }
         }
 
@@ -366,12 +366,12 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public Vector3 Up
         {
-            get => new(this.M21, this.M22, this.M23);
+            get => new(M21, M22, M23);
             set
             {
-                this.M21 = value.X;
-                this.M22 = value.Y;
-                this.M23 = value.Z;
+                M21 = value.X;
+                M22 = value.Y;
+                M23 = value.Z;
             }
         }
         #endregion
@@ -1445,17 +1445,17 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if matrix can be decomposed; <c>false</c> otherwise.</returns>
         public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
         {
-            translation.X = this.M41;
-            translation.Y = this.M42;
-            translation.Z = this.M43;
+            translation.X = M41;
+            translation.Y = M42;
+            translation.Z = M43;
 
             float xs = (Math.Sign(M11 * M12 * M13 * M14) < 0) ? -1 : 1;
             float ys = (Math.Sign(M21 * M22 * M23 * M24) < 0) ? -1 : 1;
             float zs = (Math.Sign(M31 * M32 * M33 * M34) < 0) ? -1 : 1;
 
-            scale.X = xs * MathF.Sqrt(this.M11 * this.M11 + this.M12 * this.M12 + this.M13 * this.M13);
-            scale.Y = ys * MathF.Sqrt(this.M21 * this.M21 + this.M22 * this.M22 + this.M23 * this.M23);
-            scale.Z = zs * MathF.Sqrt(this.M31 * this.M31 + this.M32 * this.M32 + this.M33 * this.M33);
+            scale.X = xs * MathF.Sqrt(M11 * M11 + M12 * M12 + M13 * M13);
+            scale.Y = ys * MathF.Sqrt(M21 * M21 + M22 * M22 + M23 * M23);
+            scale.Z = zs * MathF.Sqrt(M31 * M31 + M32 * M32 + M33 * M33);
 
             if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
             {
@@ -1463,9 +1463,9 @@ namespace Microsoft.Xna.Framework
                 return false;
             }
 
-            Matrix m1 = new(this.M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
-                                   this.M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
-                                   this.M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
+            Matrix m1 = new(M11 / scale.X, M12 / scale.X, M13 / scale.X, 0,
+                                   M21 / scale.Y, M22 / scale.Y, M23 / scale.Y, 0,
+                                   M31 / scale.Z, M32 / scale.Z, M33 / scale.Z, 0,
                                    0, 0, 0, 1);
 
             rotation = Quaternion.CreateFromRotationMatrix(m1);
@@ -1480,23 +1480,23 @@ namespace Microsoft.Xna.Framework
         /// </remarks>
         public float Determinant()
         {
-            float num22 = this.M11;
-		    float num21 = this.M12;
-		    float num20 = this.M13;
-		    float num19 = this.M14;
-		    float num12 = this.M21;
-		    float num11 = this.M22;
-		    float num10 = this.M23;
-		    float num9 = this.M24;
-		    float num8 = this.M31;
-		    float num7 = this.M32;
-		    float num6 = this.M33;
-		    float num5 = this.M34;
-		    float num4 = this.M41;
-		    float num3 = this.M42;
-		    float num2 = this.M43;
-		    float num = this.M44;
-		    float num18 = (num6 * num) - (num5 * num2);
+            float num22 = M11;
+            float num21 = M12;
+            float num20 = M13;
+            float num19 = M14;
+            float num12 = M21;
+            float num11 = M22;
+            float num10 = M23;
+            float num9 = M24;
+            float num8 = M31;
+            float num7 = M32;
+            float num6 = M33;
+            float num5 = M34;
+            float num4 = M41;
+            float num3 = M42;
+            float num2 = M43;
+            float num = M44;
+            float num18 = (num6 * num) - (num5 * num2);
 		    float num17 = (num7 * num) - (num5 * num3);
 		    float num16 = (num7 * num2) - (num6 * num3);
 		    float num15 = (num8 * num) - (num5 * num4);
@@ -1620,7 +1620,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Matrix other)
         {
-            return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
+            return ((((((M11 == other.M11) && (M22 == other.M22)) && ((M33 == other.M33) && (M44 == other.M44))) && (((M12 == other.M12) && (M13 == other.M13)) && ((M14 == other.M14) && (M21 == other.M21)))) && ((((M23 == other.M23) && (M24 == other.M24)) && ((M31 == other.M31) && (M32 == other.M32))) && (((M34 == other.M34) && (M41 == other.M41)) && (M42 == other.M42)))) && (M43 == other.M43));
         }
 
         /// <summary>
@@ -1633,8 +1633,8 @@ namespace Microsoft.Xna.Framework
             bool flag = false;
 		    if (obj is Matrix)
 		    {
-		        flag = this.Equals((Matrix) obj);
-		    }
+                flag = Equals((Matrix)obj);
+            }
 		    return flag;
         }
 
@@ -1644,7 +1644,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Hash code of this <see cref="Matrix"/>.</returns>
         public override int GetHashCode()
         {
-            return (((((((((((((((this.M11.GetHashCode() + this.M12.GetHashCode()) + this.M13.GetHashCode()) + this.M14.GetHashCode()) + this.M21.GetHashCode()) + this.M22.GetHashCode()) + this.M23.GetHashCode()) + this.M24.GetHashCode()) + this.M31.GetHashCode()) + this.M32.GetHashCode()) + this.M33.GetHashCode()) + this.M34.GetHashCode()) + this.M41.GetHashCode()) + this.M42.GetHashCode()) + this.M43.GetHashCode()) + this.M44.GetHashCode());
+            return (((((((((((((((M11.GetHashCode() + M12.GetHashCode()) + M13.GetHashCode()) + M14.GetHashCode()) + M21.GetHashCode()) + M22.GetHashCode()) + M23.GetHashCode()) + M24.GetHashCode()) + M31.GetHashCode()) + M32.GetHashCode()) + M33.GetHashCode()) + M34.GetHashCode()) + M41.GetHashCode()) + M42.GetHashCode()) + M43.GetHashCode()) + M44.GetHashCode());
         }
 
         /// <summary>
@@ -2368,10 +2368,10 @@ namespace Microsoft.Xna.Framework
                 }
 
                 return string.Concat(
-                     "( ", this.M11.ToString(), "  ", this.M12.ToString(), "  ", this.M13.ToString(), "  ", this.M14.ToString(), " )  \r\n",
-                     "( ", this.M21.ToString(), "  ", this.M22.ToString(), "  ", this.M23.ToString(), "  ", this.M24.ToString(), " )  \r\n",
-                     "( ", this.M31.ToString(), "  ", this.M32.ToString(), "  ", this.M33.ToString(), "  ", this.M34.ToString(), " )  \r\n",
-                     "( ", this.M41.ToString(), "  ", this.M42.ToString(), "  ", this.M43.ToString(), "  ", this.M44.ToString(), " )");
+                     "( ", M11.ToString(), "  ", M12.ToString(), "  ", M13.ToString(), "  ", M14.ToString(), " )  \r\n",
+                     "( ", M21.ToString(), "  ", M22.ToString(), "  ", M23.ToString(), "  ", M24.ToString(), " )  \r\n",
+                     "( ", M31.ToString(), "  ", M32.ToString(), "  ", M33.ToString(), "  ", M34.ToString(), " )  \r\n",
+                     "( ", M41.ToString(), "  ", M42.ToString(), "  ", M43.ToString(), "  ", M44.ToString(), " )");
             }
         }
 
@@ -2441,10 +2441,10 @@ namespace Microsoft.Xna.Framework
         public System.Numerics.Matrix4x4 ToNumerics()
         {
             return new System.Numerics.Matrix4x4(
-                this.M11, this.M12, this.M13, this.M14,
-                this.M21, this.M22, this.M23, this.M24,
-                this.M31, this.M32, this.M33, this.M34,
-                this.M41, this.M42, this.M43, this.M44);
+                M11, M12, M13, M14,
+                M21, M22, M23, M24,
+                M31, M32, M33, M34,
+                M41, M42, M43, M44);
         }
 
         #endregion

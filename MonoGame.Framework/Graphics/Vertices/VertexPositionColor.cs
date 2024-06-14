@@ -31,7 +31,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="color">Color of the vertex.</param>
         public VertexPositionColor(Vector3 position, Color color)
 		{
-			this.Position = position;
+			Position = position;
 			Color = color;
 		}
 
@@ -49,7 +49,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
 	    public override string ToString()
 		{
-            return "{{Position:" + this.Position + " Color:" + this.Color + "}}";
+			return "{{Position:" + Position + " Color:" + Color + "}}";
 		}
 
         /// <summary>

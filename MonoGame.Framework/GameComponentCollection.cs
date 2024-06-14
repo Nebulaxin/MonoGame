@@ -32,7 +32,7 @@ namespace Microsoft.Xna.Framework
         {
             for (int i = 0; i < base.Count; i++)
             {
-                this.OnComponentRemoved(new GameComponentCollectionEventArgs(base[i]));
+                OnComponentRemoved(new GameComponentCollectionEventArgs(base[i]));
             }
             base.ClearItems();
         }
@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework
             base.InsertItem(index, item);
             if (item != null)
             {
-                this.OnComponentAdded(new GameComponentCollectionEventArgs(item));
+                OnComponentAdded(new GameComponentCollectionEventArgs(item));
             }
         }
 
@@ -80,7 +80,7 @@ namespace Microsoft.Xna.Framework
             base.RemoveItem(index);
             if (gameComponent != null)
             {
-                this.OnComponentRemoved(new GameComponentCollectionEventArgs(gameComponent));
+                OnComponentRemoved(new GameComponentCollectionEventArgs(gameComponent));
             }
         }
 

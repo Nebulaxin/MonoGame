@@ -39,10 +39,10 @@ namespace Microsoft.Xna.Framework.Graphics
 			this.directionParameter = directionParameter;
 			this.specularColorParameter = specularColorParameter;
 			if (cloneSource != null) {
-				this.diffuseColor = cloneSource.diffuseColor;
-				this.direction = cloneSource.direction;
-				this.specularColor = cloneSource.specularColor;
-				this.enabled = cloneSource.enabled;
+				diffuseColor = cloneSource.diffuseColor;
+				direction = cloneSource.direction;
+				specularColor = cloneSource.specularColor;
+				enabled = cloneSource.enabled;
 			} else {
 				this.diffuseColorParameter = diffuseColorParameter;
 				this.directionParameter = directionParameter;
@@ -59,7 +59,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			set
 			{
 				diffuseColor = value;
-				if (this.enabled && this.diffuseColorParameter != null)
+				if (enabled && diffuseColorParameter != null)
 					diffuseColorParameter.SetValue(diffuseColor);
 			}
 		}
@@ -76,7 +76,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			set
 			{
 				direction = value;
-				if (this.directionParameter != null)
+				if (directionParameter != null)
 					directionParameter.SetValue(direction);
 			}
 		}
@@ -90,7 +90,7 @@ namespace Microsoft.Xna.Framework.Graphics
 			set
 			{
 				specularColor = value;
-				if (this.enabled && this.specularColorParameter != null)
+				if (enabled && specularColorParameter != null)
 					specularColorParameter.SetValue(specularColor);
 			}
 		}
@@ -103,29 +103,29 @@ namespace Microsoft.Xna.Framework.Graphics
 			get => enabled;
 			set
 			{
-				if (this.enabled != value)
+				if (enabled != value)
 				{
-					this.enabled = value;
-					if (this.enabled)
+					enabled = value;
+					if (enabled)
 					{
-						if (this.diffuseColorParameter != null)
+						if (diffuseColorParameter != null)
 						{
-							this.diffuseColorParameter.SetValue(this.diffuseColor);
+							diffuseColorParameter.SetValue(diffuseColor);
 						}
-						if (this.specularColorParameter != null)
+						if (specularColorParameter != null)
 						{
-							this.specularColorParameter.SetValue(this.specularColor);
+							specularColorParameter.SetValue(specularColor);
 						}
 					}
 					else
 					{
-						if (this.diffuseColorParameter != null)
+						if (diffuseColorParameter != null)
 						{
-							this.diffuseColorParameter.SetValue(Vector3.Zero);
+							diffuseColorParameter.SetValue(Vector3.Zero);
 						}
-						if (this.specularColorParameter != null)
+						if (specularColorParameter != null)
 						{
-							this.specularColorParameter.SetValue(Vector3.Zero);
+							specularColorParameter.SetValue(Vector3.Zero);
 						}
 					}
 				}

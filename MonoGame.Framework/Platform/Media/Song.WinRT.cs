@@ -16,10 +16,10 @@ namespace Microsoft.Xna.Framework.Media
         
 		private MusicProperties musicProperties;
 
-        public StorageFile StorageFile => this.musicProperties.File;
-        
-		internal Song(Album album, Artist artist, Genre genre, MusicProperties musicProperties)
-		{
+        public StorageFile StorageFile => musicProperties.File;
+
+        internal Song(Album album, Artist artist, Genre genre, MusicProperties musicProperties)
+        {
             this.album = album;
             this.artist = artist;
             this.genre = genre;
@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework.Media
 
         private Album PlatformGetAlbum()
         {
-            return this.album;
+            return album;
         }
 
         private void PlatformSetAlbum(Album album)
@@ -48,42 +48,42 @@ namespace Microsoft.Xna.Framework.Media
 
         private Artist PlatformGetArtist()
         {
-            return this.artist;
+            return artist;
         }
 
         private Genre PlatformGetGenre()
         {
-            return this.genre;
+            return genre;
         }
 
         private TimeSpan PlatformGetDuration()
         {
-            if (this.musicProperties != null)
-                return this.musicProperties.Duration;
+            if (musicProperties != null)
+                return musicProperties.Duration;
 
             return _duration;
         }
 
         private bool PlatformIsProtected()
         {
-            if (this.musicProperties != null)
-                return this.musicProperties.IsProtected;
+            if (musicProperties != null)
+                return musicProperties.IsProtected;
 
             return false;
         }
 
         private bool PlatformIsRated()
         {
-            if (this.musicProperties != null)
-                return this.musicProperties.Rating != 0;
+            if (musicProperties != null)
+                return musicProperties.Rating != 0;
 
             return false;
         }
 
         private string PlatformGetName()
         {
-            if (this.musicProperties != null)
-                return this.musicProperties.Title;
+            if (musicProperties != null)
+                return musicProperties.Title;
 
             return Path.GetFileNameWithoutExtension(_name);
         }
@@ -95,16 +95,16 @@ namespace Microsoft.Xna.Framework.Media
 
         private int PlatformGetRating()
         {
-            if (this.musicProperties != null)
-                return this.musicProperties.Rating;
+            if (musicProperties != null)
+                return musicProperties.Rating;
 
             return 0;
         }
 
         private int PlatformGetTrackNumber()
         {
-            if (this.musicProperties != null)
-                return this.musicProperties.TrackNumber;
+            if (musicProperties != null)
+                return musicProperties.TrackNumber;
 
             return 0;
         }

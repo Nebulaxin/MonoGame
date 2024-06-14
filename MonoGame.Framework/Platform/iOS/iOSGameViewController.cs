@@ -90,7 +90,7 @@ namespace Microsoft.Xna.Framework
         #region Autorotation for iOS 6 or newer
         public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations()
         {
-            return OrientationConverter.ToUIInterfaceOrientationMask(this.SupportedOrientations);
+            return OrientationConverter.ToUIInterfaceOrientationMask(SupportedOrientations);
         }
 
         public override bool ShouldAutorotate()
@@ -156,13 +156,7 @@ namespace Microsoft.Xna.Framework
 
 #if TVOS
 
-        public override UIView PreferredFocusedView
-        {
-            get
-            {
-                return this.View;
-            }
-        }
+        public override UIView PreferredFocusedView => View;
 
         public override void PressesBegan(NSSet<UIPress> presses, UIPressesEvent evt)
         {

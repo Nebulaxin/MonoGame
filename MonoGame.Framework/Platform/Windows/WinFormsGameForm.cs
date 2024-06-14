@@ -106,7 +106,7 @@ namespace Microsoft.Xna.Framework.Windows
                         case 0x5C: // Right Windows Key
 
                             if (_window.IsFullScreen && _window.HardwareModeSwitch)
-                                this.WindowState = FormWindowState.Minimized;
+                                WindowState = FormWindowState.Minimized;
 
                             break;
                     }

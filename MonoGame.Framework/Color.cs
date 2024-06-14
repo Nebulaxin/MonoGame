@@ -316,10 +316,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte)(this.PackedValue >> 16);
+                    return (byte)(PackedValue >> 16);
                 }
             }
-            set => this.PackedValue = (this.PackedValue & 0xff00ffff) | ((uint)value << 16);
+            set => PackedValue = (PackedValue & 0xff00ffff) | ((uint)value << 16);
         }
 
         /// <summary>
@@ -332,10 +332,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte)(this.PackedValue >> 8);
+                    return (byte)(PackedValue >> 8);
                 }
             }
-            set => this.PackedValue = (this.PackedValue & 0xffff00ff) | ((uint)value << 8);
+            set => PackedValue = (PackedValue & 0xffff00ff) | ((uint)value << 8);
         }
 
         /// <summary>
@@ -348,10 +348,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte)this.PackedValue;
+                    return (byte)PackedValue;
                 }
             }
-            set => this.PackedValue = (this.PackedValue & 0xffffff00) | value;
+            set => PackedValue = (PackedValue & 0xffffff00) | value;
         }
 
         /// <summary>
@@ -364,10 +364,10 @@ namespace Microsoft.Xna.Framework
             {
                 unchecked
                 {
-                    return (byte)(this.PackedValue >> 24);
+                    return (byte)(PackedValue >> 24);
                 }
             }
-            set => this.PackedValue = (this.PackedValue & 0x00ffffff) | ((uint)value << 24);
+            set => PackedValue = (PackedValue & 0x00ffffff) | ((uint)value << 24);
         }
 
         /// <summary>
@@ -398,7 +398,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Hash code of this <see cref="Color"/>.</returns>
         public override int GetHashCode()
         {
-            return this.PackedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 	
         /// <summary>
@@ -408,7 +408,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public override bool Equals(object obj)
         {
-            return ((obj is Color) && this.Equals((Color)obj));
+            return ((obj is Color) && Equals((Color)obj));
         }
 
         #region Color Bank
@@ -1780,10 +1780,10 @@ namespace Microsoft.Xna.Framework
 
 
         internal string DebugDisplayString => string.Concat(
-                    this.R.ToString(), "  ",
-                    this.G.ToString(), "  ",
-                    this.B.ToString(), "  ",
-                    this.A.ToString()
+                    R.ToString(), "  ",
+                    G.ToString(), "  ",
+                    B.ToString(), "  ",
+                    A.ToString()
                 );
 
 
@@ -1839,7 +1839,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if the instances are equal; <c>false</c> otherwise.</returns>
         public bool Equals(Color other)
         {
-	    return this.PackedValue == other.PackedValue;
+            return PackedValue == other.PackedValue;
         }
 
         #endregion

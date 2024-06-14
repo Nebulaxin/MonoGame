@@ -1044,7 +1044,7 @@ namespace Microsoft.Xna.Framework
                     // If there is an existing surface, destroy the old one
                     DestroyGLSurface();
 
-                    eglSurface = egl.EglCreateWindowSurface(eglDisplay, eglConfig, (Java.Lang.Object)this.Holder, null);
+                    eglSurface = egl.EglCreateWindowSurface(eglDisplay, eglConfig, (Java.Lang.Object)Holder, null);
                     if (eglSurface == null || eglSurface == EGL10.EglNoSurface)
                         throw new Exception("Could not create EGL window surface" + GetErrorAsString());
 

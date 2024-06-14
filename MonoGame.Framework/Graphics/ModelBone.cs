@@ -42,8 +42,8 @@ namespace Microsoft.Xna.Framework.Graphics
 		/// </summary>
 		public Matrix Transform
 		{
-			get => this.transform;
-			set => this.transform = value;
+			get => transform;
+			set => transform = value;
 		}
 
 		/// <summary>

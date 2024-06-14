@@ -39,8 +39,8 @@ namespace Microsoft.Xna.Framework
                              float scale,
                              float rotateSpeed)
         {
-            this.content = new ContentManager(services, "Content");
-            this.device = ((IGraphicsDeviceService)services.GetService(typeof(IGraphicsDeviceService))).GraphicsDevice;
+            content = new ContentManager(services, "Content");
+            device = ((IGraphicsDeviceService)services.GetService(typeof(IGraphicsDeviceService))).GraphicsDevice;
             this.spriteBatch = spriteBatch;
             this.resumeTextureName = resumeTextureName;
             this.scale = scale;

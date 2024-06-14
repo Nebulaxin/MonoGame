@@ -162,7 +162,7 @@ namespace Microsoft.Xna.Framework.Content
 		public ContentManager(IServiceProvider serviceProvider)
 		{
             ArgumentNullException.ThrowIfNull(serviceProvider);
-            this.ServiceProvider = serviceProvider;
+            ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
 
@@ -173,8 +173,8 @@ namespace Microsoft.Xna.Framework.Content
 		{
             ArgumentNullException.ThrowIfNull(serviceProvider);
             ArgumentNullException.ThrowIfNull(rootDirectory);
-            this.RootDirectory = rootDirectory;
-            this.ServiceProvider = serviceProvider;
+            RootDirectory = rootDirectory;
+            ServiceProvider = serviceProvider;
             AddContentManager(this);
 		}
 

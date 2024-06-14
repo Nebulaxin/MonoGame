@@ -108,9 +108,9 @@ namespace Microsoft.Xna.Framework
         #region Internal Properties
 
         internal string DebugDisplayString => string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString(), "  ",
-                    this.Z.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString(), "  ",
+                    Z.ToString()
                 );
 
         #endregion
@@ -125,9 +125,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="z">The z coordinate in 3d-space.</param>
         public Vector3(float x, float y, float z)
         {
-            this.X = x;
-            this.Y = y;
-            this.Z = z;
+            X = x;
+            Y = y;
+            Z = z;
         }
 
         /// <summary>
@@ -136,9 +136,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x, y and z coordinates in 3d-space.</param>
         public Vector3(float value)
         {
-            this.X = value;
-            this.Y = value;
-            this.Z = value;
+            X = value;
+            Y = value;
+            Z = value;
         }
 
         /// <summary>
@@ -148,9 +148,9 @@ namespace Microsoft.Xna.Framework
         /// <param name="z">The z coordinate in 3d-space.</param>
         public Vector3(Vector2 value, float z)
         {
-            this.X = value.X;
-            this.Y = value.Y;
-            this.Z = z;
+            X = value.X;
+            Y = value.Y;
+            Z = z;
         }
         
         #endregion
@@ -973,11 +973,11 @@ namespace Microsoft.Xna.Framework
         {
             StringBuilder sb = new(32);
             sb.Append("{X:");
-            sb.Append(this.X);
+            sb.Append(X);
             sb.Append(" Y:");
-            sb.Append(this.Y);
+            sb.Append(Y);
             sb.Append(" Z:");
-            sb.Append(this.Z);
+            sb.Append(Z);
             sb.Append("}");
             return sb.ToString();
         }
@@ -1278,7 +1278,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector3 ToNumerics()
         {
-            return new System.Numerics.Vector3(this.X, this.Y, this.Z);
+            return new System.Numerics.Vector3(X, Y, Z);
         }
 
         #endregion

@@ -783,13 +783,13 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
 
         internal void GenAuxiliaryEffectSlots(int count, out uint slot)
         {
-            this.alGenAuxiliaryEffectSlots(count, out slot);
+            alGenAuxiliaryEffectSlots(count, out slot);
             ALHelper.CheckError("Failed to Genereate Aux slot");
         }
 
         internal void GenEffect(out uint effect)
         {
-            this.alGenEffects(1, out effect);
+            alGenEffects(1, out effect);
             ALHelper.CheckError("Failed to Generate Effect.");
         }
 
@@ -835,16 +835,16 @@ alEffecti (effect, EfxEffecti.FilterType, (int)EfxEffectType.Reverb);
         internal unsafe int GenFilter()
         {
             uint filter = 0;
-            this.alGenFilters(1, &filter);
+            alGenFilters(1, &filter);
             return (int)filter;
         }
         internal void Filter(int sourceId, EfxFilteri filter, int EfxFilterType)
         {
-            this.alFilteri((uint)sourceId, filter, EfxFilterType);
+            alFilteri((uint)sourceId, filter, EfxFilterType);
         }
         internal void Filter(int sourceId, EfxFilterf filter, float EfxFilterType)
         {
-            this.alFilterf((uint)sourceId, filter, EfxFilterType);
+            alFilterf((uint)sourceId, filter, EfxFilterType);
         }
         internal void BindFilterToSource(int sourceId, int filterId)
         {

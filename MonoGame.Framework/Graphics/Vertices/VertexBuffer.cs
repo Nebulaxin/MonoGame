@@ -42,10 +42,10 @@ namespace Microsoft.Xna.Framework.Graphics
 		    {
                 throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
-		    this.GraphicsDevice = graphicsDevice;
-            this.VertexDeclaration = vertexDeclaration;
-            this.VertexCount = vertexCount;
-            this.BufferUsage = bufferUsage;
+            GraphicsDevice = graphicsDevice;
+            VertexDeclaration = vertexDeclaration;
+            VertexCount = vertexCount;
+            BufferUsage = bufferUsage;
 
             // Make sure the graphics device is assigned in the vertex declaration.
             if (vertexDeclaration.GraphicsDevice != graphicsDevice)
@@ -128,14 +128,14 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="GetData{T}(int, T[], int, int, int)"/>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            this.GetData<T>(0, data, startIndex, elementCount, 0);
+            GetData<T>(0, data, startIndex, elementCount, 0);
         }
 
         /// <inheritdoc cref="GetData{T}(int, T[], int, int, int)"/>
         public void GetData<T>(T[] data) where T : struct
         {
             var elementSizeInByte = ReflectionHelpers.SizeOf<T>.Get();
-            this.GetData<T>(0, data, 0, data.Length, elementSizeInByte);
+            GetData<T>(0, data, 0, data.Length, elementSizeInByte);
         }
 
         /// <summary>

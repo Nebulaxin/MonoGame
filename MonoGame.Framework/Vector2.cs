@@ -67,8 +67,8 @@ namespace Microsoft.Xna.Framework
         #region Internal Properties
 
         internal string DebugDisplayString => string.Concat(
-                    this.X.ToString(), "  ",
-                    this.Y.ToString()
+                    X.ToString(), "  ",
+                    Y.ToString()
                 );
 
         #endregion
@@ -82,8 +82,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="y">The y coordinate in 2d-space.</param>
         public Vector2(float x, float y)
         {
-            this.X = x;
-            this.Y = y;
+            X = x;
+            Y = y;
         }
 
         /// <summary>
@@ -92,8 +92,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="value">The x and y coordinates in 2d-space.</param>
         public Vector2(float value)
         {
-            this.X = value;
-            this.Y = value;
+            X = value;
+            Y = value;
         }
 
         #endregion
@@ -1313,7 +1313,7 @@ namespace Microsoft.Xna.Framework
         /// </summary>
         public System.Numerics.Vector2 ToNumerics()
         {
-            return new System.Numerics.Vector2(this.X, this.Y);
+            return new System.Numerics.Vector2(X, Y);
         }
 
         #endregion

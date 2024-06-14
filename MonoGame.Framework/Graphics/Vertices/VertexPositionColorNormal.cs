@@ -48,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc cref="VertexPosition.ToString()"/>
         public override string ToString()
         {
-            return "{{Position:" + this.Position + " Color:" + this.Color + " Normal:" + this.Normal + "}}";
+            return "{{Position:" + Position + " Color:" + Color + " Normal:" + Normal + "}}";
         }
 
         /// <summary>

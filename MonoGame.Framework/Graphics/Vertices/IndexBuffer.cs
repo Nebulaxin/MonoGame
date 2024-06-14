@@ -86,10 +86,10 @@ namespace Microsoft.Xna.Framework.Graphics
             {
                 throw new ArgumentNullException(nameof(graphicsDevice), FrameworkResources.ResourceCreationWhenDeviceIsNull);
             }
-			this.GraphicsDevice = graphicsDevice;
-			this.IndexElementSize = indexElementSize;
-            this.IndexCount = indexCount;
-            this.BufferUsage = usage;
+            GraphicsDevice = graphicsDevice;
+            IndexElementSize = indexElementSize;
+            IndexCount = indexCount;
+            BufferUsage = usage;
 
             _isDynamic = dynamic;
 
@@ -217,7 +217,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            this.GetData<T>(0, data, startIndex, elementCount);
+            GetData<T>(0, data, startIndex, elementCount);
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// </exception>
         public void GetData<T>(T[] data) where T : struct
         {
-            this.GetData<T>(0, data, 0, data.Length);
+            GetData<T>(0, data, 0, data.Length);
         }
 
         /// <summary>

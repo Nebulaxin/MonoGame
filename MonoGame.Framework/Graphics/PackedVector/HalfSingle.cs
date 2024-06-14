@@ -29,25 +29,25 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <returns>The expanded value.</returns>
         public float ToSingle()
         {
-            return HalfTypeHelper.Convert(this.PackedValue);
+            return HalfTypeHelper.Convert(PackedValue);
         }
 
         /// <inheritdoc />
         void IPackedVector.PackFromVector4(Vector4 vector)
         {
-            this.PackedValue = HalfTypeHelper.Convert(vector.X);
+            PackedValue = HalfTypeHelper.Convert(vector.X);
         }
 
         /// <inheritdoc />
         public Vector4 ToVector4()
         {
-            return new Vector4(this.ToSingle(), 0f, 0f, 1f);
+            return new Vector4(ToSingle(), 0f, 0f, 1f);
         }
 
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (obj != null && obj.GetType() == this.GetType())
+            if (obj != null && obj.GetType() == GetType())
             {
                 return this == (HalfSingle)obj;
             }
@@ -58,19 +58,19 @@ namespace Microsoft.Xna.Framework.Graphics.PackedVector
         /// <inheritdoc />
         public bool Equals(HalfSingle other)
         {
-            return this.PackedValue == other.PackedValue;
+            return PackedValue == other.PackedValue;
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return this.ToSingle().ToString();
+            return ToSingle().ToString();
         }
 
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return this.PackedValue.GetHashCode();
+            return PackedValue.GetHashCode();
         }
 
         /// <summary>

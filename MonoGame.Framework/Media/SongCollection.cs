@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework.Media
 
         internal SongCollection(List<Song> songs)
         {
-            this.innerlist = songs;
+            innerlist = songs;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -71,7 +71,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the <see cref="Song"/> at the specified index in the <see cref="SongCollection"/>.
         /// </summary>
-        public Song this[int index] => this.innerlist[index];
+        public Song this[int index] => innerlist[index];
 
         /// <summary>
         /// Adds a <see cref="Song"/> to this <see cref="SongCollection"/>.
@@ -83,20 +83,20 @@ namespace Microsoft.Xna.Framework.Media
 
             if (innerlist.Count == 0)
             {
-                this.innerlist.Add(item);
+                innerlist.Add(item);
                 return;
             }
 
-            for (int i = 0; i < this.innerlist.Count; i++)
+            for (int i = 0; i < innerlist.Count; i++)
             {
-                if (item.TrackNumber < this.innerlist[i].TrackNumber)
+                if (item.TrackNumber < innerlist[i].TrackNumber)
                 {
-                    this.innerlist.Insert(i, item);
+                    innerlist.Insert(i, item);
                     return;
                 }
             }
 
-            this.innerlist.Add(item);
+            innerlist.Add(item);
         }
 
         /// <summary>
@@ -111,7 +111,7 @@ namespace Microsoft.Xna.Framework.Media
         public SongCollection Clone()
         {
             SongCollection sc = new();
-            foreach (Song song in this.innerlist)
+            foreach (Song song in innerlist)
                 sc.Add(song);
             return sc;
         }

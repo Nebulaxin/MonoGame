@@ -28,7 +28,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int Height
         {
-            get => this.height;
+            get => height;
             set => height = value;
         }
 
@@ -38,7 +38,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public float MaxDepth
         {
-            get => this.maxDepth;
+            get => maxDepth;
             set => maxDepth = value;
         }
 
@@ -48,7 +48,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public float MinDepth
         {
-            get => this.minDepth;
+            get => minDepth;
             set => minDepth = value;
         }
 
@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int Width
         {
-            get => this.width;
+            get => width;
             set => width = value;
         }
 
@@ -68,7 +68,7 @@ namespace Microsoft.Xna.Framework.Graphics
         [DataMember]
         public int Y
         {
-            get => this.y;
+            get => y;
             set => y = value;
         }
 
@@ -133,9 +133,9 @@ namespace Microsoft.Xna.Framework.Graphics
 		    this.y = y;
 		    this.width = width;
 		    this.height = height;
-		    this.minDepth = 0.0f;
-		    this.maxDepth = 1.0f;
-		}
+            minDepth = 0.0f;
+            maxDepth = 1.0f;
+        }
 
         /// <summary>
         /// Constructs a viewport from the given values.
@@ -186,10 +186,10 @@ namespace Microsoft.Xna.Framework.Graphics
 		        vector.Y = vector.Y / a;
 		        vector.Z = vector.Z / a;
 		    }
-		    vector.X = (((vector.X + 1f) * 0.5f) * this.width) + this.x;
-		    vector.Y = (((-vector.Y + 1f) * 0.5f) * this.height) + this.y;
-		    vector.Z = (vector.Z * (this.maxDepth - this.minDepth)) + this.minDepth;
-		    return vector;
+            vector.X = (((vector.X + 1f) * 0.5f) * width) + x;
+            vector.Y = (((-vector.Y + 1f) * 0.5f) * height) + y;
+            vector.Z = (vector.Z * (maxDepth - minDepth)) + minDepth;
+            return vector;
         }
 
         /// <summary>
@@ -207,10 +207,10 @@ namespace Microsoft.Xna.Framework.Graphics
         public Vector3 Unproject(Vector3 source, Matrix projection, Matrix view, Matrix world)
         {
              Matrix matrix = Matrix.Invert(Matrix.Multiply(Matrix.Multiply(world, view), projection));
-		    source.X = (((source.X - this.x) / ((float) this.width)) * 2f) - 1f;
-		    source.Y = -((((source.Y - this.y) / ((float) this.height)) * 2f) - 1f);
-		    source.Z = (source.Z - this.minDepth) / (this.maxDepth - this.minDepth);
-		    Vector3 vector = Vector3.Transform(source, matrix);
+            source.X = (((source.X - x) / ((float)width)) * 2f) - 1f;
+            source.Y = -((((source.Y - y) / ((float)height)) * 2f) - 1f);
+            source.Z = (source.Z - minDepth) / (maxDepth - minDepth);
+            Vector3 vector = Vector3.Transform(source, matrix);
 		    float a = (((source.X * matrix.M14) + (source.Y * matrix.M24)) + (source.Z * matrix.M34)) + matrix.M44;
 		    if (!WithinEpsilon(a, 1f))
 		    {

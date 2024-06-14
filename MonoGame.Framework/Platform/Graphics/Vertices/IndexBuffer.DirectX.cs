@@ -39,7 +39,7 @@ namespace Microsoft.Xna.Framework.Graphics
             // TODO: To use true Immutable resources we would need to delay creation of 
             // the Buffer until SetData() and recreate them if set more than once.
 
-            var sizeInBytes = IndexCount * (this.IndexElementSize == IndexElementSize.SixteenBits ? 2 : 4);
+            var sizeInBytes = IndexCount * (IndexElementSize == IndexElementSize.SixteenBits ? 2 : 4);
 
             var accessflags = SharpDX.Direct3D11.CpuAccessFlags.None;
             var resUsage = SharpDX.Direct3D11.ResourceUsage.Default;

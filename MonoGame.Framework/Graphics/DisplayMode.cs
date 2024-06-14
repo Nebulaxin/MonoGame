@@ -78,9 +78,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal DisplayMode(int width, int height, SurfaceFormat format)
         {
-            this.Width = width;
-            this.Height = height;
-            this.Format = format;
+            Width = width;
+            Height = height;
+            Format = format;
         }
 
         #endregion Constructors
@@ -134,13 +134,13 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <inheritdoc />
         public override int GetHashCode()
         {
-            return (this.Width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Format.GetHashCode());
+            return (Width.GetHashCode() ^ Height.GetHashCode() ^ Format.GetHashCode());
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return "{Width:" + this.Width + " Height:" + this.Height + " Format:" + this.Format + " AspectRatio:" + this.AspectRatio + "}";
+            return "{Width:" + Width + " Height:" + Height + " Format:" + Format + " AspectRatio:" + AspectRatio + "}";
         }
 
         #endregion Public Methods

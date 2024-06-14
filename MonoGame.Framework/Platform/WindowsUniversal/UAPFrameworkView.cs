@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework
     {
         public UAPFrameworkView(Action<T, IActivatedEventArgs> gameConstructorCustomizationDelegate)
         {
-            this._gameConstructorCustomizationDelegate = gameConstructorCustomizationDelegate;
+            _gameConstructorCustomizationDelegate = gameConstructorCustomizationDelegate;
         }
 
         private Action<T, IActivatedEventArgs> _gameConstructorCustomizationDelegate = null;

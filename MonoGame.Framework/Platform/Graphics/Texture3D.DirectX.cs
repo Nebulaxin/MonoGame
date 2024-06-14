@@ -23,7 +23,7 @@ namespace Microsoft.Xna.Framework.Graphics
             this.mipMap = mipMap;
 
             if (mipMap)
-                this.LevelCount = CalculateMipLevels(width, height, depth);
+                LevelCount = CalculateMipLevels(width, height, depth);
 
             // Create texture
             GetTexture();

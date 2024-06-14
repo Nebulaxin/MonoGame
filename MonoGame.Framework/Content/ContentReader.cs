@@ -27,8 +27,8 @@ namespace Microsoft.Xna.Framework.Content
             : base(stream)
         {
             this.recordDisposableObject = recordDisposableObject;
-            this.ContentManager = manager;
-            this.AssetName = assetName;
+            ContentManager = manager;
+            AssetName = assetName;
             this.version = version;
         }
 

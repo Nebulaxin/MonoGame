@@ -98,15 +98,15 @@ namespace Microsoft.Xna.Framework
                 }
             }
 
-            CoreApplication.Suspending += this.CoreApplication_Suspending;
+            CoreApplication.Suspending += CoreApplication_Suspending;
 
             Game.PreviousExecutionState = PreviousExecutionState;
         }
 
         private void CoreApplication_Suspending(object sender, SuspendingEventArgs e)
         {
-            if (this.Game.GraphicsDevice != null)
-                this.Game.GraphicsDevice.Trim();
+            if (Game.GraphicsDevice != null)
+                Game.GraphicsDevice.Trim();
         }
 
         public override GameRunBehavior DefaultRunBehavior

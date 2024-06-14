@@ -30,7 +30,7 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         private void PlatformConstruct(int width, int height, bool mipmap, SurfaceFormat format, SurfaceType type, bool shared)
         {
-            this.glTarget = TextureTarget.Texture2D;
+            glTarget = TextureTarget.Texture2D;
             format.GetGLFormat(GraphicsDevice, out glInternalFormat, out glFormat, out glType);
 
             Threading.BlockOnUIThread(() =>
@@ -235,23 +235,23 @@ namespace Microsoft.Xna.Framework.Graphics
             GraphicsExtensions.CheckGLError();
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebufferId);
             GraphicsExtensions.CheckGLError();
-            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, this.glTexture, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, glTexture, 0);
             GraphicsExtensions.CheckGLError();
 
-            GL.ReadPixels(rect.X, rect.Y, rect.Width, rect.Height, this.glFormat, this.glType, data);
+            GL.ReadPixels(rect.X, rect.Y, rect.Width, rect.Height, glFormat, glType, data);
             GraphicsExtensions.CheckGLError();
             GL.DeleteFramebuffers(1, ref framebufferId);
 #else
             var tSizeInByte = ReflectionHelpers.SizeOf<T>.Get();
-            GL.BindTexture(TextureTarget.Texture2D, this.glTexture);
+            GL.BindTexture(TextureTarget.Texture2D, glTexture);
             GL.PixelStore(PixelStoreParameter.PackAlignment, Math.Min(tSizeInByte, 8));
 
             if (glFormat == GLPixelFormat.CompressedTextureFormats)
             {
                 // Note: for compressed format Format.GetSize() returns the size of a 4x4 block
                 var pixelToT = Format.GetSize() / tSizeInByte;
-                var tFullWidth = Math.Max(this.width >> level, 1) / 4 * pixelToT;
-                var temp = new T[Math.Max(this.height >> level, 1) / 4 * tFullWidth];
+                var tFullWidth = Math.Max(width >> level, 1) / 4 * pixelToT;
+                var temp = new T[Math.Max(height >> level, 1) / 4 * tFullWidth];
                 GL.GetCompressedTexImage(TextureTarget.Texture2D, level, temp);
                 GraphicsExtensions.CheckGLError();
 
@@ -267,8 +267,8 @@ namespace Microsoft.Xna.Framework.Graphics
             else
             {
                 // we need to convert from our format size to the size of T here
-                var tFullWidth = Math.Max(this.width >> level, 1) * Format.GetSize() / tSizeInByte;
-                var temp = new T[Math.Max(this.height >> level, 1) * tFullWidth];
+                var tFullWidth = Math.Max(width >> level, 1) * Format.GetSize() / tSizeInByte;
+                var temp = new T[Math.Max(height >> level, 1) * tFullWidth];
                 GL.GetTexImage(TextureTarget.Texture2D, level, glFormat, glType, temp);
                 GraphicsExtensions.CheckGLError();
 
@@ -320,7 +320,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
             image.Recycle();
 
-            this.SetData<int>(pixels);
+            SetData<int>(pixels);
         }
 #endif
 
@@ -406,7 +406,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 // Convert from ARGB to ABGR
                 ConvertToABGR(height, width, pixels);
 
-                this.SetData<int>(pixels);
+                SetData<int>(pixels);
                 image.Recycle();
             }
 #endif
@@ -426,9 +426,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private void GenerateGLTextureIfRequired()
         {
-            if (this.glTexture < 0)
+            if (glTexture < 0)
             {
-                GL.GenTextures(1, out this.glTexture);
+                GL.GenTextures(1, out glTexture);
                 GraphicsExtensions.CheckGLError();
 
                 // For best compatibility and to keep the default wrap mode of XNA, only set ClampToEdge if either
@@ -437,7 +437,7 @@ namespace Microsoft.Xna.Framework.Graphics
                 if (((width & (width - 1)) != 0) || ((height & (height - 1)) != 0))
                     wrap = TextureWrapMode.ClampToEdge;
 
-                GL.BindTexture(TextureTarget.Texture2D, this.glTexture);
+                GL.BindTexture(TextureTarget.Texture2D, glTexture);
                 GraphicsExtensions.CheckGLError();
 
                 GL.TexParameter(

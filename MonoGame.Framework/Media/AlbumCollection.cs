@@ -36,7 +36,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <summary>
         /// Gets the number of Album objects in the AlbumCollection.
         /// </summary>
-        public int Count => this.albumCollection.Count;
+        public int Count => albumCollection.Count;
 
         /// <summary>
         /// Gets a value indicating whether the object is disposed.
@@ -52,7 +52,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </param>
         public AlbumCollection(List<Album> albums)
         {
-            this.albumCollection = albums;
+            albumCollection = albums;
         }
 
         /// <summary>
@@ -63,12 +63,12 @@ namespace Microsoft.Xna.Framework.Media
         /// in this AlbumCollection
         /// </value>
         /// <param name="index">Index of the <see cref="Album"/> to get.</param>
-        public Album this[int index] => this.albumCollection[index];
+        public Album this[int index] => albumCollection[index];
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
         public void Dispose()
         {
-            foreach (var album in this.albumCollection)
+            foreach (var album in albumCollection)
                 album.Dispose();
         }
     }

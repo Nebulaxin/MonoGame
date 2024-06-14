@@ -41,7 +41,7 @@ namespace Microsoft.Xna.Framework.Media
                     
             
                 var files = new List<StorageFile>();
-                await this.GetAllFiles(musicFolder, files);
+                await GetAllFiles(musicFolder, files);
 
                 var songList = new List<Song>();
                 var albumList = new List<Album>();
@@ -154,7 +154,7 @@ namespace Microsoft.Xna.Framework.Media
                 else
                 {
                     var folder = item as StorageFolder;
-                    await this.GetAllFiles(folder, musicFiles);
+                    await GetAllFiles(folder, musicFiles);
                 }
         }
 

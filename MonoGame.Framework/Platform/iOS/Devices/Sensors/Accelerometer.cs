@@ -28,7 +28,7 @@ namespace Microsoft.Devices.Sensors
 
             ++instanceCount;
 
-			this.TimeBetweenUpdatesChanged += this.UpdateInterval;
+			TimeBetweenUpdatesChanged += UpdateInterval;
 			readingChanged += ReadingChangedHandler;
 
 		}
@@ -74,20 +74,20 @@ namespace Microsoft.Devices.Sensors
 		private void ReadingChangedHandler(CMAccelerometerData data, NSError error)
         {
             AccelerometerReading reading = new AccelerometerReading();
-            this.IsDataValid = error == null;
-            if (this.IsDataValid)
-            {
-                this.IsDataValid = true;
-                reading.Acceleration = new Vector3((float)data.Acceleration.X, (float)data.Acceleration.Y, (float)data.Acceleration.Z);
+			IsDataValid = error == null;
+			if (IsDataValid)
+			{
+				IsDataValid = true;
+				reading.Acceleration = new Vector3((float)data.Acceleration.X, (float)data.Acceleration.Y, (float)data.Acceleration.Z);
                 reading.Timestamp = DateTime.UtcNow;
-                this.CurrentValue = reading;
-                this.IsDataValid = error == null;
-            }
+				CurrentValue = reading;
+				IsDataValid = error == null;
+			}
 		}
 
 		private void UpdateInterval(object sender, EventArgs args)
 		{
-			motionManager.AccelerometerUpdateInterval = this.TimeBetweenUpdates.TotalSeconds;
+			motionManager.AccelerometerUpdateInterval = TimeBetweenUpdates.TotalSeconds;
 		}
 	}
 }

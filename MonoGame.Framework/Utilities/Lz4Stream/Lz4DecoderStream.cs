@@ -41,8 +41,8 @@ namespace MonoGame.Framework.Utilities
 
         protected override void Dispose(bool disposing)
 		{
-            this.input = null;
-            base.Dispose(disposing);
+			input = null;
+			base.Dispose(disposing);
 		}
 
 		private long inputLength;

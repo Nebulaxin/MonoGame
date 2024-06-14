@@ -90,36 +90,36 @@ namespace Microsoft.Xna.Framework
             var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
             var movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
 
-            this.MouseState.X = Math.Min(Math.Max(this.MouseState.X + movementX, 0), glcanvas.clientWidth);
-            this.MouseState.Y = Math.Min(Math.Max(this.MouseState.Y + movementY, 0), glcanvas.clientHeight);
+            MouseState.X = Math.Min(Math.Max(MouseState.X + movementX, 0), glcanvas.clientWidth);
+            MouseState.Y = Math.Min(Math.Max(MouseState.Y + movementY, 0), glcanvas.clientHeight);
         }
 
         private void OnMouseDown(dynamic e)
         {
             if (e.button == 0)
-                this.MouseState.LeftButton = ButtonState.Pressed;
+                MouseState.LeftButton = ButtonState.Pressed;
             else if (e.button == 1)
-                this.MouseState.MiddleButton = ButtonState.Pressed;
+                MouseState.MiddleButton = ButtonState.Pressed;
             else if (e.button == 2)
-                this.MouseState.RightButton = ButtonState.Pressed;
+                MouseState.RightButton = ButtonState.Pressed;
         }
 
         private void OnMouseUp(dynamic e)
         {
             if (e.button == 0)
-                this.MouseState.LeftButton = ButtonState.Released;
+                MouseState.LeftButton = ButtonState.Released;
             else if (e.button == 1)
-                this.MouseState.MiddleButton = ButtonState.Released;
+                MouseState.MiddleButton = ButtonState.Released;
             else if (e.button == 2)
-                this.MouseState.RightButton = ButtonState.Released;
+                MouseState.RightButton = ButtonState.Released;
         }
 
         private void OnMouseWheel(dynamic e)
         {
             if (e.deltaY < 0)
-                this.MouseState.ScrollWheelValue += 120;
+                MouseState.ScrollWheelValue += 120;
             else
-                this.MouseState.ScrollWheelValue -= 120;
+                MouseState.ScrollWheelValue -= 120;
         }
 
         private void OnKeyDown(dynamic e)

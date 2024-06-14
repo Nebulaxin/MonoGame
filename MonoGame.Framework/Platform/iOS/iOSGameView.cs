@@ -111,8 +111,8 @@ namespace Microsoft.Xna.Framework {
                 throw new Exception ("Device not Supported. GLES 2.0 or above is required!");
 			}
 
-			this.MakeCurrent();
-            _glapi = new Gles20Api();
+			MakeCurrent();
+			_glapi = new Gles20Api();
 		}
 
 		private void DestroyContext ()
@@ -133,14 +133,14 @@ namespace Microsoft.Xna.Framework {
 
 		private void CreateFramebuffer ()
 		{
-			this.MakeCurrent();
-			
+			MakeCurrent();
+
 			// HACK:  GraphicsDevice itself should be calling
 			//        glViewport, so we shouldn't need to do it
 			//        here and then force the state into
 			//        GraphicsDevice.  However, that change is a
 			//        ways off, yet.
-            int viewportHeight = (int)Math.Round(Layer.Bounds.Size.Height * Layer.ContentsScale);
+			int viewportHeight = (int)Math.Round(Layer.Bounds.Size.Height * Layer.ContentsScale);
             int viewportWidth = (int)Math.Round(Layer.Bounds.Size.Width * Layer.ContentsScale);
 
 			_glapi.GenFramebuffers (1, ref _framebuffer);
@@ -198,8 +198,8 @@ namespace Microsoft.Xna.Framework {
                 int height = viewportHeight;
                 int width = viewportWidth;
 
-                if (this.NextResponder is iOSGameViewController)
-                {
+				if (NextResponder is iOSGameViewController)
+				{
                     var displayOrientation = _platform.Game.Window.CurrentOrientation;
                     if (displayOrientation == DisplayOrientation.LandscapeLeft || displayOrientation == DisplayOrientation.LandscapeRight)
                     {
@@ -262,9 +262,9 @@ namespace Microsoft.Xna.Framework {
             AssertNotDisposed ();
             AssertValidContext ();
 
-            this.MakeCurrent();
-            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, this._colorbuffer);
-            GL.InvalidateFramebuffer(FramebufferTarget.Framebuffer, 2, attachements);
+			MakeCurrent();
+			GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, _colorbuffer);
+			GL.InvalidateFramebuffer(FramebufferTarget.Framebuffer, 2, attachements);
             __renderbuffergraphicsContext.SwapBuffers();
 		}
 

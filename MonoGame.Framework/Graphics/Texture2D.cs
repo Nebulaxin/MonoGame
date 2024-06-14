@@ -52,7 +52,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <summary>
         /// Gets the dimensions of the texture
         /// </summary>
-        public Rectangle Bounds => new(0, 0, this.width, this.height);
+        public Rectangle Bounds => new(0, 0, width, height);
 
         /// <summary>
         /// Creates an uninitialized <b>Texture2D</b> resource with the specified parameters.
@@ -220,18 +220,18 @@ namespace Microsoft.Xna.Framework.Graphics
             if (arraySize > 1 && !graphicsDevice.GraphicsCapabilities.SupportsTextureArrays)
                 throw new ArgumentException("Texture arrays are not supported on this graphics device", nameof(arraySize));
 
-            this.GraphicsDevice = graphicsDevice;
+            GraphicsDevice = graphicsDevice;
             this.width = width;
             this.height = height;
-            this.TexelWidth = 1f / (float)width;
-            this.TexelHeight = 1f / (float)height;
+            TexelWidth = 1f / (float)width;
+            TexelHeight = 1f / (float)height;
 
-            this.Format = format;
-            this.LevelCount = mipmap ? CalculateMipLevels(width, height) : 1;
-            this.ArraySize = arraySize;
+            Format = format;
+            LevelCount = mipmap ? CalculateMipLevels(width, height) : 1;
+            ArraySize = arraySize;
 
             // Texture will be assigned by the swap chain.
-		    if (type == SurfaceType.SwapChainRenderTarget)
+            if (type == SurfaceType.SwapChainRenderTarget)
 		        return;
 
             PlatformConstruct(width, height, mipmap, format, type, shared);
@@ -561,7 +561,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            this.GetData(level, 0, rect, data, startIndex, elementCount);
+            GetData(level, 0, rect, data, startIndex, elementCount);
         }
 
         /// <summary>
@@ -596,8 +596,8 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void GetData<T>(T[] data, int startIndex, int elementCount) where T : struct
 		{
-			this.GetData(0, null, data, startIndex, elementCount);
-		}
+            GetData(0, null, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies texture data into an array
@@ -624,8 +624,8 @@ namespace Microsoft.Xna.Framework.Graphics
         public void GetData<T> (T[] data) where T : struct
 		{
             ArgumentNullException.ThrowIfNull(data);
-            this.GetData(0, null, data, 0, data.Length);
-		}
+            GetData(0, null, data, 0, data.Length);
+        }
 
         /// <summary>
         /// Creates a <see cref="Texture2D"/> from a file, supported formats bmp, gif, jpg, png, tif and dds (only for simple textures).

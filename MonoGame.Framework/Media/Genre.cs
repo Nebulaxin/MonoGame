@@ -47,7 +47,7 @@ namespace Microsoft.Xna.Framework.Media
         /// <param name="genre">Name of the genre.</param>
         public Genre(string genre)
         {
-            this.Name = genre;
+            Name = genre;
         }
 
         /// <inheritdoc cref="IDisposable.Dispose()"/>
@@ -60,7 +60,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Microsoft.Xna.Framework.Media
         /// </summary>
         public override int GetHashCode()
         {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
     }
 }

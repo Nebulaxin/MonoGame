@@ -18,7 +18,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private void PlatformConstruct(GraphicsDevice graphicsDevice, int width, int height, bool mipMap,
             DepthFormat preferredDepthFormat, int preferredMultiSampleCount, RenderTargetUsage usage, bool shared)
         {
-            _msSampleDescription = GraphicsDevice.GetSupportedSampleDescription(SharpDXHelper.ToFormat(this.Format), this.MultiSampleCount);
+            _msSampleDescription = GraphicsDevice.GetSupportedSampleDescription(SharpDXHelper.ToFormat(Format), MultiSampleCount);
 
             GenerateIfRequired();
         }
