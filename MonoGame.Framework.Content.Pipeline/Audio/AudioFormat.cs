@@ -67,14 +67,14 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
             int format,
             int sampleRate)
         {
-            this.AverageBytesPerSecond = averageBytesPerSecond;
-            this.BitsPerSample = bitsPerSample;
-            this.BlockAlign = blockAlign;
-            this.ChannelCount = channelCount;
-            this.Format = format;
-            this.SampleRate = sampleRate;
+            AverageBytesPerSecond = averageBytesPerSecond;
+            BitsPerSample = bitsPerSample;
+            BlockAlign = blockAlign;
+            ChannelCount = channelCount;
+            Format = format;
+            SampleRate = sampleRate;
 
-            this.nativeWaveFormat = this.ConstructNativeWaveFormat();
+            nativeWaveFormat = ConstructNativeWaveFormat();
         }
 
         private List<byte> ConstructNativeWaveFormat()
@@ -83,12 +83,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
             {
                 using (var writer = new BinaryWriter(memory))
                 {
-                    writer.Write((short)this.Format);
-                    writer.Write((short)this.ChannelCount);
-                    writer.Write((int)this.SampleRate);
-                    writer.Write((int)this.AverageBytesPerSecond);
-                    writer.Write((short)this.BlockAlign);
-                    writer.Write((short)this.BitsPerSample);
+                    writer.Write((short)Format);
+                    writer.Write((short)ChannelCount);
+                    writer.Write((int)SampleRate);
+                    writer.Write((int)AverageBytesPerSecond);
+                    writer.Write((short)BlockAlign);
+                    writer.Write((short)BitsPerSample);
                     writer.Write((short)0);
 
                     var bytes = new byte[memory.Position];

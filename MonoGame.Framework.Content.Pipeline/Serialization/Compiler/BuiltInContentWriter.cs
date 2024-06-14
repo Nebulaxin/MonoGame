@@ -46,7 +46,7 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
             // Change "Writer" in this class name to "Reader" and use the runtime type namespace and assembly
-            var readerClassName = this.GetType().Name.Replace("Writer", "Reader");
+            var readerClassName = GetType().Name.Replace("Writer", "Reader");
 
             // Add generic arguments if they exist.
             if (_genericTypes != null)

@@ -31,8 +31,8 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
         /// <param name="transform">Position of the keyframe.</param>
         public AnimationKeyframe(TimeSpan time, Matrix transform)
         {
-            this.Time = time;
-            this.Transform = transform;
+            Time = time;
+            Transform = transform;
         }
 
         /// <summary>
