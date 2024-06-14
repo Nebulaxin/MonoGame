@@ -111,19 +111,13 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
             //Converts the pixel data to bytes, do not try to use this call to switch the color channels because that only works for 16bpp bitmaps
             FreeImage.ConvertToRawBits(bytes, fBitmap, pitch, bpp, redMask, greenMask, blueMask, true);
             // Create the Pixel bitmap content depending on the image type
-            switch(imageType)
+            face = imageType switch
             {
+                FREE_IMAGE_TYPE.FIT_RGBA16 => new PixelBitmapContent<Rgba64>(width, height),
+                FREE_IMAGE_TYPE.FIT_RGBAF => new PixelBitmapContent<Vector4>(width, height),
                 //case FREE_IMAGE_TYPE.FIT_BITMAP:
-                default:
-                    face = new PixelBitmapContent<Color>(width, height);
-                    break;
-                case FREE_IMAGE_TYPE.FIT_RGBA16:
-                    face = new PixelBitmapContent<Rgba64>(width, height);
-                    break;
-                case FREE_IMAGE_TYPE.FIT_RGBAF:
-                    face = new PixelBitmapContent<Vector4>(width, height);
-                    break;
-            }
+                _ => new PixelBitmapContent<Color>(width, height),
+            };
             FreeImage.Unload(fBitmap);
 
             face.SetPixelData(bytes);

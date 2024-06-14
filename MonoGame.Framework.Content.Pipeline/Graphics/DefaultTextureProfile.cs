@@ -27,15 +27,11 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
 
         private static bool IsCompressedTextureFormat(TextureProcessorOutputFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case TextureProcessorOutputFormat.AtcCompressed:
-                case TextureProcessorOutputFormat.DxtCompressed:
-                case TextureProcessorOutputFormat.Etc1Compressed:
-                case TextureProcessorOutputFormat.PvrCompressed:
-                    return true;
-            }
-            return false;
+                TextureProcessorOutputFormat.AtcCompressed or TextureProcessorOutputFormat.DxtCompressed or TextureProcessorOutputFormat.Etc1Compressed or TextureProcessorOutputFormat.PvrCompressed => true,
+                _ => false,
+            };
         }
 
         private static TextureProcessorOutputFormat GetTextureFormatForPlatform(TextureProcessorOutputFormat format, TargetPlatform platform)
@@ -81,33 +77,19 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
                 format = GetTextureFormatForPlatform(format, context.TargetPlatform);
 
             // Does it require POT textures?
-            switch (format)
+            requiresPowerOfTwo = format switch
             {
-                default:
-                    requiresPowerOfTwo = false;
-                    break;
-
-                case TextureProcessorOutputFormat.DxtCompressed:
-                    requiresPowerOfTwo = context.TargetProfile == GraphicsProfile.Reach;
-                    break;
-
-                case TextureProcessorOutputFormat.PvrCompressed:
-                case TextureProcessorOutputFormat.Etc1Compressed:
-                    requiresPowerOfTwo = true;
-                    break;
-            }
+                TextureProcessorOutputFormat.DxtCompressed => context.TargetProfile == GraphicsProfile.Reach,
+                TextureProcessorOutputFormat.PvrCompressed or TextureProcessorOutputFormat.Etc1Compressed => true,
+                _ => false,
+            };
 
             // Does it require square textures?
-            switch (format)
+            requiresSquare = format switch
             {
-                default:
-                    requiresSquare = false;
-                    break;
-
-                case TextureProcessorOutputFormat.PvrCompressed:
-                    requiresSquare = true;
-                    break;
-            }
+                TextureProcessorOutputFormat.PvrCompressed => true,
+                _ => false,
+            };
         }
 
         protected override void PlatformCompressTexture(ContentProcessorContext context, TextureContent content, TextureProcessorOutputFormat format, bool isSpriteFont)

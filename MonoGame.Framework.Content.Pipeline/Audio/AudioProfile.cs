@@ -54,28 +54,22 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Audio
 
         protected static int QualityToSampleRate(ConversionQuality quality, int sourceSampleRate)
         {
-            switch (quality)
+            return quality switch
             {
-                case ConversionQuality.Low:
-                    return Math.Max(8000, (int)Math.Floor(sourceSampleRate / 2.0));
-                case ConversionQuality.Medium:
-                    return Math.Max(8000, (int)Math.Floor((sourceSampleRate / 4.0) * 3));
-            }
-
-            return Math.Max(8000, sourceSampleRate);
+                ConversionQuality.Low => Math.Max(8000, (int)Math.Floor(sourceSampleRate / 2.0)),
+                ConversionQuality.Medium => Math.Max(8000, (int)Math.Floor((sourceSampleRate / 4.0) * 3)),
+                _ => Math.Max(8000, sourceSampleRate),
+            };
         }
 
         protected static int QualityToBitRate(ConversionQuality quality)
         {
-            switch (quality)
+            return quality switch
             {
-                case ConversionQuality.Low:
-                    return 96000;
-                case ConversionQuality.Medium:
-                    return 128000;
-            }
-
-            return 192000;
+                ConversionQuality.Low => 96000,
+                ConversionQuality.Medium => 128000,
+                _ => 192000,
+            };
         }
     }
 }

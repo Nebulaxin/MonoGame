@@ -84,8 +84,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             if (_clock != null)
             {
-                ClockState state;
-                _clock.GetState(0, out state);
+                _clock.GetState(0, out ClockState state);
 
                 switch (state)
                 {
@@ -224,8 +223,7 @@ namespace Microsoft.Xna.Framework.Media
                 return;
 
             // Get the volume interface.
-            IntPtr volumeObjectPtr;
-            MediaFactory.GetService(_session, MediaServiceKeys.StreamVolume, AudioStreamVolumeGuid, out volumeObjectPtr);
+            MediaFactory.GetService(_session, MediaServiceKeys.StreamVolume, AudioStreamVolumeGuid, out nint volumeObjectPtr);
             _volumeController = CppObject.FromPointer<AudioStreamVolume>(volumeObjectPtr);
 
             SetChannelVolumes();

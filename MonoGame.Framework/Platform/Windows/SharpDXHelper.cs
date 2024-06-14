@@ -12,7 +12,6 @@ namespace Microsoft.Xna.Framework
     {
         static public SharpDX.DXGI.SwapEffect ToSwapEffect(PresentInterval presentInterval)
         {
-            SharpDX.DXGI.SwapEffect effect;
 
             switch (presentInterval)
             {
@@ -43,19 +42,12 @@ namespace Microsoft.Xna.Framework
 
         static public SharpDX.DXGI.Format ToFormat(DepthFormat format)
         {
-            switch (format)
+            return format switch
             {
-                default:
-                case DepthFormat.None:
-                    return SharpDX.DXGI.Format.Unknown;
-
-                case DepthFormat.Depth16:
-                    return SharpDX.DXGI.Format.D16_UNorm;
-
-                case DepthFormat.Depth24:
-                case DepthFormat.Depth24Stencil8:
-                    return SharpDX.DXGI.Format.D24_UNorm_S8_UInt;
-            }
+                DepthFormat.Depth16 => SharpDX.DXGI.Format.D16_UNorm,
+                DepthFormat.Depth24 or DepthFormat.Depth24Stencil8 => SharpDX.DXGI.Format.D24_UNorm_S8_UInt,
+                _ => SharpDX.DXGI.Format.Unknown,
+            };
         }
 
         static public SharpDX.DXGI.Format ToFormat(SurfaceFormat format)
@@ -154,35 +146,18 @@ namespace Microsoft.Xna.Framework
 
         static public SharpDX.Direct3D11.Comparison ToComparison(this CompareFunction compare)
         {
-            switch (compare)
+            return compare switch
             {
-                case CompareFunction.Always:
-                    return SharpDX.Direct3D11.Comparison.Always;
-
-                case CompareFunction.Equal:
-                    return SharpDX.Direct3D11.Comparison.Equal;
-
-                case CompareFunction.Greater:
-                    return SharpDX.Direct3D11.Comparison.Greater;
-
-                case CompareFunction.GreaterEqual:
-                    return SharpDX.Direct3D11.Comparison.GreaterEqual;
-
-                case CompareFunction.Less:
-                    return SharpDX.Direct3D11.Comparison.Less;
-
-                case CompareFunction.LessEqual:
-                    return SharpDX.Direct3D11.Comparison.LessEqual;
-
-                case CompareFunction.Never:
-                    return SharpDX.Direct3D11.Comparison.Never;
-
-                case CompareFunction.NotEqual:
-                    return SharpDX.Direct3D11.Comparison.NotEqual;
-
-                default:
-                    throw new ArgumentException("Invalid comparison!");
-            }
+                CompareFunction.Always => SharpDX.Direct3D11.Comparison.Always,
+                CompareFunction.Equal => SharpDX.Direct3D11.Comparison.Equal,
+                CompareFunction.Greater => SharpDX.Direct3D11.Comparison.Greater,
+                CompareFunction.GreaterEqual => SharpDX.Direct3D11.Comparison.GreaterEqual,
+                CompareFunction.Less => SharpDX.Direct3D11.Comparison.Less,
+                CompareFunction.LessEqual => SharpDX.Direct3D11.Comparison.LessEqual,
+                CompareFunction.Never => SharpDX.Direct3D11.Comparison.Never,
+                CompareFunction.NotEqual => SharpDX.Direct3D11.Comparison.NotEqual,
+                _ => throw new ArgumentException("Invalid comparison!"),
+            };
         }
     }
 }

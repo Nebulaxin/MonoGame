@@ -128,15 +128,12 @@ namespace Microsoft.Xna.Framework.Graphics
                 throw;
             }
 
-            switch(graphicsProfile)
+            return graphicsProfile switch
             {
-                case GraphicsProfile.Reach:
-                    return (highestSupportedLevel >= FeatureLevel.Level_9_1);
-                case GraphicsProfile.HiDef:
-                    return (highestSupportedLevel >= FeatureLevel.Level_10_0);
-                default:
-                    throw new InvalidOperationException();
-            }
+                GraphicsProfile.Reach => (highestSupportedLevel >= FeatureLevel.Level_9_1),
+                GraphicsProfile.HiDef => (highestSupportedLevel >= FeatureLevel.Level_10_0),
+                _ => throw new InvalidOperationException(),
+            };
         }
     }
 }

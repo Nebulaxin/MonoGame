@@ -183,33 +183,18 @@ namespace Microsoft.Xna.Framework.Content.Pipeline
 
         static BitmapContent CreateBitmapContent(SurfaceFormat format, int width, int height)
         {
-            switch (format)
+            return format switch
             {
-                case SurfaceFormat.Color:
-                    return new PixelBitmapContent<Color>(width, height);
-
-                case SurfaceFormat.Bgra4444:
-                    return new PixelBitmapContent<Bgra4444>(width, height);
-
-                case SurfaceFormat.Bgra5551:
-                    return new PixelBitmapContent<Bgra5551>(width, height);
-
-                case SurfaceFormat.Bgr565:
-                    return new PixelBitmapContent<Bgr565>(width, height);
-
-                case SurfaceFormat.Dxt1:
-                    return new Dxt1BitmapContent(width, height);
-
-                case SurfaceFormat.Dxt3:
-                    return new Dxt3BitmapContent(width, height);
-
-                case SurfaceFormat.Dxt5:
-                    return new Dxt5BitmapContent(width, height);
-
-                case SurfaceFormat.Vector4:
-                    return new PixelBitmapContent<Vector4>(width, height);
-            }
-            throw new ContentLoadException("Unsupported SurfaceFormat " + format);
+                SurfaceFormat.Color => new PixelBitmapContent<Color>(width, height),
+                SurfaceFormat.Bgra4444 => new PixelBitmapContent<Bgra4444>(width, height),
+                SurfaceFormat.Bgra5551 => new PixelBitmapContent<Bgra5551>(width, height),
+                SurfaceFormat.Bgr565 => new PixelBitmapContent<Bgr565>(width, height),
+                SurfaceFormat.Dxt1 => new Dxt1BitmapContent(width, height),
+                SurfaceFormat.Dxt3 => new Dxt3BitmapContent(width, height),
+                SurfaceFormat.Dxt5 => new Dxt5BitmapContent(width, height),
+                SurfaceFormat.Vector4 => new PixelBitmapContent<Vector4>(width, height),
+                _ => throw new ContentLoadException("Unsupported SurfaceFormat " + format),
+            };
         }
 
         static int GetBitmapSize(SurfaceFormat format, int width, int height)

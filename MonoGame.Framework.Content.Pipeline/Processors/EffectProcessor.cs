@@ -84,22 +84,12 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
 
         private string GetProfileForPlatform(TargetPlatform platform)
         {
-            switch (platform)
+            return platform switch
             {
-                case TargetPlatform.Windows:
-                case TargetPlatform.WindowsPhone8:
-                case TargetPlatform.WindowsStoreApp:
-                    return "DirectX_11";
-                case TargetPlatform.iOS:
-                case TargetPlatform.Android:
-                case TargetPlatform.DesktopGL:
-                case TargetPlatform.MacOSX:
-                case TargetPlatform.RaspberryPi:
-                case TargetPlatform.Web:
-                    return "OpenGL";
-            }
-
-            return platform.ToString();
+                TargetPlatform.Windows or TargetPlatform.WindowsPhone8 or TargetPlatform.WindowsStoreApp => "DirectX_11",
+                TargetPlatform.iOS or TargetPlatform.Android or TargetPlatform.DesktopGL or TargetPlatform.MacOSX or TargetPlatform.RaspberryPi or TargetPlatform.Web => "OpenGL",
+                _ => platform.ToString(),
+            };
         }
 
         private static void ProcessErrorsAndWarnings(bool buildFailed, string shaderErrorsAndWarnings, EffectContent input, ContentProcessorContext context)

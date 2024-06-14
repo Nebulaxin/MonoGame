@@ -1524,21 +1524,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private static int GetElementCountArray(PrimitiveType primitiveType, int primitiveCount)
         {
-            switch (primitiveType)
+            return primitiveType switch
             {
-                case PrimitiveType.LineList:
-                    return primitiveCount * 2;
-                case PrimitiveType.LineStrip:
-                    return primitiveCount + 1;
-                case PrimitiveType.TriangleList:
-                    return primitiveCount * 3;
-                case PrimitiveType.TriangleStrip:
-                    return primitiveCount + 2;
-                case PrimitiveType.PointList:
-                    return primitiveCount;
-            }
-
-            throw new NotSupportedException();
+                PrimitiveType.LineList => primitiveCount * 2,
+                PrimitiveType.LineStrip => primitiveCount + 1,
+                PrimitiveType.TriangleList => primitiveCount * 3,
+                PrimitiveType.TriangleStrip => primitiveCount + 2,
+                PrimitiveType.PointList => primitiveCount,
+                _ => throw new NotSupportedException(),
+            };
         }
 
         // uniformly scales down the given rectangle by 10%

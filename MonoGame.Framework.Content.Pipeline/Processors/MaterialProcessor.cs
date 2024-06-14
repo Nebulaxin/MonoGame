@@ -200,21 +200,15 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Processors
         /// <returns>A material.</returns>
         public static MaterialContent CreateDefaultMaterial(MaterialProcessorDefaultEffect effect)
         {
-            switch (effect)
+            return effect switch
             {
-                case MaterialProcessorDefaultEffect.BasicEffect:
-                    return new BasicMaterialContent();
-                case MaterialProcessorDefaultEffect.SkinnedEffect:
-                    return new SkinnedMaterialContent();
-                case MaterialProcessorDefaultEffect.EnvironmentMapEffect:
-                    return new EnvironmentMapMaterialContent();
-                case MaterialProcessorDefaultEffect.DualTextureEffect:
-                    return new DualTextureMaterialContent();
-                case MaterialProcessorDefaultEffect.AlphaTestEffect:
-                    return new AlphaTestMaterialContent();
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+                MaterialProcessorDefaultEffect.BasicEffect => new BasicMaterialContent(),
+                MaterialProcessorDefaultEffect.SkinnedEffect => new SkinnedMaterialContent(),
+                MaterialProcessorDefaultEffect.EnvironmentMapEffect => new EnvironmentMapMaterialContent(),
+                MaterialProcessorDefaultEffect.DualTextureEffect => new DualTextureMaterialContent(),
+                MaterialProcessorDefaultEffect.AlphaTestEffect => new AlphaTestMaterialContent(),
+                _ => throw new ArgumentOutOfRangeException(),
+            };
         }
 
         /// <summary>

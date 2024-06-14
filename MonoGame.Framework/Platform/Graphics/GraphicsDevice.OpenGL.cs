@@ -866,21 +866,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private static GLPrimitiveType PrimitiveTypeGL(PrimitiveType primitiveType)
         {
-            switch (primitiveType)
+            return primitiveType switch
             {
-                case PrimitiveType.PointList:
-                    return GLPrimitiveType.Points;
-                case PrimitiveType.LineList:
-                    return GLPrimitiveType.Lines;
-                case PrimitiveType.LineStrip:
-                    return GLPrimitiveType.LineStrip;
-                case PrimitiveType.TriangleList:
-                    return GLPrimitiveType.Triangles;
-                case PrimitiveType.TriangleStrip:
-                    return GLPrimitiveType.TriangleStrip;
-            }
-
-            throw new ArgumentException();
+                PrimitiveType.PointList => GLPrimitiveType.Points,
+                PrimitiveType.LineList => GLPrimitiveType.Lines,
+                PrimitiveType.LineStrip => GLPrimitiveType.LineStrip,
+                PrimitiveType.TriangleList => GLPrimitiveType.Triangles,
+                PrimitiveType.TriangleStrip => GLPrimitiveType.TriangleStrip,
+                _ => throw new ArgumentException(),
+            };
         }
 
         /// <summary>

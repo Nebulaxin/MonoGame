@@ -178,26 +178,15 @@ namespace Microsoft.Xna.Framework.Content.Pipeline.Graphics
             {
                 var score1 = 0; // Unused in this function. We don't need to know the score after finding the position.
                 var score2 = 0;
-                switch (heuristic)
+                rect = heuristic switch
                 {
-                    case MaxRectsHeuristic.Bssf:
-                        rect = FindPositionForNewNodeBestShortSideFit(width, height, ref score1, ref score2);
-                        break;
-                    case MaxRectsHeuristic.Bl:
-                        rect = FindPositionForNewNodeBottomLeft(width, height, ref score1, ref score2);
-                        break;
-                    case MaxRectsHeuristic.RectContactPointRule:
-                        rect = FindPositionForNewNodeContactPoint(width, height, ref score1);
-                        break;
-                    case MaxRectsHeuristic.Blsf:
-                        rect = FindPositionForNewNodeBestLongSideFit(width, height, ref score2, ref score1);
-                        break;
-                    case MaxRectsHeuristic.Baf:
-                        rect = FindPositionForNewNodeBestAreaFit(width, height, ref score1, ref score2);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(heuristic), heuristic, null);
-                }
+                    MaxRectsHeuristic.Bssf => FindPositionForNewNodeBestShortSideFit(width, height, ref score1, ref score2),
+                    MaxRectsHeuristic.Bl => FindPositionForNewNodeBottomLeft(width, height, ref score1, ref score2),
+                    MaxRectsHeuristic.RectContactPointRule => FindPositionForNewNodeContactPoint(width, height, ref score1),
+                    MaxRectsHeuristic.Blsf => FindPositionForNewNodeBestLongSideFit(width, height, ref score2, ref score1),
+                    MaxRectsHeuristic.Baf => FindPositionForNewNodeBestAreaFit(width, height, ref score1, ref score2),
+                    _ => throw new ArgumentOutOfRangeException(nameof(heuristic), heuristic, null),
+                };
             }
 
             FindPositionForNewNode(out var newNode);

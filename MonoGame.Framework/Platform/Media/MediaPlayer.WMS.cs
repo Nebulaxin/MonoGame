@@ -245,8 +245,7 @@ namespace Microsoft.Xna.Framework.Media
         {
             lock (_volumeLock)
             {
-                IntPtr volumeObjectPtr;
-                MediaFactory.GetService(_session, MediaServiceKeys.StreamVolume, AudioStreamVolumeGuid, out volumeObjectPtr);
+                MediaFactory.GetService(_session, MediaServiceKeys.StreamVolume, AudioStreamVolumeGuid, out nint volumeObjectPtr);
                 _volumeController = CppObject.FromPointer<AudioStreamVolume>(volumeObjectPtr);
             }
 

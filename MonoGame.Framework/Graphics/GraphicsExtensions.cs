@@ -22,90 +22,42 @@ namespace Microsoft.Xna.Framework.Graphics
 #if OPENGL
         public static int OpenGLNumberOfElements(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return 1;
-
-                case VertexElementFormat.Vector2:
-                    return 2;
-
-                case VertexElementFormat.Vector3:
-                    return 3;
-
-                case VertexElementFormat.Vector4:
-                    return 4;
-
-                case VertexElementFormat.Color:
-                    return 4;
-
-                case VertexElementFormat.Byte4:
-                    return 4;
-
-                case VertexElementFormat.Short2:
-                    return 2;
-
-                case VertexElementFormat.Short4:
-                    return 4;
-
-                case VertexElementFormat.NormalizedShort2:
-                    return 2;
-
-                case VertexElementFormat.NormalizedShort4:
-                    return 4;
-
-                case VertexElementFormat.HalfVector2:
-                    return 2;
-
-                case VertexElementFormat.HalfVector4:
-                    return 4;
-            }
-
-            throw new ArgumentException();
+                VertexElementFormat.Single => 1,
+                VertexElementFormat.Vector2 => 2,
+                VertexElementFormat.Vector3 => 3,
+                VertexElementFormat.Vector4 => 4,
+                VertexElementFormat.Color => 4,
+                VertexElementFormat.Byte4 => 4,
+                VertexElementFormat.Short2 => 2,
+                VertexElementFormat.Short4 => 4,
+                VertexElementFormat.NormalizedShort2 => 2,
+                VertexElementFormat.NormalizedShort4 => 4,
+                VertexElementFormat.HalfVector2 => 2,
+                VertexElementFormat.HalfVector4 => 4,
+                _ => throw new ArgumentException(),
+            };
         }
 
         public static VertexPointerType OpenGLVertexPointerType(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return VertexPointerType.Float;
-
-                case VertexElementFormat.Vector2:
-                    return VertexPointerType.Float;
-
-                case VertexElementFormat.Vector3:
-                    return VertexPointerType.Float;
-
-                case VertexElementFormat.Vector4:
-                    return VertexPointerType.Float;
-
-                case VertexElementFormat.Color:
-                    return VertexPointerType.Short;
-
-                case VertexElementFormat.Byte4:
-                    return VertexPointerType.Short;
-
-                case VertexElementFormat.Short2:
-                    return VertexPointerType.Short;
-
-                case VertexElementFormat.Short4:
-                    return VertexPointerType.Short;
-
-                case VertexElementFormat.NormalizedShort2:
-                    return VertexPointerType.Short;
-
-                case VertexElementFormat.NormalizedShort4:
-                    return VertexPointerType.Short;
-
-                case VertexElementFormat.HalfVector2:
-                    return VertexPointerType.Float;
-
-                case VertexElementFormat.HalfVector4:
-                    return VertexPointerType.Float;
-            }
-
-            throw new ArgumentException();
+                VertexElementFormat.Single => VertexPointerType.Float,
+                VertexElementFormat.Vector2 => VertexPointerType.Float,
+                VertexElementFormat.Vector3 => VertexPointerType.Float,
+                VertexElementFormat.Vector4 => VertexPointerType.Float,
+                VertexElementFormat.Color => VertexPointerType.Short,
+                VertexElementFormat.Byte4 => VertexPointerType.Short,
+                VertexElementFormat.Short2 => VertexPointerType.Short,
+                VertexElementFormat.Short4 => VertexPointerType.Short,
+                VertexElementFormat.NormalizedShort2 => VertexPointerType.Short,
+                VertexElementFormat.NormalizedShort4 => VertexPointerType.Short,
+                VertexElementFormat.HalfVector2 => VertexPointerType.Float,
+                VertexElementFormat.HalfVector4 => VertexPointerType.Float,
+                _ => throw new ArgumentException(),
+            };
         }
 
 		public static VertexAttribPointerType OpenGLVertexAttribPointerType(this VertexElementFormat elementFormat)
@@ -125,10 +77,10 @@ namespace Microsoft.Xna.Framework.Graphics
                     return VertexAttribPointerType.Float;
 
                 case VertexElementFormat.Color:
-					return VertexAttribPointerType.UnsignedByte;
+                    return VertexAttribPointerType.UnsignedByte;
 
                 case VertexElementFormat.Byte4:
-					return VertexAttribPointerType.UnsignedByte;
+                    return VertexAttribPointerType.UnsignedByte;
 
                 case VertexElementFormat.Short2:
                     return VertexAttribPointerType.Short;
@@ -141,17 +93,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 case VertexElementFormat.NormalizedShort4:
                     return VertexAttribPointerType.Short;
-                
+
 #if WINDOWS || DESKTOPGL
-               case VertexElementFormat.HalfVector2:
+                case VertexElementFormat.HalfVector2:
                     return VertexAttribPointerType.HalfFloat;
 
                 case VertexElementFormat.HalfVector4:
                     return VertexAttribPointerType.HalfFloat;
 #endif
             }
-
-            throw new ArgumentException();
         }
 
         public static bool OpenGLVertexAttribNormalized(this VertexElement element)
@@ -167,15 +117,11 @@ namespace Microsoft.Xna.Framework.Graphics
             if (element.VertexElementUsage == VertexElementUsage.Color)
                 return true;
 
-            switch (element.VertexElementFormat)
+            return element.VertexElementFormat switch
             {
-                case VertexElementFormat.NormalizedShort2:
-                case VertexElementFormat.NormalizedShort4:
-                    return true;
-
-                default:
-                    return false;
-            }
+                VertexElementFormat.NormalizedShort2 or VertexElementFormat.NormalizedShort4 => true,
+                _ => false,
+            };
         }
 
         public static ColorPointerType OpenGLColorPointerType(this VertexElementFormat elementFormat)
@@ -211,7 +157,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 case VertexElementFormat.NormalizedShort4:
                     return ColorPointerType.UnsignedShort;
-				
+
 #if MONOMAC
                 case VertexElementFormat.HalfVector2:
                     return ColorPointerType.HalfFloat;
@@ -219,12 +165,10 @@ namespace Microsoft.Xna.Framework.Graphics
                 case VertexElementFormat.HalfVector4:
                     return ColorPointerType.HalfFloat;
 #endif
-			}
-
-            throw new ArgumentException();
+            }
         }
 
-       public static NormalPointerType OpenGLNormalPointerType(this VertexElementFormat elementFormat)
+        public static NormalPointerType OpenGLNormalPointerType(this VertexElementFormat elementFormat)
         {
             switch (elementFormat)
             {
@@ -257,7 +201,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 case VertexElementFormat.NormalizedShort4:
                     return NormalPointerType.Short;
-				
+
 #if MONOMAC
                 case VertexElementFormat.HalfVector2:
                     return NormalPointerType.HalfFloat;
@@ -265,12 +209,10 @@ namespace Microsoft.Xna.Framework.Graphics
                 case VertexElementFormat.HalfVector4:
                     return NormalPointerType.HalfFloat;
 #endif
-			}
-
-            throw new ArgumentException();
+            }
         }
 
-       public static TexCoordPointerType OpenGLTexCoordPointerType(this VertexElementFormat elementFormat)
+        public static TexCoordPointerType OpenGLTexCoordPointerType(this VertexElementFormat elementFormat)
         {
             switch (elementFormat)
             {
@@ -303,7 +245,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 case VertexElementFormat.NormalizedShort4:
                     return TexCoordPointerType.Short;
-				
+
 #if MONOMAC
                 case VertexElementFormat.HalfVector2:
                     return TexCoordPointerType.HalfFloat;
@@ -311,125 +253,87 @@ namespace Microsoft.Xna.Framework.Graphics
                 case VertexElementFormat.HalfVector4:
                     return TexCoordPointerType.HalfFloat;
 #endif
-			}
-
-            throw new ArgumentException();
+            }
         }
 
-		
-		public static BlendEquationMode GetBlendEquationMode (this BlendFunction function)
+
+        public static BlendEquationMode GetBlendEquationMode (this BlendFunction function)
 		{
-			switch (function) {
-			case BlendFunction.Add:
-				return BlendEquationMode.FuncAdd;
+            switch (function)
+            {
+                case BlendFunction.Add:
+                    return BlendEquationMode.FuncAdd;
 #if WINDOWS || DESKTOPGL || IOS
-			case BlendFunction.Max:
-				return BlendEquationMode.Max;
-			case BlendFunction.Min:
-				return BlendEquationMode.Min;
+                case BlendFunction.Max:
+                    return BlendEquationMode.Max;
+                case BlendFunction.Min:
+                    return BlendEquationMode.Min;
 #endif
-			case BlendFunction.ReverseSubtract:
-				return BlendEquationMode.FuncReverseSubtract;
-			case BlendFunction.Subtract:
-				return BlendEquationMode.FuncSubtract;
+                case BlendFunction.ReverseSubtract:
+                    return BlendEquationMode.FuncReverseSubtract;
+                case BlendFunction.Subtract:
+                    return BlendEquationMode.FuncSubtract;
 
-			default:
-                throw new ArgumentException();
-			}
-		}
+                default:
+                    throw new ArgumentException();
+            }
+        }
 
 		public static BlendingFactorSrc GetBlendFactorSrc (this Blend blend)
 		{
-			switch (blend) {
-            case Blend.BlendFactor:
-                return BlendingFactorSrc.ConstantColor;
-			case Blend.DestinationAlpha:
-				return BlendingFactorSrc.DstAlpha;
-			case Blend.DestinationColor:
-				return BlendingFactorSrc.DstColor;
-            case Blend.InverseBlendFactor:
-                return BlendingFactorSrc.OneMinusConstantColor;
-			case Blend.InverseDestinationAlpha:
-				return BlendingFactorSrc.OneMinusDstAlpha;
-			case Blend.InverseDestinationColor:
-				return BlendingFactorSrc.OneMinusDstColor;
-			case Blend.InverseSourceAlpha:
-				return BlendingFactorSrc.OneMinusSrcAlpha;
-			case Blend.InverseSourceColor:
-                return BlendingFactorSrc.OneMinusSrcColor;
-			case Blend.One:
-				return BlendingFactorSrc.One;
-			case Blend.SourceAlpha:
-				return BlendingFactorSrc.SrcAlpha;
-			case Blend.SourceAlphaSaturation:
-				return BlendingFactorSrc.SrcAlphaSaturate;
-			case Blend.SourceColor:
-				return BlendingFactorSrc.SrcColor;
-			case Blend.Zero:
-				return BlendingFactorSrc.Zero;
-            default:
-                    throw new ArgumentOutOfRangeException(nameof(blend), "The specified blend function is not implemented.");
-            }
-
-		}
+            return blend switch
+            {
+                Blend.BlendFactor => BlendingFactorSrc.ConstantColor,
+                Blend.DestinationAlpha => BlendingFactorSrc.DstAlpha,
+                Blend.DestinationColor => BlendingFactorSrc.DstColor,
+                Blend.InverseBlendFactor => BlendingFactorSrc.OneMinusConstantColor,
+                Blend.InverseDestinationAlpha => BlendingFactorSrc.OneMinusDstAlpha,
+                Blend.InverseDestinationColor => BlendingFactorSrc.OneMinusDstColor,
+                Blend.InverseSourceAlpha => BlendingFactorSrc.OneMinusSrcAlpha,
+                Blend.InverseSourceColor => BlendingFactorSrc.OneMinusSrcColor,
+                Blend.One => BlendingFactorSrc.One,
+                Blend.SourceAlpha => BlendingFactorSrc.SrcAlpha,
+                Blend.SourceAlphaSaturation => BlendingFactorSrc.SrcAlphaSaturate,
+                Blend.SourceColor => BlendingFactorSrc.SrcColor,
+                Blend.Zero => BlendingFactorSrc.Zero,
+                _ => throw new ArgumentOutOfRangeException(nameof(blend), "The specified blend function is not implemented."),
+            };
+        }
 
 		public static BlendingFactorDest GetBlendFactorDest (this Blend blend)
 		{
-			switch (blend) {
-            case Blend.BlendFactor:
-                return BlendingFactorDest.ConstantColor;
-            case Blend.DestinationAlpha:
-                return BlendingFactorDest.DstAlpha;
-            case Blend.DestinationColor:
-                return BlendingFactorDest.DstColor;
-            case Blend.InverseBlendFactor:
-                return BlendingFactorDest.OneMinusConstantColor;
-            case Blend.InverseDestinationAlpha:
-				return BlendingFactorDest.OneMinusDstAlpha;
-            case Blend.InverseDestinationColor:
-                return BlendingFactorDest.OneMinusDstColor;
-            case Blend.InverseSourceAlpha:
-                return BlendingFactorDest.OneMinusSrcAlpha;
-			case Blend.InverseSourceColor:
-				return BlendingFactorDest.OneMinusSrcColor;
-			case Blend.One:
-				return BlendingFactorDest.One;
-			case Blend.SourceAlpha:
-				return BlendingFactorDest.SrcAlpha;
-            case Blend.SourceAlphaSaturation:
-                return BlendingFactorDest.SrcAlphaSaturate;
-            case Blend.SourceColor:
-			    return BlendingFactorDest.SrcColor;
-			case Blend.Zero:
-				return BlendingFactorDest.Zero;
-			default:
-                    throw new ArgumentOutOfRangeException(nameof(blend), "The specified blend function is not implemented.");
-            }
-
-		}
+            return blend switch
+            {
+                Blend.BlendFactor => BlendingFactorDest.ConstantColor,
+                Blend.DestinationAlpha => BlendingFactorDest.DstAlpha,
+                Blend.DestinationColor => BlendingFactorDest.DstColor,
+                Blend.InverseBlendFactor => BlendingFactorDest.OneMinusConstantColor,
+                Blend.InverseDestinationAlpha => BlendingFactorDest.OneMinusDstAlpha,
+                Blend.InverseDestinationColor => BlendingFactorDest.OneMinusDstColor,
+                Blend.InverseSourceAlpha => BlendingFactorDest.OneMinusSrcAlpha,
+                Blend.InverseSourceColor => BlendingFactorDest.OneMinusSrcColor,
+                Blend.One => BlendingFactorDest.One,
+                Blend.SourceAlpha => BlendingFactorDest.SrcAlpha,
+                Blend.SourceAlphaSaturation => BlendingFactorDest.SrcAlphaSaturate,
+                Blend.SourceColor => BlendingFactorDest.SrcColor,
+                Blend.Zero => BlendingFactorDest.Zero,
+                _ => throw new ArgumentOutOfRangeException(nameof(blend), "The specified blend function is not implemented."),
+            };
+        }
 
         public static DepthFunction GetDepthFunction(this CompareFunction compare)
         {
-            switch (compare)
+            return compare switch
             {
-                default:
-                case CompareFunction.Always:
-                    return DepthFunction.Always;
-                case CompareFunction.Equal:
-                    return DepthFunction.Equal;
-                case CompareFunction.Greater:
-                    return DepthFunction.Greater;
-                case CompareFunction.GreaterEqual:
-                    return DepthFunction.Gequal;
-                case CompareFunction.Less:
-                    return DepthFunction.Less;
-                case CompareFunction.LessEqual:
-                    return DepthFunction.Lequal;
-                case CompareFunction.Never:
-                    return DepthFunction.Never;
-                case CompareFunction.NotEqual:
-                    return DepthFunction.Notequal;
-            }
+                CompareFunction.Equal => DepthFunction.Equal,
+                CompareFunction.Greater => DepthFunction.Greater,
+                CompareFunction.GreaterEqual => DepthFunction.Gequal,
+                CompareFunction.Less => DepthFunction.Less,
+                CompareFunction.LessEqual => DepthFunction.Lequal,
+                CompareFunction.Never => DepthFunction.Never,
+                CompareFunction.NotEqual => DepthFunction.Notequal,
+                _ => DepthFunction.Always,
+            };
         }
 
 #if WINDOWS || DESKTOPGL || ANGLE
@@ -441,30 +345,19 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="format">The <see cref="SurfaceFormat"/> to convert.</param>
         internal static ColorFormat GetColorFormat(this SurfaceFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case SurfaceFormat.Alpha8:
-                    return new ColorFormat(0, 0, 0, 8);
-                case SurfaceFormat.Bgr565:
-                    return new ColorFormat(5, 6, 5, 0);
-                case SurfaceFormat.Bgra4444:
-                    return new ColorFormat(4, 4, 4, 4);
-                case SurfaceFormat.Bgra5551:
-                    return new ColorFormat(5, 5, 5, 1);
-                case SurfaceFormat.Bgr32:
-                    return new ColorFormat(8, 8, 8, 0);
-                case SurfaceFormat.Bgra32:
-                case SurfaceFormat.Color:
-                case SurfaceFormat.ColorSRgb:
-                    return new ColorFormat(8, 8, 8, 8);
-                case SurfaceFormat.Rgba1010102:
-                    return new ColorFormat(10, 10, 10, 2);
-                default:
-                    // Floating point backbuffers formats could be implemented
-                    // but they are not typically used on the backbuffer. In
-                    // those cases it is better to create a render target instead.
-                    throw new NotSupportedException();
-            }
+                SurfaceFormat.Alpha8 => new ColorFormat(0, 0, 0, 8),
+                SurfaceFormat.Bgr565 => new ColorFormat(5, 6, 5, 0),
+                SurfaceFormat.Bgra4444 => new ColorFormat(4, 4, 4, 4),
+                SurfaceFormat.Bgra5551 => new ColorFormat(5, 5, 5, 1),
+                SurfaceFormat.Bgr32 => new ColorFormat(8, 8, 8, 0),
+                SurfaceFormat.Bgra32 or SurfaceFormat.Color or SurfaceFormat.ColorSRgb => new ColorFormat(8, 8, 8, 8),
+                SurfaceFormat.Rgba1010102 => new ColorFormat(10, 10, 10, 2),
+                _ => throw new NotSupportedException(),// Floating point backbuffers formats could be implemented
+                                                       // but they are not typically used on the backbuffer. In
+                                                       // those cases it is better to create a render target instead.
+            };
         }
 
         /// <summary>
@@ -480,19 +373,13 @@ namespace Microsoft.Xna.Framework.Graphics
             // if supported, a swap interval of -1 enables adaptive vsync;
             // otherwise -1 is converted to 1 (vsync enabled.)
 
-            switch (interval)
+            return interval switch
             {
-
-                case PresentInterval.Immediate:
-                    return 0;
-                case PresentInterval.One:
-                    return 1;
-                case PresentInterval.Two:
-                    return 2;
-                case PresentInterval.Default:
-                default:
-                    return -1;
-            }
+                PresentInterval.Immediate => 0,
+                PresentInterval.One => 1,
+                PresentInterval.Two => 2,
+                _ => -1,
+            };
         }
 #endif
 
@@ -769,148 +656,56 @@ namespace Microsoft.Xna.Framework.Graphics
 
         public static int GetSyncInterval(this PresentInterval interval)
         {
-            switch (interval)
+            return interval switch
             {
-                case PresentInterval.Immediate:
-                    return 0;
-
-                case PresentInterval.Two:
-                    return 2;
-
-                default:
-                    return 1;
-            }
+                PresentInterval.Immediate => 0,
+                PresentInterval.Two => 2,
+                _ => 1,
+            };
         }
 
         public static bool IsCompressedFormat(this SurfaceFormat format)
         {
-            switch (format)
+            return format switch
             {
-                case SurfaceFormat.Dxt1:
-                case SurfaceFormat.Dxt1a:
-                case SurfaceFormat.Dxt1SRgb:
-                case SurfaceFormat.Dxt3:
-                case SurfaceFormat.Dxt3SRgb:
-                case SurfaceFormat.Dxt5:
-                case SurfaceFormat.Dxt5SRgb:
-                case SurfaceFormat.RgbaAtcExplicitAlpha:
-                case SurfaceFormat.RgbaAtcInterpolatedAlpha:
-                case SurfaceFormat.RgbaPvrtc2Bpp:
-                case SurfaceFormat.RgbaPvrtc4Bpp:
-                case SurfaceFormat.RgbEtc1:
-                case SurfaceFormat.Rgb8Etc2:
-                case SurfaceFormat.Srgb8Etc2:
-                case SurfaceFormat.Rgb8A1Etc2:
-                case SurfaceFormat.Srgb8A1Etc2:
-                case SurfaceFormat.Rgba8Etc2:
-                case SurfaceFormat.SRgb8A8Etc2:
-                case SurfaceFormat.RgbPvrtc2Bpp:
-                case SurfaceFormat.RgbPvrtc4Bpp:
-                    return true;
-            }
-            return false;
+                SurfaceFormat.Dxt1 or SurfaceFormat.Dxt1a or SurfaceFormat.Dxt1SRgb or SurfaceFormat.Dxt3 or SurfaceFormat.Dxt3SRgb or SurfaceFormat.Dxt5 or SurfaceFormat.Dxt5SRgb or SurfaceFormat.RgbaAtcExplicitAlpha or SurfaceFormat.RgbaAtcInterpolatedAlpha or SurfaceFormat.RgbaPvrtc2Bpp or SurfaceFormat.RgbaPvrtc4Bpp or SurfaceFormat.RgbEtc1 or SurfaceFormat.Rgb8Etc2 or SurfaceFormat.Srgb8Etc2 or SurfaceFormat.Rgb8A1Etc2 or SurfaceFormat.Srgb8A1Etc2 or SurfaceFormat.Rgba8Etc2 or SurfaceFormat.SRgb8A8Etc2 or SurfaceFormat.RgbPvrtc2Bpp or SurfaceFormat.RgbPvrtc4Bpp => true,
+                _ => false,
+            };
         }
 
         public static int GetSize(this SurfaceFormat surfaceFormat)
         {
-            switch (surfaceFormat)
+            return surfaceFormat switch
             {
-                case SurfaceFormat.Dxt1:
-                case SurfaceFormat.Dxt1SRgb:
-                case SurfaceFormat.Dxt1a:
-                case SurfaceFormat.RgbPvrtc2Bpp:
-                case SurfaceFormat.RgbaPvrtc2Bpp:
-                case SurfaceFormat.RgbPvrtc4Bpp:
-                case SurfaceFormat.RgbaPvrtc4Bpp:
-                case SurfaceFormat.RgbEtc1:
-                case SurfaceFormat.Rgb8Etc2:
-                case SurfaceFormat.Srgb8Etc2:
-                case SurfaceFormat.Rgb8A1Etc2:
-                case SurfaceFormat.Srgb8A1Etc2:
-                    // One texel in DXT1, PVRTC (2bpp and 4bpp) and ETC1 is a minimum 4x4 block (8x4 for PVRTC 2bpp), which is 8 bytes
-                    return 8;
-                case SurfaceFormat.Dxt3:
-                case SurfaceFormat.Dxt3SRgb:
-                case SurfaceFormat.Dxt5:
-                case SurfaceFormat.Dxt5SRgb:
-                case SurfaceFormat.RgbaAtcExplicitAlpha:
-                case SurfaceFormat.RgbaAtcInterpolatedAlpha:
-                case SurfaceFormat.Rgba8Etc2:
-                case SurfaceFormat.SRgb8A8Etc2:
-                    // One texel in DXT3 and DXT5 is a minimum 4x4 block, which is 16 bytes
-                    return 16;
-                case SurfaceFormat.Alpha8:
-                    return 1;
-                case SurfaceFormat.Bgr565:
-                case SurfaceFormat.Bgra4444:
-                case SurfaceFormat.Bgra5551:
-                case SurfaceFormat.HalfSingle:
-                case SurfaceFormat.NormalizedByte2:
-                    return 2;
-                case SurfaceFormat.Color:
-                case SurfaceFormat.ColorSRgb:
-                case SurfaceFormat.Single:
-                case SurfaceFormat.Rg32:
-                case SurfaceFormat.HalfVector2:
-                case SurfaceFormat.NormalizedByte4:
-                case SurfaceFormat.Rgba1010102:
-                case SurfaceFormat.Bgra32:
-                case SurfaceFormat.Bgra32SRgb:
-                case SurfaceFormat.Bgr32:
-                case SurfaceFormat.Bgr32SRgb:
-                    return 4;
-                case SurfaceFormat.HalfVector4:
-                case SurfaceFormat.Rgba64:
-                case SurfaceFormat.Vector2:
-                    return 8;
-                case SurfaceFormat.Vector4:
-                    return 16;
-                default:
-                    throw new ArgumentException();
-            }
+                SurfaceFormat.Dxt1 or SurfaceFormat.Dxt1SRgb or SurfaceFormat.Dxt1a or SurfaceFormat.RgbPvrtc2Bpp or SurfaceFormat.RgbaPvrtc2Bpp or SurfaceFormat.RgbPvrtc4Bpp or SurfaceFormat.RgbaPvrtc4Bpp or SurfaceFormat.RgbEtc1 or SurfaceFormat.Rgb8Etc2 or SurfaceFormat.Srgb8Etc2 or SurfaceFormat.Rgb8A1Etc2 or SurfaceFormat.Srgb8A1Etc2 => 8,// One texel in DXT1, PVRTC (2bpp and 4bpp) and ETC1 is a minimum 4x4 block (8x4 for PVRTC 2bpp), which is 8 bytes
+                SurfaceFormat.Dxt3 or SurfaceFormat.Dxt3SRgb or SurfaceFormat.Dxt5 or SurfaceFormat.Dxt5SRgb or SurfaceFormat.RgbaAtcExplicitAlpha or SurfaceFormat.RgbaAtcInterpolatedAlpha or SurfaceFormat.Rgba8Etc2 or SurfaceFormat.SRgb8A8Etc2 => 16,// One texel in DXT3 and DXT5 is a minimum 4x4 block, which is 16 bytes
+                SurfaceFormat.Alpha8 => 1,
+                SurfaceFormat.Bgr565 or SurfaceFormat.Bgra4444 or SurfaceFormat.Bgra5551 or SurfaceFormat.HalfSingle or SurfaceFormat.NormalizedByte2 => 2,
+                SurfaceFormat.Color or SurfaceFormat.ColorSRgb or SurfaceFormat.Single or SurfaceFormat.Rg32 or SurfaceFormat.HalfVector2 or SurfaceFormat.NormalizedByte4 or SurfaceFormat.Rgba1010102 or SurfaceFormat.Bgra32 or SurfaceFormat.Bgra32SRgb or SurfaceFormat.Bgr32 or SurfaceFormat.Bgr32SRgb => 4,
+                SurfaceFormat.HalfVector4 or SurfaceFormat.Rgba64 or SurfaceFormat.Vector2 => 8,
+                SurfaceFormat.Vector4 => 16,
+                _ => throw new ArgumentException(),
+            };
         }
 
         public static int GetSize(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return 4;
-
-                case VertexElementFormat.Vector2:
-                    return 8;
-
-                case VertexElementFormat.Vector3:
-                    return 12;
-
-                case VertexElementFormat.Vector4:
-                    return 16;
-
-                case VertexElementFormat.Color:
-                    return 4;
-
-                case VertexElementFormat.Byte4:
-                    return 4;
-
-                case VertexElementFormat.Short2:
-                    return 4;
-
-                case VertexElementFormat.Short4:
-                    return 8;
-
-                case VertexElementFormat.NormalizedShort2:
-                    return 4;
-
-                case VertexElementFormat.NormalizedShort4:
-                    return 8;
-
-                case VertexElementFormat.HalfVector2:
-                    return 4;
-
-                case VertexElementFormat.HalfVector4:
-                    return 8;
-            }
-            return 0;
+                VertexElementFormat.Single => 4,
+                VertexElementFormat.Vector2 => 8,
+                VertexElementFormat.Vector3 => 12,
+                VertexElementFormat.Vector4 => 16,
+                VertexElementFormat.Color => 4,
+                VertexElementFormat.Byte4 => 4,
+                VertexElementFormat.Short2 => 4,
+                VertexElementFormat.Short4 => 8,
+                VertexElementFormat.NormalizedShort2 => 4,
+                VertexElementFormat.NormalizedShort4 => 8,
+                VertexElementFormat.HalfVector2 => 4,
+                VertexElementFormat.HalfVector4 => 8,
+                _ => 0,
+            };
         }
 
         public static void GetBlockSize(this SurfaceFormat surfaceFormat, out int width, out int height)

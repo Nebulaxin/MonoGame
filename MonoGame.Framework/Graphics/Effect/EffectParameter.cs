@@ -282,13 +282,11 @@ namespace Microsoft.Xna.Framework.Graphics
                 return ret;
             }
 
-            switch (ParameterClass)
+            return ParameterClass switch
             {
-                case EffectParameterClass.Scalar:
-                    return new int[] { GetValueInt32() };
-                default:
-                    throw new NotImplementedException();
-            }
+                EffectParameterClass.Scalar => new int[] { GetValueInt32() },
+                _ => throw new NotImplementedException(),
+            };
         }
 
         /// <summary>

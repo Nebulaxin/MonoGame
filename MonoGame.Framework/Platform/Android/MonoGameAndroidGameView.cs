@@ -997,42 +997,24 @@ namespace Microsoft.Xna.Framework
 
         private string GetErrorAsString()
         {
-            switch (egl.EglGetError())
+            return (System.Object)egl.EglGetError() switch
             {
-                case EGL10.EglSuccess:
-                    return "Success";
-
-                case EGL10.EglNotInitialized:
-                    return "Not Initialized";
-
-                case EGL10.EglBadAccess:
-                    return "Bad Access";
-                case EGL10.EglBadAlloc:
-                    return "Bad Allocation";
-                case EGL10.EglBadAttribute:
-                    return "Bad Attribute";
-                case EGL10.EglBadConfig:
-                    return "Bad Config";
-                case EGL10.EglBadContext:
-                    return "Bad Context";
-                case EGL10.EglBadCurrentSurface:
-                    return "Bad Current Surface";
-                case EGL10.EglBadDisplay:
-                    return "Bad Display";
-                case EGL10.EglBadMatch:
-                    return "Bad Match";
-                case EGL10.EglBadNativePixmap:
-                    return "Bad Native Pixmap";
-                case EGL10.EglBadNativeWindow:
-                    return "Bad Native Window";
-                case EGL10.EglBadParameter:
-                    return "Bad Parameter";
-                case EGL10.EglBadSurface:
-                    return "Bad Surface";
-
-                default:
-                    return "Unknown Error";
-            }
+                EGL10.EglSuccess => "Success",
+                EGL10.EglNotInitialized => "Not Initialized",
+                EGL10.EglBadAccess => "Bad Access",
+                EGL10.EglBadAlloc => "Bad Allocation",
+                EGL10.EglBadAttribute => "Bad Attribute",
+                EGL10.EglBadConfig => "Bad Config",
+                EGL10.EglBadContext => "Bad Context",
+                EGL10.EglBadCurrentSurface => "Bad Current Surface",
+                EGL10.EglBadDisplay => "Bad Display",
+                EGL10.EglBadMatch => "Bad Match",
+                EGL10.EglBadNativePixmap => "Bad Native Pixmap",
+                EGL10.EglBadNativeWindow => "Bad Native Window",
+                EGL10.EglBadParameter => "Bad Parameter",
+                EGL10.EglBadSurface => "Bad Surface",
+                _ => "Unknown Error",
+            };
         }
 
         protected void CreateGLSurface()

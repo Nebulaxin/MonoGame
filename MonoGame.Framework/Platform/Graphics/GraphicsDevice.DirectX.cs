@@ -683,8 +683,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
             else
             {
-                ModeDescription closest;
-                output.GetClosestMatchingMode(_d3dDevice, target, out closest);
+                output.GetClosestMatchingMode(_d3dDevice, target, out ModeDescription closest);
                 width = closest.Width;
                 height = closest.Height;
                 output.Dispose();
@@ -1223,21 +1222,15 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private static PrimitiveTopology ToPrimitiveTopology(PrimitiveType primitiveType)
         {
-            switch (primitiveType)
+            return primitiveType switch
             {
-                case PrimitiveType.LineList:
-                    return PrimitiveTopology.LineList;
-                case PrimitiveType.LineStrip:
-                    return PrimitiveTopology.LineStrip;
-                case PrimitiveType.TriangleList:
-                    return PrimitiveTopology.TriangleList;
-                case PrimitiveType.TriangleStrip:
-                    return PrimitiveTopology.TriangleStrip;
-                case PrimitiveType.PointList:
-                    return PrimitiveTopology.PointList;
-            }
-
-            throw new ArgumentException();
+                PrimitiveType.LineList => PrimitiveTopology.LineList,
+                PrimitiveType.LineStrip => PrimitiveTopology.LineStrip,
+                PrimitiveType.TriangleList => PrimitiveTopology.TriangleList,
+                PrimitiveType.TriangleStrip => PrimitiveTopology.TriangleStrip,
+                PrimitiveType.PointList => PrimitiveTopology.PointList,
+                _ => throw new ArgumentException(),
+            };
         }
 
         internal void PlatformBeginApplyState()
@@ -1366,9 +1359,8 @@ namespace Microsoft.Xna.Framework.Graphics
         private int SetUserVertexBuffer<T>(T[] vertexData, int vertexOffset, int vertexCount, VertexDeclaration vertexDecl)
             where T : struct
         {
-            DynamicVertexBuffer buffer;
 
-            if (!_userVertexBuffers.TryGetValue(vertexDecl, out buffer) || buffer.VertexCount < vertexCount)
+            if (!_userVertexBuffers.TryGetValue(vertexDecl, out DynamicVertexBuffer buffer) || buffer.VertexCount < vertexCount)
             {
                 // Dispose the previous buffer if we have one.
                 if (buffer != null)

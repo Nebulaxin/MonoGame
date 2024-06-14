@@ -42,8 +42,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private void PlatformSetData<T>(int level, T[] data, int startIndex, int elementCount) where T : struct
         {
-            int w, h;
-            GetSizeForLevel(Width, Height, level, out w, out h);
+            GetSizeForLevel(Width, Height, level, out int w, out int h);
 
             // For DXT compressed formats the width and height must be
             // a multiple of 4 for the complete mip level to be set.

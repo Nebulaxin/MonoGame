@@ -199,26 +199,26 @@ namespace Microsoft.Xna.Framework
         {
             get
             {
-                switch (index)
+                return index switch
                 {
-                    case 0: return M11;
-                    case 1: return M12;
-                    case 2: return M13;
-                    case 3: return M14;
-                    case 4: return M21;
-                    case 5: return M22;
-                    case 6: return M23;
-                    case 7: return M24;
-                    case 8: return M31;
-                    case 9: return M32;
-                    case 10: return M33;
-                    case 11: return M34;
-                    case 12: return M41;
-                    case 13: return M42;
-                    case 14: return M43;
-                    case 15: return M44;
-                }
-                throw new ArgumentOutOfRangeException();
+                    0 => M11,
+                    1 => M12,
+                    2 => M13,
+                    3 => M14,
+                    4 => M21,
+                    5 => M22,
+                    6 => M23,
+                    7 => M24,
+                    8 => M31,
+                    9 => M32,
+                    10 => M33,
+                    11 => M34,
+                    12 => M41,
+                    13 => M42,
+                    14 => M43,
+                    15 => M44,
+                    _ => throw new ArgumentOutOfRangeException(),
+                };
             }
 
             set

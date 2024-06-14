@@ -311,47 +311,26 @@ namespace Microsoft.Xna.Framework.Input
 
         private static Buttons ButtonForKeyCode(Keycode keyCode)
         {
-            switch (keyCode)
+            return keyCode switch
             {
-                case Keycode.ButtonA:
-                    return Buttons.A;
-                case Keycode.ButtonX:
-                    return Buttons.X;
-                case Keycode.ButtonY:
-                    return Buttons.Y;
-                case Keycode.ButtonB:
-                    return Buttons.B;
-
-                case Keycode.ButtonL1:
-                    return Buttons.LeftShoulder;
-                case Keycode.ButtonL2:
-                    return Buttons.LeftTrigger;
-                case Keycode.ButtonR1:
-                    return Buttons.RightShoulder;
-                case Keycode.ButtonR2:
-                    return Buttons.RightTrigger;
-
-                case Keycode.ButtonThumbl:
-                    return Buttons.LeftStick;
-                case Keycode.ButtonThumbr:
-                    return Buttons.RightStick;
-
-                case Keycode.DpadUp:
-                    return Buttons.DPadUp;
-                case Keycode.DpadDown:
-                    return Buttons.DPadDown;
-                case Keycode.DpadLeft:
-                    return Buttons.DPadLeft;
-                case Keycode.DpadRight:
-                    return Buttons.DPadRight;
-
-                case Keycode.ButtonStart:
-                    return Buttons.Start;
-                case Keycode.Back:
-                    return Buttons.Back;
-            }
-
-            return 0;
+                Keycode.ButtonA => Buttons.A,
+                Keycode.ButtonX => Buttons.X,
+                Keycode.ButtonY => Buttons.Y,
+                Keycode.ButtonB => Buttons.B,
+                Keycode.ButtonL1 => Buttons.LeftShoulder,
+                Keycode.ButtonL2 => Buttons.LeftTrigger,
+                Keycode.ButtonR1 => Buttons.RightShoulder,
+                Keycode.ButtonR2 => Buttons.RightTrigger,
+                Keycode.ButtonThumbl => Buttons.LeftStick,
+                Keycode.ButtonThumbr => Buttons.RightStick,
+                Keycode.DpadUp => Buttons.DPadUp,
+                Keycode.DpadDown => Buttons.DPadDown,
+                Keycode.DpadLeft => Buttons.DPadLeft,
+                Keycode.DpadRight => Buttons.DPadRight,
+                Keycode.ButtonStart => Buttons.Start,
+                Keycode.Back => Buttons.Back,
+                _ => 0,
+            };
         }
 
         internal static void Initialize()
