@@ -8,7 +8,7 @@ namespace BuildScripts;
 [IsDependentOn(typeof(BuildWindowsDXTask))]
 [IsDependentOn(typeof(BuildAndroidTask))]
 [IsDependentOn(typeof(BuildiOSTask))]
-[IsDependentOn(typeof(BuildUWPTask))]
+// [IsDependentOn(typeof(BuildUWPTask))]
 [IsDependentOn(typeof(BuildContentPipelineTask))]
 public sealed class BuildFrameworksTask : FrostingTask<BuildContext> { }
 
