@@ -177,10 +177,9 @@ namespace Microsoft.Xna.Framework.Graphics
         public Vector2 MeasureString(string text)
 		{
 			var source = new CharacterSource(text);
-			Vector2 size;
-			MeasureString(ref source, out size);
-			return size;
-		}
+            MeasureString(ref source, out Vector2 size);
+            return size;
+        }
 
 		/// <summary>
 		/// Returns the size of the contents of a StringBuilder when
@@ -192,10 +191,9 @@ namespace Microsoft.Xna.Framework.Graphics
 		public Vector2 MeasureString(StringBuilder text)
 		{
 			var source = new CharacterSource(text);
-			Vector2 size;
-			MeasureString(ref source, out size);
-			return size;
-		}
+            MeasureString(ref source, out Vector2 size);
+            return size;
+        }
 
 		internal unsafe void MeasureString(ref CharacterSource text, out Vector2 size)
 		{
@@ -300,8 +298,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         internal int GetGlyphIndexOrDefault(char c)
         {
-            int glyphIdx;
-            if (!TryGetGlyphIndex(c, out glyphIdx))
+            if (!TryGetGlyphIndex(c, out int glyphIdx))
             {
                 if (_defaultGlyphIndex == -1)
                     throw new ArgumentException(Errors.TextContainsUnresolvableCharacters, "text");

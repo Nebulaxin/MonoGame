@@ -938,8 +938,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector2 value, Matrix matrix)
         {
-            Vector4 result;
-            Transform(ref value, ref matrix, out result);
+            Transform(ref value, ref matrix, out Vector4 result);
             return result;
         }
 
@@ -951,8 +950,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector2 value, Quaternion rotation)
         {
-            Vector4 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector4 result);
             return result;
         }
 
@@ -964,8 +962,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector3 value, Matrix matrix)
         {
-            Vector4 result;
-            Transform(ref value, ref matrix, out result);
+            Transform(ref value, ref matrix, out Vector4 result);
             return result;
         }
 
@@ -977,8 +974,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector3 value, Quaternion rotation)
         {
-            Vector4 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector4 result);
             return result;
         }
 
@@ -1002,8 +998,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector4"/>.</returns>
         public static Vector4 Transform(Vector4 value, Quaternion rotation)
         {
-            Vector4 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector4 result);
             return result;
         }
 

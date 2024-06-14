@@ -101,8 +101,7 @@ namespace Microsoft.Xna.Framework.Graphics
             lock (_vertexDeclarationCache)
             {
                 var data = new Data(vertexStride, elements);
-                VertexDeclaration vertexDeclaration;
-                if (!_vertexDeclarationCache.TryGetValue(data, out vertexDeclaration))
+                if (!_vertexDeclarationCache.TryGetValue(data, out VertexDeclaration vertexDeclaration))
                 {
                     // Data.Elements have already been set in the Data ctor. However, entries
                     // in the vertex declaration cache must be immutable. Therefore, we create a 
@@ -160,8 +159,7 @@ namespace Microsoft.Xna.Framework.Graphics
             lock (_vertexDeclarationCache)
             {
                 var data = new Data(vertexStride, elements);
-                VertexDeclaration vertexDeclaration;
-                if (_vertexDeclarationCache.TryGetValue(data, out vertexDeclaration))
+                if (_vertexDeclarationCache.TryGetValue(data, out VertexDeclaration vertexDeclaration))
                 {
                     // Reuse existing data.
                     _data = vertexDeclaration._data;

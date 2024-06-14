@@ -82,11 +82,9 @@ namespace Microsoft.Xna.Framework.Input
 
         internal static void UpdatePacketInfo(int instanceid, uint packetNumber)
         {
-            int index;
-            if (_translationTable.TryGetValue(instanceid, out index))
+            if (_translationTable.TryGetValue(instanceid, out int index))
             {
-                GamePadInfo info = null;
-                if (Gamepads.TryGetValue(index, out info))
+                if (Gamepads.TryGetValue(index, out GamePadInfo info))
                 {
                     info.PacketNumber = packetNumber < int.MaxValue ? (int)packetNumber : (int)(packetNumber - (uint)int.MaxValue);
                 }

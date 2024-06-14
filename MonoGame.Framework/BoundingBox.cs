@@ -263,8 +263,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public ContainmentType Contains(Vector3 point)
         {
-            ContainmentType result;
-            Contains(ref point, out result);
+            Contains(ref point, out ContainmentType result);
             return result;
         }
 
@@ -402,8 +401,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>A <see cref="BoundingBox"/> enclosing <paramref name="sphere"/>.</returns>
         public static BoundingBox CreateFromSphere(BoundingSphere sphere)
         {
-            BoundingBox result;
-            CreateFromSphere(ref sphere, out result);
+            CreateFromSphere(ref sphere, out BoundingBox result);
             return result;
         }
 
@@ -429,8 +427,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public static BoundingBox CreateMerged(BoundingBox original, BoundingBox additional)
         {
-            BoundingBox result;
-            CreateMerged(ref original, ref additional, out result);
+            CreateMerged(ref original, ref additional, out BoundingBox result);
             return result;
         }
 
@@ -557,8 +554,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public bool Intersects(BoundingBox box)
         {
-            bool result;
-            Intersects(ref box, out result);
+            Intersects(ref box, out bool result);
             return result;
         }
 
@@ -611,8 +607,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public bool Intersects(BoundingSphere sphere)
         {
-            bool result;
-            Intersects(ref sphere, out result);
+            Intersects(ref sphere, out bool result);
             return result;
         }
 
@@ -647,8 +642,7 @@ namespace Microsoft.Xna.Framework
         /// </returns>
         public PlaneIntersectionType Intersects(Plane plane)
         {
-            PlaneIntersectionType result;
-            Intersects(ref plane, out result);
+            Intersects(ref plane, out PlaneIntersectionType result);
             return result;
         }
 

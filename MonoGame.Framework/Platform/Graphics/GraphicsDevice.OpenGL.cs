@@ -321,9 +321,8 @@ namespace Microsoft.Xna.Framework.Graphics
 #endif
 
 #if !GLES
-			// Initialize draw buffer attachment array
-			int maxDrawBuffers;
-            GL.GetInteger(GetPName.MaxDrawBuffers, out maxDrawBuffers);
+            // Initialize draw buffer attachment array
+            GL.GetInteger(GetPName.MaxDrawBuffers, out int maxDrawBuffers);
             GraphicsExtensions.CheckGLError ();
 			_drawBuffers = new DrawBuffersEnum[maxDrawBuffers];
 			for (int i = 0; i < maxDrawBuffers; i++)
@@ -748,8 +747,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
                 foreach (var bindings in bindingsToDelete)
                 {
-                    var fbo = 0;
-                    if (glFramebuffers.TryGetValue(bindings, out fbo))
+                    if (glFramebuffers.TryGetValue(bindings, out int fbo))
                     {
                         framebufferHelper.DeleteFramebuffer(fbo);
                         glFramebuffers.Remove(bindings);
@@ -772,8 +770,7 @@ namespace Microsoft.Xna.Framework.Graphics
             var renderTarget = renderTargetBinding.RenderTarget as IRenderTarget;
             if (renderTarget.MultiSampleCount > 0 && framebufferHelper.SupportsBlitFramebuffer)
             {
-                var glResolveFramebuffer = 0;
-                if (!glResolveFramebuffers.TryGetValue(_currentRenderTargetBindings, out glResolveFramebuffer))
+                if (!glResolveFramebuffers.TryGetValue(_currentRenderTargetBindings, out int glResolveFramebuffer))
                 {
                     framebufferHelper.GenFramebuffer(out glResolveFramebuffer);
                     framebufferHelper.BindFramebuffer(glResolveFramebuffer);
@@ -825,8 +822,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         private IRenderTarget PlatformApplyRenderTargets()
         {
-            var glFramebuffer = 0;
-            if (!glFramebuffers.TryGetValue(_currentRenderTargetBindings, out glFramebuffer))
+            if (!glFramebuffers.TryGetValue(_currentRenderTargetBindings, out int glFramebuffer))
             {
                 framebufferHelper.GenFramebuffer(out glFramebuffer);
                 framebufferHelper.BindFramebuffer(glFramebuffer);
@@ -1309,16 +1305,14 @@ namespace Microsoft.Xna.Framework.Graphics
                 RefreshRate = 0,
                 DriverData = IntPtr.Zero
             };
-            Sdl.Display.Mode closest;
-            Sdl.Display.GetClosestDisplayMode(0, mode, out closest);
+            Sdl.Display.GetClosestDisplayMode(0, mode, out Sdl.Display.Mode closest);
             width = closest.Width;
             height = closest.Height;
         }
 
         private void GetDisplayResolution(out int width, out int height)
         {
-            Sdl.Display.Mode mode;
-            Sdl.Display.GetCurrentDisplayMode(0, out mode);
+            Sdl.Display.GetCurrentDisplayMode(0, out Sdl.Display.Mode mode);
             width = mode.Width;
             height = mode.Height;
         }

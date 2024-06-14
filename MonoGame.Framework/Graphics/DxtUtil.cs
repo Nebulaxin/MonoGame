@@ -40,12 +40,10 @@ namespace Microsoft.Xna.Framework.Graphics
             ushort c0 = imageReader.ReadUInt16();
             ushort c1 = imageReader.ReadUInt16();
 
-			byte r0, g0, b0;
-			byte r1, g1, b1;
-            ConvertRgb565ToRgb888(c0, out r0, out g0, out b0);
-			ConvertRgb565ToRgb888(c1, out r1, out g1, out b1);
+			ConvertRgb565ToRgb888(c0, out byte r0, out byte g0, out byte b0);
+			ConvertRgb565ToRgb888(c1, out byte r1, out byte g1, out byte b1);
 
-            uint lookupTable = imageReader.ReadUInt32();
+			uint lookupTable = imageReader.ReadUInt32();
 
             for (int blockY = 0; blockY < 4; blockY++)
             {
@@ -163,12 +161,10 @@ namespace Microsoft.Xna.Framework.Graphics
             ushort c0 = imageReader.ReadUInt16();
             ushort c1 = imageReader.ReadUInt16();
 
-			byte r0, g0, b0;
-			byte r1, g1, b1;
-			ConvertRgb565ToRgb888(c0, out r0, out g0, out b0);
-			ConvertRgb565ToRgb888(c1, out r1, out g1, out b1);
+			ConvertRgb565ToRgb888(c0, out byte r0, out byte g0, out byte b0);
+			ConvertRgb565ToRgb888(c1, out byte r1, out byte g1, out byte b1);
 
-            uint lookupTable = imageReader.ReadUInt32();
+			uint lookupTable = imageReader.ReadUInt32();
 
 			int alphaIndex = 0;
             for (int blockY = 0; blockY < 4; blockY++)
@@ -312,12 +308,10 @@ namespace Microsoft.Xna.Framework.Graphics
             ushort c0 = imageReader.ReadUInt16();
             ushort c1 = imageReader.ReadUInt16();
 
-			byte r0, g0, b0;
-			byte r1, g1, b1;
-			ConvertRgb565ToRgb888(c0, out r0, out g0, out b0);
-			ConvertRgb565ToRgb888(c1, out r1, out g1, out b1);
+			ConvertRgb565ToRgb888(c0, out byte r0, out byte g0, out byte b0);
+			ConvertRgb565ToRgb888(c1, out byte r1, out byte g1, out byte b1);
 
-            uint lookupTable = imageReader.ReadUInt32();
+			uint lookupTable = imageReader.ReadUInt32();
 
             for (int blockY = 0; blockY < 4; blockY++)
             {

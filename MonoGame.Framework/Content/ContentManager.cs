@@ -348,8 +348,7 @@ namespace Microsoft.Xna.Framework.Content
             var key = assetName.Replace('\\', '/');
 
             // Check for a previously loaded asset first
-            object asset = null;
-            if (loadedAssets.TryGetValue(key, out asset))
+            if (loadedAssets.TryGetValue(key, out object asset))
             {
                 if (asset is T)
                 {
@@ -591,8 +590,7 @@ namespace Microsoft.Xna.Framework.Content
             }
 
             //Check if the asset exists
-            object asset;
-            if (loadedAssets.TryGetValue(assetName, out asset))
+            if (loadedAssets.TryGetValue(assetName, out object asset))
             {
                 //Check if it's disposable and remove it from the disposable list if so
                 var disposable = asset as IDisposable;

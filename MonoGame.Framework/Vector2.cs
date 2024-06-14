@@ -1094,8 +1094,7 @@ namespace Microsoft.Xna.Framework
                 var position = sourceArray[sourceIndex + x];
                 var destination = destinationArray[destinationIndex + x];
 
-                Vector2 v;
-                Transform(ref position,ref rotation,out v); 
+                Transform(ref position, ref rotation, out Vector2 v);
 
                 destination.X = v.X;
                 destination.Y = v.Y;

@@ -315,8 +315,7 @@ namespace Microsoft.Xna.Framework.Audio
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
-            int i;
-            if (!_categoryLookup.TryGetValue(name, out i))
+            if (!_categoryLookup.TryGetValue(name, out int i))
                 throw new InvalidOperationException("This resource could not be created.");
 
             return Categories[i];
@@ -331,8 +330,7 @@ namespace Microsoft.Xna.Framework.Audio
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
-            int i;
-            if (!_variableLookup.TryGetValue(name, out i) || !_variables[i].IsPublic)
+            if (!_variableLookup.TryGetValue(name, out int i) || !_variables[i].IsPublic)
                 throw new IndexOutOfRangeException("The specified variable index is invalid.");
 
             lock (UpdateLock)
@@ -353,8 +351,7 @@ namespace Microsoft.Xna.Framework.Audio
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
-            int i;
-            if (!_variableLookup.TryGetValue(name, out i) || !_variables[i].IsPublic)
+            if (!_variableLookup.TryGetValue(name, out int i) || !_variables[i].IsPublic)
                 throw new IndexOutOfRangeException("The specified variable index is invalid.");
 
             lock (UpdateLock)

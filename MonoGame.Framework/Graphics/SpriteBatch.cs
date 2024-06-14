@@ -700,10 +700,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (flippedVert || flippedHorz)
             {
-                Vector2 size;
-                
+
                 var source = new SpriteFont.CharacterSource(text);
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz)
                 {
@@ -886,10 +885,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (flippedVert || flippedHorz || rtl)
             {
-                Vector2 size;
 
                 var source = new SpriteFont.CharacterSource(text);
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz ^ rtl)
                 {
@@ -1169,8 +1167,7 @@ namespace Microsoft.Xna.Framework.Graphics
             if (flippedVert || flippedHorz)
             {
                 var source = new SpriteFont.CharacterSource(text);
-                Vector2 size;
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz)
                 {
@@ -1353,10 +1350,9 @@ namespace Microsoft.Xna.Framework.Graphics
 
             if (flippedVert || flippedHorz || rtl)
             {
-                Vector2 size;
 
                 var source = new SpriteFont.CharacterSource(text);
-                spriteFont.MeasureString(ref source, out size);
+                spriteFont.MeasureString(ref source, out Vector2 size);
 
                 if (flippedHorz ^ rtl)
                 {

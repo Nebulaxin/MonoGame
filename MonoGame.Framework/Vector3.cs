@@ -348,8 +348,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The distance between two vectors.</returns>
         public static float Distance(Vector3 value1, Vector3 value2)
         {
-            float result;
-            DistanceSquared(ref value1, ref value2, out result);
+            DistanceSquared(ref value1, ref value2, out float result);
             return MathF.Sqrt(result);
         }
 
@@ -1016,8 +1015,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>Transformed <see cref="Vector3"/>.</returns>
         public static Vector3 Transform(Vector3 value, Quaternion rotation)
         {
-            Vector3 result;
-            Transform(ref value, ref rotation, out result);
+            Transform(ref value, ref rotation, out Vector3 result);
             return result;
         }
 

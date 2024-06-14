@@ -57,8 +57,7 @@ namespace Microsoft.Xna.Framework.Graphics
                         else
                         {
                             int blockSize = format.GetSize();
-                            int blockWidth, blockHeight;
-                            format.GetBlockSize(out blockWidth, out blockHeight);
+                            format.GetBlockSize(out int blockWidth, out int blockHeight);
                             int wBlocks = (w + (blockWidth - 1)) / blockWidth;
                             int hBlocks = (h + (blockHeight - 1)) / blockHeight;
                             imageSize = wBlocks * hBlocks * blockSize;
@@ -86,8 +85,7 @@ namespace Microsoft.Xna.Framework.Graphics
         private void PlatformSetDataBody<T>(int level, T[] data, int startIndex, int elementCount)
             where T : struct
         {
-            int w, h;
-            GetSizeForLevel(Width, Height, level, out w, out h);
+            GetSizeForLevel(Width, Height, level, out int w, out int h);
 
             var elementSizeInByte = ReflectionHelpers.SizeOf<T>.Get();
             var dataHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
@@ -230,8 +228,7 @@ namespace Microsoft.Xna.Framework.Graphics
 #if GLES
             // TODO: check for non renderable formats (formats that can't be attached to FBO)
 
-            var framebufferId = 0;
-            GL.GenFramebuffers(1, out framebufferId);
+            GL.GenFramebuffers(1, out System.Int32 framebufferId);
             GraphicsExtensions.CheckGLError();
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, framebufferId);
             GraphicsExtensions.CheckGLError();

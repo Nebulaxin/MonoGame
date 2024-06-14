@@ -173,10 +173,9 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 	    public void GetData<T>(CubeMapFace cubeMapFace, int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
 	    {
-            Rectangle checkedRect;
-            ValidateParams(level, rect, data, startIndex, elementCount, out checkedRect);
-	        PlatformGetData(cubeMapFace, level, checkedRect, data, startIndex, elementCount);
-	    }
+            ValidateParams(level, rect, data, startIndex, elementCount, out Rectangle checkedRect);
+            PlatformGetData(cubeMapFace, level, checkedRect, data, startIndex, elementCount);
+        }
 
         /// <summary>
         /// Copies an array of data to the texture cube.
@@ -288,8 +287,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(CubeMapFace face, int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(face, level, checkedRect, data, startIndex, elementCount);
 		}
 

@@ -313,8 +313,7 @@ namespace MonoGame.OpenAL
 
         internal static int[] GenBuffers(int count)
         {
-            int[] ret;
-            GenBuffers(count, out ret);
+            GenBuffers(count, out int[] ret);
             return ret;
         }
 
@@ -428,8 +427,7 @@ namespace MonoGame.OpenAL
 
         internal static ALSourceState GetSourceState(int sourceId)
         {
-            int state;
-            GetSource(sourceId, ALGetSourcei.SourceState, out state);
+            GetSource(sourceId, ALGetSourcei.SourceState, out int state);
             return (ALSourceState)state;
         }
 

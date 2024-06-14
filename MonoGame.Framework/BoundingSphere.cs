@@ -166,8 +166,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The containment type.</returns>
         public ContainmentType Contains(BoundingSphere sphere)
         {
-            ContainmentType result;
-            Contains(ref sphere, out result);
+            Contains(ref sphere, out ContainmentType result);
             return result;
         }
 
@@ -178,8 +177,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">The containment type as an output parameter.</param>
         public void Contains(ref BoundingSphere sphere, out ContainmentType result)
         {
-            float sqDistance;
-            Vector3.DistanceSquared(ref sphere.Center, ref Center, out sqDistance);
+            Vector3.DistanceSquared(ref sphere.Center, ref Center, out float sqDistance);
 
             if (sqDistance > (sphere.Radius + Radius) * (sphere.Radius + Radius))
                 result = ContainmentType.Disjoint;
@@ -198,8 +196,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The containment type.</returns>
         public ContainmentType Contains(Vector3 point)
         {
-            ContainmentType result;
-            Contains(ref point, out result);
+            Contains(ref point, out ContainmentType result);
             return result;
         }
 
@@ -211,9 +208,8 @@ namespace Microsoft.Xna.Framework
         public void Contains(ref Vector3 point, out ContainmentType result)
         {
             float sqRadius = Radius * Radius;
-            float sqDistance;
-            Vector3.DistanceSquared(ref point, ref Center, out sqDistance);
-            
+            Vector3.DistanceSquared(ref point, ref Center, out float sqDistance);
+
             if (sqDistance > sqRadius)
                 result = ContainmentType.Disjoint;
 
@@ -235,8 +231,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new <see cref="BoundingSphere"/>.</returns>
         public static BoundingSphere CreateFromBoundingBox(BoundingBox box)
         {
-            BoundingSphere result;
-            CreateFromBoundingBox(ref box, out result);
+            CreateFromBoundingBox(ref box, out BoundingSphere result);
             return result;
         }
 
@@ -363,8 +358,7 @@ namespace Microsoft.Xna.Framework
         /// <returns>The new <see cref="BoundingSphere"/>.</returns>
         public static BoundingSphere CreateMerged(BoundingSphere original, BoundingSphere additional)
         {
-            BoundingSphere result;
-            CreateMerged(ref original, ref additional, out result);
+            CreateMerged(ref original, ref additional, out BoundingSphere result);
             return result;
         }
 
@@ -475,8 +469,7 @@ namespace Microsoft.Xna.Framework
         /// <returns><c>true</c> if other <see cref="BoundingSphere"/> intersects with this sphere; <c>false</c> otherwise.</returns>
         public bool Intersects(BoundingSphere sphere)
         {
-            bool result;
-            Intersects(ref sphere, out result);
+            Intersects(ref sphere, out bool result);
             return result;
         }
 
@@ -487,8 +480,7 @@ namespace Microsoft.Xna.Framework
         /// <param name="result"><c>true</c> if other <see cref="BoundingSphere"/> intersects with this sphere; <c>false</c> otherwise. As an output parameter.</param>
         public void Intersects(ref BoundingSphere sphere, out bool result)
         {
-            float sqDistance;
-            Vector3.DistanceSquared(ref sphere.Center, ref Center, out sqDistance);
+            Vector3.DistanceSquared(ref sphere.Center, ref Center, out float sqDistance);
 
             if (sqDistance > (sphere.Radius + Radius) * (sphere.Radius + Radius))
                 result = false;
@@ -503,9 +495,8 @@ namespace Microsoft.Xna.Framework
         /// <returns>Type of intersection.</returns>
         public PlaneIntersectionType Intersects(Plane plane)
         {
-            var result = default(PlaneIntersectionType);
             // TODO: we might want to inline this for performance reasons
-            Intersects(ref plane, out result);
+            Intersects(ref plane, out PlaneIntersectionType result);
             return result;
         }
 
@@ -516,9 +507,8 @@ namespace Microsoft.Xna.Framework
         /// <param name="result">Type of intersection as an output parameter.</param>
         public void Intersects(ref Plane plane, out PlaneIntersectionType result)
         {
-            var distance = default(float);
             // TODO: we might want to inline this for performance reasons
-            Vector3.Dot(ref plane.Normal, ref Center, out distance);
+            Vector3.Dot(ref plane.Normal, ref Center, out float distance);
             distance += plane.D;
             if (distance > Radius)
                 result = PlaneIntersectionType.Front;

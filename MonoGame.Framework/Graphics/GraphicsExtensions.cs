@@ -954,8 +954,7 @@ namespace Microsoft.Xna.Framework.Graphics
 
         public static int GetBoundTexture2D()
         {
-            var prevTexture = 0;
-            GL.GetInteger(GetPName.TextureBinding2D, out prevTexture);
+            GL.GetInteger(GetPName.TextureBinding2D, out int prevTexture);
             GraphicsExtensions.LogGLError("GraphicsExtensions.GetBoundTexture2D() GL.GetInteger");
             return prevTexture;
         }

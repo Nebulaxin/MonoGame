@@ -311,8 +311,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(int level, int arraySlice, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(level, arraySlice, checkedRect, data, startIndex, elementCount);
         }
 
@@ -367,8 +366,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void SetData<T>(int level, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, 0, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, 0, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             if (rect.HasValue)
                 PlatformSetData(level, 0, checkedRect, data, startIndex, elementCount);
             else
@@ -407,8 +405,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void SetData<T>(T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(0, 0, null, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(0, 0, null, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformSetData(0, data, startIndex, elementCount);
         }
 
@@ -436,8 +433,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
 		public void SetData<T>(T[] data) where T : struct
 		{
-            Rectangle checkedRect;
-            ValidateParams(0, 0, null, data, 0, data.Length, out checkedRect);
+            ValidateParams(0, 0, null, data, 0, data.Length, out Rectangle checkedRect);
             PlatformSetData(0, data, 0, data.Length);
         }
 
@@ -505,8 +501,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <exception cref="ArgumentNullException">The <paramref name="data"/> parameter is null.</exception>
         public void GetData<T>(int level, int arraySlice, Rectangle? rect, T[] data, int startIndex, int elementCount) where T : struct
         {
-            Rectangle checkedRect;
-            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out checkedRect);
+            ValidateParams(level, arraySlice, rect, data, startIndex, elementCount, out Rectangle checkedRect);
             PlatformGetData(level, arraySlice, checkedRect, data, startIndex, elementCount);
         }
 
@@ -777,8 +772,7 @@ namespace Microsoft.Xna.Framework.Graphics
             int dataByteSize;
             if (Format.IsCompressedFormat())
             {
-                int blockWidth, blockHeight;
-                Format.GetBlockSize(out blockWidth, out blockHeight);
+                Format.GetBlockSize(out int blockWidth, out int blockHeight);
                 int blockWidthMinusOne = blockWidth - 1;
                 int blockHeightMinusOne = blockHeight - 1;
                 // round x and y down to next multiple of block size; width and height up to next multiple of block size
