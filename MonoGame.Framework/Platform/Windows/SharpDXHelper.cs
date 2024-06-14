@@ -12,7 +12,7 @@ namespace Microsoft.Xna.Framework
     {
         static public SharpDX.DXGI.SwapEffect ToSwapEffect(PresentInterval presentInterval)
         {
-
+            SharpDX.DXGI.SwapEffect effect;
             switch (presentInterval)
             {
                 case PresentInterval.One:

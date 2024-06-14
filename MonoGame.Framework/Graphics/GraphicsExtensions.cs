@@ -62,46 +62,35 @@ namespace Microsoft.Xna.Framework.Graphics
 
 		public static VertexAttribPointerType OpenGLVertexAttribPointerType(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return VertexAttribPointerType.Float;
+                VertexElementFormat.Single => VertexAttribPointerType.Float,
 
-                case VertexElementFormat.Vector2:
-                    return VertexAttribPointerType.Float;
+                VertexElementFormat.Vector2 => VertexAttribPointerType.Float,
 
-                case VertexElementFormat.Vector3:
-                    return VertexAttribPointerType.Float;
+                VertexElementFormat.Vector3 => VertexAttribPointerType.Float,
 
-                case VertexElementFormat.Vector4:
-                    return VertexAttribPointerType.Float;
+                VertexElementFormat.Vector4 => VertexAttribPointerType.Float,
 
-                case VertexElementFormat.Color:
-                    return VertexAttribPointerType.UnsignedByte;
+                VertexElementFormat.Color => VertexAttribPointerType.UnsignedByte,
 
-                case VertexElementFormat.Byte4:
-                    return VertexAttribPointerType.UnsignedByte;
+                VertexElementFormat.Byte4 => VertexAttribPointerType.UnsignedByte,
 
-                case VertexElementFormat.Short2:
-                    return VertexAttribPointerType.Short;
+                VertexElementFormat.Short2 => VertexAttribPointerType.Short,
 
-                case VertexElementFormat.Short4:
-                    return VertexAttribPointerType.Short;
+                VertexElementFormat.Short4 => VertexAttribPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort2:
-                    return VertexAttribPointerType.Short;
+                VertexElementFormat.NormalizedShort2 => VertexAttribPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort4:
-                    return VertexAttribPointerType.Short;
+                VertexElementFormat.NormalizedShort4 => VertexAttribPointerType.Short,
 
 #if WINDOWS || DESKTOPGL
-                case VertexElementFormat.HalfVector2:
-                    return VertexAttribPointerType.HalfFloat;
+                VertexElementFormat.HalfVector2 => VertexAttribPointerType.HalfFloat,
 
-                case VertexElementFormat.HalfVector4:
-                    return VertexAttribPointerType.HalfFloat;
+                VertexElementFormat.HalfVector4 => VertexAttribPointerType.HalfFloat,
 #endif
-            }
+                _ => throw new ArgumentException()
+            };
         }
 
         public static bool OpenGLVertexAttribNormalized(this VertexElement element)
@@ -126,134 +115,101 @@ namespace Microsoft.Xna.Framework.Graphics
 
         public static ColorPointerType OpenGLColorPointerType(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return ColorPointerType.Float;
+                VertexElementFormat.Single => ColorPointerType.Float,
 
-                case VertexElementFormat.Vector2:
-                    return ColorPointerType.Float;
+                VertexElementFormat.Vector2 => ColorPointerType.Float,
 
-                case VertexElementFormat.Vector3:
-                    return ColorPointerType.Float;
+                VertexElementFormat.Vector3 => ColorPointerType.Float,
 
-                case VertexElementFormat.Vector4:
-                    return ColorPointerType.Float;
+                VertexElementFormat.Vector4 => ColorPointerType.Float,
 
-                case VertexElementFormat.Color:
-                    return ColorPointerType.UnsignedByte;
+                VertexElementFormat.Color => ColorPointerType.UnsignedByte,
 
-                case VertexElementFormat.Byte4:
-                    return ColorPointerType.UnsignedByte;
+                VertexElementFormat.Byte4 => ColorPointerType.UnsignedByte,
 
-                case VertexElementFormat.Short2:
-                    return ColorPointerType.Short;
+                VertexElementFormat.Short2 => ColorPointerType.Short,
 
-                case VertexElementFormat.Short4:
-                    return ColorPointerType.Short;
+                VertexElementFormat.Short4 => ColorPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort2:
-                    return ColorPointerType.UnsignedShort;
+                VertexElementFormat.NormalizedShort2 => ColorPointerType.UnsignedShort,
 
-                case VertexElementFormat.NormalizedShort4:
-                    return ColorPointerType.UnsignedShort;
+                VertexElementFormat.NormalizedShort4 => ColorPointerType.UnsignedShort,
 
 #if MONOMAC
-                case VertexElementFormat.HalfVector2:
-                    return ColorPointerType.HalfFloat;
+                VertexElementFormat.HalfVector2 => ColorPointerType.HalfFloat,
 
-                case VertexElementFormat.HalfVector4:
-                    return ColorPointerType.HalfFloat;
+                VertexElementFormat.HalfVector4 => ColorPointerType.HalfFloat,
 #endif
-            }
+                _ => throw new ArgumentException()
+            };
         }
 
         public static NormalPointerType OpenGLNormalPointerType(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return NormalPointerType.Float;
+                VertexElementFormat.Single => NormalPointerType.Float,
 
-                case VertexElementFormat.Vector2:
-                    return NormalPointerType.Float;
+                VertexElementFormat.Vector2 => NormalPointerType.Float,
 
-                case VertexElementFormat.Vector3:
-                    return NormalPointerType.Float;
+                VertexElementFormat.Vector3 => NormalPointerType.Float,
 
-                case VertexElementFormat.Vector4:
-                    return NormalPointerType.Float;
+                VertexElementFormat.Vector4 => NormalPointerType.Float,
 
-                case VertexElementFormat.Color:
-                    return NormalPointerType.Byte;
+                VertexElementFormat.Color => NormalPointerType.Byte,
 
-                case VertexElementFormat.Byte4:
-                    return NormalPointerType.Byte;
+                VertexElementFormat.Byte4 => NormalPointerType.Byte,
 
-                case VertexElementFormat.Short2:
-                    return NormalPointerType.Short;
+                VertexElementFormat.Short2 => NormalPointerType.Short,
 
-                case VertexElementFormat.Short4:
-                    return NormalPointerType.Short;
+                VertexElementFormat.Short4 => NormalPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort2:
-                    return NormalPointerType.Short;
+                VertexElementFormat.NormalizedShort2 => NormalPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort4:
-                    return NormalPointerType.Short;
+                VertexElementFormat.NormalizedShort4 => NormalPointerType.Short,
 
 #if MONOMAC
-                case VertexElementFormat.HalfVector2:
-                    return NormalPointerType.HalfFloat;
+                VertexElementFormat.HalfVector2 => NormalPointerType.HalfFloat,
 
-                case VertexElementFormat.HalfVector4:
-                    return NormalPointerType.HalfFloat;
+                VertexElementFormat.HalfVector4 => NormalPointerType.HalfFloat,
 #endif
-            }
+                _ => throw new ArgumentException()
+            };
         }
 
         public static TexCoordPointerType OpenGLTexCoordPointerType(this VertexElementFormat elementFormat)
         {
-            switch (elementFormat)
+            return elementFormat switch
             {
-                case VertexElementFormat.Single:
-                    return TexCoordPointerType.Float;
+                VertexElementFormat.Single => TexCoordPointerType.Float,
 
-                case VertexElementFormat.Vector2:
-                    return TexCoordPointerType.Float;
+                VertexElementFormat.Vector2 => TexCoordPointerType.Float,
 
-                case VertexElementFormat.Vector3:
-                    return TexCoordPointerType.Float;
+                VertexElementFormat.Vector3 => TexCoordPointerType.Float,
 
-                case VertexElementFormat.Vector4:
-                    return TexCoordPointerType.Float;
+                VertexElementFormat.Vector4 => TexCoordPointerType.Float,
 
-                case VertexElementFormat.Color:
-                    return TexCoordPointerType.Float;
+                VertexElementFormat.Color => TexCoordPointerType.Float,
 
-                case VertexElementFormat.Byte4:
-                    return TexCoordPointerType.Float;
+                VertexElementFormat.Byte4 => TexCoordPointerType.Float,
 
-                case VertexElementFormat.Short2:
-                    return TexCoordPointerType.Short;
+                VertexElementFormat.Short2 => TexCoordPointerType.Short,
 
-                case VertexElementFormat.Short4:
-                    return TexCoordPointerType.Short;
+                VertexElementFormat.Short4 => TexCoordPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort2:
-                    return TexCoordPointerType.Short;
+                VertexElementFormat.NormalizedShort2 => TexCoordPointerType.Short,
 
-                case VertexElementFormat.NormalizedShort4:
-                    return TexCoordPointerType.Short;
+                VertexElementFormat.NormalizedShort4 => TexCoordPointerType.Short,
 
 #if MONOMAC
-                case VertexElementFormat.HalfVector2:
-                    return TexCoordPointerType.HalfFloat;
+                VertexElementFormat.HalfVector2 => TexCoordPointerType.HalfFloat,
 
-                case VertexElementFormat.HalfVector4:
-                    return TexCoordPointerType.HalfFloat;
+                VertexElementFormat.HalfVector4 => TexCoordPointerType.HalfFloat,
 #endif
-            }
+                _ => throw new ArgumentException()
+            };
         }
 
 
@@ -784,7 +740,7 @@ namespace Microsoft.Xna.Framework.Graphics
             }
         }
 #endif
-            }
+    }
 
     internal class MonoGameGLException : Exception
     {
